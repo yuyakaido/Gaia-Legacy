@@ -1,0 +1,20 @@
+general:
+  artifacts:
+    - "app/build/outputs/apk/"
+machine:
+  java:
+    version: oraclejdk8
+  environment:
+    ANDROID_HOME: /usr/local/android-sdk-linux
+    GRADLE_OPTS: -Xmx1024m
+dependencies:
+  override:
+    - echo y | android update sdk --no-ui --filter "android-23,build-tools-23.0.1"
+test:
+  override:
+    - ./gradlew test
+deployment:
+  master:
+    branch: master
+    commands:
+      - ./gradlew assembleDebug

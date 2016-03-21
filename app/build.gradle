@@ -1,0 +1,122 @@
+apply plugin: 'com.android.application'
+apply plugin: 'com.neenbedankt.android-apt'
+apply plugin: 'com.jakewharton.hugo'
+
+android {
+    compileSdkVersion 23
+    buildToolsVersion "23.0.2"
+
+    defaultConfig {
+        applicationId "com.yuyakaido.android.genesis"
+        minSdkVersion 16
+        targetSdkVersion 23
+        versionCode 1
+        versionName "1.0.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+        debug {
+            testCoverageEnabled true
+        }
+    }
+
+    productFlavors {
+        production {
+            buildConfigField "boolean", "IS_PRODUCTION", "true"
+            buildConfigField "boolean", "IS_DEVELOPMENT", "false"
+        }
+        development {
+            buildConfigField "boolean", "IS_PRODUCTION", "false"
+            buildConfigField "boolean", "IS_DEVELOPMENT", "true"
+        }
+    }
+}
+
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath 'com.neenbedankt.gradle.plugins:android-apt:1.8'
+        classpath 'com.jakewharton.hugo:hugo-plugin:1.2.1'
+    }
+}
+
+ext {
+    supportLibVersion = '23.2.1'
+    okhttpVersion = '3.2.0'
+    retrofitVersion = '2.0.0'
+    ormaVersion = '2.3.2'
+    daggerVersion = '2.0.2'
+}
+
+dependencies {
+    // http://stackoverflow.com/questions/25177361/gradle-configurations-all-ambiguous
+    configurations.all {
+        resolutionStrategy {
+            force "com.android.support:support-annotations:${supportLibVersion}"
+        }
+    }
+
+    // Support Library
+    compile "com.android.support:appcompat-v7:${supportLibVersion}"
+    compile "com.android.support:design:${supportLibVersion}"
+
+    // Image Loader
+    compile 'com.github.bumptech.glide:glide:3.7.0'
+    compile 'com.github.bumptech.glide:okhttp3-integration:1.4.0@aar'
+
+    // I/O
+    compile 'com.squareup.okio:okio:1.6.0'
+
+    // Rx
+    compile 'io.reactivex:rxandroid:1.1.0'
+    compile 'io.reactivex:rxjava:1.1.0'
+    compile 'com.trello:rxlifecycle:0.5.0'
+    compile 'com.trello:rxlifecycle-components:0.5.0'
+
+    // Dependency Injection
+    compile "com.google.dagger:dagger:${daggerVersion}"
+    apt "com.google.dagger:dagger-compiler:${daggerVersion}"
+    provided 'javax.annotation:jsr250-api:1.0'
+
+    // Networking
+    compile "com.squareup.okhttp3:okhttp:${okhttpVersion}"
+    compile "com.squareup.okhttp3:logging-interceptor:${okhttpVersion}"
+    compile "com.squareup.retrofit2:retrofit:${retrofitVersion}"
+    compile "com.squareup.retrofit2:converter-gson:${retrofitVersion}"
+    compile "com.squareup.retrofit2:adapter-rxjava:${retrofitVersion}"
+
+    // O/R Mapping
+    compile "com.github.gfx.android.orma:orma:${ormaVersion}"
+    apt "com.github.gfx.android.orma:orma-processor:${ormaVersion}"
+
+    // Testing and Debugging
+    testCompile 'junit:junit:4.12'
+    testCompile 'org.robolectric:robolectric:3.0'
+    testCompile 'org.robolectric:shadows-support-v4:3.0'
+    testCompile "com.squareup.okhttp3:mockwebserver:${okhttpVersion}"
+    testCompile 'org.mockito:mockito-all:2.0.2-beta'
+    testCompile 'org.hamcrest:hamcrest-all:1.3'
+    androidTestCompile 'com.android.support.test:runner:0.4.1'
+    androidTestCompile 'com.android.support.test:rules:0.4.1'
+    androidTestCompile 'com.android.support.test.espresso:espresso-core:2.2.1'
+
+    // LeakCanary
+    debugCompile 'com.squareup.leakcanary:leakcanary-android:1.4-beta1'
+    releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.4-beta1'
+    testCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.4-beta1'
+
+    // Takt
+    compile 'jp.wasabeef:takt:1.0.2'
+
+    // Stetho
+    compile 'com.facebook.stetho:stetho:1.3.1'
+    compile 'com.facebook.stetho:stetho-okhttp3:1.3.1'
+
+}
