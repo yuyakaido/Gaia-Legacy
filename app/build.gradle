@@ -48,7 +48,7 @@ buildscript {
 }
 
 ext {
-    supportLibVersion = '23.2.1'
+    supportLibVersion = '23.4.0'
     okhttpVersion = '3.2.0'
     retrofitVersion = '2.0.0'
     ormaVersion = '2.3.2'
