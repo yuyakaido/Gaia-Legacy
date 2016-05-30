@@ -12,7 +12,6 @@ import java.util.List;
 import javax.inject.Inject;
 
 import rx.Scheduler;
-import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
 
