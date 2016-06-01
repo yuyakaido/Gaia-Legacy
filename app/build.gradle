@@ -52,7 +52,7 @@ ext {
     okhttpVersion = '3.2.0'
     retrofitVersion = '2.0.2'
     okioVersion = '1.8.0'
-    ormaVersion = '2.4.7'
+    ormaVersion = '2.4.8'
     daggerVersion = '2.4'
 }
 
