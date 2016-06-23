@@ -5,19 +5,9 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 
 import com.yuyakaido.android.genesis.R;
-import com.yuyakaido.android.genesis.domain.usecase.GithubUseCase;
-import com.yuyakaido.android.genesis.domain.usecase.PixabayUseCase;
 import com.yuyakaido.android.genesis.presentation.adapter.MainViewPagerAdapter;
 
-import javax.inject.Inject;
-
 public class MainActivity extends BaseActivity {
-
-    @Inject
-    GithubUseCase githubUseCase;
-
-    @Inject
-    PixabayUseCase pixabayUseCase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

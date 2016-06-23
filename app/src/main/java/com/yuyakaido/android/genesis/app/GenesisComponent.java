@@ -21,13 +21,9 @@ import dagger.Component;
         DomainModule.class,
         InfraModule.class})
 public interface GenesisComponent {
-
-    void inject(MainActivity activity);
-
     void inject(GithubFragment githubFragment);
     void inject(PixabayFragment pixabayFragment);
     void inject(QiitaFragment qiitaFragment);
 
     void inject(GithubPresenter githubPresenter);
-
 }
