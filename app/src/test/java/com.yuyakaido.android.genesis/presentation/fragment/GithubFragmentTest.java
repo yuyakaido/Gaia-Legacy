@@ -45,8 +45,10 @@ public class GithubFragmentTest extends PresentationTest {
     public void setGithubContributorsTest() {
         ListView listView = (ListView) view.findViewById(R.id.fragment_github_list_view);
 
+        // 最初は何も表示されていないことを確認
         assertThat(listView.getCount(), is(0));
 
+        // ダミーデータを生成
         List<GithubContributor> githubContributors = new ArrayList<>();
         for (int i = 0; i < 10; i++) {
             GithubContributor githubContributor = new GithubContributor();
@@ -55,23 +57,28 @@ public class GithubFragmentTest extends PresentationTest {
             githubContributor.htmlUrl = String.valueOf(i);
             githubContributors.add(githubContributor);
         }
-        githubFragment.setGithubContributors(githubContributors);
-        assertThat(listView.getCount(), is(10));
 
-        githubFragment.setGithubContributors(new ArrayList<GithubContributor>());
-        assertThat(listView.getCount(), is(0));
+        // ダミーデータを設定
+        githubFragment.setGithubContributors(githubContributors);
+
+        // ダミーデータが表示されていることを確認
+        assertThat(listView.getCount(), is(10));
     }
 
     @Test
     public void showProgressBarTest() {
         SwipeRefreshLayout swipeRefreshLayout = (SwipeRefreshLayout) view
                 .findViewById(R.id.fragment_github_swipe_refresh_layout);
+        // 最初はプログレスを非表示
         swipeRefreshLayout.setRefreshing(false);
 
+        // 最初はプログレスが表示されていないことを確認
         assertThat(swipeRefreshLayout.isRefreshing(), is(false));
 
+        // プログレスを表示
         githubFragment.showProgressBar();
 
+        // プログレスが表示されていることを確認
         assertThat(swipeRefreshLayout.isRefreshing(), is(true));
     }
 
@@ -81,10 +88,13 @@ public class GithubFragmentTest extends PresentationTest {
                 .findViewById(R.id.fragment_github_swipe_refresh_layout);
         swipeRefreshLayout.setRefreshing(true);
 
+        // 最初はプログレスが表示されていることを確認
         assertThat(swipeRefreshLayout.isRefreshing(), is(true));
 
+        // プログレスを非表示
         githubFragment.hideProgressBar();
 
+        // プログレスが非表示になっていることを確認
         assertThat(swipeRefreshLayout.isRefreshing(), is(false));
     }
 

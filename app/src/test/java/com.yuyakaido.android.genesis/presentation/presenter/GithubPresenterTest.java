@@ -46,6 +46,7 @@ public class GithubPresenterTest extends PresentationTest {
 
     @Test
     public void refreshTest() {
+        // ダミーデータを設定
         Observable<List<GithubContributor>> observable = Observable.create(
                 new Observable.OnSubscribe<List<GithubContributor>>() {
                     @Override
@@ -59,7 +60,9 @@ public class GithubPresenterTest extends PresentationTest {
 
         githubPresenter.refresh();
 
+        // ダミーデータが受け渡されていることを確認
         verify(githubView, times(1)).setGithubContributors(new ArrayList<GithubContributor>());
+        // プログレスバーが非表示になっていることを確認
         verify(githubView, times(1)).hideProgressBar();
     }
 
