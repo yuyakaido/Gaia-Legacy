@@ -11,13 +11,17 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.yuyakaido.android.genesis.R;
+import com.yuyakaido.android.genesis.app.Genesis;
 import com.yuyakaido.android.genesis.domain.entity.GithubContributor;
+import com.yuyakaido.android.genesis.domain.usecase.GithubUseCase;
 import com.yuyakaido.android.genesis.presentation.activity.WebViewActivity;
 import com.yuyakaido.android.genesis.presentation.adapter.GithubAdapter;
 import com.yuyakaido.android.genesis.presentation.presenter.GithubPresenter;
 import com.yuyakaido.android.genesis.presentation.view.GithubView;
 
 import java.util.List;
+
+import javax.inject.Inject;
 
 /**
  * Created by yuyakaido on 3/5/16.
@@ -26,6 +30,9 @@ public class GithubFragment extends BaseFragment
         implements GithubView,
                    AdapterView.OnItemClickListener,
                    SwipeRefreshLayout.OnRefreshListener {
+
+    @Inject
+    GithubUseCase githubUseCase;
 
     private GithubPresenter githubPresenter;
     private GithubAdapter githubAdapter;
@@ -45,7 +52,8 @@ public class GithubFragment extends BaseFragment
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        githubPresenter = new GithubPresenter(getContext(), this);
+        Genesis.getGenesisComponent(this).inject(this);
+        githubPresenter = new GithubPresenter(getContext(), this, githubUseCase);
         githubPresenter.onCreate();
     }
 
