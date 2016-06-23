@@ -23,13 +23,14 @@ public class GithubPresenter {
     @Inject
     Scheduler scheduler;
 
-    private GithubView githubView;
-    private GithubUseCase githubUseCase;
+    @Inject
+    GithubUseCase githubUseCase;
 
-    public GithubPresenter(Context context, GithubView githubView, GithubUseCase githubUseCase) {
+    private GithubView githubView;
+
+    public GithubPresenter(Context context, GithubView githubView) {
         Genesis.getGenesisComponent(context).inject(this);
         this.githubView = githubView;
-        this.githubUseCase = githubUseCase;
     }
 
     public void onCreate() {
