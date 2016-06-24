@@ -47,11 +47,12 @@ public class GithubPresenterTest extends PresentationTest {
     @Test
     public void refreshTest() {
         // ダミーデータを設定
+        final List<GithubContributor> dummyGithubContributors = new ArrayList<>();
         Observable<List<GithubContributor>> observable = Observable.create(
                 new Observable.OnSubscribe<List<GithubContributor>>() {
                     @Override
                     public void call(Subscriber<? super List<GithubContributor>> subscriber) {
-                        subscriber.onNext(new ArrayList<GithubContributor>());
+                        subscriber.onNext(dummyGithubContributors);
                         subscriber.onCompleted();
                     }
                 }
@@ -60,9 +61,9 @@ public class GithubPresenterTest extends PresentationTest {
 
         githubPresenter.refresh();
 
-        // ダミーデータが受け渡されていることを確認
-        verify(githubView, times(1)).setGithubContributors(new ArrayList<GithubContributor>());
-        // プログレスバーが非表示になっていることを確認
+        // Viewにデータが受け渡されていることを確認
+        verify(githubView, times(1)).setGithubContributors(dummyGithubContributors);
+        // プログレスが非表示になっていることを確認
         verify(githubView, times(1)).hideProgressBar();
     }
 
