@@ -4,8 +4,6 @@ import com.yuyakaido.android.genesis.domain.repository.PixabayRepository;
 import com.yuyakaido.android.genesis.domain.usecase.PixabayUseCase;
 import com.yuyakaido.android.genesis.domain.usecase.PixabayUseCaseImpl;
 
-import javax.inject.Singleton;
-
 import dagger.Module;
 import dagger.Provides;
 
@@ -16,7 +14,6 @@ import dagger.Provides;
 public class PixabayDomainModule {
 
     @Provides
-    @Singleton
     public PixabayUseCase providePixabayUseCase(PixabayRepository pixabayRepository) {
         return new PixabayUseCaseImpl(pixabayRepository);
     }

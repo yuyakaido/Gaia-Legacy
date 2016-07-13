@@ -7,8 +7,6 @@ import com.yuyakaido.android.genesis.infra.dao.QiitaDao;
 import com.yuyakaido.android.genesis.infra.dao.common.OrmaDatabaseWrapper;
 import com.yuyakaido.android.genesis.infra.repository.QiitaRepositoryImpl;
 
-import javax.inject.Singleton;
-
 import dagger.Module;
 import dagger.Provides;
 
@@ -19,19 +17,16 @@ import dagger.Provides;
 public class QiitaInfraModule {
 
     @Provides
-    @Singleton
     public QiitaRepository provideQiitaRepository(QiitaClient qiitaClient, QiitaDao qiitaDao) {
         return new QiitaRepositoryImpl(qiitaClient, qiitaDao);
     }
 
     @Provides
-    @Singleton
     public QiitaClient provideQiitaClient(QiitaClient.QiitaService qiitaService) {
         return new QiitaClient(qiitaService);
     }
 
     @Provides
-    @Singleton
     public QiitaClient.QiitaService provideQiitaService() {
         return ApiClientGenerator.generate(
                 QiitaClient.QiitaService.class,
@@ -39,7 +34,6 @@ public class QiitaInfraModule {
     }
 
     @Provides
-    @Singleton
     public QiitaDao provideQiitaDao(OrmaDatabaseWrapper ormaDatabaseWrapper) {
         return new QiitaDao(ormaDatabaseWrapper.getDatabase());
     }

@@ -7,8 +7,6 @@ import com.yuyakaido.android.genesis.infra.dao.PixabayDao;
 import com.yuyakaido.android.genesis.infra.dao.common.OrmaDatabaseWrapper;
 import com.yuyakaido.android.genesis.infra.repository.PixabayRepositoryImpl;
 
-import javax.inject.Singleton;
-
 import dagger.Module;
 import dagger.Provides;
 
@@ -19,19 +17,16 @@ import dagger.Provides;
 public class PixabayInfraModule {
 
     @Provides
-    @Singleton
     public PixabayRepository providePixabayRepository(PixabayClient pixabayClient, PixabayDao pixabayDao) {
         return new PixabayRepositoryImpl(pixabayClient, pixabayDao);
     }
 
     @Provides
-    @Singleton
     public PixabayClient providePixabayClient(PixabayClient.PixabayService pixabayService) {
         return new PixabayClient(pixabayService);
     }
 
     @Provides
-    @Singleton
     public PixabayClient.PixabayService providePixabayService() {
         return ApiClientGenerator.generate(
                 PixabayClient.PixabayService.class,
@@ -39,7 +34,6 @@ public class PixabayInfraModule {
     }
 
     @Provides
-    @Singleton
     public PixabayDao providePixabayDao(OrmaDatabaseWrapper ormaDatabaseWrapper) {
         return new PixabayDao(ormaDatabaseWrapper.getDatabase());
     }
