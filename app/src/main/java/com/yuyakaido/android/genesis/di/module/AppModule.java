@@ -1,4 +1,4 @@
-package com.yuyakaido.android.genesis.app;
+package com.yuyakaido.android.genesis.di.module;
 
 import android.app.Application;
 import android.content.Context;
@@ -12,11 +12,11 @@ import rx.schedulers.Schedulers;
  * Created by yuyakaido on 3/9/16.
  */
 @Module
-public class GenesisModule {
+public class AppModule {
 
     private Application application;
 
-    public GenesisModule(Application application) {
+    public AppModule(Application application) {
         this.application = application;
     }
 

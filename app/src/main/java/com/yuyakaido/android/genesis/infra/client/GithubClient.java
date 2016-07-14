@@ -5,8 +5,6 @@ import com.yuyakaido.android.genesis.infra.client.common.CommonClient;
 
 import java.util.List;
 
-import javax.inject.Inject;
-
 import retrofit2.http.GET;
 import retrofit2.http.Path;
 import rx.Observable;
@@ -18,7 +16,6 @@ public class GithubClient {
 
     private GithubService githubService;
 
-    @Inject
     public GithubClient(GithubService service) {
         this.githubService = service;
     }

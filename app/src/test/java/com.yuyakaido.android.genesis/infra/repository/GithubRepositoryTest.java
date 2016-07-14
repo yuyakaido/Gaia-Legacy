@@ -4,7 +4,7 @@ import com.yuyakaido.android.genesis.domain.entity.GithubContributor;
 import com.yuyakaido.android.genesis.infra.InfraTest;
 import com.yuyakaido.android.genesis.infra.client.GithubClient;
 import com.yuyakaido.android.genesis.infra.dao.GithubDao;
-import com.yuyakaido.android.genesis.infra.module.GithubInfraTestModule;
+import com.yuyakaido.android.genesis.infra.module.GithubTestModule;
 import com.yuyakaido.android.genesis.util.ResponseUtil;
 
 import org.junit.Test;
@@ -51,9 +51,9 @@ public class GithubRepositoryTest extends InfraTest {
         mockWebServer.enqueue(ResponseUtil.createMockResponse(file));
         mockWebServer.start();
 
-        GithubInfraTestModule githubInfraTestModule = new GithubInfraTestModule();
+        GithubTestModule githubTestModule = new GithubTestModule();
         GithubClient githubClient = new GithubClient(
-                githubInfraTestModule.provideGithubService(mockWebServer));
+                githubTestModule.provideGithubService(mockWebServer));
         GithubRepositoryImpl githubRepository = new GithubRepositoryImpl(githubClient, githubDao);
 
         TestSubscriber<List<GithubContributor>> testSubscriber = new TestSubscriber<>();

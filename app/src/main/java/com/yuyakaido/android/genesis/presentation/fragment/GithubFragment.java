@@ -11,7 +11,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.yuyakaido.android.genesis.R;
-import com.yuyakaido.android.genesis.app.Genesis;
+import com.yuyakaido.android.genesis.app.App;
 import com.yuyakaido.android.genesis.domain.entity.GithubContributor;
 import com.yuyakaido.android.genesis.domain.usecase.GithubUseCase;
 import com.yuyakaido.android.genesis.presentation.activity.WebViewActivity;
@@ -52,7 +52,7 @@ public class GithubFragment extends BaseFragment
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        Genesis.getGenesisComponent(this).inject(this);
+        App.getAppComponent(this).inject(this);
         githubPresenter = new GithubPresenter(getContext(), this, githubUseCase);
         githubPresenter.onCreate();
     }

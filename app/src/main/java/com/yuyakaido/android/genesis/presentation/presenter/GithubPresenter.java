@@ -2,7 +2,7 @@ package com.yuyakaido.android.genesis.presentation.presenter;
 
 import android.content.Context;
 
-import com.yuyakaido.android.genesis.app.Genesis;
+import com.yuyakaido.android.genesis.app.App;
 import com.yuyakaido.android.genesis.domain.entity.GithubContributor;
 import com.yuyakaido.android.genesis.domain.usecase.GithubUseCase;
 import com.yuyakaido.android.genesis.presentation.view.GithubView;
@@ -27,7 +27,7 @@ public class GithubPresenter {
     private GithubUseCase githubUseCase;
 
     public GithubPresenter(Context context, GithubView githubView, GithubUseCase githubUseCase) {
-        Genesis.getGenesisComponent(context).inject(this);
+        App.getAppComponent(context).inject(this);
         this.githubView = githubView;
         this.githubUseCase = githubUseCase;
     }

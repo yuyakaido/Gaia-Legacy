@@ -1,14 +1,16 @@
 package com.yuyakaido.android.genesis.app;
 
+import com.yuyakaido.android.genesis.di.component.DaggerAppComponent;
+
 /**
  * Created by yuyakaido on 3/13/16.
  */
-public class TestGenesis extends Genesis {
+public class TestApp extends App {
 
     @Override
     public void initializeDagger() {
-        genesisComponent = DaggerGenesisComponent.builder()
-                .genesisModule(new TestGenesisModule(this))
+        appComponent = DaggerAppComponent.builder()
+                .appModule(new TestAppModule(this))
                 .build();
     }
 

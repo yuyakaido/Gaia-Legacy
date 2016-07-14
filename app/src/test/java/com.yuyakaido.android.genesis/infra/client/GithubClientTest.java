@@ -2,7 +2,7 @@ package com.yuyakaido.android.genesis.infra.client;
 
 import com.yuyakaido.android.genesis.domain.entity.GithubContributor;
 import com.yuyakaido.android.genesis.infra.InfraTest;
-import com.yuyakaido.android.genesis.infra.module.GithubInfraTestModule;
+import com.yuyakaido.android.genesis.infra.module.GithubTestModule;
 import com.yuyakaido.android.genesis.util.ResponseUtil;
 
 import org.junit.Test;
@@ -28,9 +28,9 @@ public class GithubClientTest extends InfraTest {
         mockWebServer.enqueue(ResponseUtil.createMockResponse(file));
         mockWebServer.start();
 
-        GithubInfraTestModule githubInfraTestModule = new GithubInfraTestModule();
+        GithubTestModule githubTestModule = new GithubTestModule();
         GithubClient githubClient = new GithubClient(
-                githubInfraTestModule.provideGithubService(mockWebServer));
+                githubTestModule.provideGithubService(mockWebServer));
 
         TestSubscriber<List<GithubContributor>> testSubscriber = new TestSubscriber<>();
         githubClient.getGithubContributors().subscribe(testSubscriber);

@@ -16,20 +16,20 @@ import rx.Observable;
  */
 public class GithubRepositoryImpl implements GithubRepository {
 
-    private GithubClient githubClient;
-    private GithubDao githubDao;
+    private GithubClient client;
+    private GithubDao dao;
 
     @Inject
-    public GithubRepositoryImpl(GithubClient githubClient, GithubDao githubDao) {
-        this.githubClient = githubClient;
-        this.githubDao = githubDao;
+    public GithubRepositoryImpl(GithubClient client, GithubDao dao) {
+        this.client = client;
+        this.dao = dao;
     }
 
     @Override
     public Observable<List<GithubContributor>> getGithubContributors() {
         return CommonRepository.concat(
-                githubDao.selectGithubContributors(),
-                githubDao.insertGithubContributors(githubClient.getGithubContributors()));
+                dao.selectGithubContributors(),
+                dao.insertGithubContributors(client.getGithubContributors()));
     }
 
 }

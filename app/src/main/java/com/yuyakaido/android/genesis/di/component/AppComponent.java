@@ -1,8 +1,9 @@
-package com.yuyakaido.android.genesis.app;
+package com.yuyakaido.android.genesis.di.component;
 
-import com.yuyakaido.android.genesis.domain.module.DomainModule;
-import com.yuyakaido.android.genesis.infra.module.InfraModule;
-import com.yuyakaido.android.genesis.presentation.activity.MainActivity;
+import com.yuyakaido.android.genesis.di.module.AppModule;
+import com.yuyakaido.android.genesis.di.module.DomainModule;
+import com.yuyakaido.android.genesis.di.module.GithubModule;
+import com.yuyakaido.android.genesis.di.module.InfraModule;
 import com.yuyakaido.android.genesis.presentation.fragment.GithubFragment;
 import com.yuyakaido.android.genesis.presentation.fragment.PixabayFragment;
 import com.yuyakaido.android.genesis.presentation.fragment.QiitaFragment;
@@ -17,13 +18,13 @@ import dagger.Component;
  */
 @Singleton
 @Component(modules = {
-        GenesisModule.class,
+        AppModule.class,
         DomainModule.class,
-        InfraModule.class})
-public interface GenesisComponent {
+        InfraModule.class,
+        GithubModule.class})
+public interface AppComponent {
     void inject(GithubFragment githubFragment);
+    void inject(GithubPresenter githubPresenter);
     void inject(PixabayFragment pixabayFragment);
     void inject(QiitaFragment qiitaFragment);
-
-    void inject(GithubPresenter githubPresenter);
 }

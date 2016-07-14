@@ -1,6 +1,8 @@
-package com.yuyakaido.android.genesis.infra.module;
+package com.yuyakaido.android.genesis.di.module;
 
 import com.yuyakaido.android.genesis.domain.repository.PixabayRepository;
+import com.yuyakaido.android.genesis.domain.usecase.PixabayUseCase;
+import com.yuyakaido.android.genesis.domain.usecase.PixabayUseCaseImpl;
 import com.yuyakaido.android.genesis.infra.client.PixabayClient;
 import com.yuyakaido.android.genesis.infra.client.common.ApiClientGenerator;
 import com.yuyakaido.android.genesis.infra.dao.PixabayDao;
@@ -14,7 +16,12 @@ import dagger.Provides;
  * Created by yuyakaido on 3/6/16.
  */
 @Module
-public class PixabayInfraModule {
+public class PixabayModule {
+
+    @Provides
+    public PixabayUseCase providePixabayUseCase(PixabayRepository pixabayRepository) {
+        return new PixabayUseCaseImpl(pixabayRepository);
+    }
 
     @Provides
     public PixabayRepository providePixabayRepository(PixabayClient pixabayClient, PixabayDao pixabayDao) {

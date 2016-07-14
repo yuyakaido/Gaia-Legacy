@@ -11,6 +11,9 @@ import com.facebook.stetho.Stetho;
 import com.squareup.leakcanary.LeakCanary;
 import com.squareup.leakcanary.RefWatcher;
 import com.yuyakaido.android.genesis.BuildConfig;
+import com.yuyakaido.android.genesis.di.component.AppComponent;
+import com.yuyakaido.android.genesis.di.component.DaggerAppComponent;
+import com.yuyakaido.android.genesis.di.module.AppModule;
 import com.yuyakaido.android.genesis.infra.client.common.HttpClient;
 import com.yuyakaido.android.genesis.presentation.fragment.BaseFragment;
 
@@ -21,23 +24,23 @@ import jp.wasabeef.takt.Takt;
 /**
  * Created by yuyakaido on 2/15/16.
  */
-public class Genesis extends Application {
+public class App extends Application {
 
-    protected GenesisComponent genesisComponent;
+    protected AppComponent appComponent;
     protected RefWatcher refWatcher;
 
-    public static GenesisComponent getGenesisComponent(BaseFragment fragment) {
-        return Genesis.getGenesisComponent(fragment.getContext().getApplicationContext());
+    public static AppComponent getAppComponent(BaseFragment fragment) {
+        return App.getAppComponent(fragment.getContext().getApplicationContext());
     }
 
-    public static GenesisComponent getGenesisComponent(Context context) {
-        Genesis genesis = (Genesis) context.getApplicationContext();
-        return genesis.genesisComponent;
+    public static AppComponent getAppComponent(Context context) {
+        App app = (App) context.getApplicationContext();
+        return app.appComponent;
     }
 
     public static RefWatcher getRefWatcher(Context context) {
-        Genesis genesis = (Genesis) context.getApplicationContext();
-        return genesis.refWatcher;
+        App app = (App) context.getApplicationContext();
+        return app.refWatcher;
     }
 
     @Override
@@ -57,8 +60,8 @@ public class Genesis extends Application {
     }
 
     protected void initializeDagger() {
-        genesisComponent = DaggerGenesisComponent.builder()
-                .genesisModule(new GenesisModule(this))
+        appComponent = DaggerAppComponent.builder()
+                .appModule(new AppModule(this))
                 .build();
     }
 

@@ -1,6 +1,8 @@
-package com.yuyakaido.android.genesis.infra.module;
+package com.yuyakaido.android.genesis.di.module;
 
 import com.yuyakaido.android.genesis.domain.repository.GithubRepository;
+import com.yuyakaido.android.genesis.domain.usecase.GithubUseCase;
+import com.yuyakaido.android.genesis.domain.usecase.GithubUseCaseImpl;
 import com.yuyakaido.android.genesis.infra.client.GithubClient;
 import com.yuyakaido.android.genesis.infra.client.common.ApiClientGenerator;
 import com.yuyakaido.android.genesis.infra.dao.GithubDao;
@@ -14,7 +16,12 @@ import dagger.Provides;
  * Created by yuyakaido on 3/6/16.
  */
 @Module
-public class GithubInfraModule {
+public class GithubModule {
+
+    @Provides
+    public GithubUseCase provideGithubUseCase(GithubRepository githubRepository) {
+        return new GithubUseCaseImpl(githubRepository);
+    }
 
     @Provides
     public GithubRepository provideGithubRepository(GithubClient githubClient, GithubDao githubDao) {

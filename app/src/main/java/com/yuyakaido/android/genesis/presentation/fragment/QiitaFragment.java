@@ -10,7 +10,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.yuyakaido.android.genesis.R;
-import com.yuyakaido.android.genesis.app.Genesis;
+import com.yuyakaido.android.genesis.app.App;
 import com.yuyakaido.android.genesis.domain.entity.QiitaItem;
 import com.yuyakaido.android.genesis.domain.usecase.QiitaUseCase;
 import com.yuyakaido.android.genesis.presentation.activity.WebViewActivity;
@@ -47,7 +47,7 @@ public class QiitaFragment extends BaseFragment implements AdapterView.OnItemCli
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        Genesis.getGenesisComponent(this).inject(this);
+        App.getAppComponent(this).inject(this);
 
         qiitaAdapter = new QiitaAdapter(getContext());
 

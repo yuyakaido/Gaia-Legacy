@@ -1,6 +1,8 @@
-package com.yuyakaido.android.genesis.infra.module;
+package com.yuyakaido.android.genesis.di.module;
 
 import com.yuyakaido.android.genesis.domain.repository.QiitaRepository;
+import com.yuyakaido.android.genesis.domain.usecase.QiitaUseCase;
+import com.yuyakaido.android.genesis.domain.usecase.QiitaUseCaseImpl;
 import com.yuyakaido.android.genesis.infra.client.QiitaClient;
 import com.yuyakaido.android.genesis.infra.client.common.ApiClientGenerator;
 import com.yuyakaido.android.genesis.infra.dao.QiitaDao;
@@ -14,7 +16,12 @@ import dagger.Provides;
  * Created by yuyakaido on 3/12/16.
  */
 @Module
-public class QiitaInfraModule {
+public class QiitaModule {
+
+    @Provides
+    public QiitaUseCase provideQiitaUseCase(QiitaRepository qiitaRepository) {
+        return new QiitaUseCaseImpl(qiitaRepository);
+    }
 
     @Provides
     public QiitaRepository provideQiitaRepository(QiitaClient qiitaClient, QiitaDao qiitaDao) {

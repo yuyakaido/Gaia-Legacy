@@ -11,7 +11,7 @@ import okhttp3.mockwebserver.MockWebServer;
  * Created by yuyakaido on 2/22/16.
  */
 @Module
-public class GithubInfraTestModule {
+public class GithubTestModule {
 
     @Provides
     public GithubClient.GithubService provideGithubService(MockWebServer mockWebServer) {
