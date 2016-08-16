@@ -48,7 +48,7 @@ buildscript {
 }
 
 ext {
-    supportLibVersion = '24.0.0'
+    supportLibVersion = '24.1.1'
     okhttpVersion = '3.2.0'
     retrofitVersion = '2.0.2'
     okioVersion = '1.9.0'
