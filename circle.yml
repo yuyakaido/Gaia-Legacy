@@ -9,7 +9,7 @@ machine:
     GRADLE_OPTS: -Xmx1024m
 dependencies:
   override:
-    - echo y | android update sdk --no-ui --filter "android-23,build-tools-23.0.1"
+    - echo y | android update sdk --no-ui --filter "android-24,build-tools-24.0.1"
 test:
   override:
     - ./gradlew test
