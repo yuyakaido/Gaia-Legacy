@@ -1,14 +1,10 @@
-general:
-  artifacts:
-    - "app/build/outputs/apk/"
 machine:
   java:
     version: oraclejdk8
   environment:
     ANDROID_HOME: /usr/local/android-sdk-linux
-    GRADLE_OPTS: -Xmx1024m
 dependencies:
-  override:
+  pre:
     - echo y | android update sdk --no-ui --all --filter "tools"
     - echo y | android update sdk --no-ui --all --filter "platform-tools"
     - echo y | android update sdk --no-ui --all --filter "android-24"
@@ -16,8 +12,3 @@ dependencies:
 test:
   override:
     - ./gradlew test
-deployment:
-  master:
-    branch: master
-    commands:
-      - ./gradlew assembleDebug
