@@ -16,7 +16,7 @@ public class CalculatorTest {
 
     @Test
     public void sumTest() {
-        assertThat(Calculator.sum(1, 1), is(2));
+        assertThat(1 + 1, is(2));
     }
 
 }
