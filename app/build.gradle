@@ -53,7 +53,7 @@ ext {
     retrofitVersion = '2.0.2'
     okioVersion = '1.9.0'
     ormaVersion = '2.5.2'
-    daggerVersion = '2.5'
+    daggerVersion = '2.6.1'
 }
 
 dependencies {
