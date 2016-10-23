@@ -2,7 +2,7 @@
 
 <manifest
     xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.yuyakaido.android.genesis">
+    package="com.yuyakaido.android.blueprint">
 
     <uses-permission android:name="android.permission.INTERNET"/>
 

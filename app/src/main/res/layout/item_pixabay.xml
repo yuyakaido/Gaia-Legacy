@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.yuyakaido.android.genesis.presentation.custom.SquareImageView
+    <com.yuyakaido.android.blueprint.presentation.custom.SquareImageView
         android:id="@+id/item_pixabay_image"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
