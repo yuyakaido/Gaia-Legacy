@@ -19,8 +19,6 @@ import com.yuyakaido.android.blueprint.presentation.fragment.BaseFragment;
 
 import java.io.InputStream;
 
-import jp.wasabeef.takt.Takt;
-
 /**
  * Created by yuyakaido on 2/15/16.
  */
@@ -47,28 +45,15 @@ public class App extends Application {
     public void onCreate() {
         super.onCreate();
         initializeDagger();
-        initializeTakt();
         initializeLeakCanary();
         initializeStetho();
         initializeStrictMode();
-    }
-
-    @Override
-    public void onTerminate() {
-        terminateTalk();
-        super.onTerminate();
     }
 
     protected void initializeDagger() {
         appComponent = DaggerAppComponent.builder()
                 .appModule(new AppModule(this))
                 .build();
-    }
-
-    protected void initializeTakt() {
-        if (BuildConfig.DEBUG) {
-            Takt.stock(this).play();
-        }
     }
 
     protected void initializeLeakCanary() {
@@ -88,12 +73,6 @@ public class App extends Application {
     protected void initializeStrictMode() {
         if (BuildConfig.DEBUG) {
             StrictMode.enableDefaults();
-        }
-    }
-
-    protected void terminateTalk() {
-        if (BuildConfig.DEBUG) {
-            Takt.finish();
         }
     }
 
