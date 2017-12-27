@@ -1,13 +1,21 @@
 package com.yuyakaido.android.blueprint
 
-import android.app.Application
-import com.twitter.sdk.android.core.*
+import com.twitter.sdk.android.core.Twitter
+import com.twitter.sdk.android.core.TwitterAuthConfig
+import com.twitter.sdk.android.core.TwitterConfig
+import com.yuyakaido.android.blueprint.di.DaggerAppComponent
+import dagger.android.AndroidInjector
+import dagger.android.support.DaggerApplication
 
-class Blueprint : Application() {
+class Blueprint : DaggerApplication() {
 
     override fun onCreate() {
         super.onCreate()
         initializeTwitter()
+    }
+
+    override fun applicationInjector(): AndroidInjector<out DaggerApplication> {
+        return DaggerAppComponent.builder().build()
     }
 
     private fun initializeTwitter() {
@@ -17,13 +25,6 @@ class Blueprint : Application() {
                         BuildConfig.TWITTER_CONSUMER_KEY,
                         BuildConfig.TWITTER_CONSUMER_SECRET))
                 .build())
-
-        val token = TwitterAuthToken(
-                BuildConfig.TWITTER_ACCESS_TOKEN,
-                BuildConfig.TWITTER_ACCESS_TOKEN_SECRET)
-        val client = TwitterApiClient(
-                TwitterSession(token, 424206971, "yuyakaido"))
-        TwitterCore.getInstance().addGuestApiClient(client)
     }
 
 }
