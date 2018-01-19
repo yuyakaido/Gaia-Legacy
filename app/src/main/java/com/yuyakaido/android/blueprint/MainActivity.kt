@@ -8,7 +8,6 @@ import com.twitter.sdk.android.core.TwitterApiClient
 import com.twitter.sdk.android.core.TwitterCore
 import com.twitter.sdk.android.tweetui.TweetTimelineRecyclerViewAdapter
 import com.twitter.sdk.android.tweetui.UserTimeline
-import dagger.android.AndroidInjection
 import javax.inject.Inject
 
 class MainActivity : AppCompatActivity() {
@@ -17,8 +16,8 @@ class MainActivity : AppCompatActivity() {
     lateinit var client: TwitterApiClient
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        AndroidInjection.inject(this)
         super.onCreate(savedInstanceState)
+        (application as Blueprint).component.inject(this)
         setContentView(R.layout.activity_main)
         setupTwitter()
         setupRecyclerView()

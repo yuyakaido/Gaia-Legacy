@@ -1,21 +1,26 @@
 package com.yuyakaido.android.blueprint
 
+import android.app.Application
 import com.twitter.sdk.android.core.Twitter
 import com.twitter.sdk.android.core.TwitterAuthConfig
 import com.twitter.sdk.android.core.TwitterConfig
+import com.yuyakaido.android.blueprint.di.AppComponent
 import com.yuyakaido.android.blueprint.di.DaggerAppComponent
-import dagger.android.AndroidInjector
-import dagger.android.support.DaggerApplication
+import javax.inject.Inject
 
-class Blueprint : DaggerApplication() {
+class Blueprint : Application() {
+
+    @Inject
+    lateinit var component: AppComponent
 
     override fun onCreate() {
         super.onCreate()
         initializeTwitter()
+        initializeDagger()
     }
 
-    override fun applicationInjector(): AndroidInjector<out DaggerApplication> {
-        return DaggerAppComponent.builder().build()
+    private fun initializeDagger() {
+        component = DaggerAppComponent.create()
     }
 
     private fun initializeTwitter() {
