@@ -1,5 +1,6 @@
 package com.yuyakaido.android.blueprint
 
+import com.twitter.sdk.android.core.TwitterAuthToken
 import com.twitter.sdk.android.core.TwitterSession
 
 data class TwitterAccount(
@@ -16,6 +17,10 @@ data class TwitterAccount(
                     token = session.authToken.token,
                     secret = session.authToken.secret)
         }
+    }
+
+    fun toSession(): TwitterSession {
+        return TwitterSession(TwitterAuthToken(token, secret), id, name)
     }
 
 }
