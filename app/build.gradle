@@ -17,12 +17,8 @@ android {
         properties.load(project.rootProject.file('local.properties').newDataInputStream())
         def TWITTER_CONSUMER_KEY = properties.getProperty("TWITTER_CONSUMER_KEY")
         def TWITTER_CONSUMER_SECRET = properties.getProperty("TWITTER_CONSUMER_SECRET")
-        def TWITTER_ACCESS_TOKEN = properties.getProperty("TWITTER_ACCESS_TOKEN")
-        def TWITTER_ACCESS_TOKEN_SECRET = properties.getProperty("TWITTER_ACCESS_TOKEN_SECRET")
         buildConfigField("String", "TWITTER_CONSUMER_KEY", "\"${TWITTER_CONSUMER_KEY}\"")
         buildConfigField("String", "TWITTER_CONSUMER_SECRET", "\"${TWITTER_CONSUMER_SECRET}\"")
-        buildConfigField("String", "TWITTER_ACCESS_TOKEN", "\"${TWITTER_ACCESS_TOKEN}\"")
-        buildConfigField("String", "TWITTER_ACCESS_TOKEN_SECRET", "\"${TWITTER_ACCESS_TOKEN_SECRET}\"")
     }
 
     buildTypes {

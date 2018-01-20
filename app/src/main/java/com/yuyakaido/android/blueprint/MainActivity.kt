@@ -1,29 +1,52 @@
 package com.yuyakaido.android.blueprint
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
-import com.twitter.sdk.android.core.TwitterApiClient
-import com.twitter.sdk.android.core.TwitterCore
+import android.util.Log
+import android.view.View
+import com.twitter.sdk.android.core.*
+import com.twitter.sdk.android.core.identity.TwitterLoginButton
 import com.twitter.sdk.android.tweetui.TweetTimelineRecyclerViewAdapter
 import com.twitter.sdk.android.tweetui.UserTimeline
-import javax.inject.Inject
 
 class MainActivity : AppCompatActivity() {
 
-    @Inject
-    lateinit var client: TwitterApiClient
+    private val loginButton by lazy { findViewById<TwitterLoginButton>(R.id.login) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        (application as Blueprint).component.inject(this)
         setContentView(R.layout.activity_main)
-        setupTwitter()
+        setupLoginButton()
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        loginButton.onActivityResult(requestCode, resultCode, data)
+    }
+
+    private fun setupLoginButton() {
+        loginButton.callback = object : Callback<TwitterSession>() {
+            override fun success(result: Result<TwitterSession>) {
+                setupTwitter(TwitterAccount.from(result.data))
+            }
+            override fun failure(exception: TwitterException) {
+                Log.e("Blueprint", exception.toString())
+            }
+        }
+    }
+
+    private fun setupTwitter(account: TwitterAccount) {
+        loginButton.visibility = View.GONE
+        setupApiClient(account)
         setupRecyclerView()
     }
 
-    private fun setupTwitter() {
+    private fun setupApiClient(account: TwitterAccount) {
+        val token = TwitterAuthToken(account.token, account.secret)
+        val client = TwitterApiClient(TwitterSession(token, account.id, account.name))
         TwitterCore.getInstance().addGuestApiClient(client)
     }
 
