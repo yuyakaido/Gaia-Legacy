@@ -1,9 +1,10 @@
-package com.yuyakaido.android.blueprint
+package com.yuyakaido.android.blueprint.app
 
 import android.app.Application
 import com.twitter.sdk.android.core.Twitter
 import com.twitter.sdk.android.core.TwitterAuthConfig
 import com.twitter.sdk.android.core.TwitterConfig
+import com.yuyakaido.android.blueprint.BuildConfig
 import com.yuyakaido.android.blueprint.di.AppComponent
 import com.yuyakaido.android.blueprint.di.DaggerAppComponent
 import javax.inject.Inject

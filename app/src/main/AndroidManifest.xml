@@ -7,12 +7,12 @@
     <uses-permission android:name="android.permission.INTERNET"/>
 
     <application
-        android:name=".Blueprint"
+        android:name=".app.Blueprint"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
 
-        <activity android:name=".MainActivity">
+        <activity android:name=".presentation.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
