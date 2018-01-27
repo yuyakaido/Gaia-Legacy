@@ -6,6 +6,7 @@ import com.twitter.sdk.android.core.TwitterAuthConfig
 import com.twitter.sdk.android.core.TwitterConfig
 import com.yuyakaido.android.blueprint.BuildConfig
 import com.yuyakaido.android.blueprint.di.AppComponent
+import com.yuyakaido.android.blueprint.di.AppModule
 import com.yuyakaido.android.blueprint.di.DaggerAppComponent
 import javax.inject.Inject
 
@@ -21,7 +22,9 @@ class Blueprint : Application() {
     }
 
     private fun initializeDagger() {
-        component = DaggerAppComponent.create()
+        component = DaggerAppComponent.builder()
+                .appModule(AppModule(this))
+                .build()
     }
 
     private fun initializeTwitter() {
