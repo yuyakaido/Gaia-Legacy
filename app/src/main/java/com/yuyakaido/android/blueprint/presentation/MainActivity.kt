@@ -22,6 +22,7 @@ import com.yuyakaido.android.blueprint.domain.RunningSession
 import com.yuyakaido.android.blueprint.domain.Session
 import com.yuyakaido.android.blueprint.domain.Tweet
 import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.rxkotlin.addTo
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
@@ -100,6 +101,7 @@ class MainActivity : AppCompatActivity() {
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe { setupRecyclerView(it) }
+                    .addTo(current.disposables)
         }
     }
 
