@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
-import com.yuyakaido.android.blueprint.databinding.ItemTwitterAccountBinding
+import com.yuyakaido.android.blueprint.databinding.ItemAccountBinding
 import com.yuyakaido.android.blueprint.domain.RunningSession
 import com.yuyakaido.android.blueprint.domain.Session
 
@@ -27,10 +27,10 @@ class AccountAdapter(
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
         val binding = if (convertView == null) {
-            ItemTwitterAccountBinding.inflate(LayoutInflater.from(context))
+            ItemAccountBinding.inflate(LayoutInflater.from(context))
                     .apply { root.tag = this }
         } else {
-            convertView.tag as ItemTwitterAccountBinding
+            convertView.tag as ItemAccountBinding
         }
 
         val session = getItem(position)
