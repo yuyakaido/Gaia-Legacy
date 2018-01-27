@@ -5,24 +5,24 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.TextView
-import com.twitter.sdk.android.core.TwitterSession
 import com.yuyakaido.android.blueprint.R
+import com.yuyakaido.android.blueprint.domain.RunningSession
+import com.yuyakaido.android.blueprint.domain.Session
 
 class TwitterAccountAdapter(
-        private val context: Context) : BaseAdapter() {
-
-    private val sessions = mutableListOf<TwitterSession>()
+        private val context: Context,
+        private val running: RunningSession) : BaseAdapter() {
 
     override fun getCount(): Int {
-        return sessions.size
+        return running.sessions().size
     }
 
     override fun getItemId(position: Int): Long {
-        return sessions[position].id
+        return running.sessions()[position].twitter.id
     }
 
-    override fun getItem(position: Int): TwitterSession {
-        return sessions[position]
+    override fun getItem(position: Int): Session {
+        return running.sessions()[position]
     }
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
@@ -34,17 +34,9 @@ class TwitterAccountAdapter(
         }
 
         val session = getItem(position)
-        holder.name.text = session.userName
+        holder.name.text = session.twitter.userName
 
         return holder.root
-    }
-
-    fun add(session: TwitterSession) {
-        sessions.add(session)
-    }
-
-    fun indexOf(session: TwitterSession): Int {
-        return sessions.indexOf(session)
     }
 
     private class ViewHolder(val root: View) {

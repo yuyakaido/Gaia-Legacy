@@ -17,9 +17,9 @@ import com.twitter.sdk.android.core.TwitterSession
 import com.twitter.sdk.android.core.identity.TwitterLoginButton
 import com.yuyakaido.android.blueprint.R
 import com.yuyakaido.android.blueprint.app.Blueprint
-import com.yuyakaido.android.blueprint.di.SessionModule
+import com.yuyakaido.android.blueprint.domain.RunningSession
+import com.yuyakaido.android.blueprint.domain.Session
 import com.yuyakaido.android.blueprint.domain.Tweet
-import com.yuyakaido.android.blueprint.infra.TwitterClient
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
@@ -27,15 +27,15 @@ import javax.inject.Inject
 class MainActivity : AppCompatActivity() {
 
     private val loginButton by lazy { findViewById<TwitterLoginButton>(R.id.button) }
-
     private val spinner by lazy { findViewById<Spinner>(R.id.spinner) }
-    private val adapter by lazy { TwitterAccountAdapter(this) }
+    private val adapter by lazy { TwitterAccountAdapter(this, running) }
 
     @Inject
-    lateinit var client: TwitterClient
+    lateinit var running: RunningSession
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        (application as Blueprint).component.inject(this)
         setContentView(R.layout.activity_main)
         setupToolbar()
         setupLoginButton()
@@ -53,7 +53,11 @@ class MainActivity : AppCompatActivity() {
         spinner.adapter = adapter
         spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>, view: View, position: Int, id: Long) {
-                switchTwitter(adapter.getItem(position))
+                val target = running.sessions()[position]
+                if (running.current()?.twitter?.id != target.twitter.id) {
+                    running.switchTo(position)
+                    switchTwitter()
+                }
             }
             override fun onNothingSelected(parent: AdapterView<*>) {}
         }
@@ -62,10 +66,11 @@ class MainActivity : AppCompatActivity() {
     private fun setupLoginButton() {
         loginButton.callback = object : Callback<TwitterSession>() {
             override fun success(result: Result<TwitterSession>) {
-                val session = result.data
-                adapter.add(session)
+                val session = Session(result.data, application)
+                running.add(session)
+                spinner.setSelection(running.sessions().indexOf(session))
                 adapter.notifyDataSetChanged()
-                switchTwitter(session)
+                switchTwitter()
             }
             override fun failure(exception: TwitterException) {
                 Log.e("Blueprint", exception.toString())
@@ -73,15 +78,13 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun switchTwitter(session: TwitterSession) {
-        (application as Blueprint).component
-                .newSessionComponent(SessionModule(session))
-                .inject(this@MainActivity)
-
-        client.homeTimeline(session)
+    private fun switchTwitter() {
+        running.current()?.let { current ->
+            current.client.homeTimeline(current.twitter)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe { setupRecyclerView(it) }
+        }
     }
 
     private fun setupRecyclerView(tweets: List<Tweet>) {
