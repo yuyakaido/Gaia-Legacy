@@ -40,6 +40,7 @@ class MainActivity : AppCompatActivity() {
         (application as Blueprint).component.inject(this)
         setContentView(binding.root)
         setupToolbar()
+        setupSwipeRefreshLayout()
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -76,6 +77,13 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    private fun setupSwipeRefreshLayout() {
+        binding.swipeRefreshLayout.setOnRefreshListener {
+            running.current()?.repository?.clearCache()
+            refresh()
+        }
+    }
+
     private fun setupRecyclerView(tweets: List<Tweet>) {
         val recyclerView = findViewById<RecyclerView>(R.id.recycler_view)
         recyclerView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
@@ -100,6 +108,7 @@ class MainActivity : AppCompatActivity() {
             current.repository.getHomeTimeline(current.twitter)
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
+                    .doOnNext { binding.swipeRefreshLayout.isRefreshing = false }
                     .subscribe { setupRecyclerView(it) }
                     .addTo(current.disposables)
         }
