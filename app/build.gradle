@@ -30,6 +30,13 @@ android {
 }
 
 dependencies {
+    configurations.all {
+        resolutionStrategy {
+            force 'com.android.support:animated-vector-drawable:26.1.0'
+            force 'com.android.support:recyclerview-v7:26.1.0'
+        }
+    }
+
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation 'com.android.support:appcompat-v7:26.1.0'
 
