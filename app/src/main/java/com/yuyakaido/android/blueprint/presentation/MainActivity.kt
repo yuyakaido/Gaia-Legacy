@@ -16,19 +16,23 @@ import com.twitter.sdk.android.core.TwitterException
 import com.twitter.sdk.android.core.TwitterSession
 import com.twitter.sdk.android.core.identity.TwitterLoginButton
 import com.yuyakaido.android.blueprint.R
+import com.yuyakaido.android.blueprint.app.Blueprint
+import com.yuyakaido.android.blueprint.di.SessionModule
 import com.yuyakaido.android.blueprint.domain.Tweet
 import com.yuyakaido.android.blueprint.infra.TwitterClient
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
+import javax.inject.Inject
 
 class MainActivity : AppCompatActivity() {
-
-    private val client = TwitterClient()
 
     private val loginButton by lazy { findViewById<TwitterLoginButton>(R.id.button) }
 
     private val spinner by lazy { findViewById<Spinner>(R.id.spinner) }
     private val adapter by lazy { TwitterAccountAdapter(this) }
+
+    @Inject
+    lateinit var client: TwitterClient
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -70,6 +74,10 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun switchTwitter(session: TwitterSession) {
+        (application as Blueprint).component
+                .newSessionComponent(SessionModule(session))
+                .inject(this@MainActivity)
+
         client.homeTimeline(session)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
