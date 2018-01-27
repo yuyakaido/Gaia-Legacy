@@ -15,6 +15,9 @@ import com.twitter.sdk.android.core.Result
 import com.twitter.sdk.android.core.TwitterException
 import com.twitter.sdk.android.core.TwitterSession
 import com.twitter.sdk.android.core.identity.TwitterAuthClient
+import com.xwray.groupie.GroupAdapter
+import com.xwray.groupie.Section
+import com.xwray.groupie.ViewHolder
 import com.yuyakaido.android.blueprint.R
 import com.yuyakaido.android.blueprint.app.Blueprint
 import com.yuyakaido.android.blueprint.databinding.ActivityMainBinding
@@ -29,6 +32,8 @@ import javax.inject.Inject
 class MainActivity : AppCompatActivity() {
 
     private val twitterAuthClient = TwitterAuthClient()
+    private val section = Section()
+
     private val binding by lazy { ActivityMainBinding.inflate(layoutInflater) }
     private val adapter by lazy { AccountAdapter(this, running) }
 
@@ -41,6 +46,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
         setupToolbar()
         setupSwipeRefreshLayout()
+        setupRecyclerView()
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -84,10 +90,10 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun setupRecyclerView(tweets: List<Tweet>) {
-        val recyclerView = findViewById<RecyclerView>(R.id.recycler_view)
-        recyclerView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
-        recyclerView.adapter = TweetAdapter(this, tweets)
+    private fun setupRecyclerView() {
+        binding.recyclerView.layoutManager = LinearLayoutManager(this)
+        binding.recyclerView.adapter = GroupAdapter<ViewHolder>()
+                .apply { add(section) }
     }
 
     private fun authorize() {
@@ -109,9 +115,13 @@ class MainActivity : AppCompatActivity() {
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .doOnNext { binding.swipeRefreshLayout.isRefreshing = false }
-                    .subscribe { setupRecyclerView(it) }
+                    .subscribe { refreshRecyclerView(it) }
                     .addTo(current.disposables)
         }
+    }
+
+    private fun refreshRecyclerView(tweets: List<Tweet>) {
+        section.update(tweets.map { TweetItem(it) })
     }
 
 }

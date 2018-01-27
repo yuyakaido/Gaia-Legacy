@@ -79,6 +79,8 @@ dependencies {
 
     // View
     implementation 'com.makeramen:roundedimageview:2.3.0'
+    implementation 'com.xwray:groupie:2.0.3'
+    implementation 'com.xwray:groupie-databinding:2.0.3'
 
     // Debugging
     implementation 'com.facebook.stetho:stetho:1.5.0'
