@@ -1,6 +1,5 @@
 package com.yuyakaido.android.blueprint.infra
 
-import android.util.Log
 import com.twitter.sdk.android.core.TwitterSession
 import com.yuyakaido.android.blueprint.domain.Tweet
 import io.reactivex.Observable
@@ -13,7 +12,6 @@ class TwitterClient @Inject constructor(
 
     fun homeTimeline(session: TwitterSession): Observable<List<Tweet>> {
         return service.homeTimeline(session.userName)
-                .doOnError { Log.e("Blueprint", it.toString()) }
     }
 
     interface TwitterService {

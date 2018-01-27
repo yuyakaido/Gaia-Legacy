@@ -1,15 +1,15 @@
 package com.yuyakaido.android.blueprint.presentation
 
 import android.content.Context
+import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
-import android.widget.TextView
-import com.yuyakaido.android.blueprint.R
+import com.yuyakaido.android.blueprint.databinding.ItemTwitterAccountBinding
 import com.yuyakaido.android.blueprint.domain.RunningSession
 import com.yuyakaido.android.blueprint.domain.Session
 
-class TwitterAccountAdapter(
+class AccountAdapter(
         private val context: Context,
         private val running: RunningSession) : BaseAdapter() {
 
@@ -26,21 +26,17 @@ class TwitterAccountAdapter(
     }
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
-        val holder = if (convertView == null) {
-            ViewHolder(View.inflate(context, R.layout.item_twitter_account, null))
+        val binding = if (convertView == null) {
+            ItemTwitterAccountBinding.inflate(LayoutInflater.from(context))
                     .apply { root.tag = this }
         } else {
-            convertView.tag as ViewHolder
+            convertView.tag as ItemTwitterAccountBinding
         }
 
         val session = getItem(position)
-        holder.name.text = session.twitter.userName
+        binding.name.text = session.twitter.userName
 
-        return holder.root
-    }
-
-    private class ViewHolder(val root: View) {
-        val name = root as TextView
+        return binding.root
     }
 
 }

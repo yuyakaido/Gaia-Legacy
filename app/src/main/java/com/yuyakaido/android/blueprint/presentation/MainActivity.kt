@@ -6,13 +6,10 @@ import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.Toolbar
-import android.util.Log
-import android.view.ContextMenu
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.AdapterView
-import android.widget.Spinner
 import com.twitter.sdk.android.core.Callback
 import com.twitter.sdk.android.core.Result
 import com.twitter.sdk.android.core.TwitterException
@@ -20,6 +17,7 @@ import com.twitter.sdk.android.core.TwitterSession
 import com.twitter.sdk.android.core.identity.TwitterAuthClient
 import com.yuyakaido.android.blueprint.R
 import com.yuyakaido.android.blueprint.app.Blueprint
+import com.yuyakaido.android.blueprint.databinding.ActivityMainBinding
 import com.yuyakaido.android.blueprint.domain.RunningSession
 import com.yuyakaido.android.blueprint.domain.Session
 import com.yuyakaido.android.blueprint.domain.Tweet
@@ -30,8 +28,8 @@ import javax.inject.Inject
 class MainActivity : AppCompatActivity() {
 
     private val twitterAuthClient = TwitterAuthClient()
-    private val spinner by lazy { findViewById<Spinner>(R.id.spinner) }
-    private val adapter by lazy { TwitterAccountAdapter(this, running) }
+    private val binding by lazy { ActivityMainBinding.inflate(layoutInflater) }
+    private val adapter by lazy { AccountAdapter(this, running) }
 
     @Inject
     lateinit var running: RunningSession
@@ -39,7 +37,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         (application as Blueprint).component.inject(this)
-        setContentView(R.layout.activity_main)
+        setContentView(binding.root)
         setupToolbar()
     }
 
@@ -64,8 +62,8 @@ class MainActivity : AppCompatActivity() {
         val toolbar = findViewById<Toolbar>(R.id.toolbar)
         setSupportActionBar(toolbar)
 
-        spinner.adapter = adapter
-        spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+        binding.spinner.adapter = adapter
+        binding.spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>, view: View, position: Int, id: Long) {
                 val target = running.sessions()[position]
                 if (running.current()?.twitter?.id != target.twitter.id) {
@@ -88,13 +86,11 @@ class MainActivity : AppCompatActivity() {
             override fun success(result: Result<TwitterSession>) {
                 val session = Session(result.data, application)
                 running.add(session)
-                spinner.setSelection(running.sessions().indexOf(session))
+                binding.spinner.setSelection(running.sessions().indexOf(session))
                 adapter.notifyDataSetChanged()
                 refresh()
             }
-            override fun failure(exception: TwitterException) {
-                Log.e("Blueprint", exception.toString())
-            }
+            override fun failure(exception: TwitterException) {}
         })
     }
 
