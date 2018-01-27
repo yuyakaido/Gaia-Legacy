@@ -6,6 +6,7 @@ import com.yuyakaido.android.blueprint.infra.TwitterClient
 import dagger.Module
 import dagger.Provides
 import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
@@ -24,6 +25,8 @@ class SessionModule(private val session: TwitterSession) {
         consumer.setTokenWithSecret(session.authToken.token, session.authToken.secret)
         val client = OkHttpClient.Builder()
                 .addInterceptor(SigningInterceptor(consumer))
+                .addInterceptor(HttpLoggingInterceptor()
+                        .apply { level = HttpLoggingInterceptor.Level.BASIC })
                 .build()
         return Retrofit.Builder()
                 .baseUrl("https://api.twitter.com/1.1/")
