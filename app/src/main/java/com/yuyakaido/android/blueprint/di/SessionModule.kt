@@ -1,5 +1,6 @@
 package com.yuyakaido.android.blueprint.di
 
+import com.facebook.stetho.okhttp3.StethoInterceptor
 import com.twitter.sdk.android.core.TwitterSession
 import com.yuyakaido.android.blueprint.BuildConfig
 import com.yuyakaido.android.blueprint.infra.TwitterClient
@@ -27,6 +28,7 @@ class SessionModule(private val session: TwitterSession) {
                 .addInterceptor(SigningInterceptor(consumer))
                 .addInterceptor(HttpLoggingInterceptor()
                         .apply { level = HttpLoggingInterceptor.Level.BASIC })
+                .addNetworkInterceptor(StethoInterceptor())
                 .build()
         return Retrofit.Builder()
                 .baseUrl("https://api.twitter.com/1.1/")

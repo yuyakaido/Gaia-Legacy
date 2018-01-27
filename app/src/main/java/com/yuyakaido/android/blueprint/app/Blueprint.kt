@@ -1,6 +1,7 @@
 package com.yuyakaido.android.blueprint.app
 
 import android.app.Application
+import com.facebook.stetho.Stetho
 import com.twitter.sdk.android.core.Twitter
 import com.twitter.sdk.android.core.TwitterAuthConfig
 import com.twitter.sdk.android.core.TwitterConfig
@@ -19,6 +20,7 @@ class Blueprint : Application() {
         super.onCreate()
         initializeTwitter()
         initializeDagger()
+        initializeStetho()
     }
 
     private fun initializeDagger() {
@@ -34,6 +36,10 @@ class Blueprint : Application() {
                         BuildConfig.TWITTER_CONSUMER_KEY,
                         BuildConfig.TWITTER_CONSUMER_SECRET))
                 .build())
+    }
+
+    private fun initializeStetho() {
+        Stetho.initializeWithDefaults(this)
     }
 
 }
