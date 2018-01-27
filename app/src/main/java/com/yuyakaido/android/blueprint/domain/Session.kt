@@ -4,7 +4,7 @@ import android.app.Application
 import com.twitter.sdk.android.core.TwitterSession
 import com.yuyakaido.android.blueprint.app.Blueprint
 import com.yuyakaido.android.blueprint.di.SessionModule
-import com.yuyakaido.android.blueprint.infra.TwitterClient
+import com.yuyakaido.android.blueprint.infra.TwitterRepository
 import io.reactivex.disposables.CompositeDisposable
 import javax.inject.Inject
 
@@ -14,7 +14,7 @@ class Session(
         val disposables: CompositeDisposable = CompositeDisposable()) {
 
     @Inject
-    lateinit var client: TwitterClient
+    lateinit var repository: TwitterRepository
 
     init {
         (application as Blueprint).component

@@ -97,7 +97,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun refresh() {
         running.current()?.let { current ->
-            current.client.homeTimeline(current.twitter)
+            current.repository.getHomeTimeline(current.twitter)
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe { setupRecyclerView(it) }
