@@ -22,8 +22,8 @@ import com.yuyakaido.android.blueprint.app.Blueprint
 import com.yuyakaido.android.blueprint.databinding.ActivityMainBinding
 import com.yuyakaido.android.blueprint.domain.RunningSession
 import com.yuyakaido.android.blueprint.domain.Session
-import com.yuyakaido.android.blueprint.domain.Tweet
 import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.addTo
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
@@ -32,9 +32,9 @@ class MainActivity : AppCompatActivity() {
 
     private val twitterAuthClient = TwitterAuthClient()
     private val section = Section()
+    private val disposables = CompositeDisposable()
 
     private val binding by lazy { ActivityMainBinding.inflate(layoutInflater) }
-    private val adapter by lazy { AccountAdapter(this, running) }
 
     @Inject
     lateinit var running: RunningSession
@@ -45,10 +45,14 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         setupToolbar()
+        setupSpinner()
         setupSwipeRefreshLayout()
         setupRecyclerView()
+    }
 
-        refresh()
+    override fun onDestroy() {
+        disposables.dispose()
+        super.onDestroy()
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -64,6 +68,7 @@ class MainActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.menu_add_account -> authorize()
+            R.id.menu_account_list -> startAccountListActivity()
         }
         return super.onOptionsItemSelected(item)
     }
@@ -71,25 +76,40 @@ class MainActivity : AppCompatActivity() {
     private fun setupToolbar() {
         val toolbar = findViewById<Toolbar>(R.id.toolbar)
         setSupportActionBar(toolbar)
+    }
 
+    private fun setupSpinner() {
+        val adapter = AccountSpinnerAdapter(this)
         binding.spinner.adapter = adapter
         binding.spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                val target = running.sessions()[position]
-                if (running.current()?.twitter?.id != target.twitter.id) {
-                    running.switchTo(position)
-                    refresh()
-                }
+                running.switchTo(position)
             }
 
             override fun onNothingSelected(parent: AdapterView<*>?) {}
         }
+
+        running.sessions()
+                .subscribe { adapter.replace(it) }
+                .addTo(disposables)
+        running.current()
+                .subscribe {
+                    it.value?.let {
+                        binding.spinner.setSelection(adapter.indexOf(it))
+                    }
+                }
+                .addTo(disposables)
     }
 
     private fun setupSwipeRefreshLayout() {
         binding.swipeRefreshLayout.setOnRefreshListener {
-            running.current()?.repository?.clearCache()
-            refresh()
+            running.current()
+                    .subscribe {
+                        it.value?.let {
+                            it.repository.clearCache()
+                        }
+                    }
+                    .addTo(disposables)
         }
     }
 
@@ -97,39 +117,34 @@ class MainActivity : AppCompatActivity() {
         binding.recyclerView.layoutManager = LinearLayoutManager(this)
         binding.recyclerView.adapter = GroupAdapter<ViewHolder>()
                 .apply { add(section) }
+
+        running.current()
+                .subscribe {
+                    if (it.value == null) {
+                        section.update(mutableListOf())
+                    } else {
+                        it.value.repository.getHomeTimeline(it.value.twitter)
+                                .subscribeOn(Schedulers.io())
+                                .observeOn(AndroidSchedulers.mainThread())
+                                .doOnNext { binding.swipeRefreshLayout.isRefreshing = false }
+                                .subscribe { section.update(it.map { TweetItem(it) }) }
+                                .addTo(it.value.disposables)
+                    }
+                }
+                .addTo(disposables)
     }
 
     private fun authorize() {
         twitterAuthClient.authorize(this, object : Callback<TwitterSession>() {
             override fun success(result: Result<TwitterSession>) {
-                val session = Session(result.data, application)
-
-                if (running.contains(session)) {
-                    return
-                }
-
-                running.add(session)
-                binding.spinner.setSelection(running.sessions().indexOf(session))
-                adapter.notifyDataSetChanged()
-                refresh()
+                running.add(Session(result.data, application))
             }
             override fun failure(exception: TwitterException) {}
         })
     }
 
-    private fun refresh() {
-        running.current()?.let { current ->
-            current.repository.getHomeTimeline(current.twitter)
-                    .subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .doOnNext { binding.swipeRefreshLayout.isRefreshing = false }
-                    .subscribe { refreshRecyclerView(it) }
-                    .addTo(current.disposables)
-        }
-    }
-
-    private fun refreshRecyclerView(tweets: List<Tweet>) {
-        section.update(tweets.map { TweetItem(it) })
+    private fun startAccountListActivity() {
+        startActivity(AccountListActivity.createIntent(this))
     }
 
 }

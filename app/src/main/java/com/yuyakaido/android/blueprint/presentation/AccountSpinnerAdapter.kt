@@ -5,38 +5,47 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
-import com.yuyakaido.android.blueprint.databinding.ItemAccountBinding
-import com.yuyakaido.android.blueprint.domain.RunningSession
+import com.yuyakaido.android.blueprint.databinding.ItemAccountSpinnerBinding
 import com.yuyakaido.android.blueprint.domain.Session
 
-class AccountAdapter(
-        private val context: Context,
-        private val running: RunningSession) : BaseAdapter() {
+class AccountSpinnerAdapter(
+        private val context: Context) : BaseAdapter() {
+
+    private var sessions = listOf<Session>()
 
     override fun getCount(): Int {
-        return running.sessions().size
+        return sessions.size
     }
 
     override fun getItemId(position: Int): Long {
-        return running.sessions()[position].twitter.id
+        return sessions[position].twitter.id
     }
 
     override fun getItem(position: Int): Session {
-        return running.sessions()[position]
+        return sessions[position]
     }
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
         val binding = if (convertView == null) {
-            ItemAccountBinding.inflate(LayoutInflater.from(context))
+            ItemAccountSpinnerBinding.inflate(LayoutInflater.from(context))
                     .apply { root.tag = this }
         } else {
-            convertView.tag as ItemAccountBinding
+            convertView.tag as ItemAccountSpinnerBinding
         }
 
         val session = getItem(position)
         binding.name.text = session.twitter.userName
 
         return binding.root
+    }
+
+    fun replace(sessions: List<Session>) {
+        this.sessions = sessions
+        notifyDataSetChanged()
+    }
+
+    fun indexOf(session: Session): Int {
+        return sessions.indexOfFirst { it.twitter.userId == session.twitter.id }
     }
 
 }

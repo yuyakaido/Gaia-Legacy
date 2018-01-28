@@ -3,17 +3,18 @@ package com.yuyakaido.android.blueprint.domain
 import android.app.Application
 import android.content.Context
 import android.preference.PreferenceManager
+import com.jakewharton.rxrelay2.BehaviorRelay
 import com.twitter.sdk.android.core.TwitterAuthToken
 import com.twitter.sdk.android.core.TwitterSession
+import com.yuyakaido.android.blueprint.misc.Pack
+import io.reactivex.Observable
 import javax.inject.Inject
 
 class RunningSession @Inject constructor(
         private val application: Application) {
 
-    private val sessions = mutableListOf<Session>()
-    private var current: Session? = null
-
-    init { sessions.addAll(savedSessions()) }
+    private val sessions = BehaviorRelay.createDefault(savedSessions())
+    private var current = BehaviorRelay.createDefault(Pack(sessions.value.firstOrNull()))
 
     private fun savedSessions(): List<Session> {
         val preference = PreferenceManager.getDefaultSharedPreferences(application)
@@ -50,31 +51,53 @@ class RunningSession @Inject constructor(
         preference.edit().putStringSet("sessions", sessions).apply()
     }
 
-    fun current(): Session? {
+    private fun clear(session: Session) {
+        val sessionPreference = application.getSharedPreferences(
+                session.twitter.userId.toString(),
+                Context.MODE_PRIVATE)
+        sessionPreference.edit().clear().apply()
+
+        val preference = PreferenceManager.getDefaultSharedPreferences(application)
+        val sessions = preference.getStringSet("sessions", hashSetOf())
+        sessions.remove(session.twitter.userId.toString())
+        preference.edit().clear().apply()
+        preference.edit().putStringSet("sessions", sessions).apply()
+    }
+
+    fun current(): Observable<Pack<Session?>> {
         return current
     }
 
     fun switchTo(index: Int) {
-        current = sessions[index]
+        if (current.hasValue() && current.value.value?.twitter?.userId != sessions.value[index].twitter.userId) {
+            current.accept(Pack(sessions.value[index]))
+        }
     }
 
     fun add(session: Session) {
-        save(session)
-        sessions.add(session)
-        current = session
-    }
-
-    fun sessions(): List<Session> {
-        return sessions
-    }
-
-    fun contains(session: Session): Boolean {
-        sessions.forEach {
+        sessions.value.forEach {
             if (it.twitter.userId == session.twitter.userId) {
-                return true
+                return
             }
         }
-        return false
+
+        save(session)
+        sessions.accept(sessions.value.plus(session))
+        current.accept(Pack(session))
+    }
+
+    fun remove(session: Session) {
+        clear(session)
+        sessions.accept(sessions.value.minus(session))
+        if (sessions.value.isEmpty()) {
+            current.accept(Pack(null))
+        } else {
+            current.accept(Pack(sessions.value.first()))
+        }
+    }
+
+    fun sessions(): Observable<List<Session>> {
+        return sessions
     }
 
 }
