@@ -68,4 +68,13 @@ class RunningSession @Inject constructor(
         return sessions
     }
 
+    fun contains(session: Session): Boolean {
+        sessions.forEach {
+            if (it.twitter.userId == session.twitter.userId) {
+                return true
+            }
+        }
+        return false
+    }
+
 }

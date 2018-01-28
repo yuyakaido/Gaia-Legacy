@@ -101,6 +101,11 @@ class MainActivity : AppCompatActivity() {
         twitterAuthClient.authorize(this, object : Callback<TwitterSession>() {
             override fun success(result: Result<TwitterSession>) {
                 val session = Session(result.data, application)
+
+                if (running.contains(session)) {
+                    return
+                }
+
                 running.add(session)
                 binding.spinner.setSelection(running.sessions().indexOf(session))
                 adapter.notifyDataSetChanged()
