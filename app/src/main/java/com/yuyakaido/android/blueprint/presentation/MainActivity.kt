@@ -72,14 +72,15 @@ class MainActivity : AppCompatActivity() {
 
         binding.spinner.adapter = adapter
         binding.spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(parent: AdapterView<*>, view: View, position: Int, id: Long) {
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                 val target = running.sessions()[position]
                 if (running.current()?.twitter?.id != target.twitter.id) {
                     running.switchTo(position)
                     refresh()
                 }
             }
-            override fun onNothingSelected(parent: AdapterView<*>) {}
+
+            override fun onNothingSelected(parent: AdapterView<*>?) {}
         }
     }
 
