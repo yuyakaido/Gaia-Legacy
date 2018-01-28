@@ -43,9 +43,12 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         (application as Blueprint).component.inject(this)
         setContentView(binding.root)
+
         setupToolbar()
         setupSwipeRefreshLayout()
         setupRecyclerView()
+
+        refresh()
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
