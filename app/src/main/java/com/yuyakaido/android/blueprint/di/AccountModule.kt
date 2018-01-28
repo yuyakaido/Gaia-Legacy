@@ -1,8 +1,8 @@
 package com.yuyakaido.android.blueprint.di
 
 import com.facebook.stetho.okhttp3.StethoInterceptor
-import com.twitter.sdk.android.core.TwitterSession
 import com.yuyakaido.android.blueprint.BuildConfig
+import com.yuyakaido.android.blueprint.domain.Account
 import com.yuyakaido.android.blueprint.infra.TwitterClient
 import dagger.Module
 import dagger.Provides
@@ -15,15 +15,15 @@ import se.akerfeldt.okhttp.signpost.OkHttpOAuthConsumer
 import se.akerfeldt.okhttp.signpost.SigningInterceptor
 
 @Module
-class SessionModule(private val session: TwitterSession) {
+class AccountModule(private val account: Account) {
 
-    @SessionScope
+    @AccountScope
     @Provides
     fun provideRetrofit(): Retrofit {
         val consumer = OkHttpOAuthConsumer(
                 BuildConfig.TWITTER_CONSUMER_KEY,
                 BuildConfig.TWITTER_CONSUMER_SECRET)
-        consumer.setTokenWithSecret(session.authToken.token, session.authToken.secret)
+        consumer.setTokenWithSecret(account.twitter.authToken.token, account.twitter.authToken.secret)
         val client = OkHttpClient.Builder()
                 .addInterceptor(SigningInterceptor(consumer))
                 .addInterceptor(HttpLoggingInterceptor()
@@ -38,7 +38,7 @@ class SessionModule(private val session: TwitterSession) {
                 .build()
     }
 
-    @SessionScope
+    @AccountScope
     @Provides
     fun provideTwitterService(retrofit: Retrofit): TwitterClient.TwitterService {
         return retrofit.create(TwitterClient.TwitterService::class.java)

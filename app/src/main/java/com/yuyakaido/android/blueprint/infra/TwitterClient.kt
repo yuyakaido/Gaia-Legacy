@@ -1,6 +1,6 @@
 package com.yuyakaido.android.blueprint.infra
 
-import com.twitter.sdk.android.core.TwitterSession
+import com.yuyakaido.android.blueprint.domain.Account
 import com.yuyakaido.android.blueprint.domain.Tweet
 import io.reactivex.Observable
 import retrofit2.http.GET
@@ -10,8 +10,8 @@ import javax.inject.Inject
 class TwitterClient @Inject constructor(
         private val service: TwitterService) {
 
-    fun homeTimeline(session: TwitterSession): Observable<List<Tweet>> {
-        return service.homeTimeline(session.userName)
+    fun homeTimeline(account: Account): Observable<List<Tweet>> {
+        return service.homeTimeline(account.twitter.userName)
     }
 
     interface TwitterService {

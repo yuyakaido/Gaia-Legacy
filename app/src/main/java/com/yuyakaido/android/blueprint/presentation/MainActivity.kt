@@ -20,8 +20,8 @@ import com.xwray.groupie.ViewHolder
 import com.yuyakaido.android.blueprint.R
 import com.yuyakaido.android.blueprint.app.Blueprint
 import com.yuyakaido.android.blueprint.databinding.ActivityMainBinding
-import com.yuyakaido.android.blueprint.domain.RunningSession
-import com.yuyakaido.android.blueprint.domain.Session
+import com.yuyakaido.android.blueprint.domain.LoggedInAccount
+import com.yuyakaido.android.blueprint.domain.Account
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.addTo
@@ -37,7 +37,7 @@ class MainActivity : AppCompatActivity() {
     private val binding by lazy { ActivityMainBinding.inflate(layoutInflater) }
 
     @Inject
-    lateinit var running: RunningSession
+    lateinit var running: LoggedInAccount
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -89,7 +89,7 @@ class MainActivity : AppCompatActivity() {
             override fun onNothingSelected(parent: AdapterView<*>?) {}
         }
 
-        running.sessions()
+        running.accounts()
                 .subscribe { adapter.replace(it) }
                 .addTo(disposables)
         running.current()
@@ -123,7 +123,7 @@ class MainActivity : AppCompatActivity() {
                     if (it.value == null) {
                         section.update(mutableListOf())
                     } else {
-                        it.value.repository.getHomeTimeline(it.value.twitter)
+                        it.value.repository.getHomeTimeline(it.value)
                                 .subscribeOn(Schedulers.io())
                                 .observeOn(AndroidSchedulers.mainThread())
                                 .doOnNext { binding.swipeRefreshLayout.isRefreshing = false }
@@ -137,7 +137,7 @@ class MainActivity : AppCompatActivity() {
     private fun authorize() {
         twitterAuthClient.authorize(this, object : Callback<TwitterSession>() {
             override fun success(result: Result<TwitterSession>) {
-                running.add(Session(result.data, application))
+                running.add(Account(result.data, application))
             }
             override fun failure(exception: TwitterException) {}
         })

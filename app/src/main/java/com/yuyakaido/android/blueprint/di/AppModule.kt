@@ -1,7 +1,7 @@
 package com.yuyakaido.android.blueprint.di
 
 import android.app.Application
-import com.yuyakaido.android.blueprint.domain.RunningSession
+import com.yuyakaido.android.blueprint.domain.LoggedInAccount
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
@@ -11,6 +11,6 @@ class AppModule(private val application: Application) {
 
     @Singleton
     @Provides
-    fun provideRunningSession() = RunningSession(application)
+    fun provideRunningSession() = LoggedInAccount(application)
 
 }

@@ -1,6 +1,6 @@
 package com.yuyakaido.android.blueprint.infra
 
-import com.twitter.sdk.android.core.TwitterSession
+import com.yuyakaido.android.blueprint.domain.Account
 import com.yuyakaido.android.blueprint.domain.Tweet
 import io.reactivex.Observable
 import javax.inject.Inject
@@ -10,9 +10,9 @@ class TwitterRepository @Inject constructor(
 
     private var cache: List<Tweet>? = null
 
-    fun getHomeTimeline(session: TwitterSession): Observable<List<Tweet>> {
+    fun getHomeTimeline(account: Account): Observable<List<Tweet>> {
         return if (cache == null) {
-            client.homeTimeline(session)
+            client.homeTimeline(account)
                     .doOnNext { cache = it }
         } else {
             Observable.just(cache)

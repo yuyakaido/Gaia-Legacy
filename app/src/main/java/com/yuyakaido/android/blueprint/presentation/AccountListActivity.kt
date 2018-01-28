@@ -10,8 +10,8 @@ import com.xwray.groupie.Section
 import com.xwray.groupie.ViewHolder
 import com.yuyakaido.android.blueprint.app.Blueprint
 import com.yuyakaido.android.blueprint.databinding.ActivityAccountListBinding
-import com.yuyakaido.android.blueprint.domain.RunningSession
-import com.yuyakaido.android.blueprint.domain.Session
+import com.yuyakaido.android.blueprint.domain.Account
+import com.yuyakaido.android.blueprint.domain.LoggedInAccount
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.addTo
 import javax.inject.Inject
@@ -27,7 +27,7 @@ class AccountListActivity : AppCompatActivity(), AccountItem.OnLogoutListener {
     private val binding by lazy { ActivityAccountListBinding.inflate(layoutInflater) }
 
     @Inject
-    lateinit var running: RunningSession
+    lateinit var running: LoggedInAccount
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,8 +43,8 @@ class AccountListActivity : AppCompatActivity(), AccountItem.OnLogoutListener {
         super.onDestroy()
     }
 
-    override fun onLogout(session: Session) {
-        running.remove(session)
+    override fun onLogout(account: Account) {
+        running.remove(account)
     }
 
     private fun setupToolbar() {
@@ -57,7 +57,7 @@ class AccountListActivity : AppCompatActivity(), AccountItem.OnLogoutListener {
         binding.recyclerView.adapter = GroupAdapter<ViewHolder>()
                 .apply { add(section) }
 
-        running.sessions()
+        running.accounts()
                 .subscribe { section.update(it.map { AccountItem(it, this) }) }
                 .addTo(disposables)
     }

@@ -11,5 +11,5 @@ interface AppComponent {
     fun inject(activity: MainActivity)
     fun inject(activity: AccountListActivity)
 
-    fun newSessionComponent(module: SessionModule): SessionComponent
+    fun newAccountComponent(module: AccountModule): AccountComponent
 }

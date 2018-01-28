@@ -6,12 +6,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
 import com.yuyakaido.android.blueprint.databinding.ItemAccountSpinnerBinding
-import com.yuyakaido.android.blueprint.domain.Session
+import com.yuyakaido.android.blueprint.domain.Account
 
 class AccountSpinnerAdapter(
         private val context: Context) : BaseAdapter() {
 
-    private var sessions = listOf<Session>()
+    private var sessions = listOf<Account>()
 
     override fun getCount(): Int {
         return sessions.size
@@ -21,7 +21,7 @@ class AccountSpinnerAdapter(
         return sessions[position].twitter.id
     }
 
-    override fun getItem(position: Int): Session {
+    override fun getItem(position: Int): Account {
         return sessions[position]
     }
 
@@ -39,13 +39,13 @@ class AccountSpinnerAdapter(
         return binding.root
     }
 
-    fun replace(sessions: List<Session>) {
-        this.sessions = sessions
+    fun replace(accounts: List<Account>) {
+        this.sessions = accounts
         notifyDataSetChanged()
     }
 
-    fun indexOf(session: Session): Int {
-        return sessions.indexOfFirst { it.twitter.userId == session.twitter.id }
+    fun indexOf(account: Account): Int {
+        return sessions.indexOfFirst { it.twitter.userId == account.twitter.id }
     }
 
 }
