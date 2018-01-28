@@ -19,8 +19,4 @@ class TwitterRepository @Inject constructor(
         }
     }
 
-    fun clearCache() {
-        cache = null
-    }
-
 }

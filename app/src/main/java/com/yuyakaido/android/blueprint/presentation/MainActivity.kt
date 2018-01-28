@@ -20,8 +20,8 @@ import com.xwray.groupie.ViewHolder
 import com.yuyakaido.android.blueprint.R
 import com.yuyakaido.android.blueprint.app.Blueprint
 import com.yuyakaido.android.blueprint.databinding.ActivityMainBinding
-import com.yuyakaido.android.blueprint.domain.LoggedInAccount
 import com.yuyakaido.android.blueprint.domain.Account
+import com.yuyakaido.android.blueprint.domain.LoggedInAccount
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.addTo
@@ -46,7 +46,6 @@ class MainActivity : AppCompatActivity() {
 
         setupToolbar()
         setupSpinner()
-        setupSwipeRefreshLayout()
         setupRecyclerView()
     }
 
@@ -101,18 +100,6 @@ class MainActivity : AppCompatActivity() {
                 .addTo(disposables)
     }
 
-    private fun setupSwipeRefreshLayout() {
-        binding.swipeRefreshLayout.setOnRefreshListener {
-            running.current()
-                    .subscribe {
-                        it.value?.let {
-                            it.repository.clearCache()
-                        }
-                    }
-                    .addTo(disposables)
-        }
-    }
-
     private fun setupRecyclerView() {
         binding.recyclerView.layoutManager = LinearLayoutManager(this)
         binding.recyclerView.adapter = GroupAdapter<ViewHolder>()
@@ -126,7 +113,6 @@ class MainActivity : AppCompatActivity() {
                         it.value.repository.getHomeTimeline(it.value)
                                 .subscribeOn(Schedulers.io())
                                 .observeOn(AndroidSchedulers.mainThread())
-                                .doOnNext { binding.swipeRefreshLayout.isRefreshing = false }
                                 .subscribe { section.update(it.map { TweetItem(it) }) }
                                 .addTo(it.value.disposables)
                     }
