@@ -14,11 +14,11 @@ class LoggedInAccount @Inject constructor(
         private val application: Application) {
 
     companion object {
-        val ACCOUNTS = "accounts"
-        val TOKEN = "token"
-        val SECRET = "secret"
-        val USER_ID = "user_id"
-        val USER_NAME = "user_name"
+        const val ACCOUNTS = "accounts"
+        const val TOKEN = "token"
+        const val SECRET = "secret"
+        const val USER_ID = "user_id"
+        const val USER_NAME = "user_name"
     }
 
     private val accounts = BehaviorRelay.createDefault(loadAccounts())
