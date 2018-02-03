@@ -1,5 +1,8 @@
 package com.yuyakaido.android.blueprint.di
 
+import android.app.Application
+import android.content.Context
+import android.content.SharedPreferences
 import com.facebook.stetho.okhttp3.StethoInterceptor
 import com.yuyakaido.android.blueprint.BuildConfig
 import com.yuyakaido.android.blueprint.domain.Account
@@ -15,7 +18,15 @@ import se.akerfeldt.okhttp.signpost.OkHttpOAuthConsumer
 import se.akerfeldt.okhttp.signpost.SigningInterceptor
 
 @Module
-class AccountModule(private val account: Account) {
+class AccountModule(
+        private val application: Application,
+        private val account: Account) {
+
+    @AccountScope
+    @Provides
+    fun provideSharedPreference(): SharedPreferences {
+        return application.getSharedPreferences(account.twitter.userId.toString(), Context.MODE_PRIVATE)
+    }
 
     @AccountScope
     @Provides

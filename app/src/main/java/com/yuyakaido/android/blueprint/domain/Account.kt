@@ -2,6 +2,7 @@ package com.yuyakaido.android.blueprint.domain
 
 import android.app.Application
 import android.content.Context
+import android.content.SharedPreferences
 import android.preference.PreferenceManager
 import com.twitter.sdk.android.core.TwitterAuthToken
 import com.twitter.sdk.android.core.TwitterSession
@@ -37,16 +38,16 @@ class Account(
     @Inject
     lateinit var repository: TwitterRepository
 
+    @Inject
+    lateinit var accountPreference: SharedPreferences
+
     init {
         (application as Blueprint).component
-                .newAccountComponent(AccountModule(this))
+                .newAccountComponent(AccountModule(application, this))
                 .inject(this)
     }
 
     fun save() {
-        val accountPreference = application.getSharedPreferences(
-                twitter.userId.toString(),
-                Context.MODE_PRIVATE)
         accountPreference.edit()
                 .apply {
                     putString(TOKEN, twitter.authToken.token)
@@ -64,9 +65,6 @@ class Account(
     }
 
     fun delete() {
-        val accountPreference = application.getSharedPreferences(
-                twitter.userId.toString(),
-                Context.MODE_PRIVATE)
         accountPreference.edit().clear().apply()
 
         val preference = PreferenceManager.getDefaultSharedPreferences(application)
