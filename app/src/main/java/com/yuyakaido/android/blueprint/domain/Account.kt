@@ -14,8 +14,7 @@ import javax.inject.Inject
 
 class Account(
         val twitter: TwitterSession,
-        val application: Application,
-        val disposables: CompositeDisposable = CompositeDisposable()) {
+        val application: Application) {
 
     companion object {
         const val TOKEN = "token"
@@ -40,6 +39,9 @@ class Account(
 
     @Inject
     lateinit var accountPreference: SharedPreferences
+
+    @Inject
+    lateinit var disposables: CompositeDisposable
 
     init {
         (application as Blueprint).component

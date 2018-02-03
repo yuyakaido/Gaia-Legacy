@@ -9,6 +9,7 @@ import com.yuyakaido.android.blueprint.domain.Account
 import com.yuyakaido.android.blueprint.infra.TwitterClient
 import dagger.Module
 import dagger.Provides
+import io.reactivex.disposables.CompositeDisposable
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -26,6 +27,12 @@ class AccountModule(
     @Provides
     fun provideSharedPreference(): SharedPreferences {
         return application.getSharedPreferences(account.twitter.userId.toString(), Context.MODE_PRIVATE)
+    }
+
+    @AccountScope
+    @Provides
+    fun provideCompositeDisposable(): CompositeDisposable {
+        return CompositeDisposable()
     }
 
     @AccountScope
