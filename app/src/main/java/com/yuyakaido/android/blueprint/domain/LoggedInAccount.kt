@@ -1,25 +1,14 @@
 package com.yuyakaido.android.blueprint.domain
 
-import android.app.Application
-import android.preference.PreferenceManager
 import com.jakewharton.rxrelay2.BehaviorRelay
+import com.yuyakaido.android.blueprint.infra.AppPreference
 import com.yuyakaido.android.blueprint.misc.Pack
 import io.reactivex.Observable
 import javax.inject.Inject
 
-class LoggedInAccount @Inject constructor(application: Application) {
+class LoggedInAccount @Inject constructor(preference: AppPreference) {
 
-    companion object {
-        const val ACCOUNTS = "accounts"
-
-        private fun accounts(application: Application): List<Account> {
-            val preference = PreferenceManager.getDefaultSharedPreferences(application)
-            val accounts = preference.getStringSet(ACCOUNTS, hashSetOf())
-            return accounts.map { Account.load(application, it) }
-        }
-    }
-
-    private val accounts = BehaviorRelay.createDefault(accounts(application))
+    private val accounts = BehaviorRelay.createDefault(preference.accounts())
     private var current = BehaviorRelay.createDefault(Pack(accounts.value.firstOrNull()))
 
     fun current(): Observable<Pack<Account?>> {

@@ -1,5 +1,7 @@
-package com.yuyakaido.android.blueprint.di
+package com.yuyakaido.android.blueprint.di.app
 
+import com.yuyakaido.android.blueprint.di.account.AccountComponent
+import com.yuyakaido.android.blueprint.di.account.AccountModule
 import com.yuyakaido.android.blueprint.presentation.AccountListActivity
 import com.yuyakaido.android.blueprint.presentation.MainActivity
 import dagger.Component

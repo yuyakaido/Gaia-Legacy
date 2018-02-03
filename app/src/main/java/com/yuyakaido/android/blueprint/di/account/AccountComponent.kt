@@ -1,4 +1,4 @@
-package com.yuyakaido.android.blueprint.di
+package com.yuyakaido.android.blueprint.di.account
 
 import com.yuyakaido.android.blueprint.domain.Account
 import dagger.Subcomponent

@@ -1,4 +1,4 @@
-package com.yuyakaido.android.blueprint.di
+package com.yuyakaido.android.blueprint.di.account
 
 import javax.inject.Scope
 
