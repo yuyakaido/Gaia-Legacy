@@ -12,7 +12,7 @@ class TwitterRepository @Inject constructor(
 
     fun getHomeTimeline(account: Account): Observable<List<Tweet>> {
         return if (cache == null) {
-            client.homeTimeline(account)
+            client.getHomeTimeline(account)
                     .doOnNext { cache = it }
         } else {
             Observable.just(cache)

@@ -10,7 +10,7 @@ import javax.inject.Inject
 class TwitterClient @Inject constructor(
         private val service: TwitterService) {
 
-    fun homeTimeline(account: Account): Observable<List<Tweet>> {
+    fun getHomeTimeline(account: Account): Observable<List<Tweet>> {
         return service.homeTimeline(account.twitter.userName)
     }
 
