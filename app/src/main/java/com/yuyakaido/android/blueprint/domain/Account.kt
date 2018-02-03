@@ -10,7 +10,7 @@ import com.yuyakaido.android.blueprint.infra.TwitterRepository
 import io.reactivex.disposables.CompositeDisposable
 import javax.inject.Inject
 
-class Account(val twitter: TwitterSession, application: Application) {
+data class Account(val twitter: TwitterSession) {
 
     @Inject
     lateinit var repository: TwitterRepository
@@ -24,10 +24,14 @@ class Account(val twitter: TwitterSession, application: Application) {
     @Inject
     lateinit var disposables: CompositeDisposable
 
-    init {
+    fun open(application: Application) {
         (application as Blueprint).component
                 .newAccountComponent(AccountModule(application, this))
                 .inject(this)
+    }
+
+    fun close() {
+        disposables.dispose()
     }
 
     fun save() {
@@ -38,10 +42,6 @@ class Account(val twitter: TwitterSession, application: Application) {
     fun delete() {
         accountPreference.delete(this)
         appPreference.delete(this)
-    }
-
-    fun onLoggedOut() {
-        disposables.dispose()
     }
 
 }

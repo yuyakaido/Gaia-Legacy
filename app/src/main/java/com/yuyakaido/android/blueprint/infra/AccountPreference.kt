@@ -30,7 +30,7 @@ class AccountPreference @Inject constructor(
         val userName = accountPreference.getString(USER_NAME, null)
         val autoToken = TwitterAuthToken(token, secret)
         val session = TwitterSession(autoToken, userId, userName)
-        return Account(session, application)
+        return Account(session)
     }
 
     fun save(account: Account) {

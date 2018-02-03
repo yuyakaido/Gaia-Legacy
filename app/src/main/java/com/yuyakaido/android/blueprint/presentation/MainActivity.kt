@@ -123,7 +123,7 @@ class MainActivity : AppCompatActivity() {
     private fun authorize() {
         twitterAuthClient.authorize(this, object : Callback<TwitterSession>() {
             override fun success(result: Result<TwitterSession>) {
-                running.add(Account(result.data, application))
+                running.add(Account(result.data))
             }
             override fun failure(exception: TwitterException) {}
         })

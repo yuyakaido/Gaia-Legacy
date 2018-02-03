@@ -14,8 +14,9 @@ class AppPreference @Inject constructor(
     }
 
     fun accounts(): List<Account> {
-        val accounts = preference.getStringSet(ACCOUNTS, hashSetOf())
-        return accounts.map { AccountPreference.valueOf(application, it).load(application, it) }
+        return preference.getStringSet(ACCOUNTS, hashSetOf())
+                .map { AccountPreference.valueOf(application, it).load(application, it) }
+                .apply { forEach { it.open(application) } }
     }
 
     fun save(account: Account) {

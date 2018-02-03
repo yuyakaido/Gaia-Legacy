@@ -1,12 +1,15 @@
 package com.yuyakaido.android.blueprint.domain
 
+import android.app.Application
 import com.jakewharton.rxrelay2.BehaviorRelay
 import com.yuyakaido.android.blueprint.infra.AppPreference
 import com.yuyakaido.android.blueprint.misc.Pack
 import io.reactivex.Observable
 import javax.inject.Inject
 
-class LoggedInAccount @Inject constructor(preference: AppPreference) {
+class LoggedInAccount @Inject constructor(
+        private val application: Application,
+        private val preference: AppPreference) {
 
     private val accounts = BehaviorRelay.createDefault(preference.accounts())
     private var current = BehaviorRelay.createDefault(Pack(accounts.value.firstOrNull()))
@@ -15,26 +18,31 @@ class LoggedInAccount @Inject constructor(preference: AppPreference) {
         return current
     }
 
+    fun accounts(): Observable<List<Account>> {
+        return accounts
+    }
+
     fun switchTo(index: Int) {
-        if (current.hasValue() && current.value.value?.twitter?.userId != accounts.value[index].twitter.userId) {
+        if (current.hasValue() && current.value.value != accounts.value[index]) {
             current.accept(Pack(accounts.value[index]))
         }
     }
 
     fun add(account: Account) {
         accounts.value.forEach {
-            if (it.twitter.userId == account.twitter.userId) {
+            if (it == account) {
                 return
             }
         }
 
+        account.open(application)
         account.save()
         accounts.accept(accounts.value.plus(account))
         current.accept(Pack(account))
     }
 
     fun remove(account: Account) {
-        account.onLoggedOut()
+        account.close()
         account.delete()
         accounts.accept(accounts.value.minus(account))
         if (accounts.value.isEmpty()) {
@@ -42,10 +50,6 @@ class LoggedInAccount @Inject constructor(preference: AppPreference) {
         } else {
             current.accept(Pack(accounts.value.first()))
         }
-    }
-
-    fun accounts(): Observable<List<Account>> {
-        return accounts
     }
 
 }
