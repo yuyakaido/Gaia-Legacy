@@ -5,7 +5,7 @@ import com.yuyakaido.android.blueprint.presentation.MainActivity
 import dagger.Component
 
 @AppScope
-@Component(modules = arrayOf(AppModule::class))
+@Component(modules = [AppModule::class])
 interface AppComponent {
     fun inject(activity: MainActivity)
     fun inject(activity: AccountListActivity)
