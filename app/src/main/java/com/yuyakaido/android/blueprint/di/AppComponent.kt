@@ -3,9 +3,8 @@ package com.yuyakaido.android.blueprint.di
 import com.yuyakaido.android.blueprint.presentation.AccountListActivity
 import com.yuyakaido.android.blueprint.presentation.MainActivity
 import dagger.Component
-import javax.inject.Singleton
 
-@Singleton
+@AppScope
 @Component(modules = arrayOf(AppModule::class))
 interface AppComponent {
     fun inject(activity: MainActivity)

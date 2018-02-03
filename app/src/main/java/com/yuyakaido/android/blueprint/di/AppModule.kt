@@ -4,16 +4,15 @@ import android.app.Application
 import com.yuyakaido.android.blueprint.domain.LoggedInAccount
 import dagger.Module
 import dagger.Provides
-import javax.inject.Singleton
 
 @Module
 class AppModule(private val application: Application) {
 
-    @Singleton
+    @AppScope
     @Provides
     fun provideApplication() = application
 
-    @Singleton
+    @AppScope
     @Provides
     fun provideLoggedInAccount() = LoggedInAccount(application)
 
