@@ -22,7 +22,7 @@ class AppPreference @Inject constructor(
             val accounts = JSONArray(raw)
             IntRange(0, accounts.length() - 1)
                     .map { accounts.getLong(it) }
-                    .map { AccountPreference.valueOf(application, it).load(application, it) }
+                    .map { AccountPreference.valueOf(application, it.toString()).load() }
                     .apply { forEach { it.open(application) } }
         }
     }
@@ -34,7 +34,7 @@ class AppPreference @Inject constructor(
         } else {
             JSONArray(raw)
         }
-        accounts.put(account.twitter.userId)
+        accounts.put(account.twitter.userId.toString())
         preference.edit().putString(ACCOUNTS, accounts.toString()).apply()
     }
 
@@ -45,12 +45,14 @@ class AppPreference @Inject constructor(
         } else {
             JSONArray(raw)
         }
-        IntRange(0, accounts.length() - 1).forEach {
-            if (accounts[it] == account.twitter.id) {
+
+        IntRange(0, accounts.length() - 1).toList().forEach {
+            if (accounts[it] == account.twitter.id.toString()) {
                 accounts.remove(it)
+                preference.edit().putString(ACCOUNTS, accounts.toString()).apply()
+                return
             }
         }
-        preference.edit().putString(ACCOUNTS, accounts.toString()).apply()
     }
 
 }

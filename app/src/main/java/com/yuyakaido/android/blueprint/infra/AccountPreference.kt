@@ -17,17 +17,16 @@ class AccountPreference @Inject constructor(
         const val USER_ID = "user_id"
         const val USER_NAME = "user_name"
 
-        fun valueOf(application: Application, id: Long): AccountPreference {
-            return AccountPreference(application.getSharedPreferences(id.toString(), Context.MODE_PRIVATE))
+        fun valueOf(application: Application, id: String): AccountPreference {
+            return AccountPreference(application.getSharedPreferences(id, Context.MODE_PRIVATE))
         }
     }
 
-    fun load(application: Application, id: Long): Account {
-        val accountPreference = application.getSharedPreferences(id.toString(), Context.MODE_PRIVATE)
-        val token = accountPreference.getString(TOKEN, null)
-        val secret = accountPreference.getString(SECRET, null)
-        val userId = accountPreference.getLong(USER_ID, 0L)
-        val userName = accountPreference.getString(USER_NAME, null)
+    fun load(): Account {
+        val token = preference.getString(TOKEN, null)
+        val secret = preference.getString(SECRET, null)
+        val userId = preference.getLong(USER_ID, 0L)
+        val userName = preference.getString(USER_NAME, null)
         val autoToken = TwitterAuthToken(token, secret)
         val session = TwitterSession(autoToken, userId, userName)
         return Account(session)
