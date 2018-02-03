@@ -3,6 +3,7 @@ package com.yuyakaido.android.blueprint.infra
 import android.app.Application
 import android.content.SharedPreferences
 import com.yuyakaido.android.blueprint.domain.Account
+import org.json.JSONArray
 import javax.inject.Inject
 
 class AppPreference @Inject constructor(
@@ -14,23 +15,42 @@ class AppPreference @Inject constructor(
     }
 
     fun accounts(): List<Account> {
-        return preference.getStringSet(ACCOUNTS, hashSetOf())
-                .map { AccountPreference.valueOf(application, it).load(application, it) }
-                .apply { forEach { it.open(application) } }
+        val raw = preference.getString(ACCOUNTS, null)
+        return if (raw == null) {
+            listOf()
+        } else {
+            val accounts = JSONArray(raw)
+            IntRange(0, accounts.length() - 1)
+                    .map { accounts.getLong(it) }
+                    .map { AccountPreference.valueOf(application, it).load(application, it) }
+                    .apply { forEach { it.open(application) } }
+        }
     }
 
     fun save(account: Account) {
-        val accounts = preference.getStringSet(ACCOUNTS, hashSetOf())
-        accounts.add(account.twitter.userId.toString())
-        preference.edit().clear().apply()
-        preference.edit().putStringSet(ACCOUNTS, accounts).apply()
+        val raw = preference.getString(ACCOUNTS, null)
+        val accounts = if (raw == null) {
+            JSONArray()
+        } else {
+            JSONArray(raw)
+        }
+        accounts.put(account.twitter.userId)
+        preference.edit().putString(ACCOUNTS, accounts.toString()).apply()
     }
 
     fun delete(account: Account) {
-        val accounts = preference.getStringSet(ACCOUNTS, hashSetOf())
-        accounts.remove(account.twitter.userId.toString())
-        preference.edit().clear().apply()
-        preference.edit().putStringSet(ACCOUNTS, accounts).apply()
+        val raw = preference.getString(ACCOUNTS, null)
+        val accounts = if (raw == null) {
+            JSONArray()
+        } else {
+            JSONArray(raw)
+        }
+        IntRange(0, accounts.length() - 1).forEach {
+            if (accounts[it] == account.twitter.id) {
+                accounts.remove(it)
+            }
+        }
+        preference.edit().putString(ACCOUNTS, accounts.toString()).apply()
     }
 
 }
