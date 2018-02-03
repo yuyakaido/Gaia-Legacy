@@ -15,6 +15,6 @@ class AppModule(private val application: Application) {
 
     @Singleton
     @Provides
-    fun provideRunningSession() = LoggedInAccount(application)
+    fun provideLoggedInAccount() = LoggedInAccount(application)
 
 }
