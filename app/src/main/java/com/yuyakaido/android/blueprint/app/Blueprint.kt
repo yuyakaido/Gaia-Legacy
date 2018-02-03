@@ -2,6 +2,7 @@ package com.yuyakaido.android.blueprint.app
 
 import android.app.Application
 import com.facebook.stetho.Stetho
+import com.squareup.leakcanary.LeakCanary
 import com.twitter.sdk.android.core.Twitter
 import com.twitter.sdk.android.core.TwitterAuthConfig
 import com.twitter.sdk.android.core.TwitterConfig
@@ -21,6 +22,7 @@ class Blueprint : Application() {
         initializeTwitter()
         initializeDagger()
         initializeStetho()
+        initializeLeakCanary()
     }
 
     private fun initializeDagger() {
@@ -40,6 +42,13 @@ class Blueprint : Application() {
 
     private fun initializeStetho() {
         Stetho.initializeWithDefaults(this)
+    }
+
+    private fun initializeLeakCanary() {
+        if (LeakCanary.isInAnalyzerProcess(this)) {
+            return
+        }
+        LeakCanary.install(this)
     }
 
 }
