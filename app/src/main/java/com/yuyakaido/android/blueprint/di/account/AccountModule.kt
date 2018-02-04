@@ -38,17 +38,22 @@ class AccountModule(
 
     @AccountScope
     @Provides
-    fun provideRetrofit(): Retrofit {
+    fun provideOkHttpClinet(): OkHttpClient {
         val consumer = OkHttpOAuthConsumer(
                 BuildConfig.TWITTER_CONSUMER_KEY,
                 BuildConfig.TWITTER_CONSUMER_SECRET)
         consumer.setTokenWithSecret(account.twitter.authToken.token, account.twitter.authToken.secret)
-        val client = OkHttpClient.Builder()
+        return OkHttpClient.Builder()
                 .addInterceptor(SigningInterceptor(consumer))
                 .addInterceptor(HttpLoggingInterceptor()
                         .apply { level = HttpLoggingInterceptor.Level.BASIC })
                 .addNetworkInterceptor(StethoInterceptor())
                 .build()
+    }
+
+    @AccountScope
+    @Provides
+    fun provideRetrofit(client: OkHttpClient): Retrofit {
         return Retrofit.Builder()
                 .baseUrl("https://api.twitter.com/1.1/")
                 .client(client)
