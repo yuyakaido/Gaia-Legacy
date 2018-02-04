@@ -110,7 +110,7 @@ class TweetListActivity : AppCompatActivity() {
                     if (it.value == null) {
                         section.update(mutableListOf())
                     } else {
-                        it.value.repository.getHomeTimeline(it.value)
+                        it.value.repository.getUserTimeline()
                                 .subscribeOn(Schedulers.io())
                                 .observeOn(AndroidSchedulers.mainThread())
                                 .subscribe { section.update(it.map { TweetItem(it) }) }
