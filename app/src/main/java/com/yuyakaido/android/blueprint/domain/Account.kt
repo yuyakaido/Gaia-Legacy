@@ -40,7 +40,7 @@ data class Account(val twitter: TwitterSession) {
     }
 
     fun delete() {
-        accountPreference.delete(this)
+        accountPreference.delete()
         appPreference.delete(this)
     }
 

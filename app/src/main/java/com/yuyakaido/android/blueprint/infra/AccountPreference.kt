@@ -43,7 +43,7 @@ class AccountPreference @Inject constructor(
                 .apply()
     }
 
-    fun delete(account: Account) {
+    fun delete() {
         preference.edit().clear().apply()
     }
 
