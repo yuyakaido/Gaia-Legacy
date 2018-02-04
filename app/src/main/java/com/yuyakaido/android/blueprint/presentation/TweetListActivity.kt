@@ -19,7 +19,7 @@ import com.xwray.groupie.Section
 import com.xwray.groupie.ViewHolder
 import com.yuyakaido.android.blueprint.R
 import com.yuyakaido.android.blueprint.app.Blueprint
-import com.yuyakaido.android.blueprint.databinding.ActivityMainBinding
+import com.yuyakaido.android.blueprint.databinding.ActivityTweetListBinding
 import com.yuyakaido.android.blueprint.domain.Account
 import com.yuyakaido.android.blueprint.domain.LoggedInAccount
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -28,13 +28,13 @@ import io.reactivex.rxkotlin.addTo
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
-class MainActivity : AppCompatActivity() {
+class TweetListActivity : AppCompatActivity() {
 
     private val twitterAuthClient = TwitterAuthClient()
     private val section = Section()
     private val disposables = CompositeDisposable()
 
-    private val binding by lazy { ActivityMainBinding.inflate(layoutInflater) }
+    private val binding by lazy { ActivityTweetListBinding.inflate(layoutInflater) }
 
     @Inject
     lateinit var running: LoggedInAccount
