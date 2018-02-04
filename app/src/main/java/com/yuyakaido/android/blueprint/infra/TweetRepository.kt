@@ -4,7 +4,7 @@ import com.yuyakaido.android.blueprint.domain.Tweet
 import io.reactivex.Observable
 import javax.inject.Inject
 
-class TwitterRepository @Inject constructor(
+class TweetRepository @Inject constructor(
         private val client: TwitterClient) {
 
     private var cache: List<Tweet>? = null

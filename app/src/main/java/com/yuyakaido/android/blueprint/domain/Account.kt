@@ -6,14 +6,14 @@ import com.yuyakaido.android.blueprint.app.Blueprint
 import com.yuyakaido.android.blueprint.di.account.AccountModule
 import com.yuyakaido.android.blueprint.infra.AccountPreference
 import com.yuyakaido.android.blueprint.infra.AppPreference
-import com.yuyakaido.android.blueprint.infra.TwitterRepository
+import com.yuyakaido.android.blueprint.infra.TweetRepository
 import io.reactivex.disposables.CompositeDisposable
 import javax.inject.Inject
 
 data class Account(val twitter: TwitterSession) {
 
     @Inject
-    lateinit var repository: TwitterRepository
+    lateinit var repository: TweetRepository
 
     @Inject
     lateinit var appPreference: AppPreference
