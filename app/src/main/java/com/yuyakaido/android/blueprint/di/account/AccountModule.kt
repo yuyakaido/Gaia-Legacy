@@ -20,12 +20,11 @@ import se.akerfeldt.okhttp.signpost.SigningInterceptor
 
 @Module
 class AccountModule(
-        private val application: Application,
         private val account: Account) {
 
     @AccountScope
     @Provides
-    fun provideAccountPreference(): AccountPreference {
+    fun provideAccountPreference(application: Application): AccountPreference {
         return AccountPreference(application.getSharedPreferences(
                 account.twitter.userId.toString(), Context.MODE_PRIVATE))
     }
@@ -38,7 +37,7 @@ class AccountModule(
 
     @AccountScope
     @Provides
-    fun provideOkHttpClinet(): OkHttpClient {
+    fun provideOkHttpClient(): OkHttpClient {
         val consumer = OkHttpOAuthConsumer(
                 BuildConfig.TWITTER_CONSUMER_KEY,
                 BuildConfig.TWITTER_CONSUMER_SECRET)

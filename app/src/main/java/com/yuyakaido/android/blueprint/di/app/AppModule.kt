@@ -12,6 +12,12 @@ class AppModule(private val application: Application) {
 
     @AppScope
     @Provides
+    fun provideApplication(): Application {
+        return application
+    }
+
+    @AppScope
+    @Provides
     fun provideAppPreference(): AppPreference {
         return AppPreference(application, PreferenceManager.getDefaultSharedPreferences(application))
     }

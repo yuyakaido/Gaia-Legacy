@@ -26,7 +26,7 @@ data class Account(val twitter: TwitterSession) {
 
     fun open(application: Application) {
         (application as Blueprint).component
-                .newAccountComponent(AccountModule(application, this))
+                .newAccountComponent(AccountModule(this))
                 .inject(this)
     }
 
