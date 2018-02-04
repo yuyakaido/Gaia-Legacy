@@ -9,7 +9,6 @@ import android.view.MenuItem
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.Section
 import com.xwray.groupie.ViewHolder
-import com.yuyakaido.android.blueprint.R
 import com.yuyakaido.android.blueprint.app.Blueprint
 import com.yuyakaido.android.blueprint.databinding.ActivityAccountListBinding
 import com.yuyakaido.android.blueprint.domain.Account
