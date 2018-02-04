@@ -19,8 +19,7 @@ import se.akerfeldt.okhttp.signpost.OkHttpOAuthConsumer
 import se.akerfeldt.okhttp.signpost.SigningInterceptor
 
 @Module
-class AccountModule(
-        private val account: Account) {
+class AccountModule(private val account: Account) {
 
     @AccountScope
     @Provides
@@ -63,8 +62,8 @@ class AccountModule(
 
     @AccountScope
     @Provides
-    fun provideTwitterService(retrofit: Retrofit): TwitterClient.TwitterService {
-        return retrofit.create(TwitterClient.TwitterService::class.java)
+    fun provideTwitterClient(retrofit: Retrofit): TwitterClient {
+        return retrofit.create(TwitterClient::class.java)
     }
 
 }
