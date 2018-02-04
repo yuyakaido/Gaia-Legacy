@@ -5,9 +5,11 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
+import android.view.MenuItem
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.Section
 import com.xwray.groupie.ViewHolder
+import com.yuyakaido.android.blueprint.R
 import com.yuyakaido.android.blueprint.app.Blueprint
 import com.yuyakaido.android.blueprint.databinding.ActivityAccountListBinding
 import com.yuyakaido.android.blueprint.domain.Account
@@ -43,12 +45,20 @@ class AccountListActivity : AppCompatActivity(), AccountItem.OnLogoutListener {
         super.onDestroy()
     }
 
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            android.R.id.home -> finish()
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
     override fun onLogout(account: Account) {
         running.remove(account)
     }
 
     private fun setupToolbar() {
         setSupportActionBar(binding.toolbar)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
         title = "Account List"
     }
 

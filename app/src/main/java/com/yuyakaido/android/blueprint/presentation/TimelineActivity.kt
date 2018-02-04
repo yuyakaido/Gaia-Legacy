@@ -73,8 +73,8 @@ class TimelineActivity : AppCompatActivity() {
     }
 
     private fun setupToolbar() {
-        val toolbar = findViewById<Toolbar>(R.id.toolbar)
-        setSupportActionBar(toolbar)
+        setSupportActionBar(binding.toolbar)
+        title = "Timeline"
     }
 
     private fun setupSpinner() {
