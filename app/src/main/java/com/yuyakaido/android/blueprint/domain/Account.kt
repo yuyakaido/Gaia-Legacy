@@ -24,13 +24,13 @@ data class Account(val twitter: TwitterSession) {
     @Inject
     lateinit var disposables: CompositeDisposable
 
-    fun open(application: Application) {
+    fun onLoggedIn(application: Application) {
         (application as Blueprint).component
                 .newAccountComponent(AccountModule(this))
                 .inject(this)
     }
 
-    fun close() {
+    fun onLoggedOut() {
         disposables.dispose()
     }
 

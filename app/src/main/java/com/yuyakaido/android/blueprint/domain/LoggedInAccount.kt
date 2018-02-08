@@ -35,14 +35,14 @@ class LoggedInAccount @Inject constructor(
             }
         }
 
-        account.open(application)
+        account.onLoggedIn(application)
         account.save()
         accounts.accept(accounts.value.plus(account))
         current.accept(Pack(account))
     }
 
     fun remove(account: Account) {
-        account.close()
+        account.onLoggedOut()
         account.delete()
         accounts.accept(accounts.value.minus(account))
         if (accounts.value.isEmpty()) {

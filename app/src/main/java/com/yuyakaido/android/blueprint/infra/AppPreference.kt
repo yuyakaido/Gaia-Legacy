@@ -23,7 +23,7 @@ class AppPreference @Inject constructor(
             IntRange(0, accounts.length() - 1)
                     .map { accounts.getLong(it) }
                     .map { AccountPreference.valueOf(application, it.toString()).load() }
-                    .apply { forEach { it.open(application) } }
+                    .apply { forEach { it.onLoggedIn(application) } }
         }
     }
 
