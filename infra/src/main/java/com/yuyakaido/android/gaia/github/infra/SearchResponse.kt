@@ -1,4 +1,4 @@
-package com.yuyakaido.android.gaia
+package com.yuyakaido.android.gaia.github.infra
 
 import com.squareup.moshi.Json
 

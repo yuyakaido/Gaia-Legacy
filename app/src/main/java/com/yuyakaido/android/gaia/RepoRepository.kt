@@ -1,5 +1,7 @@
 package com.yuyakaido.android.gaia
 
+import com.yuyakaido.android.gaia.github.infra.GithubClient
+import com.yuyakaido.android.gaia.github.infra.Repo
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers

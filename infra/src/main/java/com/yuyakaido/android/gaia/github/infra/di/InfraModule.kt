@@ -1,6 +1,7 @@
-package com.yuyakaido.android.gaia.di
+package com.yuyakaido.android.gaia.github.infra.di
 
 import com.facebook.stetho.okhttp3.StethoInterceptor
+import com.yuyakaido.android.gaia.github.infra.GithubClient
 import dagger.Module
 import dagger.Provides
 import okhttp3.OkHttpClient
@@ -10,7 +11,7 @@ import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.moshi.MoshiConverterFactory
 
 @Module
-class AppModule {
+class InfraModule {
 
     @Provides
     fun provideOkHttpClient(): OkHttpClient {
@@ -28,6 +29,11 @@ class AppModule {
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .addConverterFactory(MoshiConverterFactory.create())
             .build()
+    }
+
+    @Provides
+    fun provideGithubService(retrofit: Retrofit): GithubClient.GithubService {
+        return retrofit.create(GithubClient.GithubService::class.java)
     }
 
 }
