@@ -20,8 +20,17 @@ class MainActivity : DaggerAppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         repository.fetchRepos(query = "Gaia")
-            .subscribeBy { Log.d("Gaia", it.toString()) }
+            .subscribeBy { repos ->
+                Log.d(
+                    "Gaia - MainActivity",
+                    "hash = ${repository.hashCode()}, size = ${repos.size}"
+                )
+            }
             .addTo(disposables)
+
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.fragment_container, MainFragment.newInstance())
+            .commit()
     }
 
     override fun onDestroy() {

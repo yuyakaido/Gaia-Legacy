@@ -11,7 +11,8 @@ import javax.inject.Singleton
     AndroidInjectionModule::class,
     AppModule::class,
     ServiceModule::class,
-    ActivityModule::class
+    ActivityModule::class,
+    FragmentModule::class
 ])
 interface AppComponent : AndroidInjector<Gaia> {
     @Component.Builder
