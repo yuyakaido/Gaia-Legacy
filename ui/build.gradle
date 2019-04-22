@@ -1,39 +1,25 @@
-apply plugin: 'com.android.application'
+apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
 
 android {
     compileSdkVersion 28
     defaultConfig {
-        applicationId "com.yuyakaido.android.gaia"
         minSdkVersion 14
         targetSdkVersion 28
         versionCode 1
         versionName "1.0"
     }
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
-    }
 }
 
 dependencies {
-    implementation project(':ui')
     implementation project(':domain')
-    implementation project(':infra')
 
     // Kotlin
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 
     // AndroidX
     implementation 'androidx.appcompat:appcompat:1.0.2'
-
-    // Networking
-    implementation 'com.squareup.okhttp3:okhttp:3.14.1'
-    implementation 'com.squareup.okhttp3:logging-interceptor:3.14.1'
-    implementation 'com.squareup.retrofit2:retrofit:2.5.0'
-    implementation 'com.squareup.retrofit2:adapter-rxjava2:2.5.0'
-    implementation 'com.squareup.retrofit2:converter-moshi:2.5.0'
 
     // Reactive Programming
     implementation 'io.reactivex.rxjava2:rxjava:2.2.8'
@@ -46,8 +32,4 @@ dependencies {
     implementation 'com.google.dagger:dagger-android:2.22.1'
     implementation 'com.google.dagger:dagger-android-support:2.22.1'
     kapt 'com.google.dagger:dagger-android-processor:2.22.1'
-
-    // Debugging
-    implementation 'com.facebook.stetho:stetho:1.5.1'
-    implementation 'com.facebook.stetho:stetho-okhttp3:1.5.1'
 }
