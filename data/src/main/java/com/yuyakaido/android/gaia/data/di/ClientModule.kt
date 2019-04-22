@@ -1,7 +1,6 @@
-package com.yuyakaido.android.gaia.github.infra.di
+package com.yuyakaido.android.gaia.data.di
 
-import com.facebook.stetho.okhttp3.StethoInterceptor
-import com.yuyakaido.android.gaia.github.infra.GithubClient
+import com.yuyakaido.android.gaia.data.GithubClient
 import dagger.Module
 import dagger.Provides
 import okhttp3.OkHttpClient
@@ -17,7 +16,6 @@ class ClientModule {
     fun provideOkHttpClient(): OkHttpClient {
         return OkHttpClient.Builder()
             .addInterceptor(HttpLoggingInterceptor())
-            .addNetworkInterceptor(StethoInterceptor())
             .build()
     }
 

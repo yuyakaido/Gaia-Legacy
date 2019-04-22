@@ -1,8 +1,8 @@
 package com.yuyakaido.android.gaia.di
 
 import com.yuyakaido.android.gaia.Gaia
-import com.yuyakaido.android.gaia.github.infra.di.ClientModule
-import com.yuyakaido.android.gaia.github.infra.di.RepositoryModule
+import com.yuyakaido.android.gaia.data.di.ClientModule
+import com.yuyakaido.android.gaia.data.di.RepositoryModule
 import com.yuyakaido.android.gaia.ui.di.ActivityModule
 import com.yuyakaido.android.gaia.ui.di.FragmentModule
 import dagger.Component

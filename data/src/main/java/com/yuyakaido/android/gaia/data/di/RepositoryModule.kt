@@ -1,8 +1,8 @@
-package com.yuyakaido.android.gaia.github.infra.di
+package com.yuyakaido.android.gaia.data.di
 
 import com.yuyakaido.android.gaia.domain.RepoRepositoryType
-import com.yuyakaido.android.gaia.github.infra.GithubClient
-import com.yuyakaido.android.gaia.github.infra.RepoRepository
+import com.yuyakaido.android.gaia.data.GithubClient
+import com.yuyakaido.android.gaia.data.RepoRepository
 import dagger.Module
 import dagger.Provides
 

@@ -1,4 +1,4 @@
-package com.yuyakaido.android.gaia.github.infra
+package com.yuyakaido.android.gaia.data
 
 import com.yuyakaido.android.gaia.core.Repo
 import com.yuyakaido.android.gaia.domain.RepoRepositoryType
