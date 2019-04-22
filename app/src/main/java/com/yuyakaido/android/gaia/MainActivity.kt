@@ -2,10 +2,13 @@ package com.yuyakaido.android.gaia
 
 import android.os.Bundle
 import android.util.Log
+import com.yuyakaido.android.gaia.domain.GetRepoUseCase
 import dagger.android.support.DaggerAppCompatActivity
+import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.addTo
 import io.reactivex.rxkotlin.subscribeBy
+import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
 class MainActivity : DaggerAppCompatActivity() {
@@ -13,17 +16,19 @@ class MainActivity : DaggerAppCompatActivity() {
     private val disposables = CompositeDisposable()
 
     @Inject
-    lateinit var repository: RepoRepository
+    lateinit var usecase: GetRepoUseCase
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        repository.fetchRepos(query = "Gaia")
+        usecase.getRepos(query = "Gaia")
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
             .subscribeBy { repos ->
                 Log.d(
                     "Gaia - MainActivity",
-                    "hash = ${repository.hashCode()}, size = ${repos.size}"
+                    "hash = ${usecase.hashCode()}, size = ${repos.size}"
                 )
             }
             .addTo(disposables)

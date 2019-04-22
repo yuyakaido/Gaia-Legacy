@@ -19,9 +19,13 @@ android {
 
 dependencies {
     implementation project(':core')
+    implementation project(':domain')
     implementation project(':infra')
 
+    // Kotlin
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+
+    // AndroidX
     implementation 'androidx.appcompat:appcompat:1.0.2'
 
     // Networking

@@ -11,7 +11,7 @@ import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.moshi.MoshiConverterFactory
 
 @Module
-class InfraModule {
+class ClientModule {
 
     @Provides
     fun provideOkHttpClient(): OkHttpClient {
@@ -22,7 +22,9 @@ class InfraModule {
     }
 
     @Provides
-    fun provideRetrofit(okHttpClient: OkHttpClient): Retrofit {
+    fun provideRetrofit(
+        okHttpClient: OkHttpClient
+    ): Retrofit {
         return Retrofit.Builder()
             .client(okHttpClient)
             .baseUrl("https://api.github.com/")
@@ -32,7 +34,9 @@ class InfraModule {
     }
 
     @Provides
-    fun provideGithubService(retrofit: Retrofit): GithubClient.GithubService {
+    fun provideGithubService(
+        retrofit: Retrofit
+    ): GithubClient.GithubService {
         return retrofit.create(GithubClient.GithubService::class.java)
     }
 
