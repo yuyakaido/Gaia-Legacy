@@ -1,5 +1,6 @@
 package com.yuyakaido.android.gaia.github.infra
 
+import com.yuyakaido.android.gaia.core.Repo
 import io.reactivex.Single
 import retrofit2.http.GET
 import retrofit2.http.Query

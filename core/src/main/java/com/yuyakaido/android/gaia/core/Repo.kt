@@ -1,4 +1,4 @@
-package com.yuyakaido.android.gaia.github.infra
+package com.yuyakaido.android.gaia.core
 
 data class Repo(
     val id: Long,

@@ -1,6 +1,7 @@
 package com.yuyakaido.android.gaia.github.infra
 
 import com.squareup.moshi.Json
+import com.yuyakaido.android.gaia.core.Repo
 
 data class RepoResponse(
     @Json(name = "id") val id: Long,
