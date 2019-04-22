@@ -1,4 +1,4 @@
-package com.yuyakaido.android.gaia.di
+package com.yuyakaido.android.gaia.ui.di
 
 import com.yuyakaido.android.gaia.ui.MainFragment
 import dagger.Module
