@@ -1,4 +1,3 @@
 package com.yuyakaido.android.gaia.core;
 
-public class Foo {
-}
+public class Java {}
