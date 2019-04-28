@@ -11,6 +11,11 @@ import dagger.Provides
 class MainFragmentModule {
 
     @Provides
+    fun provideQuery(fragment: MainFragment): String {
+        return fragment.getQuery()
+    }
+
+    @Provides
     fun provideMainViewModel(
         fragment: MainFragment,
         factory: MainViewModelFactory

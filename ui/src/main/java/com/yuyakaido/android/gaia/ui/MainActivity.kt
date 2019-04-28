@@ -21,7 +21,7 @@ class MainActivity : DaggerAppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        viewModel.getRepos(query = "Gaia")
+        viewModel.getRepos()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeBy { repos ->
@@ -40,6 +40,10 @@ class MainActivity : DaggerAppCompatActivity() {
     override fun onDestroy() {
         disposables.dispose()
         super.onDestroy()
+    }
+
+    fun getQuery(): String {
+        return "Gaia"
     }
 
 }

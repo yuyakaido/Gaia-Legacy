@@ -8,12 +8,14 @@ import javax.inject.Inject
 
 class MainViewModelFactory @Inject constructor(
     private val application: Application,
-    private val getRepoUseCase: GetRepoUseCase
+    private val getRepoUseCase: GetRepoUseCase,
+    private val query: String
 ) : ViewModelProvider.Factory {
 
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         return MainViewModel(
             application = application,
+            query = query,
             getRepoUseCase = getRepoUseCase
         ) as T
     }

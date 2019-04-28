@@ -38,7 +38,7 @@ class MainFragment : DaggerFragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        viewModel.getRepos(query = "Gaia")
+        viewModel.getRepos()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeBy { repos ->
@@ -53,6 +53,10 @@ class MainFragment : DaggerFragment() {
     override fun onDestroyView() {
         disposables.dispose()
         super.onDestroyView()
+    }
+
+    fun getQuery(): String {
+        return "Gaia"
     }
 
 }

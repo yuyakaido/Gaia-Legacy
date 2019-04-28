@@ -10,10 +10,11 @@ import io.reactivex.schedulers.Schedulers
 
 class MainViewModel(
     application: Application,
+    private val query: String,
     private val getRepoUseCase: GetRepoUseCase
 ) : AndroidViewModel(application) {
 
-    fun getRepos(query: String): Single<List<Repo>> {
+    fun getRepos(): Single<List<Repo>> {
         return getRepoUseCase.getRepos(query = query)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
