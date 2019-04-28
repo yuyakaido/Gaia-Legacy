@@ -1,4 +1,4 @@
-package com.yuyakaido.android.gaia.ui
+package com.yuyakaido.android.gaia
 
 import android.os.Bundle
 import android.util.Log
@@ -25,6 +25,9 @@ class MainFragment : DaggerFragment() {
     private val disposables = CompositeDisposable()
 
     @Inject
+    lateinit var session: Session
+
+    @Inject
     lateinit var viewModel: MainViewModel
 
     override fun onCreateView(
@@ -38,13 +41,15 @@ class MainFragment : DaggerFragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
+        Log.d("Gaia - MainFragment@${hashCode()}", "session = ${session.hashCode()}")
+
         viewModel.getRepos()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeBy { repos ->
                 Log.d(
-                    "Gaia - MainFragment",
-                    "hash = ${viewModel.hashCode()}, size = ${repos.size}"
+                    "Gaia - MainFragment@${hashCode()}",
+                    "vm = ${viewModel.hashCode()}, repos = ${repos.size}"
                 )
             }
             .addTo(disposables)
