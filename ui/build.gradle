@@ -20,6 +20,8 @@ dependencies {
 
     // AndroidX
     implementation libs.androidx.appcompat
+    implementation libs.androidx.lifecycle.extensions
+    kapt libs.androidx.lifecycle.compiler
 
     // Reactive Programming
     implementation libs.rx.java

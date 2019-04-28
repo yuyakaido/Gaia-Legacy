@@ -16,19 +16,27 @@ class MainActivity : DaggerAppCompatActivity() {
     private val disposables = CompositeDisposable()
 
     @Inject
-    lateinit var usecase: GetRepoUseCase
+    lateinit var getRepoUseCase: GetRepoUseCase
+
+    @Inject
+    lateinit var viewModel: MainViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        usecase.getRepos(query = "Gaia")
+        Log.d(
+            "Gaia - MainActivity",
+            "vm = ${viewModel.hashCode()}"
+        )
+
+        getRepoUseCase.getRepos(query = "Gaia")
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeBy { repos ->
                 Log.d(
                     "Gaia - MainActivity",
-                    "hash = ${usecase.hashCode()}, size = ${repos.size}"
+                    "hash = ${getRepoUseCase.hashCode()}, size = ${repos.size}"
                 )
             }
             .addTo(disposables)

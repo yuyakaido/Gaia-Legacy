@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProviders
 import com.yuyakaido.android.gaia.domain.GetRepoUseCase
 import dagger.android.support.DaggerFragment
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -26,7 +27,10 @@ class MainFragment : DaggerFragment() {
     private val disposables = CompositeDisposable()
 
     @Inject
-    lateinit var usecase: GetRepoUseCase
+    lateinit var getRepoUseCase: GetRepoUseCase
+
+    @Inject
+    lateinit var viewModel: MainViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -38,13 +42,19 @@ class MainFragment : DaggerFragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        usecase.getRepos(query = "Gaia")
+
+        Log.d(
+            "Gaia - MainFragment",
+            "vm = ${viewModel.hashCode()}"
+        )
+
+        getRepoUseCase.getRepos(query = "Gaia")
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeBy { repos ->
                 Log.d(
                     "Gaia - MainFragment",
-                    "hash = ${usecase.hashCode()}, size = ${repos.size}"
+                    "hash = ${getRepoUseCase.hashCode()}, size = ${repos.size}"
                 )
             }
             .addTo(disposables)

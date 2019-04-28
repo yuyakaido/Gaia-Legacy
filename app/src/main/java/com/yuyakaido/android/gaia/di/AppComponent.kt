@@ -13,6 +13,7 @@ import javax.inject.Singleton
 @Singleton
 @Component(modules = [
     AndroidInjectionModule::class,
+    AppModule::class,
     ClientModule::class,
     RepositoryModule::class,
     ActivityModule::class,
@@ -20,5 +21,7 @@ import javax.inject.Singleton
 ])
 interface AppComponent : AndroidInjector<Gaia> {
     @Component.Builder
-    abstract class Builder : AndroidInjector.Builder<Gaia>()
+    abstract class Builder : AndroidInjector.Builder<Gaia>() {
+        abstract fun appModule(appModule: AppModule): Builder
+    }
 }
