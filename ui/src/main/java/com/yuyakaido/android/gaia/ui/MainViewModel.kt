@@ -1,4 +1,4 @@
-package com.yuyakaido.android.gaia
+package com.yuyakaido.android.gaia.ui
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel

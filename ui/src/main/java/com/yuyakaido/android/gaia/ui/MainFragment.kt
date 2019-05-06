@@ -1,4 +1,4 @@
-package com.yuyakaido.android.gaia
+package com.yuyakaido.android.gaia.ui
 
 import android.os.Bundle
 import android.util.Log
@@ -6,6 +6,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.yuyakaido.android.gaia.core.AppStore
+import com.yuyakaido.android.gaia.core.Session
 import dagger.android.support.DaggerFragment
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -25,6 +27,9 @@ class MainFragment : DaggerFragment() {
     private val disposables = CompositeDisposable()
 
     @Inject
+    lateinit var appStore: AppStore
+
+    @Inject
     lateinit var session: Session
 
     @Inject
@@ -41,7 +46,10 @@ class MainFragment : DaggerFragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        Log.d("Gaia - MainFragment@${hashCode()}", "session = ${session.hashCode()}")
+        Log.d(
+            "Gaia - MainFragment@${hashCode()}",
+            "appStore = ${appStore.hashCode()}, session = ${session.hashCode()}"
+        )
 
         viewModel.getRepos()
             .subscribeOn(Schedulers.io())

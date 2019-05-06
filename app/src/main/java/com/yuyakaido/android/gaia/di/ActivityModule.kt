@@ -1,6 +1,6 @@
 package com.yuyakaido.android.gaia.di
 
-import com.yuyakaido.android.gaia.MainActivity
+import com.yuyakaido.android.gaia.ui.MainActivity
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 

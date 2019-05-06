@@ -8,6 +8,7 @@ import dagger.android.DispatchingAndroidInjector
 
 @SessionScope
 @Subcomponent(modules = [
+    SessionModule::class,
     ClientModule::class,
     RepositoryModule::class,
     ActivityModule::class,

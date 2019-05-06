@@ -29,4 +29,8 @@ compileTestKotlin {
 dependencies {
     // Kotlin
     implementation libs.kotlin.stdlib
+
+    // Reactive Programming
+    implementation libs.rx.java
+    implementation libs.rx.kotlin
 }

@@ -1,9 +1,12 @@
-package com.yuyakaido.android.gaia
+package com.yuyakaido.android.gaia.ui
 
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
+import com.yuyakaido.android.gaia.core.AppDispatcher
+import com.yuyakaido.android.gaia.core.AppSignal
+import com.yuyakaido.android.gaia.core.Session
 import dagger.android.support.DaggerAppCompatActivity
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -54,8 +57,7 @@ class MainActivity : DaggerAppCompatActivity() {
     }
 
     private fun replaceSession() {
-        val gaia = application as Gaia
-        gaia.replaceSession()
+        AppDispatcher.dispatch(AppSignal.OpenSession)
 
         startActivity(Intent(this, MainActivity::class.java))
         finish()
