@@ -28,7 +28,7 @@ compileTestKotlin {
 }
 
 dependencies {
-    implementation project(':core')
+    api project(':core')
 
     // Kotlin
     implementation libs.kotlin.stdlib
