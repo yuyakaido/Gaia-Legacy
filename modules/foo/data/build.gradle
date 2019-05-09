@@ -29,7 +29,7 @@ compileTestKotlin {
 
 dependencies {
     api project(':core')
-    implementation project(':domain')
+    implementation project(':foo-domain')
 
     // Kotlin
     implementation libs.kotlin.stdlib
