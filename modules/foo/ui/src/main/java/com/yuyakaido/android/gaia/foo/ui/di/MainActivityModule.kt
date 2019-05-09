@@ -1,9 +1,9 @@
-package com.yuyakaido.android.gaia.ui.di
+package com.yuyakaido.android.gaia.foo.ui.di
 
 import androidx.lifecycle.ViewModelProviders
-import com.yuyakaido.android.gaia.ui.MainActivity
-import com.yuyakaido.android.gaia.ui.MainViewModel
-import com.yuyakaido.android.gaia.ui.MainViewModelFactory
+import com.yuyakaido.android.gaia.foo.ui.MainActivity
+import com.yuyakaido.android.gaia.foo.ui.MainViewModel
+import com.yuyakaido.android.gaia.foo.ui.MainViewModelFactory
 import dagger.Module
 import dagger.Provides
 

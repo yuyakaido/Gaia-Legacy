@@ -1,4 +1,4 @@
-package com.yuyakaido.android.gaia.data
+package com.yuyakaido.android.gaia.foo.data
 
 import com.yuyakaido.android.gaia.core.Repo
 import io.reactivex.Single

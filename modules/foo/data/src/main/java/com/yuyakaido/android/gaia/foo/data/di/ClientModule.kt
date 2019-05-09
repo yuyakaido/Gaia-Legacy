@@ -1,6 +1,6 @@
-package com.yuyakaido.android.gaia.data.di
+package com.yuyakaido.android.gaia.foo.data.di
 
-import com.yuyakaido.android.gaia.data.GithubClient
+import com.yuyakaido.android.gaia.foo.data.GithubClient
 import dagger.Module
 import dagger.Provides
 import okhttp3.OkHttpClient

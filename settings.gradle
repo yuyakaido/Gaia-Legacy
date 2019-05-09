@@ -9,3 +9,8 @@ include ':foo-ui', ':foo-domain', ':foo-data'
 project(':foo-ui').projectDir = new File(fooDir, 'ui')
 project(':foo-domain').projectDir = new File(fooDir, 'domain')
 project(':foo-data').projectDir = new File(fooDir, 'data')
+
+// Bar modules
+def barDir = new File(moduleDir, 'bar')
+include ':bar-ui'
+project(':bar-ui').projectDir = new File(barDir, 'ui')

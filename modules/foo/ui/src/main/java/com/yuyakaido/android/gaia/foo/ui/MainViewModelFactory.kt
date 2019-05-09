@@ -1,9 +1,9 @@
-package com.yuyakaido.android.gaia.ui
+package com.yuyakaido.android.gaia.foo.ui
 
 import android.app.Application
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.yuyakaido.android.gaia.domain.GetRepoUseCase
+import com.yuyakaido.android.gaia.foo.domain.GetRepoUseCase
 import javax.inject.Inject
 
 class MainViewModelFactory @Inject constructor(

@@ -1,4 +1,4 @@
-package com.yuyakaido.android.gaia.ui
+package com.yuyakaido.android.gaia.foo.ui
 
 import android.os.Bundle
 import android.util.Log
@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.yuyakaido.android.gaia.core.AppStore
 import com.yuyakaido.android.gaia.core.Session
+import com.yuyakaido.android.gaia.ui.R
 import dagger.android.support.DaggerFragment
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable

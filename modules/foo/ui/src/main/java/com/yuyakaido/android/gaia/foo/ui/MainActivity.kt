@@ -1,4 +1,4 @@
-package com.yuyakaido.android.gaia.ui
+package com.yuyakaido.android.gaia.foo.ui
 
 import android.content.Intent
 import android.os.Bundle
@@ -7,6 +7,7 @@ import android.widget.Button
 import com.yuyakaido.android.gaia.core.AppDispatcher
 import com.yuyakaido.android.gaia.core.AppSignal
 import com.yuyakaido.android.gaia.core.Session
+import com.yuyakaido.android.gaia.ui.R
 import dagger.android.support.DaggerAppCompatActivity
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
