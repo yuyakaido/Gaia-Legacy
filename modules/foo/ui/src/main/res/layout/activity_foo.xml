@@ -25,21 +25,25 @@
 
     </LinearLayout>
 
-
-    <RelativeLayout
-        android:id="@+id/primary_fragment_container"
+    <LinearLayout
+        android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:background="@android:color/holo_blue_bright">
-    </RelativeLayout>
+        android:layout_height="match_parent">
 
-    <RelativeLayout
-        android:id="@+id/secondary_fragment_container"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:background="@android:color/holo_blue_light">
-    </RelativeLayout>
+        <RelativeLayout
+            android:id="@+id/primary_fragment_container"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/secondary_fragment_container"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+        </RelativeLayout>
+
+    </LinearLayout>
 
 </LinearLayout>

@@ -69,7 +69,7 @@ class FooActivity : DaggerAppCompatActivity() {
     }
 
     fun getQuery(): String {
-        return "Gaia"
+        return "Android"
     }
 
     private fun startBarActivity() {

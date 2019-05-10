@@ -6,6 +6,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.xwray.groupie.GroupAdapter
+import com.xwray.groupie.ViewHolder
 import com.yuyakaido.android.gaia.core.AppStore
 import com.yuyakaido.android.gaia.core.Session
 import com.yuyakaido.android.gaia.ui.R
@@ -41,11 +45,11 @@ class FooFragment : DaggerFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_bar, container, false)
+        return inflater.inflate(R.layout.fragment_foo, container, false)
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
         Log.d(
             "Gaia - FooFragment@${hashCode()}",
@@ -60,6 +64,12 @@ class FooFragment : DaggerFragment() {
                     "Gaia - FooFragment@${hashCode()}",
                     "vm = ${viewModel.hashCode()}, repos = ${repos.size}"
                 )
+
+                val adapter = GroupAdapter<ViewHolder>()
+                adapter.addAll(repos.map { RepoItem(it) })
+                val recyclerView = view.findViewById<RecyclerView>(R.id.recycler_view)
+                recyclerView.layoutManager = LinearLayoutManager(requireContext())
+                recyclerView.adapter = adapter
             }
             .addTo(disposables)
     }
@@ -70,7 +80,7 @@ class FooFragment : DaggerFragment() {
     }
 
     fun getQuery(): String {
-        return "Gaia"
+        return "Android"
     }
 
 }

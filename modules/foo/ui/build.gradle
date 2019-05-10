@@ -36,4 +36,7 @@ dependencies {
     implementation libs.dagger.android.runtime
     implementation libs.dagger.android.support
     kapt libs.dagger.android.compiler
+
+    // View
+    implementation 'com.xwray:groupie:2.3.0'
 }
