@@ -11,11 +11,6 @@ import dagger.Provides
 class FooFragmentModule {
 
     @Provides
-    fun provideQuery(fragment: FooFragment): String {
-        return fragment.getQuery()
-    }
-
-    @Provides
     fun provideFooViewModel(
         fragment: FooFragment,
         factory: FooViewModelFactory

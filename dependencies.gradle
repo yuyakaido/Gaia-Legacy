@@ -18,6 +18,9 @@ ext.versions = [
         rxjava: '2.2.8',
         rxkotlin: '2.3.0',
         rxandroid: '2.1.1',
+        rxbinding: [
+                platform: '3.0.0-alpha2'
+        ]
 ]
 
 ext.libs = [
@@ -56,5 +59,8 @@ ext.libs = [
                 java: "io.reactivex.rxjava2:rxjava:${versions.rxjava}",
                 kotlin: "io.reactivex.rxjava2:rxkotlin:${versions.rxkotlin}",
                 android: "io.reactivex.rxjava2:rxandroid:${versions.rxandroid}"
+        ],
+        rxbinding: [
+                platform: "com.jakewharton.rxbinding3:rxbinding:${versions.rxbinding.platform}"
         ]
 ]

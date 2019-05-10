@@ -4,18 +4,14 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import android.widget.Button
-import com.yuyakaido.android.gaia.android.BarIntentResolverType
+import android.view.Menu
+import android.view.MenuItem
 import com.yuyakaido.android.gaia.core.AppDispatcher
 import com.yuyakaido.android.gaia.core.AppSignal
 import com.yuyakaido.android.gaia.core.Session
 import com.yuyakaido.android.gaia.ui.R
 import dagger.android.support.DaggerAppCompatActivity
-import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.rxkotlin.addTo
-import io.reactivex.rxkotlin.subscribeBy
-import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
 class FooActivity : DaggerAppCompatActivity() {
@@ -24,9 +20,6 @@ class FooActivity : DaggerAppCompatActivity() {
 
     @Inject
     lateinit var session: Session
-
-    @Inject
-    lateinit var viewModel: FooViewModel
 
     companion object {
         fun createIntent(context: Context): Intent {
@@ -40,40 +33,6 @@ class FooActivity : DaggerAppCompatActivity() {
 
         Log.d("Gaia - FooActivity@${hashCode()}", "session = ${session.hashCode()}")
 
-        viewModel.getRepos()
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribeBy { repos ->
-                Log.d(
-                    "Gaia - FooActivity@${hashCode()}",
-                    "vm = ${viewModel.hashCode()}, repos = ${repos.size}"
-                )
-            }
-            .addTo(disposables)
-
-        val replaceButton = findViewById<Button>(R.id.replace_button)
-        replaceButton.setOnClickListener { replaceSession() }
-
-        replaceFragment()
-    }
-
-    override fun onDestroy() {
-        disposables.dispose()
-        super.onDestroy()
-    }
-
-    fun getQuery(): String {
-        return "Android"
-    }
-
-    private fun replaceSession() {
-        AppDispatcher.dispatch(AppSignal.OpenSession)
-
-        startActivity(Intent(this, FooActivity::class.java))
-        finish()
-    }
-
-    private fun replaceFragment() {
         supportFragmentManager.beginTransaction()
             .replace(
                 R.id.primary_fragment_container,
@@ -86,6 +45,27 @@ class FooActivity : DaggerAppCompatActivity() {
                 FooFragment.newInstance()
             )
             .commit()
+    }
+
+    override fun onDestroy() {
+        disposables.dispose()
+        super.onDestroy()
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.activity_foo, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        when (item?.itemId) {
+            R.id.replace -> {
+                AppDispatcher.dispatch(AppSignal.OpenSession)
+                startActivity(Intent(this, FooActivity::class.java))
+                finish()
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 
 }

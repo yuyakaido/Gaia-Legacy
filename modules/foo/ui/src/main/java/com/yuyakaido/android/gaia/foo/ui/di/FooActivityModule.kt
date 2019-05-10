@@ -11,11 +11,6 @@ import dagger.Provides
 class FooActivityModule {
 
     @Provides
-    fun provideQuery(activity: FooActivity): String {
-        return activity.getQuery()
-    }
-
-    @Provides
     fun provideFooViewModel(
         activity: FooActivity,
         factory: FooViewModelFactory

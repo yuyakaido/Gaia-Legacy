@@ -5,17 +5,14 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.yuyakaido.android.gaia.foo.domain.GetRepoUseCase
 import javax.inject.Inject
-
 class FooViewModelFactory @Inject constructor(
     private val application: Application,
-    private val getRepoUseCase: GetRepoUseCase,
-    private val query: String
+    private val getRepoUseCase: GetRepoUseCase
 ) : ViewModelProvider.Factory {
 
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         return FooViewModel(
             application = application,
-            query = query,
             getRepoUseCase = getRepoUseCase
         ) as T
     }
