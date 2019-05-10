@@ -6,24 +6,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <Button
-            android:id="@+id/replace_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Replace"/>
-
-        <Button
-            android:id="@+id/start_bar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Start"/>
-
-    </LinearLayout>
+    <Button
+        android:id="@+id/replace_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Replace"/>
 
     <LinearLayout
         android:orientation="horizontal"

@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.ViewHolder
+import com.yuyakaido.android.gaia.android.BarIntentResolverType
 import com.yuyakaido.android.gaia.core.AppStore
 import com.yuyakaido.android.gaia.core.Session
 import com.yuyakaido.android.gaia.ui.R
@@ -40,6 +41,9 @@ class FooFragment : DaggerFragment() {
     @Inject
     lateinit var viewModel: FooViewModel
 
+    @Inject
+    lateinit var resolver: BarIntentResolverType
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -67,6 +71,11 @@ class FooFragment : DaggerFragment() {
 
                 val adapter = GroupAdapter<ViewHolder>()
                 adapter.addAll(repos.map { RepoItem(it) })
+                adapter.setOnItemClickListener { item, _ ->
+                    if (item is RepoItem) {
+                        startActivity(resolver.getBarActivityIntent(requireContext(), item.repo))
+                    }
+                }
                 val recyclerView = view.findViewById<RecyclerView>(R.id.recycler_view)
                 recyclerView.layoutManager = LinearLayoutManager(requireContext())
                 recyclerView.adapter = adapter

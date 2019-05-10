@@ -28,9 +28,6 @@ class FooActivity : DaggerAppCompatActivity() {
     @Inject
     lateinit var viewModel: FooViewModel
 
-    @Inject
-    lateinit var resolver: BarIntentResolverType
-
     companion object {
         fun createIntent(context: Context): Intent {
             return Intent(context, FooActivity::class.java)
@@ -57,9 +54,6 @@ class FooActivity : DaggerAppCompatActivity() {
         val replaceButton = findViewById<Button>(R.id.replace_button)
         replaceButton.setOnClickListener { replaceSession() }
 
-        val startButton = findViewById<Button>(R.id.start_bar)
-        startButton.setOnClickListener { startBarActivity() }
-
         replaceFragment()
     }
 
@@ -70,10 +64,6 @@ class FooActivity : DaggerAppCompatActivity() {
 
     fun getQuery(): String {
         return "Android"
-    }
-
-    private fun startBarActivity() {
-        startActivity(resolver.getBarActivityIntent(this))
     }
 
     private fun replaceSession() {
