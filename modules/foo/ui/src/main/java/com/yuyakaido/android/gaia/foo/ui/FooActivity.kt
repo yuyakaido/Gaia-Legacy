@@ -1,9 +1,11 @@
 package com.yuyakaido.android.gaia.foo.ui
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
+import com.yuyakaido.android.gaia.android.BarIntentResolverType
 import com.yuyakaido.android.gaia.core.AppDispatcher
 import com.yuyakaido.android.gaia.core.AppSignal
 import com.yuyakaido.android.gaia.core.Session
@@ -16,7 +18,7 @@ import io.reactivex.rxkotlin.subscribeBy
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
-class MainActivity : DaggerAppCompatActivity() {
+class FooActivity : DaggerAppCompatActivity() {
 
     private val disposables = CompositeDisposable()
 
@@ -24,20 +26,29 @@ class MainActivity : DaggerAppCompatActivity() {
     lateinit var session: Session
 
     @Inject
-    lateinit var viewModel: MainViewModel
+    lateinit var viewModel: FooViewModel
+
+    @Inject
+    lateinit var resolver: BarIntentResolverType
+
+    companion object {
+        fun createIntent(context: Context): Intent {
+            return Intent(context, FooActivity::class.java)
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.activity_foo)
 
-        Log.d("Gaia - MainActivity@${hashCode()}", "session = ${session.hashCode()}")
+        Log.d("Gaia - FooActivity@${hashCode()}", "session = ${session.hashCode()}")
 
         viewModel.getRepos()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeBy { repos ->
                 Log.d(
-                    "Gaia - MainActivity@${hashCode()}",
+                    "Gaia - FooActivity@${hashCode()}",
                     "vm = ${viewModel.hashCode()}, repos = ${repos.size}"
                 )
             }
@@ -45,6 +56,10 @@ class MainActivity : DaggerAppCompatActivity() {
 
         val replaceButton = findViewById<Button>(R.id.replace_button)
         replaceButton.setOnClickListener { replaceSession() }
+
+        val startButton = findViewById<Button>(R.id.start_bar)
+        startButton.setOnClickListener { startBarActivity() }
+
         replaceFragment()
     }
 
@@ -57,10 +72,14 @@ class MainActivity : DaggerAppCompatActivity() {
         return "Gaia"
     }
 
+    private fun startBarActivity() {
+        startActivity(resolver.getBarActivityIntent(this))
+    }
+
     private fun replaceSession() {
         AppDispatcher.dispatch(AppSignal.OpenSession)
 
-        startActivity(Intent(this, MainActivity::class.java))
+        startActivity(Intent(this, FooActivity::class.java))
         finish()
     }
 
@@ -68,13 +87,13 @@ class MainActivity : DaggerAppCompatActivity() {
         supportFragmentManager.beginTransaction()
             .replace(
                 R.id.primary_fragment_container,
-                MainFragment.newInstance()
+                FooFragment.newInstance()
             )
             .commit()
         supportFragmentManager.beginTransaction()
             .replace(
                 R.id.secondary_fragment_container,
-                MainFragment.newInstance()
+                FooFragment.newInstance()
             )
             .commit()
     }

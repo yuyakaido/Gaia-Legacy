@@ -1,7 +1,11 @@
 package com.yuyakaido.android.gaia.di
 
 import android.app.Application
+import com.yuyakaido.android.gaia.android.BarIntentResolverType
+import com.yuyakaido.android.gaia.android.FooIntentResolverType
+import com.yuyakaido.android.gaia.bar.ui.BarIntentResolver
 import com.yuyakaido.android.gaia.core.AppStore
+import com.yuyakaido.android.gaia.foo.ui.FooIntentResolver
 import dagger.Module
 import dagger.Provides
 
@@ -18,6 +22,18 @@ class AppModule(private val application: Application) {
     @Provides
     fun provideAppStore(): AppStore {
         return AppStore()
+    }
+
+    @AppScope
+    @Provides
+    fun provideFooIntentResolverType(): FooIntentResolverType {
+        return FooIntentResolver()
+    }
+
+    @AppScope
+    @Provides
+    fun provideBarIntentResolverType(): BarIntentResolverType {
+        return BarIntentResolver()
     }
 
 }

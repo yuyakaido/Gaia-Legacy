@@ -3,9 +3,15 @@ package com.yuyakaido.android.gaia.bar.ui
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
+import android.widget.Button
+import com.yuyakaido.android.gaia.android.FooIntentResolverType
+import dagger.android.support.DaggerAppCompatActivity
+import javax.inject.Inject
 
-class BarActivity : AppCompatActivity() {
+class BarActivity : DaggerAppCompatActivity() {
+
+    @Inject
+    lateinit var resolver: FooIntentResolverType
 
     companion object {
         fun createIntent(context: Context): Intent {
@@ -16,6 +22,13 @@ class BarActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_bar)
+
+        val startButton = findViewById<Button>(R.id.start_foo)
+        startButton.setOnClickListener { startFooActivity() }
+    }
+
+    private fun startFooActivity() {
+        startActivity(resolver.getFooActivityIntent(this))
     }
 
 }

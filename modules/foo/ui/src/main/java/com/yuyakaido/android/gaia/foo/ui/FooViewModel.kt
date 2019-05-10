@@ -8,7 +8,7 @@ import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
-class MainViewModel(
+class FooViewModel(
     application: Application,
     private val query: String,
     private val getRepoUseCase: GetRepoUseCase

@@ -17,11 +17,11 @@ import io.reactivex.rxkotlin.subscribeBy
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
-class MainFragment : DaggerFragment() {
+class FooFragment : DaggerFragment() {
 
     companion object {
         fun newInstance(): Fragment {
-            return MainFragment()
+            return FooFragment()
         }
     }
 
@@ -34,21 +34,21 @@ class MainFragment : DaggerFragment() {
     lateinit var session: Session
 
     @Inject
-    lateinit var viewModel: MainViewModel
+    lateinit var viewModel: FooViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_main, container, false)
+        return inflater.inflate(R.layout.fragment_bar, container, false)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
         Log.d(
-            "Gaia - MainFragment@${hashCode()}",
+            "Gaia - FooFragment@${hashCode()}",
             "appStore = ${appStore.hashCode()}, session = ${session.hashCode()}"
         )
 
@@ -57,7 +57,7 @@ class MainFragment : DaggerFragment() {
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeBy { repos ->
                 Log.d(
-                    "Gaia - MainFragment@${hashCode()}",
+                    "Gaia - FooFragment@${hashCode()}",
                     "vm = ${viewModel.hashCode()}, repos = ${repos.size}"
                 )
             }

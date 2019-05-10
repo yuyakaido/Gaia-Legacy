@@ -1,5 +1,6 @@
 include ':app'
-include ':core'
+include ':core-java'
+include ':core-android'
 
 def moduleDir = new File('modules')
 

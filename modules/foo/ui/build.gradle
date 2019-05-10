@@ -13,6 +13,8 @@ android {
 }
 
 dependencies {
+    // Module
+    implementation project(':core-android')
     implementation project(':foo-domain')
 
     // Kotlin

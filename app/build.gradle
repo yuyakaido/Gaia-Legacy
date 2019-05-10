@@ -18,9 +18,12 @@ android {
 }
 
 dependencies {
+    // Module
+    implementation project(':core-android')
     implementation project(':foo-ui')
     implementation project(':foo-domain')
     implementation project(':foo-data')
+    implementation project(':bar-ui')
 
     // Kotlin
     implementation libs.kotlin.stdlib
