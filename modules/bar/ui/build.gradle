@@ -24,6 +24,11 @@ dependencies {
     implementation libs.androidx.lifecycle.extensions
     kapt libs.androidx.lifecycle.compiler
 
+    // Reactive Programming
+    implementation libs.rx.java
+    implementation libs.rx.kotlin
+    implementation libs.rx.android
+
     // Dependency Injection
     implementation libs.dagger.core.runtime
     kapt libs.dagger.core.compiler
