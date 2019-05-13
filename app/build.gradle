@@ -22,7 +22,7 @@ dependencies {
     implementation project(':core-android')
     implementation project(':foo-ui')
     implementation project(':foo-domain')
-    implementation project(':foo-data')
+    implementation project(':foo-infra')
     implementation project(':bar-ui')
 
     // Kotlin

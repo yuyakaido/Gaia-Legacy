@@ -6,10 +6,10 @@ def moduleDir = new File('modules')
 
 // Foo modules
 def fooDir = new File(moduleDir, 'foo')
-include ':foo-ui', ':foo-domain', ':foo-data'
+include ':foo-ui', ':foo-domain', ':foo-infra'
 project(':foo-ui').projectDir = new File(fooDir, 'ui')
 project(':foo-domain').projectDir = new File(fooDir, 'domain')
-project(':foo-data').projectDir = new File(fooDir, 'data')
+project(':foo-infra').projectDir = new File(fooDir, 'infra')
 
 // Bar modules
 def barDir = new File(moduleDir, 'bar')
