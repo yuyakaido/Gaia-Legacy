@@ -42,7 +42,7 @@ ext.libs = [
         retrofit: [
                 core: "com.squareup.retrofit2:retrofit:${versions.retrofit}",
                 rxjava: "com.squareup.retrofit2:adapter-rxjava2:${versions.retrofit}",
-                moshi: "com.squareup.retrofit2:converter-moshi:${versions.retrofit}"
+                gson: "com.squareup.retrofit2:converter-gson:${versions.retrofit}"
         ],
         dagger: [
                 core: [

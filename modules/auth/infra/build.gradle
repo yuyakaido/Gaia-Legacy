@@ -1,6 +1,7 @@
 apply plugin: 'java-library'
 apply plugin: 'kotlin'
 apply plugin: 'kotlin-kapt'
+apply plugin: 'de.fuerstenau.buildconfig'
 
 sourceCompatibility = "7"
 targetCompatibility = "7"
@@ -9,10 +10,24 @@ buildscript {
     repositories {
         google()
         jcenter()
+        maven { url 'https://plugins.gradle.org/m2/' }
     }
     dependencies {
         classpath libs.kotlin.plugin
+        classpath 'gradle.plugin.de.fuerstenau:BuildConfigPlugin:1.1.8'
     }
+}
+
+buildConfig {
+    packageName = 'com.yuyakaido.android.gaia.auth.infra'
+
+    def properties = new Properties()
+    properties.load(project.rootProject.file('local.properties').newDataInputStream())
+    def GITHUB_CLIENT_ID = properties.getProperty('GITHUB_CLIENT_ID')
+    def GITHUB_CLIENT_SECRET = properties.getProperty('GITHUB_CLIENT_SECRET')
+
+    buildConfigField "String", "GITHUB_CLIENT_ID", "${GITHUB_CLIENT_ID}"
+    buildConfigField "String", "GITHUB_CLIENT_SECRET", "${GITHUB_CLIENT_SECRET}"
 }
 
 compileKotlin {
@@ -29,7 +44,7 @@ compileTestKotlin {
 
 dependencies {
     api project(':core-java')
-    implementation project(':foo-domain')
+    implementation project(':auth-domain')
 
     // Kotlin
     implementation libs.kotlin.stdlib
@@ -52,4 +67,11 @@ dependencies {
     implementation libs.dagger.android.runtime
     implementation libs.dagger.android.support
     kapt libs.dagger.android.compiler
+
+    // Networking
+    implementation libs.okhttp.core
+    implementation libs.okhttp.logger
+    implementation libs.retrofit.core
+    implementation libs.retrofit.rxjava
+    implementation libs.retrofit.gson
 }

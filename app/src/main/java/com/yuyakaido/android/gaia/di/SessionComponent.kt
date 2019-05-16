@@ -1,8 +1,7 @@
 package com.yuyakaido.android.gaia.di
 
 import android.app.Activity
-import com.yuyakaido.android.gaia.foo.data.di.ClientModule
-import com.yuyakaido.android.gaia.foo.data.di.RepositoryModule
+import com.yuyakaido.android.gaia.auth.infra.di.AuthClientModule
 import dagger.Subcomponent
 import dagger.android.DispatchingAndroidInjector
 
@@ -10,6 +9,7 @@ import dagger.android.DispatchingAndroidInjector
 @Subcomponent(modules = [
     SessionModule::class,
     ClientModule::class,
+    AuthClientModule::class,
     RepositoryModule::class,
     ActivityModule::class,
     FragmentModule::class

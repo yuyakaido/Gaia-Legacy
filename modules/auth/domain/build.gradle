@@ -29,17 +29,9 @@ compileTestKotlin {
 
 dependencies {
     api project(':core-java')
-    implementation project(':foo-domain')
 
     // Kotlin
     implementation libs.kotlin.stdlib
-
-    // Networking
-    implementation libs.okhttp.core
-    implementation libs.okhttp.logger
-    implementation libs.retrofit.core
-    implementation libs.retrofit.rxjava
-    implementation libs.retrofit.gson
 
     // Reactive Programming
     implementation libs.rx.java

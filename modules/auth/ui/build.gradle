@@ -1,32 +1,27 @@
-apply plugin: 'com.android.application'
+apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
 
 android {
     compileSdkVersion versions.compileSdk
     defaultConfig {
-        applicationId "com.yuyakaido.android.gaia"
         minSdkVersion versions.minSdk
         targetSdkVersion versions.targetSdk
         versionCode versions.versionCode
         versionName versions.versionName
-    }
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+
+        def properties = new Properties()
+        properties.load(project.rootProject.file('local.properties').newDataInputStream())
+        def GITHUB_CLIENT_ID = properties.getProperty('GITHUB_CLIENT_ID')
+
+        buildConfigField "String", "GITHUB_CLIENT_ID", "\"${GITHUB_CLIENT_ID}\""
     }
 }
 
 dependencies {
     // Module
     implementation project(':core-android')
-    implementation project(':foo-ui')
-    implementation project(':foo-domain')
-    implementation project(':foo-infra')
-    implementation project(':bar-ui')
-    implementation project(':auth-ui')
     implementation project(':auth-domain')
-    implementation project(':auth-infra')
 
     // Kotlin
     implementation libs.kotlin.stdlib
@@ -36,17 +31,11 @@ dependencies {
     implementation libs.androidx.lifecycle.extensions
     kapt libs.androidx.lifecycle.compiler
 
-    // Networking
-    implementation libs.okhttp.core
-    implementation libs.okhttp.logger
-    implementation libs.retrofit.core
-    implementation libs.retrofit.rxjava
-    implementation libs.retrofit.gson
-
     // Reactive Programming
     implementation libs.rx.java
     implementation libs.rx.kotlin
     implementation libs.rx.android
+    implementation libs.rxbinding.platform
 
     // Dependency Injection
     implementation libs.dagger.core.runtime

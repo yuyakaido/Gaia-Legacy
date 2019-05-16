@@ -1,11 +1,11 @@
 package com.yuyakaido.android.gaia.foo.data
 
-import com.squareup.moshi.Json
+import com.google.gson.annotations.SerializedName
 import com.yuyakaido.android.gaia.core.Repo
 
 data class RepoResponse(
-    @Json(name = "id") val id: Long,
-    @Json(name = "name") val name: String
+    @SerializedName("id") val id: Long,
+    @SerializedName("name") val name: String
 ) {
     fun toRepo(): Repo {
         return Repo(
