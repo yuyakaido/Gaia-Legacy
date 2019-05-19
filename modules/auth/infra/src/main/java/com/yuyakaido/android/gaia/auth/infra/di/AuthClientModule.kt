@@ -2,6 +2,7 @@ package com.yuyakaido.android.gaia.auth.infra.di
 
 import com.yuyakaido.android.gaia.auth.infra.AuthClient
 import com.yuyakaido.android.gaia.core.AuthRetrofit
+import com.yuyakaido.android.gaia.core.Environment
 import dagger.Module
 import dagger.Provides
 import okhttp3.OkHttpClient
@@ -15,14 +16,14 @@ class AuthClientModule {
 
     @AuthRetrofit
     @Provides
-    fun provideRetrofit(): Retrofit {
+    fun provideRetrofit(env: Environment): Retrofit {
         val okHttpClient = OkHttpClient.Builder()
             .addNetworkInterceptor(HttpLoggingInterceptor().apply { level = HttpLoggingInterceptor.Level.BODY })
             .build()
 
         return Retrofit.Builder()
             .client(okHttpClient)
-            .baseUrl("https://github.com/login/oauth/")
+            .baseUrl(env.githubAuthEndpoint)
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .addConverterFactory(GsonConverterFactory.create())
             .build()

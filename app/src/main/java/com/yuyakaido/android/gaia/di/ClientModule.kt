@@ -1,5 +1,6 @@
 package com.yuyakaido.android.gaia.di
 
+import com.yuyakaido.android.gaia.core.Environment
 import com.yuyakaido.android.gaia.core.GithubRetrofit
 import com.yuyakaido.android.gaia.foo.data.GithubClient
 import dagger.Module
@@ -15,14 +16,14 @@ class ClientModule {
 
     @GithubRetrofit
     @Provides
-    fun provideGithubRetrofit(): Retrofit {
+    fun provideGithubRetrofit(env: Environment): Retrofit {
         val okHttpClient = OkHttpClient.Builder()
             .addInterceptor(HttpLoggingInterceptor())
             .build()
 
         return Retrofit.Builder()
             .client(okHttpClient)
-            .baseUrl("https://api.github.com/")
+            .baseUrl(env.githubApiEndpoint)
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .addConverterFactory(GsonConverterFactory.create())
             .build()

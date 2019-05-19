@@ -1,5 +1,6 @@
 package com.yuyakaido.android.gaia.auth.infra
 
+import com.yuyakaido.android.gaia.core.Environment
 import io.reactivex.Single
 import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded
@@ -8,13 +9,14 @@ import retrofit2.http.POST
 import javax.inject.Inject
 
 class AuthClient @Inject constructor(
+    private val environment: Environment,
     private val service: AuthService
 ) {
 
     fun getAccessToken(code: String): Single<String> {
         return service.getAccessToken(
-            clientId = BuildConfig.GITHUB_CLIENT_ID,
-            clientSecret = BuildConfig.GITHUB_CLIENT_SECRET,
+            clientId = environment.githubClientId,
+            clientSecret = environment.githubClientSecret,
             code = code)
             .map { it.value }
     }

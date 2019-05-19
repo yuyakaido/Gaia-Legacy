@@ -13,8 +13,9 @@ import dagger.android.AndroidInjector
 ])
 interface AppComponent : AndroidInjector<Gaia> {
     @Component.Builder
-    abstract class Builder : AndroidInjector.Builder<Gaia>() {
-        abstract fun appModule(appModule: AppModule): Builder
+    interface Builder {
+        fun appModule(appModule: AppModule): Builder
+        fun build(): AppComponent
     }
     fun sessionComponentBuilder(): SessionComponent.Builder
 }

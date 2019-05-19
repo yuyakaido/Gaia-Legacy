@@ -29,6 +29,8 @@
             </intent-filter>
         </activity>
 
+        <activity android:name=".foo.ui.FooActivity"/>
+
         <activity android:name=".bar.ui.BarActivity"/>
 
     </application>

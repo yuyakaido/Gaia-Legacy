@@ -1,6 +1,7 @@
 package com.yuyakaido.android.gaia.di
 
 import android.app.Application
+import com.yuyakaido.android.gaia.BuildConfig
 import com.yuyakaido.android.gaia.android.AuthorizationIntentResolverType
 import com.yuyakaido.android.gaia.android.BarIntentResolverType
 import com.yuyakaido.android.gaia.android.FooIntentResolverType
@@ -8,6 +9,8 @@ import com.yuyakaido.android.gaia.auth.ui.AuthorizationIntentResolver
 import com.yuyakaido.android.gaia.bar.ui.BarIntentResolver
 import com.yuyakaido.android.gaia.core.AppScope
 import com.yuyakaido.android.gaia.core.AppStore
+import com.yuyakaido.android.gaia.core.AvailableEnvironment
+import com.yuyakaido.android.gaia.core.Environment
 import com.yuyakaido.android.gaia.foo.ui.FooIntentResolver
 import dagger.Module
 import dagger.Provides
@@ -19,6 +22,21 @@ class AppModule(private val application: Application) {
     @Provides
     fun provideApplication(): Application {
         return application
+    }
+
+    @AppScope
+    @Provides
+    fun provideAvailableEnvironment(): AvailableEnvironment {
+        return AvailableEnvironment(
+            environments = listOf(
+                Environment(
+                    githubApiEndpoint = BuildConfig.GITHUB_API_ENDPOINT,
+                    githubAuthEndpoint = BuildConfig.GITHUB_AUTH_ENDPOINT,
+                    githubClientId = BuildConfig.GITHUB_CLIENT_ID,
+                    githubClientSecret = BuildConfig.GITHUB_CLIENT_SECRET
+                )
+            )
+        )
     }
 
     @AppScope

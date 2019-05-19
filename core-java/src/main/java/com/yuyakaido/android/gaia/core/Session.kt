@@ -1,3 +1,5 @@
 package com.yuyakaido.android.gaia.core
 
-class Session
+data class Session(
+    val environment: Environment
+)

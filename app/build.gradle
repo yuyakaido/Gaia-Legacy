@@ -10,6 +10,13 @@ android {
         targetSdkVersion versions.targetSdk
         versionCode versions.versionCode
         versionName versions.versionName
+
+        def properties = new Properties()
+        properties.load(project.rootProject.file('local.properties').newDataInputStream())
+        buildConfigField "String", "GITHUB_API_ENDPOINT", "\"https://api.github.com/\""
+        buildConfigField "String", "GITHUB_AUTH_ENDPOINT", "\"https://github.com/login/oauth/\""
+        buildConfigField "String", "GITHUB_CLIENT_ID", "\"${properties.getProperty('GITHUB_CLIENT_ID')}\""
+        buildConfigField "String", "GITHUB_CLIENT_SECRET", "\"${properties.getProperty('GITHUB_CLIENT_SECRET')}\""
     }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
