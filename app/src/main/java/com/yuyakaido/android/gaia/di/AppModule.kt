@@ -30,6 +30,7 @@ class AppModule(private val application: Application) {
         return AvailableEnvironment(
             environments = listOf(
                 Environment(
+                    title = "Production",
                     githubApiEndpoint = BuildConfig.GITHUB_API_ENDPOINT,
                     githubAuthEndpoint = BuildConfig.GITHUB_AUTH_ENDPOINT,
                     githubClientId = BuildConfig.GITHUB_CLIENT_ID,
