@@ -73,7 +73,7 @@ class Gaia : DaggerApplication() {
 
         val notification = NotificationCompat.Builder(this, id)
             .setContentTitle("Current environment")
-            .setSmallIcon(R.drawable.ic_launcher_foreground)
+            .setSmallIcon(R.drawable.ic_launcher_background)
             .setContentText(available.primary().title)
             .setContentIntent(
                 PendingIntent.getActivity(
