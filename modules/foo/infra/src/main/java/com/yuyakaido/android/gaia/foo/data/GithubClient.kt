@@ -1,6 +1,6 @@
 package com.yuyakaido.android.gaia.foo.data
 
-import com.yuyakaido.android.gaia.core.Repo
+import com.yuyakaido.android.gaia.core.java.Repo
 import io.reactivex.Single
 import retrofit2.http.GET
 import retrofit2.http.Query

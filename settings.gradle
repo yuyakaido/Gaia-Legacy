@@ -4,6 +4,18 @@ include ':core-android'
 
 def moduleDir = new File('modules')
 
+// Environment modules
+def environmentDir = new File(moduleDir, 'environment')
+include ':environment-ui'
+project(':environment-ui').projectDir = new File(environmentDir, 'environment')
+
+// Auth modules
+def authDir = new File(moduleDir, 'auth')
+include ':auth-ui', ':auth-domain', ':auth-infra'
+project(':auth-ui').projectDir = new File(authDir, 'ui')
+project(':auth-domain').projectDir = new File(authDir, 'domain')
+project(':auth-infra').projectDir = new File(authDir, 'infra')
+
 // Foo modules
 def fooDir = new File(moduleDir, 'foo')
 include ':foo-ui', ':foo-domain', ':foo-infra'
@@ -15,10 +27,3 @@ project(':foo-infra').projectDir = new File(fooDir, 'infra')
 def barDir = new File(moduleDir, 'bar')
 include ':bar-ui'
 project(':bar-ui').projectDir = new File(barDir, 'ui')
-
-// Auto modules
-def authDir = new File(moduleDir, 'auth')
-include ':auth-ui', ':auth-domain', ':auth-infra'
-project(':auth-ui').projectDir = new File(authDir, 'ui')
-project(':auth-domain').projectDir = new File(authDir, 'domain')
-project(':auth-infra').projectDir = new File(authDir, 'infra')

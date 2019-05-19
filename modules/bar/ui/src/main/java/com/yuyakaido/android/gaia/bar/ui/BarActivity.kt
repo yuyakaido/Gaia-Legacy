@@ -6,8 +6,8 @@ import android.os.Bundle
 import android.view.MenuItem
 import android.widget.Button
 import android.widget.TextView
-import com.yuyakaido.android.gaia.android.FooIntentResolverType
-import com.yuyakaido.android.gaia.core.Repo
+import com.yuyakaido.android.gaia.core.android.FooIntentResolverType
+import com.yuyakaido.android.gaia.core.java.Repo
 import dagger.android.support.DaggerAppCompatActivity
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.addTo

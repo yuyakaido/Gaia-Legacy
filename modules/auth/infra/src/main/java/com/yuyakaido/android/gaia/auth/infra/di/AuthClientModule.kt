@@ -1,8 +1,8 @@
 package com.yuyakaido.android.gaia.auth.infra.di
 
 import com.yuyakaido.android.gaia.auth.infra.AuthClient
-import com.yuyakaido.android.gaia.core.AuthRetrofit
-import com.yuyakaido.android.gaia.core.Environment
+import com.yuyakaido.android.gaia.core.java.AuthRetrofit
+import com.yuyakaido.android.gaia.core.java.Environment
 import dagger.Module
 import dagger.Provides
 import okhttp3.OkHttpClient

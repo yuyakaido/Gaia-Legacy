@@ -1,9 +1,9 @@
 package com.yuyakaido.android.gaia
 
 import android.app.Activity
-import com.yuyakaido.android.gaia.core.AppDispatcher
-import com.yuyakaido.android.gaia.core.AppSignal
-import com.yuyakaido.android.gaia.core.AvailableEnvironment
+import com.yuyakaido.android.gaia.core.java.AppDispatcher
+import com.yuyakaido.android.gaia.core.java.AppSignal
+import com.yuyakaido.android.gaia.core.java.AvailableEnvironment
 import com.yuyakaido.android.gaia.di.*
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector

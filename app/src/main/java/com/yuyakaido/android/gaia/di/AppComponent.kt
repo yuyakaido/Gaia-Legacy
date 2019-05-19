@@ -1,7 +1,7 @@
 package com.yuyakaido.android.gaia.di
 
 import com.yuyakaido.android.gaia.Gaia
-import com.yuyakaido.android.gaia.core.AppScope
+import com.yuyakaido.android.gaia.core.java.AppScope
 import dagger.Component
 import dagger.android.AndroidInjectionModule
 import dagger.android.AndroidInjector

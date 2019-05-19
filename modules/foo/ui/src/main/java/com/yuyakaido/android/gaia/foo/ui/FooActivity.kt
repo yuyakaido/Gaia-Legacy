@@ -6,9 +6,10 @@ import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
-import com.yuyakaido.android.gaia.core.AppDispatcher
-import com.yuyakaido.android.gaia.core.AppSignal
-import com.yuyakaido.android.gaia.core.Session
+import com.yuyakaido.android.gaia.core.java.AppDispatcher
+import com.yuyakaido.android.gaia.core.java.AppSignal
+import com.yuyakaido.android.gaia.core.java.AvailableEnvironment
+import com.yuyakaido.android.gaia.core.java.Session
 import com.yuyakaido.android.gaia.ui.R
 import dagger.android.support.DaggerAppCompatActivity
 import io.reactivex.disposables.CompositeDisposable
@@ -17,6 +18,9 @@ import javax.inject.Inject
 class FooActivity : DaggerAppCompatActivity() {
 
     private val disposables = CompositeDisposable()
+
+    @Inject
+    lateinit var available: AvailableEnvironment
 
     @Inject
     lateinit var session: Session
@@ -60,7 +64,11 @@ class FooActivity : DaggerAppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         when (item?.itemId) {
             R.id.replace -> {
-                AppDispatcher.dispatch(AppSignal.OpenSession)
+                AppDispatcher.dispatch(
+                    AppSignal.OpenSession(
+                        environment = available.primary()
+                    )
+                )
                 startActivity(Intent(this, FooActivity::class.java))
                 finish()
             }

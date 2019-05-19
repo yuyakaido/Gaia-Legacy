@@ -1,6 +1,6 @@
 package com.yuyakaido.android.gaia.foo.domain
 
-import com.yuyakaido.android.gaia.core.Repo
+import com.yuyakaido.android.gaia.core.java.Repo
 import io.reactivex.Single
 import javax.inject.Inject
 

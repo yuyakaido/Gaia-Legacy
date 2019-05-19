@@ -2,7 +2,7 @@ package com.yuyakaido.android.gaia.foo.ui
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
-import com.yuyakaido.android.gaia.core.Repo
+import com.yuyakaido.android.gaia.core.java.Repo
 import com.yuyakaido.android.gaia.foo.domain.GetRepoUseCase
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers

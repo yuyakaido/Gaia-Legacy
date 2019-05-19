@@ -4,7 +4,7 @@ import androidx.lifecycle.ViewModelProviders
 import com.yuyakaido.android.gaia.bar.ui.BarActivity
 import com.yuyakaido.android.gaia.bar.ui.BarViewModel
 import com.yuyakaido.android.gaia.bar.ui.BarViewModelFactory
-import com.yuyakaido.android.gaia.core.Repo
+import com.yuyakaido.android.gaia.core.java.Repo
 import dagger.Module
 import dagger.Provides
 

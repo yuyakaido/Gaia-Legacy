@@ -1,7 +1,7 @@
 package com.yuyakaido.android.gaia.di
 
-import com.yuyakaido.android.gaia.core.Environment
-import com.yuyakaido.android.gaia.core.Session
+import com.yuyakaido.android.gaia.core.java.Environment
+import com.yuyakaido.android.gaia.core.java.Session
 import dagger.Module
 import dagger.Provides
 

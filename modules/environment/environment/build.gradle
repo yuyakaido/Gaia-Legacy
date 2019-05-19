@@ -1,0 +1,33 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
+
+android {
+    compileSdkVersion versions.compileSdk
+    defaultConfig {
+        minSdkVersion versions.minSdk
+        targetSdkVersion versions.targetSdk
+        versionCode versions.versionCode
+        versionName versions.versionName
+    }
+}
+
+dependencies {
+    // Module
+    implementation project(':core-android')
+
+    // Kotlin
+    implementation libs.kotlin.stdlib
+
+    // AndroidX
+    implementation libs.androidx.appcompat
+    implementation libs.androidx.lifecycle.extensions
+    kapt libs.androidx.lifecycle.compiler
+
+    // Dependency Injection
+    implementation libs.dagger.core.runtime
+    kapt libs.dagger.core.compiler
+    implementation libs.dagger.android.runtime
+    implementation libs.dagger.android.support
+    kapt libs.dagger.android.compiler
+}

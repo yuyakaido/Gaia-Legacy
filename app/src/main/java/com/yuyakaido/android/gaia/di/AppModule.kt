@@ -2,15 +2,15 @@ package com.yuyakaido.android.gaia.di
 
 import android.app.Application
 import com.yuyakaido.android.gaia.BuildConfig
-import com.yuyakaido.android.gaia.android.AuthorizationIntentResolverType
-import com.yuyakaido.android.gaia.android.BarIntentResolverType
-import com.yuyakaido.android.gaia.android.FooIntentResolverType
 import com.yuyakaido.android.gaia.auth.ui.AuthorizationIntentResolver
 import com.yuyakaido.android.gaia.bar.ui.BarIntentResolver
-import com.yuyakaido.android.gaia.core.AppScope
-import com.yuyakaido.android.gaia.core.AppStore
-import com.yuyakaido.android.gaia.core.AvailableEnvironment
-import com.yuyakaido.android.gaia.core.Environment
+import com.yuyakaido.android.gaia.core.android.AuthorizationIntentResolverType
+import com.yuyakaido.android.gaia.core.android.BarIntentResolverType
+import com.yuyakaido.android.gaia.core.android.FooIntentResolverType
+import com.yuyakaido.android.gaia.core.java.AppScope
+import com.yuyakaido.android.gaia.core.java.AppStore
+import com.yuyakaido.android.gaia.core.java.AvailableEnvironment
+import com.yuyakaido.android.gaia.core.java.Environment
 import com.yuyakaido.android.gaia.foo.ui.FooIntentResolver
 import dagger.Module
 import dagger.Provides

@@ -27,13 +27,14 @@ android {
 dependencies {
     // Module
     implementation project(':core-android')
+    implementation project(':environment-ui')
+    implementation project(':auth-ui')
+    implementation project(':auth-domain')
+    implementation project(':auth-infra')
     implementation project(':foo-ui')
     implementation project(':foo-domain')
     implementation project(':foo-infra')
     implementation project(':bar-ui')
-    implementation project(':auth-ui')
-    implementation project(':auth-domain')
-    implementation project(':auth-infra')
 
     // Kotlin
     implementation libs.kotlin.stdlib

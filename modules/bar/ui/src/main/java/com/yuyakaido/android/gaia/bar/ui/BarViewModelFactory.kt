@@ -3,7 +3,7 @@ package com.yuyakaido.android.gaia.bar.ui
 import android.app.Application
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.yuyakaido.android.gaia.core.Repo
+import com.yuyakaido.android.gaia.core.java.Repo
 import javax.inject.Inject
 
 class BarViewModelFactory @Inject constructor(

@@ -1,7 +1,7 @@
 package com.yuyakaido.android.gaia.di
 
-import com.yuyakaido.android.gaia.core.Environment
-import com.yuyakaido.android.gaia.core.GithubRetrofit
+import com.yuyakaido.android.gaia.core.java.Environment
+import com.yuyakaido.android.gaia.core.java.GithubRetrofit
 import com.yuyakaido.android.gaia.foo.data.GithubClient
 import dagger.Module
 import dagger.Provides

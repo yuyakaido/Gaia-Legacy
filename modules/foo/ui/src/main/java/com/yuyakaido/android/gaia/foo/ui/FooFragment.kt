@@ -12,9 +12,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.jakewharton.rxbinding3.widget.textChanges
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.ViewHolder
-import com.yuyakaido.android.gaia.android.BarIntentResolverType
-import com.yuyakaido.android.gaia.core.AppStore
-import com.yuyakaido.android.gaia.core.Session
+import com.yuyakaido.android.gaia.core.android.BarIntentResolverType
+import com.yuyakaido.android.gaia.core.java.AppStore
+import com.yuyakaido.android.gaia.core.java.Session
 import com.yuyakaido.android.gaia.ui.R
 import dagger.android.support.DaggerFragment
 import io.reactivex.android.schedulers.AndroidSchedulers

@@ -1,6 +1,6 @@
 package com.yuyakaido.android.gaia.auth.infra
 
-import com.yuyakaido.android.gaia.core.Environment
+import com.yuyakaido.android.gaia.core.java.Environment
 import io.reactivex.Single
 import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded
