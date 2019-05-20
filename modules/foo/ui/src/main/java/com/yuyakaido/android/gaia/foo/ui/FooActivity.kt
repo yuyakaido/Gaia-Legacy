@@ -10,7 +10,6 @@ import com.yuyakaido.android.gaia.core.java.AppDispatcher
 import com.yuyakaido.android.gaia.core.java.AppSignal
 import com.yuyakaido.android.gaia.core.java.AvailableEnvironment
 import com.yuyakaido.android.gaia.core.java.Session
-import com.yuyakaido.android.gaia.ui.R
 import dagger.android.support.DaggerAppCompatActivity
 import io.reactivex.disposables.CompositeDisposable
 import javax.inject.Inject
@@ -66,7 +65,9 @@ class FooActivity : DaggerAppCompatActivity() {
             R.id.replace -> {
                 AppDispatcher.dispatch(
                     AppSignal.OpenSession(
-                        environment = available.primary()
+                        session = Session(
+                            environment = available.primary()
+                        )
                     )
                 )
                 startActivity(Intent(this, FooActivity::class.java))

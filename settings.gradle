@@ -4,11 +4,6 @@ include ':core-android'
 
 def moduleDir = new File('modules')
 
-// Environment modules
-def environmentDir = new File(moduleDir, 'environment')
-include ':environment-ui'
-project(':environment-ui').projectDir = new File(environmentDir, 'environment')
-
 // Auth modules
 def authDir = new File(moduleDir, 'auth')
 include ':auth-ui', ':auth-domain', ':auth-infra'

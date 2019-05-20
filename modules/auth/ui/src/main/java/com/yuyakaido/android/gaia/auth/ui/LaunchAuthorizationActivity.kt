@@ -5,7 +5,10 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.widget.Button
+import android.widget.TextView
+import com.yuyakaido.android.gaia.core.java.Session
 import dagger.android.support.DaggerAppCompatActivity
+import javax.inject.Inject
 
 class LaunchAuthorizationActivity : DaggerAppCompatActivity() {
 
@@ -15,9 +18,15 @@ class LaunchAuthorizationActivity : DaggerAppCompatActivity() {
         }
     }
 
+    @Inject
+    lateinit var session: Session
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_launch_authorization)
+
+        val environmentText = findViewById<TextView>(R.id.environment_text)
+        environmentText.text = session.toString()
 
         val authorizationButton = findViewById<Button>(R.id.authorization_button)
         authorizationButton.setOnClickListener { authorize() }

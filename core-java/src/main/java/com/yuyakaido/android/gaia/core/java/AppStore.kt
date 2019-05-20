@@ -24,12 +24,16 @@ class AppStore(
             }
     }
 
+    override fun state(): AppState {
+        return state.value!!
+    }
+
     override fun observable(): Observable<AppState> {
         return state
     }
 
     override fun single(): Single<AppState> {
-        return state.singleOrError()
+        return state.take(1).singleOrError()
     }
 
 }

@@ -9,6 +9,7 @@ abstract class StoreType<STATE : StateType, ACTION : ActionType, REDUCER : Reduc
     val reducer: REDUCER
 ) {
     abstract val state: BehaviorSubject<STATE>
+    abstract fun state(): STATE
     abstract fun observable(): Observable<STATE>
     abstract fun single(): Single<STATE>
 }

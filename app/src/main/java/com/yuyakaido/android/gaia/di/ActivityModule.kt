@@ -4,7 +4,7 @@ import com.yuyakaido.android.gaia.auth.ui.CompleteAuthorizationActivity
 import com.yuyakaido.android.gaia.auth.ui.LaunchAuthorizationActivity
 import com.yuyakaido.android.gaia.bar.ui.BarActivity
 import com.yuyakaido.android.gaia.bar.ui.di.BarActivityModule
-import com.yuyakaido.android.gaia.environment.ui.SelectEnvironmentActivity
+import com.yuyakaido.android.gaia.ui.SelectEnvironmentActivity
 import com.yuyakaido.android.gaia.foo.ui.FooActivity
 import com.yuyakaido.android.gaia.foo.ui.di.FooActivityModule
 import dagger.Module

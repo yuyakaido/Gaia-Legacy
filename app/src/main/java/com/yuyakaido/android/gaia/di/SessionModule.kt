@@ -6,20 +6,18 @@ import dagger.Module
 import dagger.Provides
 
 @Module
-class SessionModule(private val environment: Environment) {
+class SessionModule(private val session: Session) {
 
     @SessionScope
     @Provides
     fun provideEnvironment(): Environment {
-        return environment
+        return session.environment
     }
 
     @SessionScope
     @Provides
     fun provideSession(): Session {
-        return Session(
-            environment = environment
-        )
+        return session
     }
 
 }

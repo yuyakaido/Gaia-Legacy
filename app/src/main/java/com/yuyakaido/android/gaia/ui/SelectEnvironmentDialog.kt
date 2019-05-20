@@ -1,14 +1,12 @@
-package com.yuyakaido.android.gaia.environment.ui
+package com.yuyakaido.android.gaia.ui
 
 import android.app.AlertDialog
 import android.app.Dialog
 import android.content.Context
-import android.content.DialogInterface
 import android.os.Bundle
 import androidx.fragment.app.DialogFragment
-import com.yuyakaido.android.gaia.core.java.AppDispatcher
-import com.yuyakaido.android.gaia.core.java.AppSignal
 import com.yuyakaido.android.gaia.core.java.AvailableEnvironment
+import com.yuyakaido.android.gaia.core.java.Environment
 import dagger.android.support.DaggerAppCompatDialogFragment
 import javax.inject.Inject
 
@@ -21,7 +19,7 @@ class SelectEnvironmentDialog : DaggerAppCompatDialogFragment() {
     }
 
     interface OnDismissListener {
-        fun onDismiss()
+        fun onDismiss(environment: Environment)
     }
 
     private var listener: OnDismissListener? = null
@@ -38,23 +36,12 @@ class SelectEnvironmentDialog : DaggerAppCompatDialogFragment() {
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val items = available.environments
-            .map { it.githubApiEndpoint }
+            .map { it.title }
             .toTypedArray()
         return AlertDialog.Builder(requireContext())
             .setTitle("Select environment")
-            .setItems(items) { _, which ->
-                AppDispatcher.dispatch(
-                    AppSignal.OpenSession(
-                        environment = available.environments[which]
-                    )
-                )
-            }
+            .setItems(items) { _, which -> listener?.onDismiss(available.environments[which]) }
             .create()
-    }
-
-    override fun onDismiss(dialog: DialogInterface?) {
-        super.onDismiss(dialog)
-        listener?.onDismiss()
     }
 
 }

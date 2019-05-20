@@ -2,6 +2,7 @@ package com.yuyakaido.android.gaia.di
 
 import android.app.Application
 import com.yuyakaido.android.gaia.BuildConfig
+import com.yuyakaido.android.gaia.RunningSession
 import com.yuyakaido.android.gaia.auth.ui.AuthorizationIntentResolver
 import com.yuyakaido.android.gaia.bar.ui.BarIntentResolver
 import com.yuyakaido.android.gaia.core.android.AuthorizationIntentResolverType
@@ -30,6 +31,13 @@ class AppModule(private val application: Application) {
         return AvailableEnvironment(
             environments = listOf(
                 Environment(
+                    title = "Debug",
+                    githubApiEndpoint = BuildConfig.GITHUB_API_ENDPOINT,
+                    githubAuthEndpoint = BuildConfig.GITHUB_AUTH_ENDPOINT,
+                    githubClientId = BuildConfig.GITHUB_CLIENT_ID,
+                    githubClientSecret = BuildConfig.GITHUB_CLIENT_SECRET
+                ),
+                Environment(
                     title = "Production",
                     githubApiEndpoint = BuildConfig.GITHUB_API_ENDPOINT,
                     githubAuthEndpoint = BuildConfig.GITHUB_AUTH_ENDPOINT,
@@ -38,6 +46,12 @@ class AppModule(private val application: Application) {
                 )
             )
         )
+    }
+
+    @AppScope
+    @Provides
+    fun provideRunningSession(): RunningSession {
+        return RunningSession()
     }
 
     @AppScope

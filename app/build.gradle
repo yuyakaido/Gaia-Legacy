@@ -27,7 +27,6 @@ android {
 dependencies {
     // Module
     implementation project(':core-android')
-    implementation project(':environment-ui')
     implementation project(':auth-ui')
     implementation project(':auth-domain')
     implementation project(':auth-infra')
@@ -62,4 +61,7 @@ dependencies {
     implementation libs.dagger.android.runtime
     implementation libs.dagger.android.support
     kapt libs.dagger.android.compiler
+
+    // View
+    implementation 'com.xwray:groupie:2.3.0'
 }
