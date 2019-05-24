@@ -7,7 +7,10 @@ import android.os.Build
 import androidx.core.app.NotificationCompat
 import androidx.lifecycle.ProcessLifecycleOwner
 import com.yuyakaido.android.gaia.core.java.*
-import com.yuyakaido.android.gaia.di.*
+import com.yuyakaido.android.gaia.di.AppComponent
+import com.yuyakaido.android.gaia.di.AppModule
+import com.yuyakaido.android.gaia.di.DaggerAppComponent
+import com.yuyakaido.android.gaia.ext.newSessionComponent
 import com.yuyakaido.android.gaia.ui.SelectEnvironmentActivity
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
@@ -18,6 +21,11 @@ import io.reactivex.rxkotlin.subscribeBy
 import javax.inject.Inject
 
 class Gaia : DaggerApplication() {
+
+    companion object {
+        private const val NOTIFICATION_ID = "notification"
+        private const val NOTIFICATION_NAME = "Notification"
+    }
 
     private val disposables = CompositeDisposable()
 
@@ -30,9 +38,6 @@ class Gaia : DaggerApplication() {
     @Inject
     lateinit var appStore: AppStore
 
-    @Inject
-    lateinit var available: AvailableEnvironment
-
     override fun applicationInjector(): AndroidInjector<out DaggerApplication> {
         return DaggerAppComponent.builder()
             .appModule(AppModule(this))
@@ -40,15 +45,20 @@ class Gaia : DaggerApplication() {
     }
 
     override fun activityInjector(): DispatchingAndroidInjector<Activity> {
-        val state = appStore.state()
-        val session = state.sessions[state.index]
-        return runningSession.components.getValue(session).activityInjector
+        return if (runningSession.hasSession()) {
+            val state = appStore.state()
+            val session = state.sessions[state.index]
+            runningSession.components.getValue(session).activityInjector()
+        } else {
+            component.activityInjector()
+        }
     }
 
     override fun onCreate() {
         super.onCreate()
         setupAppLifecycleObserver()
         setupSession()
+        setupNotificationChannel()
         setupNotification()
     }
 
@@ -57,19 +67,13 @@ class Gaia : DaggerApplication() {
         super.onTerminate()
     }
 
-    private fun createSessionComponent(session: Session): SessionComponent {
-        return component
-            .sessionComponentBuilder()
-            .sessionModule(SessionModule(session))
-            .build()
-    }
-
     private fun setupAppLifecycleObserver() {
         ProcessLifecycleOwner.get().lifecycle.addObserver(AppLifecycleObserver())
 
-        AppDispatcher.on(AppSignal.NotifyAppLifecycle::class.java)
-            .subscribeBy { signal ->
-                when (signal.lifecycle) {
+        appStore.observable()
+            .distinctUntilChanged { state -> state.lifecycle }
+            .subscribeBy { state ->
+                when (state.lifecycle) {
                     AppLifecycle.OnStart -> onAppStart()
                     AppLifecycle.OnStop -> onAppStop()
                     else -> Unit
@@ -79,16 +83,10 @@ class Gaia : DaggerApplication() {
     }
 
     private fun setupSession() {
-        val primaryEnvironment = available.primary()
-        val primarySession = Session.newSession(primaryEnvironment)
-        val primaryComponent = createSessionComponent(primarySession)
-        runningSession.add(primarySession, primaryComponent)
-        AppDispatcher.dispatch(AppAction.AddSession(primarySession))
-
         AppDispatcher.on(AppSignal.OpenSession::class.java)
             .subscribeBy { signal ->
                 val session = signal.session
-                val component = createSessionComponent(session)
+                val component = component.newSessionComponent(session)
                 runningSession.add(session, component)
                 AppDispatcher.dispatch(AppAction.AddSession(session))
             }
@@ -109,60 +107,59 @@ class Gaia : DaggerApplication() {
     }
 
     @TargetApi(Build.VERSION_CODES.O)
-    private fun setupNotification() {
+    private fun setupNotificationChannel() {
         val manager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-
-        val id = "notification"
-        val name = "Notification"
         if (Build.VERSION_CODES.M <= Build.VERSION.SDK_INT) {
-            val channel = manager.getNotificationChannel(id)
+            val channel = manager.getNotificationChannel(NOTIFICATION_ID)
             if (channel == null) {
                 manager.createNotificationChannel(
-                    NotificationChannel(id, name, NotificationManager.IMPORTANCE_DEFAULT)
+                    NotificationChannel(
+                        NOTIFICATION_ID,
+                        NOTIFICATION_NAME,
+                        NotificationManager.IMPORTANCE_DEFAULT
+                    )
                 )
             }
         }
+    }
 
-        val showNotification = fun () {
-            val state = appStore.state()
-
-            val notification = NotificationCompat.Builder(this, id)
-                .setContentTitle("Current environment")
-                .setSmallIcon(R.drawable.ic_launcher_background)
-                .setContentText(state.sessions[state.index].toString())
-                .setContentIntent(
-                    PendingIntent.getActivity(
-                        this,
-                        0,
-                        SelectEnvironmentActivity.createIntent(this),
-                        PendingIntent.FLAG_UPDATE_CURRENT
-                    )
-                )
-                .setAutoCancel(false)
-                .build()
-            notification.flags = Notification.FLAG_NO_CLEAR
-            manager.notify(0, notification)
-        }
-
-        val cancelNotification = fun () {
-            manager.cancel(0)
-        }
-
+    private fun setupNotification() {
         appStore.observable()
-            .map { it.index }
-            .distinctUntilChanged()
-            .subscribeBy { showNotification() }
-            .addTo(disposables)
-
-        AppDispatcher.on(AppSignal.NotifyAppLifecycle::class.java)
-            .subscribeBy { signal ->
-                when (signal.lifecycle) {
-                    AppLifecycle.OnStart -> showNotification()
+            .filter { it.sessions.isNotEmpty() }
+            .subscribeBy { state ->
+                when (state.lifecycle) {
+                    AppLifecycle.OnStart -> showNotification(state)
                     AppLifecycle.OnStop -> cancelNotification()
                     else -> Unit
                 }
             }
             .addTo(disposables)
+    }
+
+    private fun showNotification(state: AppState) {
+        val notification = NotificationCompat.Builder(this, NOTIFICATION_ID)
+            .setContentTitle("Current environment")
+            .setSmallIcon(R.drawable.ic_launcher_background)
+            .setContentText(state.sessions[state.index].toString())
+            .setContentIntent(
+                PendingIntent.getActivity(
+                    this,
+                    0,
+                    SelectEnvironmentActivity.createIntent(this),
+                    PendingIntent.FLAG_UPDATE_CURRENT
+                )
+            )
+            .setAutoCancel(false)
+            .build()
+        notification.flags = Notification.FLAG_NO_CLEAR
+
+        val manager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+        manager.notify(0, notification)
+    }
+
+    private fun cancelNotification() {
+        val manager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+        manager.cancel(0)
     }
 
     private fun onAppStart() {

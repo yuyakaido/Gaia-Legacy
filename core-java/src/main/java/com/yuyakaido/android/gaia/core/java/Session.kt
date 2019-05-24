@@ -23,4 +23,12 @@ data class Session(
         return "$id: ${environment.title}"
     }
 
+    fun isLoggedOut(): Boolean {
+        return token == null
+    }
+
+    fun isLoggedIn(): Boolean {
+        return isLoggedOut().not()
+    }
+
 }

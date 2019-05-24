@@ -6,10 +6,9 @@ import com.yuyakaido.android.gaia.di.SessionComponent
 import com.yuyakaido.android.gaia.di.SessionModule
 
 fun AppComponent.newSessionComponent(
-    session: Session,
-    component: AppComponent
+    session: Session
 ): SessionComponent {
-    return component.sessionComponentBuilder()
+    return sessionComponentBuilder()
         .sessionModule(SessionModule(session))
         .build()
 }

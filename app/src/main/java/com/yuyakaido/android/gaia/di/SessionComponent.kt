@@ -11,9 +11,8 @@ import dagger.android.DispatchingAndroidInjector
     ClientModule::class,
     AuthClientModule::class,
     RepositoryModule::class,
-    ActivityModule::class,
-    FragmentModule::class,
-    DialogModule::class
+    SessionActivityModule::class,
+    SessionFragmentModule::class
 ])
 interface SessionComponent {
     @Subcomponent.Builder
@@ -21,5 +20,5 @@ interface SessionComponent {
         fun sessionModule(sessionModule: SessionModule): Builder
         fun build(): SessionComponent
     }
-    val activityInjector: DispatchingAndroidInjector<Activity>
+    fun activityInjector(): DispatchingAndroidInjector<Activity>
 }

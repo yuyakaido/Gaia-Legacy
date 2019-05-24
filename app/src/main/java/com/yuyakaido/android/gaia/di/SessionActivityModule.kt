@@ -4,17 +4,13 @@ import com.yuyakaido.android.gaia.auth.ui.CompleteAuthorizationActivity
 import com.yuyakaido.android.gaia.auth.ui.LaunchAuthorizationActivity
 import com.yuyakaido.android.gaia.bar.ui.BarActivity
 import com.yuyakaido.android.gaia.bar.ui.di.BarActivityModule
-import com.yuyakaido.android.gaia.ui.SelectEnvironmentActivity
 import com.yuyakaido.android.gaia.foo.ui.FooActivity
 import com.yuyakaido.android.gaia.foo.ui.di.FooActivityModule
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 
 @Module
-abstract class ActivityModule {
-
-    @ContributesAndroidInjector
-    abstract fun contributeSelectEnvironmentActivity(): SelectEnvironmentActivity
+abstract class SessionActivityModule {
 
     @ContributesAndroidInjector(modules = [FooActivityModule::class])
     abstract fun contributeFooActivity(): FooActivity

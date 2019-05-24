@@ -3,9 +3,9 @@ package com.yuyakaido.android.gaia
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.OnLifecycleEvent
+import com.yuyakaido.android.gaia.core.java.AppAction
 import com.yuyakaido.android.gaia.core.java.AppDispatcher
 import com.yuyakaido.android.gaia.core.java.AppLifecycle
-import com.yuyakaido.android.gaia.core.java.AppSignal
 
 // https://qiita.com/takusemba/items/92e700ee6c24a3398d03
 // https://developer.android.com/reference/android/arch/lifecycle/ProcessLifecycleOwner
@@ -27,7 +27,7 @@ class AppLifecycleObserver : LifecycleObserver {
     fun onAppCreate() {
         // プロセス起動時に1度だけ呼び出される
         AppDispatcher.dispatch(
-            AppSignal.NotifyAppLifecycle(
+            AppAction.UpdateLifecycle(
                 lifecycle = toAppLifecycle(Lifecycle.Event.ON_CREATE)
             )
         )
@@ -37,7 +37,7 @@ class AppLifecycleObserver : LifecycleObserver {
     fun onAppStart() {
         // プロセス内で最初のActivity#onStartを通過すると呼び出される
         AppDispatcher.dispatch(
-            AppSignal.NotifyAppLifecycle(
+            AppAction.UpdateLifecycle(
                 lifecycle = toAppLifecycle(Lifecycle.Event.ON_START)
             )
         )
@@ -47,7 +47,7 @@ class AppLifecycleObserver : LifecycleObserver {
     fun onAppResume() {
         // プロセス内で最初のActivity#onResumeを通過すると呼び出される
         AppDispatcher.dispatch(
-            AppSignal.NotifyAppLifecycle(
+            AppAction.UpdateLifecycle(
                 lifecycle = toAppLifecycle(Lifecycle.Event.ON_RESUME)
             )
         )
@@ -57,7 +57,7 @@ class AppLifecycleObserver : LifecycleObserver {
     fun onAppPause() {
         // プロセス内で最後のActivity#onPauseを通過すると呼び出される
         AppDispatcher.dispatch(
-            AppSignal.NotifyAppLifecycle(
+            AppAction.UpdateLifecycle(
                 lifecycle = toAppLifecycle(Lifecycle.Event.ON_PAUSE)
             )
         )
@@ -67,7 +67,7 @@ class AppLifecycleObserver : LifecycleObserver {
     fun onAppStop() {
         // プロセス内で最後のActivity#onStopを通過すると呼び出される
         AppDispatcher.dispatch(
-            AppSignal.NotifyAppLifecycle(
+            AppAction.UpdateLifecycle(
                 lifecycle = toAppLifecycle(Lifecycle.Event.ON_STOP)
             )
         )
@@ -78,7 +78,7 @@ class AppLifecycleObserver : LifecycleObserver {
         // このメソッドが呼び出されることはない
         // https://developer.android.com/reference/android/arch/lifecycle/ProcessLifecycleOwner
         AppDispatcher.dispatch(
-            AppSignal.NotifyAppLifecycle(
+            AppAction.UpdateLifecycle(
                 lifecycle = toAppLifecycle(Lifecycle.Event.ON_DESTROY)
             )
         )

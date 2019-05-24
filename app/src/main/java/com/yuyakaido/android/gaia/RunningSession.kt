@@ -18,6 +18,10 @@ data class RunningSession(
         private const val SESSIONS = "sessions"
     }
 
+    fun hasSession(): Boolean {
+        return components.isNotEmpty()
+    }
+
     fun sessions(): List<Session> {
         return components.keys.toList()
     }
@@ -41,14 +45,17 @@ data class RunningSession(
         editor.apply()
     }
 
-    fun restore(context: Context, component: AppComponent) {
+    fun restore(
+        context: Context,
+        component: AppComponent
+    ) {
         val gson = Gson()
         val preference = PreferenceManager.getDefaultSharedPreferences(context)
         val jsonString = preference.getString(SESSIONS, JsonArray().toString())
         val jsonArray = JsonParser().parse(jsonString).asJsonArray
         components = jsonArray
             .map { gson.fromJson(it.toString(), Session::class.java) }
-            .associate { session -> session to component.newSessionComponent(session, component) }
+            .associate { session -> session to component.newSessionComponent(session) }
     }
 
 }

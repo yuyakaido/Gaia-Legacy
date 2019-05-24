@@ -5,7 +5,7 @@ import dagger.Module
 import dagger.android.ContributesAndroidInjector
 
 @Module
-abstract class DialogModule {
+abstract class AppDialogModule {
 
     @ContributesAndroidInjector
     abstract fun contributeSelectEnvironmentDialog(): SelectEnvironmentDialog
