@@ -65,9 +65,7 @@ class FooActivity : DaggerAppCompatActivity() {
             R.id.replace -> {
                 AppDispatcher.dispatch(
                     AppSignal.OpenSession(
-                        session = Session(
-                            environment = available.primary()
-                        )
+                        session = Session.newSession(environment = available.primary())
                     )
                 )
                 startActivity(Intent(this, FooActivity::class.java))

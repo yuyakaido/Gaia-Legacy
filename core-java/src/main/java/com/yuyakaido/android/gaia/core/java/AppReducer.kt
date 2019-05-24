@@ -19,7 +19,14 @@ object AppReducer : ReducerType<AppState, AppAction> {
                 )
             }
             is AppAction.SelectSession -> {
-                state.copy(index = state.sessions.indexOf(action.session))
+                state.copy(
+                    index = state.sessions.indexOf(action.session)
+                )
+            }
+            is AppAction.RestoreSessions -> {
+                state.copy(
+                    sessions = action.sessions
+                )
             }
         }
     }

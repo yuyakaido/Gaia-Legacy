@@ -61,7 +61,7 @@ class SelectEnvironmentActivity : DaggerAppCompatActivity(), SelectEnvironmentDi
     }
 
     override fun onDismiss(environment: Environment) {
-        val session = Session(environment = environment)
+        val session = Session.newSession(environment)
         AppDispatcher.dispatch(AppSignal.OpenSession(session))
         startAuthorizationActivity()
     }

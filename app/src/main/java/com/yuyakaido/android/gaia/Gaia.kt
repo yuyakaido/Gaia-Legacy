@@ -22,7 +22,7 @@ class Gaia : DaggerApplication() {
     private val disposables = CompositeDisposable()
 
     @Inject
-    lateinit var appComponent: AppComponent
+    lateinit var component: AppComponent
 
     @Inject
     lateinit var runningSession: RunningSession
@@ -58,7 +58,7 @@ class Gaia : DaggerApplication() {
     }
 
     private fun createSessionComponent(session: Session): SessionComponent {
-        return appComponent
+        return component
             .sessionComponentBuilder()
             .sessionModule(SessionModule(session))
             .build()
@@ -66,27 +66,37 @@ class Gaia : DaggerApplication() {
 
     private fun setupAppLifecycleObserver() {
         ProcessLifecycleOwner.get().lifecycle.addObserver(AppLifecycleObserver())
+
+        AppDispatcher.on(AppSignal.NotifyAppLifecycle::class.java)
+            .subscribeBy { signal ->
+                when (signal.lifecycle) {
+                    AppLifecycle.OnStart -> onAppStart()
+                    AppLifecycle.OnStop -> onAppStop()
+                    else -> Unit
+                }
+            }
+            .addTo(disposables)
     }
 
     private fun setupSession() {
         val primaryEnvironment = available.primary()
-        val primarySession = Session(environment = primaryEnvironment)
+        val primarySession = Session.newSession(primaryEnvironment)
         val primaryComponent = createSessionComponent(primarySession)
-        runningSession.components[primarySession] = primaryComponent
+        runningSession.add(primarySession, primaryComponent)
         AppDispatcher.dispatch(AppAction.AddSession(primarySession))
 
         AppDispatcher.on(AppSignal.OpenSession::class.java)
             .subscribeBy { signal ->
                 val session = signal.session
                 val component = createSessionComponent(session)
-                runningSession.components[session] = component
+                runningSession.add(session, component)
                 AppDispatcher.dispatch(AppAction.AddSession(session))
             }
             .addTo(disposables)
         AppDispatcher.on(AppSignal.CloseSession::class.java)
             .subscribeBy { signal ->
                 val session = signal.session
-                runningSession.components.remove(session)
+                runningSession.remove(session)
                 AppDispatcher.dispatch(AppAction.RemoveSession(session))
             }
             .addTo(disposables)
@@ -153,6 +163,15 @@ class Gaia : DaggerApplication() {
                 }
             }
             .addTo(disposables)
+    }
+
+    private fun onAppStart() {
+        runningSession.restore(this, component)
+        AppDispatcher.dispatch(AppAction.RestoreSessions(runningSession.sessions()))
+    }
+
+    private fun onAppStop() {
+        runningSession.save(this)
     }
 
 }

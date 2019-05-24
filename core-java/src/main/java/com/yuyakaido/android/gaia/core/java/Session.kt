@@ -1,14 +1,22 @@
 package com.yuyakaido.android.gaia.core.java
 
-import java.util.concurrent.atomic.AtomicLong
+import kotlin.random.Random
 
 data class Session(
-    val id: Long = counter.getAndIncrement(),
-    val environment: Environment
+    val id: Long,
+    val environment: Environment,
+    val token: String?
 ) {
 
     companion object {
-        private val counter = AtomicLong()
+        fun newSession(environment: Environment): Session {
+            val random = Random(System.currentTimeMillis())
+            return Session(
+                id = Math.abs(random.nextLong()),
+                environment = environment,
+                token = null
+            )
+        }
     }
 
     override fun toString(): String {
