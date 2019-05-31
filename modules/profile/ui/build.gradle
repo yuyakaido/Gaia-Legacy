@@ -15,7 +15,7 @@ android {
 dependencies {
     // Module
     implementation project(':core-android')
-    implementation project(':repo-domain')
+    implementation project(':profile-domain')
 
     // Kotlin
     implementation libs.kotlin.stdlib
@@ -29,7 +29,6 @@ dependencies {
     implementation libs.rx.java
     implementation libs.rx.kotlin
     implementation libs.rx.android
-    implementation libs.rxbinding.platform
 
     // Dependency Injection
     implementation libs.dagger.core.runtime
@@ -37,7 +36,4 @@ dependencies {
     implementation libs.dagger.android.runtime
     implementation libs.dagger.android.support
     kapt libs.dagger.android.compiler
-
-    // View
-    implementation libs.groupie
 }

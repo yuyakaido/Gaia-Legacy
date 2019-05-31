@@ -1,7 +1,6 @@
 package com.yuyakaido.android.gaia.repo.ui
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,8 +12,6 @@ import com.jakewharton.rxbinding3.widget.textChanges
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.ViewHolder
 import com.yuyakaido.android.gaia.core.android.RepoDetailIntentResolverType
-import com.yuyakaido.android.gaia.core.java.AppStore
-import com.yuyakaido.android.gaia.core.java.Session
 import dagger.android.support.DaggerFragment
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -35,12 +32,6 @@ class RepoFragment : DaggerFragment() {
     private val disposables = CompositeDisposable()
 
     @Inject
-    lateinit var appStore: AppStore
-
-    @Inject
-    lateinit var session: Session
-
-    @Inject
     lateinit var viewModel: RepoViewModel
 
     @Inject
@@ -56,11 +47,6 @@ class RepoFragment : DaggerFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        Log.d(
-            "Gaia - RepoFragment@${hashCode()}",
-            "appStore = ${appStore.hashCode()}, session = ${session.hashCode()}"
-        )
 
         val adapter = GroupAdapter<ViewHolder>()
         adapter.setOnItemClickListener { item, _ ->
@@ -82,11 +68,6 @@ class RepoFragment : DaggerFragment() {
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribeBy { repos ->
-                        Log.d(
-                            "Gaia - RepoFragment@${hashCode()}",
-                            "vm = ${viewModel.hashCode()}, repos = ${repos.size}"
-                        )
-
                         adapter.clear()
                         adapter.addAll(repos.map { RepoItem(it) })
                     }

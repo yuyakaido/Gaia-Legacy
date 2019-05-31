@@ -1,4 +1,4 @@
-package com.yuyakaido.android.gaia.repo.ui
+package com.yuyakaido.android.gaia.profile.ui
 
 import androidx.fragment.app.Fragment
 import com.yuyakaido.android.gaia.core.android.ProfileFragmentResolverType
@@ -6,7 +6,7 @@ import com.yuyakaido.android.gaia.core.android.ProfileFragmentResolverType
 class ProfileFragmentResolver : ProfileFragmentResolverType {
 
     override fun getProfileFragment(): Fragment {
-        return RepoFragment.newInstance()
+        return ProfileFragment.newInstance()
     }
 
 }

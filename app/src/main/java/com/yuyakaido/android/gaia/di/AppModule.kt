@@ -2,6 +2,7 @@ package com.yuyakaido.android.gaia.di
 
 import android.app.Application
 import com.yuyakaido.android.gaia.BuildConfig
+import com.yuyakaido.android.gaia.Gaia
 import com.yuyakaido.android.gaia.RunningSession
 import com.yuyakaido.android.gaia.auth.ui.AuthorizationIntentResolver
 import com.yuyakaido.android.gaia.core.android.*
@@ -11,19 +12,25 @@ import com.yuyakaido.android.gaia.core.java.AvailableEnvironment
 import com.yuyakaido.android.gaia.core.java.Environment
 import com.yuyakaido.android.gaia.gateway.ui.GatewayIntentResolver
 import com.yuyakaido.android.gaia.home.ui.HomeIntentResolver
+import com.yuyakaido.android.gaia.profile.ui.ProfileFragmentResolver
 import com.yuyakaido.android.gaia.repo.detail.ui.RepoDetailIntentResolver
-import com.yuyakaido.android.gaia.repo.ui.ProfileFragmentResolver
 import com.yuyakaido.android.gaia.repo.ui.RepoFragmentResolver
 import dagger.Module
 import dagger.Provides
 
 @Module
-class AppModule(private val application: Application) {
+class AppModule(private val gaia: Gaia) {
+
+    @AppScope
+    @Provides
+    fun provideGaia(): Gaia {
+        return gaia
+    }
 
     @AppScope
     @Provides
     fun provideApplication(): Application {
-        return application
+        return gaia
     }
 
     @AppScope
@@ -34,6 +41,7 @@ class AppModule(private val application: Application) {
                 Environment(
                     title = "Debug",
                     githubApiEndpoint = BuildConfig.GITHUB_API_ENDPOINT,
+                    githubGraphQlEndpoint = BuildConfig.GITHUB_GRAPHQL_ENDPOINT,
                     githubAuthEndpoint = BuildConfig.GITHUB_AUTH_ENDPOINT,
                     githubClientId = BuildConfig.GITHUB_CLIENT_ID,
                     githubClientSecret = BuildConfig.GITHUB_CLIENT_SECRET
@@ -41,6 +49,7 @@ class AppModule(private val application: Application) {
                 Environment(
                     title = "Production",
                     githubApiEndpoint = BuildConfig.GITHUB_API_ENDPOINT,
+                    githubGraphQlEndpoint = BuildConfig.GITHUB_GRAPHQL_ENDPOINT,
                     githubAuthEndpoint = BuildConfig.GITHUB_AUTH_ENDPOINT,
                     githubClientId = BuildConfig.GITHUB_CLIENT_ID,
                     githubClientSecret = BuildConfig.GITHUB_CLIENT_SECRET
@@ -82,14 +91,14 @@ class AppModule(private val application: Application) {
 
     @AppScope
     @Provides
-    fun provideRepoDetailIntentResolverType(): RepoDetailIntentResolverType {
-        return RepoDetailIntentResolver()
+    fun provideRepoFragmentResolverType(): RepoFragmentResolverType {
+        return RepoFragmentResolver()
     }
 
     @AppScope
     @Provides
-    fun provideRepoFragmentResolverType(): RepoFragmentResolverType {
-        return RepoFragmentResolver()
+    fun provideRepoDetailIntentResolverType(): RepoDetailIntentResolverType {
+        return RepoDetailIntentResolver()
     }
 
     @AppScope

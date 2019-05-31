@@ -20,12 +20,6 @@ data class RunningSession(
         return components.isNotEmpty()
     }
 
-    fun sessions(gaia: Gaia): List<Session> {
-        val state = gaia.appStore.state()
-        return components.keys
-            .map { id -> state.sessions.first { it.id == id } }
-    }
-
     fun add(session: Session, component: SessionComponent) {
         components = components.plus(session.id to component)
     }

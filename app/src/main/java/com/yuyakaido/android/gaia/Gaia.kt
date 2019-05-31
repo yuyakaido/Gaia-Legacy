@@ -20,7 +20,7 @@ import io.reactivex.rxkotlin.addTo
 import io.reactivex.rxkotlin.subscribeBy
 import javax.inject.Inject
 
-class Gaia : DaggerApplication() {
+class Gaia : DaggerApplication(), CurrentSession {
 
     companion object {
         private const val NOTIFICATION_ID = "notification"
@@ -65,6 +65,11 @@ class Gaia : DaggerApplication() {
     override fun onTerminate() {
         disposables.dispose()
         super.onTerminate()
+    }
+
+    override fun getCurrentSession(): Session {
+        val state = appStore.state()
+        return state.sessions[state.index]
     }
 
     private fun setupAppLifecycleObserver() {

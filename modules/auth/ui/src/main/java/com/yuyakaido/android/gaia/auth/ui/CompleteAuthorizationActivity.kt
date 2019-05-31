@@ -1,7 +1,6 @@
 package com.yuyakaido.android.gaia.auth.ui
 
 import android.os.Bundle
-import android.util.Log
 import com.yuyakaido.android.gaia.auth.domain.GetAccessTokenUseCase
 import com.yuyakaido.android.gaia.core.android.HomeIntentResolverType
 import com.yuyakaido.android.gaia.core.java.AppAction
@@ -47,7 +46,6 @@ class CompleteAuthorizationActivity : DaggerAppCompatActivity() {
         getAccessTokenUseCase.getAccessToken(code)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .doOnSuccess { token -> Log.d("Gaia", "token = $token") }
             .doOnSuccess { token -> AppDispatcher.dispatch(AppAction.UpdateToken(token)) }
             .subscribeBy { startHomeActivity() }
             .addTo(disposables)
