@@ -16,6 +16,11 @@ def gatewayDir = new File(moduleDir, 'gateway')
 include ':gateway-ui'
 project(':gateway-ui').projectDir = new File(gatewayDir, 'ui')
 
+// Home modules
+def homeDir = new File(moduleDir, 'home')
+include ':home-ui'
+project(':home-ui').projectDir = new File(homeDir, 'ui')
+
 // Repo modules
 def repoDir = new File(moduleDir, 'repo')
 include ':repo-ui', ':repo-domain', ':repo-infra'

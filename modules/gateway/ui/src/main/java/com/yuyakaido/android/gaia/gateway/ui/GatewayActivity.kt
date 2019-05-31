@@ -1,7 +1,8 @@
 package com.yuyakaido.android.gaia.gateway.ui
 
 import android.os.Bundle
-import android.util.Log
+import com.yuyakaido.android.gaia.core.android.AuthorizationIntentResolverType
+import com.yuyakaido.android.gaia.core.android.HomeIntentResolverType
 import dagger.android.support.DaggerAppCompatActivity
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.addTo
@@ -14,6 +15,12 @@ class GatewayActivity : DaggerAppCompatActivity() {
 
     @Inject
     lateinit var gatewayViewModel: GatewayViewModel
+
+    @Inject
+    lateinit var authIntentResolver: AuthorizationIntentResolverType
+
+    @Inject
+    lateinit var homeIntentResolver: HomeIntentResolverType
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,10 +36,12 @@ class GatewayActivity : DaggerAppCompatActivity() {
 
     private fun setupTransition() {
         gatewayViewModel.startAuthorizationActivity
-            .subscribeBy { Log.d("Gaia","Let's go to authorization!") }
+            .doOnNext { finish() }
+            .subscribeBy { startActivity(authIntentResolver.getAuthorizationActivityIntent(this)) }
             .addTo(disposables)
         gatewayViewModel.startHomeActivity
-            .subscribeBy { Log.d("Gaia","Let's go to home!") }
+            .doOnNext { finish() }
+            .subscribeBy { startActivity(homeIntentResolver.getHomeActivityIntent(this)) }
             .addTo(disposables)
     }
 

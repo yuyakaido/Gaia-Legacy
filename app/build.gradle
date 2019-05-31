@@ -31,6 +31,7 @@ dependencies {
     implementation project(':auth-domain')
     implementation project(':auth-infra')
     implementation project(':gateway-ui')
+    implementation project(':home-ui')
     implementation project(':repo-ui')
     implementation project(':repo-domain')
     implementation project(':repo-infra')

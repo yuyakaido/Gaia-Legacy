@@ -4,5 +4,5 @@ import android.content.Context
 import android.content.Intent
 
 interface AuthorizationIntentResolverType {
-    fun getAuthorizationIntent(context: Context): Intent
+    fun getAuthorizationActivityIntent(context: Context): Intent
 }

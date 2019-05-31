@@ -3,7 +3,7 @@ package com.yuyakaido.android.gaia.auth.ui
 import android.os.Bundle
 import android.util.Log
 import com.yuyakaido.android.gaia.auth.domain.GetAccessTokenUseCase
-import com.yuyakaido.android.gaia.core.android.RepoIntentResolverType
+import com.yuyakaido.android.gaia.core.android.HomeIntentResolverType
 import com.yuyakaido.android.gaia.core.java.AppAction
 import com.yuyakaido.android.gaia.core.java.AppDispatcher
 import dagger.android.support.DaggerAppCompatActivity
@@ -19,7 +19,7 @@ class CompleteAuthorizationActivity : DaggerAppCompatActivity() {
     private val disposables = CompositeDisposable()
 
     @Inject
-    lateinit var resolver: RepoIntentResolverType
+    lateinit var homeIntentResolver: HomeIntentResolverType
 
     @Inject
     lateinit var getAccessTokenUseCase: GetAccessTokenUseCase
@@ -49,12 +49,12 @@ class CompleteAuthorizationActivity : DaggerAppCompatActivity() {
             .observeOn(AndroidSchedulers.mainThread())
             .doOnSuccess { token -> Log.d("Gaia", "token = $token") }
             .doOnSuccess { token -> AppDispatcher.dispatch(AppAction.UpdateToken(token)) }
-            .subscribeBy { startRepoActivity() }
+            .subscribeBy { startHomeActivity() }
             .addTo(disposables)
     }
 
-    private fun startRepoActivity() {
-        startActivity(resolver.getRepoActivityIntent(this))
+    private fun startHomeActivity() {
+        startActivity(homeIntentResolver.getHomeActivityIntent(this))
         finish()
     }
 

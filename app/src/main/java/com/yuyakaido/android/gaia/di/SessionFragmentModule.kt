@@ -1,7 +1,7 @@
 package com.yuyakaido.android.gaia.di
 
 import com.yuyakaido.android.gaia.repo.ui.RepoFragment
-import com.yuyakaido.android.gaia.repo.ui.di.RepoFragmentModule
+import com.yuyakaido.android.gaia.repo.ui.RepoFragmentModule
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 

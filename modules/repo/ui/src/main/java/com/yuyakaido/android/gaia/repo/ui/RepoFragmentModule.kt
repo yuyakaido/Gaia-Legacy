@@ -1,9 +1,6 @@
-package com.yuyakaido.android.gaia.repo.ui.di
+package com.yuyakaido.android.gaia.repo.ui
 
 import androidx.lifecycle.ViewModelProviders
-import com.yuyakaido.android.gaia.repo.ui.RepoFragment
-import com.yuyakaido.android.gaia.repo.ui.RepoViewModel
-import com.yuyakaido.android.gaia.repo.ui.RepoViewModelFactory
 import dagger.Module
 import dagger.Provides
 

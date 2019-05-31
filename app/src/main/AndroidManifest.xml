@@ -33,6 +33,8 @@
 
         <activity android:name=".gateway.ui.GatewayActivity"/>
 
+        <activity android:name=".home.ui.HomeActivity"/>
+
         <activity android:name=".repo.ui.RepoActivity"/>
 
         <activity android:name=".repo.detail.ui.RepoDetailActivity"/>

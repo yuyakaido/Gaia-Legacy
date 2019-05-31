@@ -4,17 +4,16 @@ import android.app.Application
 import com.yuyakaido.android.gaia.BuildConfig
 import com.yuyakaido.android.gaia.RunningSession
 import com.yuyakaido.android.gaia.auth.ui.AuthorizationIntentResolver
-import com.yuyakaido.android.gaia.repo.detail.ui.RepoDetailIntentResolver
-import com.yuyakaido.android.gaia.core.android.AuthorizationIntentResolverType
-import com.yuyakaido.android.gaia.core.android.RepoDetailIntentResolverType
-import com.yuyakaido.android.gaia.core.android.GatewayIntentResolverType
-import com.yuyakaido.android.gaia.core.android.RepoIntentResolverType
+import com.yuyakaido.android.gaia.core.android.*
 import com.yuyakaido.android.gaia.core.java.AppScope
 import com.yuyakaido.android.gaia.core.java.AppStore
 import com.yuyakaido.android.gaia.core.java.AvailableEnvironment
 import com.yuyakaido.android.gaia.core.java.Environment
 import com.yuyakaido.android.gaia.gateway.ui.GatewayIntentResolver
-import com.yuyakaido.android.gaia.repo.ui.RepoIntentResolver
+import com.yuyakaido.android.gaia.home.ui.HomeIntentResolver
+import com.yuyakaido.android.gaia.repo.detail.ui.RepoDetailIntentResolver
+import com.yuyakaido.android.gaia.repo.ui.ProfileFragmentResolver
+import com.yuyakaido.android.gaia.repo.ui.RepoFragmentResolver
 import dagger.Module
 import dagger.Provides
 
@@ -77,14 +76,26 @@ class AppModule(private val application: Application) {
 
     @AppScope
     @Provides
-    fun provideRepoIntentResolverType(): RepoIntentResolverType {
-        return RepoIntentResolver()
+    fun provideHomeIntentResolverType(): HomeIntentResolverType {
+        return HomeIntentResolver()
     }
 
     @AppScope
     @Provides
     fun provideRepoDetailIntentResolverType(): RepoDetailIntentResolverType {
         return RepoDetailIntentResolver()
+    }
+
+    @AppScope
+    @Provides
+    fun provideRepoFragmentResolverType(): RepoFragmentResolverType {
+        return RepoFragmentResolver()
+    }
+
+    @AppScope
+    @Provides
+    fun provideProfileFragmentResolverType(): ProfileFragmentResolverType {
+        return ProfileFragmentResolver()
     }
 
 }

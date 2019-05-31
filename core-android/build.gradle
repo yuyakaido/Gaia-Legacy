@@ -17,4 +17,7 @@ dependencies {
 
     // Kotlin
     implementation libs.kotlin.stdlib
+
+    // AndroidX
+    implementation libs.androidx.appcompat
 }
