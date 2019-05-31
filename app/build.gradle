@@ -34,7 +34,7 @@ dependencies {
     implementation project(':repo-ui')
     implementation project(':repo-domain')
     implementation project(':repo-infra')
-    implementation project(':bar-ui')
+    implementation project(':repo-detail-ui')
 
     // Kotlin
     implementation libs.kotlin.stdlib

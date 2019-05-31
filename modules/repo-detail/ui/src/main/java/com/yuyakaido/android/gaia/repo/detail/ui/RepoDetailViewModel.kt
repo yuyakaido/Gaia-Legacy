@@ -1,11 +1,11 @@
-package com.yuyakaido.android.gaia.bar.ui
+package com.yuyakaido.android.gaia.repo.detail.ui
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import com.yuyakaido.android.gaia.core.java.Repo
 import io.reactivex.Single
 
-class BarViewModel(
+class RepoDetailViewModel(
     application: Application,
     private val repo: Repo
 ) : AndroidViewModel(application) {

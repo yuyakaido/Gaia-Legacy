@@ -35,7 +35,7 @@
 
         <activity android:name=".repo.ui.RepoActivity"/>
 
-        <activity android:name=".bar.ui.BarActivity"/>
+        <activity android:name=".repo.detail.ui.RepoDetailActivity"/>
 
     </application>
 

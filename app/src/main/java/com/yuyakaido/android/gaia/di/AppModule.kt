@@ -4,9 +4,9 @@ import android.app.Application
 import com.yuyakaido.android.gaia.BuildConfig
 import com.yuyakaido.android.gaia.RunningSession
 import com.yuyakaido.android.gaia.auth.ui.AuthorizationIntentResolver
-import com.yuyakaido.android.gaia.bar.ui.BarIntentResolver
+import com.yuyakaido.android.gaia.repo.detail.ui.RepoDetailIntentResolver
 import com.yuyakaido.android.gaia.core.android.AuthorizationIntentResolverType
-import com.yuyakaido.android.gaia.core.android.BarIntentResolverType
+import com.yuyakaido.android.gaia.core.android.RepoDetailIntentResolverType
 import com.yuyakaido.android.gaia.core.android.GatewayIntentResolverType
 import com.yuyakaido.android.gaia.core.android.RepoIntentResolverType
 import com.yuyakaido.android.gaia.core.java.AppScope
@@ -83,8 +83,8 @@ class AppModule(private val application: Application) {
 
     @AppScope
     @Provides
-    fun provideBarIntentResolverType(): BarIntentResolverType {
-        return BarIntentResolver()
+    fun provideRepoDetailIntentResolverType(): RepoDetailIntentResolverType {
+        return RepoDetailIntentResolver()
     }
 
 }

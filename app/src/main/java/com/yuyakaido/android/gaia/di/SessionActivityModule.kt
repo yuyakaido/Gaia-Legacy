@@ -2,10 +2,10 @@ package com.yuyakaido.android.gaia.di
 
 import com.yuyakaido.android.gaia.auth.ui.CompleteAuthorizationActivity
 import com.yuyakaido.android.gaia.auth.ui.LaunchAuthorizationActivity
-import com.yuyakaido.android.gaia.bar.ui.BarActivity
-import com.yuyakaido.android.gaia.bar.ui.di.BarActivityModule
 import com.yuyakaido.android.gaia.gateway.ui.GatewayActivity
 import com.yuyakaido.android.gaia.gateway.ui.GatewayActivityModule
+import com.yuyakaido.android.gaia.repo.detail.ui.RepoDetailActivity
+import com.yuyakaido.android.gaia.repo.detail.ui.RepoDetailActivityModule
 import com.yuyakaido.android.gaia.repo.ui.RepoActivity
 import com.yuyakaido.android.gaia.repo.ui.di.RepoActivityModule
 import dagger.Module
@@ -26,7 +26,7 @@ abstract class SessionActivityModule {
     @ContributesAndroidInjector(modules = [RepoActivityModule::class])
     abstract fun contributeRepoActivity(): RepoActivity
 
-    @ContributesAndroidInjector(modules = [BarActivityModule::class])
-    abstract fun contributeBarActivity(): BarActivity
+    @ContributesAndroidInjector(modules = [RepoDetailActivityModule::class])
+    abstract fun contributeRepoDetailActivity(): RepoDetailActivity
 
 }

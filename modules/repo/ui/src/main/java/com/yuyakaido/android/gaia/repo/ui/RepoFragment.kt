@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.jakewharton.rxbinding3.widget.textChanges
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.ViewHolder
-import com.yuyakaido.android.gaia.core.android.BarIntentResolverType
+import com.yuyakaido.android.gaia.core.android.RepoDetailIntentResolverType
 import com.yuyakaido.android.gaia.core.java.AppStore
 import com.yuyakaido.android.gaia.core.java.Session
 import dagger.android.support.DaggerFragment
@@ -44,7 +44,7 @@ class RepoFragment : DaggerFragment() {
     lateinit var viewModel: RepoViewModel
 
     @Inject
-    lateinit var resolver: BarIntentResolverType
+    lateinit var resolver: RepoDetailIntentResolverType
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -65,7 +65,7 @@ class RepoFragment : DaggerFragment() {
         val adapter = GroupAdapter<ViewHolder>()
         adapter.setOnItemClickListener { item, _ ->
             if (item is RepoItem) {
-                startActivity(resolver.getBarActivityIntent(requireContext(), item.repo))
+                startActivity(resolver.getRepoDetailActivityIntent(requireContext(), item.repo))
             }
         }
         val recyclerView = view.findViewById<RecyclerView>(R.id.recycler_view)

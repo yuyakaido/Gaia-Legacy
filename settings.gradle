@@ -23,7 +23,7 @@ project(':repo-ui').projectDir = new File(repoDir, 'ui')
 project(':repo-domain').projectDir = new File(repoDir, 'domain')
 project(':repo-infra').projectDir = new File(repoDir, 'infra')
 
-// Bar modules
-def barDir = new File(moduleDir, 'bar')
-include ':bar-ui'
-project(':bar-ui').projectDir = new File(barDir, 'ui')
+// Repo detail modules
+def repoDetailDir = new File(moduleDir, 'repo-detail')
+include ':repo-detail-ui'
+project(':repo-detail-ui').projectDir = new File(repoDetailDir, 'ui')
