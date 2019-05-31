@@ -1,7 +1,7 @@
 package com.yuyakaido.android.gaia.di
 
 import android.app.Activity
-import com.yuyakaido.android.gaia.auth.infra.di.AuthClientModule
+import com.yuyakaido.android.gaia.auth.infra.AuthClientModule
 import dagger.Subcomponent
 import dagger.android.DispatchingAndroidInjector
 
