@@ -11,6 +11,11 @@ project(':auth-ui').projectDir = new File(authDir, 'ui')
 project(':auth-domain').projectDir = new File(authDir, 'domain')
 project(':auth-infra').projectDir = new File(authDir, 'infra')
 
+// Gateway modules
+def gatewayDir = new File(moduleDir, 'gateway')
+include ':gateway-ui'
+project(':gateway-ui').projectDir = new File(gatewayDir, 'ui')
+
 // Repo modules
 def repoDir = new File(moduleDir, 'repo')
 include ':repo-ui', ':repo-domain', ':repo-infra'

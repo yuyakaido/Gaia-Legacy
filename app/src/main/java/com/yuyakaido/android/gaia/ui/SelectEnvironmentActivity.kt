@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.ViewHolder
 import com.yuyakaido.android.gaia.R
-import com.yuyakaido.android.gaia.core.android.AuthorizationIntentResolverType
+import com.yuyakaido.android.gaia.core.android.GatewayIntentResolverType
 import com.yuyakaido.android.gaia.core.java.*
 import dagger.android.support.DaggerAppCompatActivity
 import io.reactivex.disposables.CompositeDisposable
@@ -32,7 +32,7 @@ class SelectEnvironmentActivity : DaggerAppCompatActivity(), SelectEnvironmentDi
     lateinit var appStore: AppStore
 
     @Inject
-    lateinit var resolver: AuthorizationIntentResolverType
+    lateinit var resolver: GatewayIntentResolverType
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -63,7 +63,7 @@ class SelectEnvironmentActivity : DaggerAppCompatActivity(), SelectEnvironmentDi
     override fun onDismiss(environment: Environment) {
         val session = Session.newSession(environment)
         AppDispatcher.dispatch(AppSignal.OpenSession(session))
-        startAuthorizationActivity()
+        startGatewayActivity()
     }
 
     private fun setupDialog() {
@@ -79,7 +79,7 @@ class SelectEnvironmentActivity : DaggerAppCompatActivity(), SelectEnvironmentDi
             if (item is SessionItem) {
                 val session = item.session
                 AppDispatcher.dispatch(AppAction.SelectSession(session))
-                startAuthorizationActivity()
+                startGatewayActivity()
             }
         }
         adapter.setOnItemLongClickListener { item, _ ->
@@ -110,8 +110,8 @@ class SelectEnvironmentActivity : DaggerAppCompatActivity(), SelectEnvironmentDi
         dialog.show(supportFragmentManager, SelectEnvironmentDialog::class.java.simpleName)
     }
 
-    private fun startAuthorizationActivity() {
-        startActivity(resolver.getAuthorizationIntent(this))
+    private fun startGatewayActivity() {
+        startActivity(resolver.getGatewayActivityIntent(this))
         finish()
     }
 

@@ -7,11 +7,13 @@ import com.yuyakaido.android.gaia.auth.ui.AuthorizationIntentResolver
 import com.yuyakaido.android.gaia.bar.ui.BarIntentResolver
 import com.yuyakaido.android.gaia.core.android.AuthorizationIntentResolverType
 import com.yuyakaido.android.gaia.core.android.BarIntentResolverType
+import com.yuyakaido.android.gaia.core.android.GatewayIntentResolverType
 import com.yuyakaido.android.gaia.core.android.RepoIntentResolverType
 import com.yuyakaido.android.gaia.core.java.AppScope
 import com.yuyakaido.android.gaia.core.java.AppStore
 import com.yuyakaido.android.gaia.core.java.AvailableEnvironment
 import com.yuyakaido.android.gaia.core.java.Environment
+import com.yuyakaido.android.gaia.gateway.ui.GatewayIntentResolver
 import com.yuyakaido.android.gaia.repo.ui.RepoIntentResolver
 import dagger.Module
 import dagger.Provides
@@ -62,6 +64,19 @@ class AppModule(private val application: Application) {
 
     @AppScope
     @Provides
+    fun provideAuthorizationIntentResolverType(): AuthorizationIntentResolverType {
+        return AuthorizationIntentResolver()
+    }
+
+
+    @AppScope
+    @Provides
+    fun provideGatewayIntentResolverType(): GatewayIntentResolverType {
+        return GatewayIntentResolver()
+    }
+
+    @AppScope
+    @Provides
     fun provideRepoIntentResolverType(): RepoIntentResolverType {
         return RepoIntentResolver()
     }
@@ -70,12 +85,6 @@ class AppModule(private val application: Application) {
     @Provides
     fun provideBarIntentResolverType(): BarIntentResolverType {
         return BarIntentResolver()
-    }
-
-    @AppScope
-    @Provides
-    fun provideAuthorizationType(): AuthorizationIntentResolverType {
-        return AuthorizationIntentResolver()
     }
 
 }

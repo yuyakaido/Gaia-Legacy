@@ -31,6 +31,8 @@
             </intent-filter>
         </activity>
 
+        <activity android:name=".gateway.ui.GatewayActivity"/>
+
         <activity android:name=".repo.ui.RepoActivity"/>
 
         <activity android:name=".bar.ui.BarActivity"/>
