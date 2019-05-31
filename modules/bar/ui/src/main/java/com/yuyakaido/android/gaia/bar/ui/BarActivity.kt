@@ -6,7 +6,7 @@ import android.os.Bundle
 import android.view.MenuItem
 import android.widget.Button
 import android.widget.TextView
-import com.yuyakaido.android.gaia.core.android.FooIntentResolverType
+import com.yuyakaido.android.gaia.core.android.RepoIntentResolverType
 import com.yuyakaido.android.gaia.core.java.Repo
 import dagger.android.support.DaggerAppCompatActivity
 import io.reactivex.disposables.CompositeDisposable
@@ -17,7 +17,7 @@ import javax.inject.Inject
 class BarActivity : DaggerAppCompatActivity() {
 
     @Inject
-    lateinit var resolver: FooIntentResolverType
+    lateinit var resolver: RepoIntentResolverType
 
     @Inject
     lateinit var viewModel: BarViewModel
@@ -43,8 +43,8 @@ class BarActivity : DaggerAppCompatActivity() {
 
         viewModel.repo()
             .subscribeBy { repo ->
-                val startButton = findViewById<Button>(R.id.start_foo)
-                startButton.setOnClickListener { startFooActivity() }
+                val startButton = findViewById<Button>(R.id.start_repo)
+                startButton.setOnClickListener { startRepoActivity() }
 
                 val idTextView = findViewById<TextView>(R.id.id)
                 idTextView.text = repo.id.toString()
@@ -67,8 +67,8 @@ class BarActivity : DaggerAppCompatActivity() {
         return super.onOptionsItemSelected(item)
     }
 
-    private fun startFooActivity() {
-        startActivity(resolver.getFooActivityIntent(this))
+    private fun startRepoActivity() {
+        startActivity(resolver.getRepoActivityIntent(this))
     }
 
     fun getRepo(): Repo {

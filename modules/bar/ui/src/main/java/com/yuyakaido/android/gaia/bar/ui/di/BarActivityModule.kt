@@ -17,7 +17,7 @@ class BarActivityModule {
     }
 
     @Provides
-    fun provideFooViewModel(
+    fun provideBarViewModel(
         activity: BarActivity,
         factory: BarViewModelFactory
     ): BarViewModel {

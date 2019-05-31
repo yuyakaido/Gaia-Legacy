@@ -30,9 +30,9 @@ dependencies {
     implementation project(':auth-ui')
     implementation project(':auth-domain')
     implementation project(':auth-infra')
-    implementation project(':foo-ui')
-    implementation project(':foo-domain')
-    implementation project(':foo-infra')
+    implementation project(':repo-ui')
+    implementation project(':repo-domain')
+    implementation project(':repo-infra')
     implementation project(':bar-ui')
 
     // Kotlin

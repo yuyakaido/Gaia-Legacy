@@ -1,14 +1,14 @@
 package com.yuyakaido.android.gaia.di
 
-import com.yuyakaido.android.gaia.foo.ui.FooFragment
-import com.yuyakaido.android.gaia.foo.ui.di.FooFragmentModule
+import com.yuyakaido.android.gaia.repo.ui.RepoFragment
+import com.yuyakaido.android.gaia.repo.ui.di.RepoFragmentModule
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 
 @Module
 abstract class SessionFragmentModule {
 
-    @ContributesAndroidInjector(modules = [FooFragmentModule::class])
-    abstract fun contributeFooFragment(): FooFragment
+    @ContributesAndroidInjector(modules = [RepoFragmentModule::class])
+    abstract fun contributeRepoFragment(): RepoFragment
 
 }

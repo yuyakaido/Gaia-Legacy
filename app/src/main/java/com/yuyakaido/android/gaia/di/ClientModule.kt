@@ -2,7 +2,7 @@ package com.yuyakaido.android.gaia.di
 
 import com.yuyakaido.android.gaia.core.java.Environment
 import com.yuyakaido.android.gaia.core.java.GithubRetrofit
-import com.yuyakaido.android.gaia.foo.data.GithubClient
+import com.yuyakaido.android.gaia.repo.infra.GithubClient
 import dagger.Module
 import dagger.Provides
 import okhttp3.OkHttpClient

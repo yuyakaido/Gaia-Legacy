@@ -31,7 +31,7 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".foo.ui.FooActivity"/>
+        <activity android:name=".repo.ui.RepoActivity"/>
 
         <activity android:name=".bar.ui.BarActivity"/>
 
