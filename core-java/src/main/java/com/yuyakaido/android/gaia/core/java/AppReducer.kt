@@ -33,6 +33,18 @@ object AppReducer : ReducerType<AppState, AppAction> {
                     sessions = action.sessions
                 )
             }
+            is AppAction.UpdateToken -> {
+                state.copy(
+                    sessions = state.sessions
+                        .mapIndexed { index, session ->
+                            if (index == state.index) {
+                                session.copy(token = action.token)
+                            } else {
+                                session
+                            }
+                        }
+                )
+            }
         }
     }
 

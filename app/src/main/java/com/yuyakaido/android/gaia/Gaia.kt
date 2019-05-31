@@ -48,7 +48,7 @@ class Gaia : DaggerApplication() {
         return if (runningSession.hasSession()) {
             val state = appStore.state()
             val session = state.sessions[state.index]
-            runningSession.components.getValue(session).activityInjector()
+            runningSession.get(session).activityInjector()
         } else {
             component.activityInjector()
         }
@@ -163,8 +163,8 @@ class Gaia : DaggerApplication() {
     }
 
     private fun onAppStart() {
-        runningSession.restore(this, component)
-        AppDispatcher.dispatch(AppAction.RestoreSessions(runningSession.sessions()))
+        val sessions = runningSession.restore(this)
+        AppDispatcher.dispatch(AppAction.RestoreSessions(sessions))
     }
 
     private fun onAppStop() {

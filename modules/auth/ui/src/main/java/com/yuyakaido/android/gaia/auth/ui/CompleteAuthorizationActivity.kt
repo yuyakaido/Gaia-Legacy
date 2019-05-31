@@ -4,6 +4,8 @@ import android.os.Bundle
 import android.util.Log
 import com.yuyakaido.android.gaia.auth.domain.GetAccessTokenUseCase
 import com.yuyakaido.android.gaia.core.android.FooIntentResolverType
+import com.yuyakaido.android.gaia.core.java.AppAction
+import com.yuyakaido.android.gaia.core.java.AppDispatcher
 import dagger.android.support.DaggerAppCompatActivity
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -46,6 +48,7 @@ class CompleteAuthorizationActivity : DaggerAppCompatActivity() {
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .doOnSuccess { token -> Log.d("Gaia", "token = $token") }
+            .doOnSuccess { token -> AppDispatcher.dispatch(AppAction.UpdateToken(token)) }
             .subscribeBy { startFooActivity() }
             .addTo(disposables)
     }

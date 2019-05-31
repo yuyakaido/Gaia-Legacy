@@ -6,4 +6,5 @@ sealed class AppAction : ActionType {
     data class RemoveSession(val session: Session) : AppAction()
     data class SelectSession(val session: Session) : AppAction()
     data class RestoreSessions(val sessions: List<Session>) : AppAction()
+    data class UpdateToken(val token: String) : AppAction()
 }
