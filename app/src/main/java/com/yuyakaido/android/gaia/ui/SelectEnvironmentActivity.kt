@@ -3,8 +3,6 @@ package com.yuyakaido.android.gaia.ui
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.view.Menu
-import android.view.MenuItem
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.xwray.groupie.GroupAdapter
@@ -18,7 +16,7 @@ import io.reactivex.rxkotlin.addTo
 import io.reactivex.rxkotlin.subscribeBy
 import javax.inject.Inject
 
-class SelectEnvironmentActivity : DaggerAppCompatActivity(), SelectEnvironmentDialog.OnDismissListener {
+class SelectEnvironmentActivity : DaggerAppCompatActivity(), SelectEnvironmentDialog.OnDismissListener, SessionFooter.AddSessionListener {
 
     companion object {
         fun createIntent(context: Context): Intent {
@@ -37,7 +35,6 @@ class SelectEnvironmentActivity : DaggerAppCompatActivity(), SelectEnvironmentDi
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_select_environment)
-        setupDialog()
         setupRecyclerView()
     }
 
@@ -46,31 +43,14 @@ class SelectEnvironmentActivity : DaggerAppCompatActivity(), SelectEnvironmentDi
         super.onDestroy()
     }
 
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.activity_select_environment, menu)
-        return true
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        when (item?.itemId) {
-            R.id.select -> {
-                showDialog()
-            }
-        }
-        return super.onOptionsItemSelected(item)
-    }
-
     override fun onDismiss(environment: Environment) {
         val session = Session.newSession(environment)
         AppDispatcher.dispatch(AppSignal.OpenSession(session))
         startGatewayActivity()
     }
 
-    private fun setupDialog() {
-        appStore.single()
-            .filter { it.sessions.isEmpty() }
-            .subscribeBy { showDialog() }
-            .addTo(disposables)
+    override fun onAddSession() {
+        showDialog()
     }
 
     private fun setupRecyclerView() {
@@ -101,6 +81,7 @@ class SelectEnvironmentActivity : DaggerAppCompatActivity(), SelectEnvironmentDi
             .subscribeBy { state ->
                 adapter.clear()
                 adapter.addAll(state.sessions.map { SessionItem(it) })
+                adapter.add(SessionFooter(this))
             }
             .addTo(disposables)
     }
