@@ -3,25 +3,31 @@ include ':core-java'
 include ':core-android'
 
 // Auth
+include ':modules:auth:service'
 include ':modules:auth:ui'
 include ':modules:auth:domain'
 include ':modules:auth:infra'
 
 // Gateway
+include ':modules:gateway:service'
 include ':modules:gateway:ui'
 
 // Home
+include ':modules:home:service'
 include ':modules:home:ui'
 
 // Repo
+include ':modules:repo:service'
 include ':modules:repo:ui'
 include ':modules:repo:domain'
 include ':modules:repo:infra'
 
 // Repo detail
+include ':modules:repo-detail:service'
 include ':modules:repo-detail:ui'
 
 // Profile
+include ':modules:profile:service'
 include ':modules:profile:ui'
 include ':modules:profile:domain'
 include ':modules:profile:infra'

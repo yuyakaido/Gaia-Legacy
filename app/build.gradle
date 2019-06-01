@@ -31,18 +31,12 @@ android {
 dependencies {
     // Module
     implementation project(':core-android')
-    implementation project(':modules:auth:ui')
-    implementation project(':modules:auth:domain')
-    implementation project(':modules:auth:infra')
-    implementation project(':modules:gateway:ui')
-    implementation project(':modules:home:ui')
-    implementation project(':modules:repo:ui')
-    implementation project(':modules:repo:domain')
-    implementation project(':modules:repo:infra')
-    implementation project(':modules:repo-detail:ui')
-    implementation project(':modules:profile:ui')
-    implementation project(':modules:profile:domain')
-    implementation project(':modules:profile:infra')
+    implementation project(':modules:auth:service')
+    implementation project(':modules:gateway:service')
+    implementation project(':modules:home:service')
+    implementation project(':modules:repo:service')
+    implementation project(':modules:repo-detail:service')
+    implementation project(':modules:profile:service')
 
     // Kotlin
     implementation libs.kotlin.stdlib
