@@ -15,13 +15,27 @@ class SessionItem(val session: Session) : Item<ViewHolder>() {
 
     override fun bind(holder: ViewHolder, position: Int) {
         val indicator = holder.itemView.findViewById<View>(R.id.indicator)
+        val title = holder.itemView.findViewById<TextView>(R.id.title)
         if (session.isLoggedOut()) {
-            indicator.setBackgroundResource(R.drawable.session_inactive)
-        } else if (session.isLoggedIn()) {
-            indicator.setBackgroundResource(R.drawable.session_active)
+            when (session.status) {
+                Session.Status.Active -> {
+                    indicator.setBackgroundResource(R.drawable.session_logged_out_active)
+                }
+                Session.Status.Inactive -> {
+                    indicator.setBackgroundResource(R.drawable.session_logged_out_inactive)
+                }
+            }
+        } else {
+            when (session.status) {
+                Session.Status.Active -> {
+                    indicator.setBackgroundResource(R.drawable.session_logged_in_active)
+                }
+                Session.Status.Inactive -> {
+                    indicator.setBackgroundResource(R.drawable.session_logged_in_inactive)
+                }
+            }
         }
 
-        val title = holder.itemView.findViewById<TextView>(R.id.title)
         title.text = session.toString()
     }
 

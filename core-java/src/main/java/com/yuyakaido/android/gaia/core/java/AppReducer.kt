@@ -11,21 +11,46 @@ object AppReducer : ReducerType<AppState, AppAction> {
             }
             is AppAction.AddSession -> {
                 val sessions = state.sessions.plus(action.session)
+                val nextIndex = sessions.indexOf(action.session)
                 state.copy(
-                    index = sessions.indexOf(action.session),
+                    index = nextIndex,
                     sessions = sessions
+                        .mapIndexed { index, session ->
+                            if (index == nextIndex) {
+                                session.copy(status = Session.Status.Active)
+                            } else {
+                                session.copy(status = Session.Status.Inactive)
+                            }
+                        }
                 )
             }
             is AppAction.RemoveSession -> {
                 val sessions = state.sessions.minus(action.session)
+                val nextIndex = sessions.lastIndex
                 state.copy(
-                    index = sessions.lastIndex,
+                    index = nextIndex,
                     sessions = sessions
+                        .mapIndexed { index, session ->
+                            if (index == nextIndex) {
+                                session.copy(status = Session.Status.Active)
+                            } else {
+                                session.copy(status = Session.Status.Inactive)
+                            }
+                        }
                 )
             }
             is AppAction.SelectSession -> {
+                val nextIndex = state.sessions.indexOf(action.session)
                 state.copy(
-                    index = state.sessions.indexOf(action.session)
+                    index = nextIndex,
+                    sessions = state.sessions
+                        .mapIndexed { index, session ->
+                            if (index == nextIndex) {
+                                session.copy(status = Session.Status.Active)
+                            } else {
+                                session.copy(status = Session.Status.Inactive)
+                            }
+                        }
                 )
             }
             is AppAction.RestoreSessions -> {
