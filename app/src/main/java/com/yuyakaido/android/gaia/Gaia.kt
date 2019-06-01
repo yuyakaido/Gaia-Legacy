@@ -130,12 +130,10 @@ class Gaia : DaggerApplication(), CurrentSession {
 
     private fun setupNotification() {
         appStore.observable()
-            .filter { it.sessions.isNotEmpty() }
             .subscribeBy { state ->
                 when (state.lifecycle) {
-                    AppLifecycle.OnStart -> showNotification(state)
                     AppLifecycle.OnStop -> cancelNotification()
-                    else -> Unit
+                    else -> showNotification(state)
                 }
             }
             .addTo(disposables)
@@ -145,7 +143,7 @@ class Gaia : DaggerApplication(), CurrentSession {
         val notification = NotificationCompat.Builder(this, NOTIFICATION_ID)
             .setContentTitle("Current environment")
             .setSmallIcon(R.drawable.ic_launcher_background)
-            .setContentText(state.sessions[state.index].toString())
+            .setContentText(state.sessions.getOrNull(state.index).toString())
             .setContentIntent(
                 PendingIntent.getActivity(
                     this,
