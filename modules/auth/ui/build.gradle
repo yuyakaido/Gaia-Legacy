@@ -21,7 +21,7 @@ android {
 dependencies {
     // Module
     implementation project(':core-android')
-    implementation project(':auth-domain')
+    implementation project(':modules:auth:domain')
 
     // Kotlin
     implementation libs.kotlin.stdlib

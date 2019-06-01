@@ -37,7 +37,7 @@ compileTestKotlin {
 
 dependencies {
     api project(':core-java')
-    implementation project(':profile-domain')
+    implementation project(':modules:profile:domain')
 
     // Kotlin
     implementation libs.kotlin.stdlib

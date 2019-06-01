@@ -15,7 +15,7 @@ android {
 dependencies {
     // Module
     implementation project(':core-android')
-    implementation project(':repo-domain')
+    implementation project(':modules:repo:domain')
 
     // Kotlin
     implementation libs.kotlin.stdlib

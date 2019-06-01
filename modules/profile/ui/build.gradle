@@ -15,7 +15,7 @@ android {
 dependencies {
     // Module
     implementation project(':core-android')
-    implementation project(':profile-domain')
+    implementation project(':modules:profile:domain')
 
     // Kotlin
     implementation libs.kotlin.stdlib

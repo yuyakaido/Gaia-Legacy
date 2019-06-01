@@ -23,23 +23,26 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+    packagingOptions {
+        exclude 'META-INF/*.kotlin_module'
+    }
 }
 
 dependencies {
     // Module
     implementation project(':core-android')
-    implementation project(':auth-ui')
-    implementation project(':auth-domain')
-    implementation project(':auth-infra')
-    implementation project(':gateway-ui')
-    implementation project(':home-ui')
-    implementation project(':repo-ui')
-    implementation project(':repo-domain')
-    implementation project(':repo-infra')
-    implementation project(':repo-detail-ui')
-    implementation project(':profile-ui')
-    implementation project(':profile-domain')
-    implementation project(':profile-infra')
+    implementation project(':modules:auth:ui')
+    implementation project(':modules:auth:domain')
+    implementation project(':modules:auth:infra')
+    implementation project(':modules:gateway:ui')
+    implementation project(':modules:home:ui')
+    implementation project(':modules:repo:ui')
+    implementation project(':modules:repo:domain')
+    implementation project(':modules:repo:infra')
+    implementation project(':modules:repo-detail:ui')
+    implementation project(':modules:profile:ui')
+    implementation project(':modules:profile:domain')
+    implementation project(':modules:profile:infra')
 
     // Kotlin
     implementation libs.kotlin.stdlib

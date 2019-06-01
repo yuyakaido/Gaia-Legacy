@@ -2,40 +2,26 @@ include ':app'
 include ':core-java'
 include ':core-android'
 
-def moduleDir = new File('modules')
+// Auth
+include ':modules:auth:ui'
+include ':modules:auth:domain'
+include ':modules:auth:infra'
 
-// Auth modules
-def authDir = new File(moduleDir, 'auth')
-include ':auth-ui', ':auth-domain', ':auth-infra'
-project(':auth-ui').projectDir = new File(authDir, 'ui')
-project(':auth-domain').projectDir = new File(authDir, 'domain')
-project(':auth-infra').projectDir = new File(authDir, 'infra')
+// Gateway
+include ':modules:gateway:ui'
 
-// Gateway modules
-def gatewayDir = new File(moduleDir, 'gateway')
-include ':gateway-ui'
-project(':gateway-ui').projectDir = new File(gatewayDir, 'ui')
+// Home
+include ':modules:home:ui'
 
-// Home modules
-def homeDir = new File(moduleDir, 'home')
-include ':home-ui'
-project(':home-ui').projectDir = new File(homeDir, 'ui')
+// Repo
+include ':modules:repo:ui'
+include ':modules:repo:domain'
+include ':modules:repo:infra'
 
-// Repo modules
-def repoDir = new File(moduleDir, 'repo')
-include ':repo-ui', ':repo-domain', ':repo-infra'
-project(':repo-ui').projectDir = new File(repoDir, 'ui')
-project(':repo-domain').projectDir = new File(repoDir, 'domain')
-project(':repo-infra').projectDir = new File(repoDir, 'infra')
-
-// Repo detail modules
-def repoDetailDir = new File(moduleDir, 'repo-detail')
-include ':repo-detail-ui'
-project(':repo-detail-ui').projectDir = new File(repoDetailDir, 'ui')
+// Repo detail
+include ':modules:repo-detail:ui'
 
 // Profile
-def profileDir = new File(moduleDir, 'profile')
-include ':profile-ui', ':profile-domain', ':profile-infra'
-project(':profile-ui').projectDir = new File(profileDir, 'ui')
-project(':profile-domain').projectDir = new File(profileDir, 'domain')
-project(':profile-infra').projectDir = new File(profileDir, 'infra')
+include ':modules:profile:ui'
+include ':modules:profile:domain'
+include ':modules:profile:infra'

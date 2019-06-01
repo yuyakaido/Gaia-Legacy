@@ -30,7 +30,7 @@ compileTestKotlin {
 
 dependencies {
     api project(':core-java')
-    implementation project(':auth-domain')
+    implementation project(':modules:auth:domain')
 
     // Kotlin
     implementation libs.kotlin.stdlib
