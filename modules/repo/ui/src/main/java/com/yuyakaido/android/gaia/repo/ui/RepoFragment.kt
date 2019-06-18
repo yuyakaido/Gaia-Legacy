@@ -4,14 +4,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.EditText
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.jakewharton.rxbinding3.widget.textChanges
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.ViewHolder
 import com.yuyakaido.android.gaia.core.android.RepoDetailIntentResolverType
+import com.yuyakaido.android.gaia.repo.ui.databinding.FragmentRepoBinding
 import dagger.android.support.DaggerFragment
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -30,6 +29,7 @@ class RepoFragment : DaggerFragment() {
     }
 
     private val disposables = CompositeDisposable()
+    private val binding by lazy { FragmentRepoBinding.inflate(layoutInflater) }
 
     @Inject
     lateinit var viewModel: RepoViewModel
@@ -42,7 +42,7 @@ class RepoFragment : DaggerFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_repo, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -54,12 +54,10 @@ class RepoFragment : DaggerFragment() {
                 startActivity(resolver.getRepoDetailActivityIntent(requireContext(), item.repo))
             }
         }
-        val recyclerView = view.findViewById<RecyclerView>(R.id.recycler_view)
-        recyclerView.layoutManager = LinearLayoutManager(requireContext())
-        recyclerView.adapter = adapter
+        binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
+        binding.recyclerView.adapter = adapter
 
-        val editText = view.findViewById<EditText>(R.id.edit_text)
-        editText.textChanges()
+        binding.editText.textChanges()
             .skipInitialValue()
             .throttleLast(1, TimeUnit.SECONDS)
             .map { it.toString() }

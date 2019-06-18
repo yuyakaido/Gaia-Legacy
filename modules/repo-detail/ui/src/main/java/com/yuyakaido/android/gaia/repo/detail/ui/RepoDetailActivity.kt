@@ -4,8 +4,8 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
-import android.widget.TextView
 import com.yuyakaido.android.gaia.core.java.Repo
+import com.yuyakaido.android.gaia.repo.detail.ui.databinding.ActivityRepoDetailBinding
 import dagger.android.support.DaggerAppCompatActivity
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.addTo
@@ -15,6 +15,7 @@ import javax.inject.Inject
 class RepoDetailActivity : DaggerAppCompatActivity() {
 
     private val disposables = CompositeDisposable()
+    private val binding by lazy { ActivityRepoDetailBinding.inflate(layoutInflater) }
 
     @Inject
     lateinit var viewModel: RepoDetailViewModel
@@ -30,7 +31,7 @@ class RepoDetailActivity : DaggerAppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_repo_detail)
+        setContentView(binding.root)
         setupToolbar()
         setupRepo()
     }
@@ -56,10 +57,8 @@ class RepoDetailActivity : DaggerAppCompatActivity() {
     private fun setupRepo() {
         viewModel.repo()
             .subscribeBy { repo ->
-                val idTextView = findViewById<TextView>(R.id.id)
-                val nameTextView = findViewById<TextView>(R.id.name)
-                nameTextView.text = repo.name
-                idTextView.text = repo.id.toString()
+                binding.id.text = repo.name
+                binding.name.text = repo.id.toString()
             }
             .addTo(disposables)
     }

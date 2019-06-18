@@ -10,6 +10,9 @@ android {
         versionCode versions.versionCode
         versionName versions.versionName
     }
+    dataBinding {
+        enabled = true
+    }
 }
 
 dependencies {

@@ -16,6 +16,9 @@ android {
 
         buildConfigField "String", "GITHUB_CLIENT_ID", "\"${GITHUB_CLIENT_ID}\""
     }
+    dataBinding {
+        enabled = true
+    }
 }
 
 dependencies {

@@ -4,12 +4,11 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.ViewHolder
-import com.yuyakaido.android.gaia.R
 import com.yuyakaido.android.gaia.core.android.GatewayIntentResolverType
 import com.yuyakaido.android.gaia.core.java.*
+import com.yuyakaido.android.gaia.databinding.ActivitySelectEnvironmentBinding
 import dagger.android.support.DaggerAppCompatActivity
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.addTo
@@ -25,6 +24,7 @@ class SelectEnvironmentActivity : DaggerAppCompatActivity(), SelectEnvironmentDi
     }
 
     private val disposables = CompositeDisposable()
+    private val binding by lazy { ActivitySelectEnvironmentBinding.inflate(layoutInflater) }
 
     @Inject
     lateinit var appStore: AppStore
@@ -34,7 +34,7 @@ class SelectEnvironmentActivity : DaggerAppCompatActivity(), SelectEnvironmentDi
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_select_environment)
+        setContentView(binding.root)
         setupRecyclerView()
     }
 
@@ -73,9 +73,8 @@ class SelectEnvironmentActivity : DaggerAppCompatActivity(), SelectEnvironmentDi
                 .addTo(disposables)
             return@setOnItemLongClickListener true
         }
-        val recyclerView = findViewById<RecyclerView>(R.id.recycler_view)
-        recyclerView.layoutManager = LinearLayoutManager(this)
-        recyclerView.adapter = adapter
+        binding.recyclerView.layoutManager = LinearLayoutManager(this)
+        binding.recyclerView.adapter = adapter
 
         appStore.observable()
             .subscribeBy { state ->

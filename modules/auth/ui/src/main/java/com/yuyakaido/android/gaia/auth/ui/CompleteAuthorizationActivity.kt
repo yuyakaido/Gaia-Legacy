@@ -2,6 +2,7 @@ package com.yuyakaido.android.gaia.auth.ui
 
 import android.os.Bundle
 import com.yuyakaido.android.gaia.auth.domain.GetAccessTokenUseCase
+import com.yuyakaido.android.gaia.auth.ui.databinding.ActivityCompleteAuthorizationBinding
 import com.yuyakaido.android.gaia.core.android.HomeIntentResolverType
 import com.yuyakaido.android.gaia.core.java.AppAction
 import com.yuyakaido.android.gaia.core.java.AppDispatcher
@@ -16,6 +17,7 @@ import javax.inject.Inject
 class CompleteAuthorizationActivity : DaggerAppCompatActivity() {
 
     private val disposables = CompositeDisposable()
+    private val binding by lazy { ActivityCompleteAuthorizationBinding.inflate(layoutInflater) }
 
     @Inject
     lateinit var homeIntentResolver: HomeIntentResolverType
@@ -25,7 +27,7 @@ class CompleteAuthorizationActivity : DaggerAppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_complete_authorization)
+        setContentView(binding.root)
         handleUrlScheme()
     }
 
