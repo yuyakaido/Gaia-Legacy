@@ -5,7 +5,7 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import com.yuyakaido.android.gaia.auth.ui.databinding.ActivityLaunchAuthorizationBinding
-import com.yuyakaido.android.gaia.core.java.Session
+import com.yuyakaido.android.gaia.core.java.SessionState
 import dagger.android.support.DaggerAppCompatActivity
 import javax.inject.Inject
 
@@ -18,7 +18,7 @@ class LaunchAuthorizationActivity : DaggerAppCompatActivity() {
     }
 
     @Inject
-    lateinit var session: Session
+    lateinit var session: SessionState
 
     private val binding by lazy { ActivityLaunchAuthorizationBinding.inflate(layoutInflater) }
 

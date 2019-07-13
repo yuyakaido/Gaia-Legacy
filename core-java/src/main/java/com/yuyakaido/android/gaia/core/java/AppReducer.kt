@@ -15,13 +15,6 @@ object AppReducer : ReducerType<AppState, AppAction> {
                 state.copy(
                     index = nextIndex,
                     sessions = sessions
-                        .mapIndexed { index, session ->
-                            if (index == nextIndex) {
-                                session.copy(status = Session.Status.Active)
-                            } else {
-                                session.copy(status = Session.Status.Inactive)
-                            }
-                        }
                 )
             }
             is AppAction.RemoveSession -> {
@@ -30,13 +23,6 @@ object AppReducer : ReducerType<AppState, AppAction> {
                 state.copy(
                     index = nextIndex,
                     sessions = sessions
-                        .mapIndexed { index, session ->
-                            if (index == nextIndex) {
-                                session.copy(status = Session.Status.Active)
-                            } else {
-                                session.copy(status = Session.Status.Inactive)
-                            }
-                        }
                 )
             }
             is AppAction.SelectSession -> {
@@ -44,13 +30,6 @@ object AppReducer : ReducerType<AppState, AppAction> {
                 state.copy(
                     index = nextIndex,
                     sessions = state.sessions
-                        .mapIndexed { index, session ->
-                            if (index == nextIndex) {
-                                session.copy(status = Session.Status.Active)
-                            } else {
-                                session.copy(status = Session.Status.Inactive)
-                            }
-                        }
                 )
             }
             is AppAction.RestoreSessions -> {
@@ -58,12 +37,24 @@ object AppReducer : ReducerType<AppState, AppAction> {
                     sessions = action.sessions
                 )
             }
-            is AppAction.UpdateToken -> {
+            is AppAction.LogOutSession -> {
                 state.copy(
                     sessions = state.sessions
-                        .mapIndexed { index, session ->
-                            if (index == state.index) {
-                                session.copy(token = action.token)
+                        .map { session ->
+                            if (session.id == action.session.id) {
+                                action.session
+                            } else {
+                                session
+                            }
+                        }
+                )
+            }
+            is AppAction.LogInSession -> {
+                state.copy(
+                    sessions = state.sessions
+                        .map { session ->
+                            if (session.id == action.session.id) {
+                                action.session
                             } else {
                                 session
                             }

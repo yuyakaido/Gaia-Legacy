@@ -6,7 +6,6 @@ import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.ViewHolder
-import com.yuyakaido.android.gaia.core.android.GatewayIntentResolverType
 import com.yuyakaido.android.gaia.core.java.*
 import com.yuyakaido.android.gaia.databinding.ActivitySelectEnvironmentBinding
 import dagger.android.support.DaggerAppCompatActivity
@@ -29,9 +28,6 @@ class SelectEnvironmentActivity : DaggerAppCompatActivity(), SelectEnvironmentDi
     @Inject
     lateinit var appStore: AppStore
 
-    @Inject
-    lateinit var resolver: GatewayIntentResolverType
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
@@ -44,9 +40,8 @@ class SelectEnvironmentActivity : DaggerAppCompatActivity(), SelectEnvironmentDi
     }
 
     override fun onDismiss(environment: Environment) {
-        val session = Session.newSession(environment)
-        AppDispatcher.dispatch(AppSignal.OpenSession(session))
-        startGatewayActivity()
+        val session = SessionState.newResolvingSession(environment)
+        AppDispatcher.dispatch(AppSignal.AddSession(session))
     }
 
     override fun onAddSession() {
@@ -58,8 +53,7 @@ class SelectEnvironmentActivity : DaggerAppCompatActivity(), SelectEnvironmentDi
         adapter.setOnItemClickListener { item, _ ->
             if (item is SessionItem) {
                 val session = item.session
-                AppDispatcher.dispatch(AppAction.SelectSession(session))
-                startGatewayActivity()
+                AppDispatcher.dispatch(AppSignal.SelectSession(session))
             }
         }
         adapter.setOnItemLongClickListener { item, _ ->
@@ -67,7 +61,7 @@ class SelectEnvironmentActivity : DaggerAppCompatActivity(), SelectEnvironmentDi
                 .subscribeBy { state ->
                     if (item is SessionItem && state.sessions.size > 1) {
                         val session = item.session
-                        AppDispatcher.dispatch(AppSignal.CloseSession(session))
+                        AppDispatcher.dispatch(AppSignal.RemoveSession(session))
                     }
                 }
                 .addTo(disposables)
@@ -88,11 +82,6 @@ class SelectEnvironmentActivity : DaggerAppCompatActivity(), SelectEnvironmentDi
     private fun showDialog() {
         val dialog = SelectEnvironmentDialog.newInstance()
         dialog.show(supportFragmentManager, SelectEnvironmentDialog::class.java.simpleName)
-    }
-
-    private fun startGatewayActivity() {
-        startActivity(resolver.getGatewayActivityIntent(this))
-        finish()
     }
 
 }

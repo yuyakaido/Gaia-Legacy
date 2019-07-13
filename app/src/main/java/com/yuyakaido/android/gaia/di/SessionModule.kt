@@ -1,12 +1,12 @@
 package com.yuyakaido.android.gaia.di
 
 import com.yuyakaido.android.gaia.core.java.Environment
-import com.yuyakaido.android.gaia.core.java.Session
+import com.yuyakaido.android.gaia.core.java.SessionState
 import dagger.Module
 import dagger.Provides
 
 @Module
-class SessionModule(private val session: Session) {
+class SessionModule(private val session: SessionState) {
 
     @SessionScope
     @Provides
@@ -16,7 +16,7 @@ class SessionModule(private val session: Session) {
 
     @SessionScope
     @Provides
-    fun provideSession(): Session {
+    fun provideSession(): SessionState {
         return session
     }
 

@@ -4,7 +4,8 @@ import android.preference.PreferenceManager
 import com.google.gson.Gson
 import com.google.gson.JsonArray
 import com.google.gson.JsonParser
-import com.yuyakaido.android.gaia.core.java.Session
+import com.yuyakaido.android.gaia.core.java.SerializableSession
+import com.yuyakaido.android.gaia.core.java.SessionState
 import com.yuyakaido.android.gaia.di.SessionComponent
 import com.yuyakaido.android.gaia.ext.newSessionComponent
 
@@ -20,15 +21,19 @@ data class RunningSession(
         return components.isNotEmpty()
     }
 
-    fun add(session: Session, component: SessionComponent) {
+    fun add(session: SessionState, component: SessionComponent) {
         components = components.plus(session.id to component)
     }
 
-    fun remove(session: Session) {
+    fun remove(session: SessionState) {
         components = components.minus(session.id)
     }
 
-    fun get(session: Session): SessionComponent {
+    fun replace(session: SessionState, component: SessionComponent) {
+        components = components.mapValues { if (it.key == session.id) { component } else { it.value } }
+    }
+
+    fun get(session: SessionState): SessionComponent {
         return components.getValue(session.id)
     }
 
@@ -38,7 +43,7 @@ data class RunningSession(
         val state = gaia.appStore.state()
         components.keys.forEach { id ->
             val session = state.sessions.first { it.id == id }
-            arrayArray.add(gson.toJsonTree(session))
+            arrayArray.add(gson.toJsonTree(SerializableSession.from(session)))
         }
 
         val preference = PreferenceManager.getDefaultSharedPreferences(gaia)
@@ -47,14 +52,15 @@ data class RunningSession(
         editor.apply()
     }
 
-    fun restore(gaia: Gaia): List<Session> {
+    fun restore(gaia: Gaia): List<SessionState> {
         val gson = Gson()
         val preference = PreferenceManager.getDefaultSharedPreferences(gaia)
         val jsonString = preference.getString(SESSIONS, JsonArray().toString())
         val jsonArray = JsonParser().parse(jsonString).asJsonArray
 
         val sessions = jsonArray
-            .map { gson.fromJson(it.toString(), Session::class.java) }
+            .map { gson.fromJson(it.toString(), SerializableSession::class.java) }
+            .map { it.toSessionState() }
 
         components = sessions
             .associate { session -> session.id to gaia.component.newSessionComponent(session) }

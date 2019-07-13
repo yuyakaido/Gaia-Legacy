@@ -28,9 +28,13 @@ class Gaia : DaggerApplication(), CurrentSession {
     }
 
     private val disposables = CompositeDisposable()
+    private val lifecycleObserver = AppLifecycleObserver()
 
     @Inject
     lateinit var component: AppComponent
+
+    @Inject
+    lateinit var appRouter: AppRouter
 
     @Inject
     lateinit var runningSession: RunningSession
@@ -64,22 +68,23 @@ class Gaia : DaggerApplication(), CurrentSession {
 
     override fun onTerminate() {
         disposables.dispose()
+        ProcessLifecycleOwner.get().lifecycle.removeObserver(lifecycleObserver)
         super.onTerminate()
     }
 
-    override fun getCurrentSession(): Session {
+    override fun getCurrentSession(): SessionState {
         val state = appStore.state()
         return state.sessions[state.index]
     }
 
     private fun setupAppLifecycleObserver() {
-        ProcessLifecycleOwner.get().lifecycle.addObserver(AppLifecycleObserver())
+        ProcessLifecycleOwner.get().lifecycle.addObserver(lifecycleObserver)
 
         appStore.observable()
             .distinctUntilChanged { state -> state.lifecycle }
             .subscribeBy { state ->
                 when (state.lifecycle) {
-                    AppLifecycle.OnStart -> onAppStart()
+                    AppLifecycle.OnCreate -> onAppCreate()
                     AppLifecycle.OnStop -> onAppStop()
                     else -> Unit
                 }
@@ -88,15 +93,16 @@ class Gaia : DaggerApplication(), CurrentSession {
     }
 
     private fun setupSession() {
-        AppDispatcher.on(AppSignal.OpenSession::class.java)
+        AppDispatcher.on(AppSignal.AddSession::class.java)
             .subscribeBy { signal ->
                 val session = signal.session
                 val component = component.newSessionComponent(session)
                 runningSession.add(session, component)
                 AppDispatcher.dispatch(AppAction.AddSession(session))
+                appRouter.navigateToGateway()
             }
             .addTo(disposables)
-        AppDispatcher.on(AppSignal.CloseSession::class.java)
+        AppDispatcher.on(AppSignal.RemoveSession::class.java)
             .subscribeBy { signal ->
                 val session = signal.session
                 runningSession.remove(session)
@@ -106,7 +112,28 @@ class Gaia : DaggerApplication(), CurrentSession {
         AppDispatcher.on(AppSignal.SelectSession::class.java)
             .subscribeBy { signal ->
                 val session = signal.session
+                val component = component.newSessionComponent(session)
+                runningSession.replace(session, component)
                 AppDispatcher.dispatch(AppAction.SelectSession(session))
+                appRouter.navigateToGateway()
+            }
+            .addTo(disposables)
+        AppDispatcher.on(AppSignal.LogOutSession::class.java)
+            .subscribeBy { signal ->
+                val session = signal.session.toLoggedOut()
+                val component = component.newSessionComponent(session)
+                runningSession.replace(session, component)
+                AppDispatcher.dispatch(AppAction.LogOutSession(session))
+                appRouter.navigateToEnvironment()
+            }
+            .addTo(disposables)
+        AppDispatcher.on(AppSignal.LogInSession::class.java)
+            .subscribeBy { signal ->
+                val session = signal.session.toLoggedIn(signal.token)
+                val component = component.newSessionComponent(session)
+                runningSession.replace(session, component)
+                AppDispatcher.dispatch(AppAction.LogInSession(session))
+                appRouter.navigateToHome()
             }
             .addTo(disposables)
     }
@@ -165,7 +192,7 @@ class Gaia : DaggerApplication(), CurrentSession {
         manager.cancel(0)
     }
 
-    private fun onAppStart() {
+    private fun onAppCreate() {
         val sessions = runningSession.restore(this)
         AppDispatcher.dispatch(AppAction.RestoreSessions(sessions))
     }

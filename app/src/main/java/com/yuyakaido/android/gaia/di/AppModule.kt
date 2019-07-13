@@ -15,6 +15,7 @@ import com.yuyakaido.android.gaia.home.ui.HomeIntentResolver
 import com.yuyakaido.android.gaia.profile.ui.ProfileFragmentResolver
 import com.yuyakaido.android.gaia.repo.detail.ui.RepoDetailIntentResolver
 import com.yuyakaido.android.gaia.repo.ui.RepoFragmentResolver
+import com.yuyakaido.android.gaia.ui.EnvironmentIntentResolver
 import dagger.Module
 import dagger.Provides
 
@@ -68,6 +69,12 @@ class AppModule(private val gaia: Gaia) {
     @Provides
     fun provideAppStore(): AppStore {
         return AppStore()
+    }
+
+    @AppScope
+    @Provides
+    fun provideSEnvironmentIntentResolverType(): EnvironmentIntentResolverType {
+        return EnvironmentIntentResolver()
     }
 
     @AppScope

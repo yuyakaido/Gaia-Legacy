@@ -3,9 +3,9 @@ package com.yuyakaido.android.gaia.auth.ui
 import android.os.Bundle
 import com.yuyakaido.android.gaia.auth.domain.GetAccessTokenUseCase
 import com.yuyakaido.android.gaia.auth.ui.databinding.ActivityCompleteAuthorizationBinding
-import com.yuyakaido.android.gaia.core.android.HomeIntentResolverType
-import com.yuyakaido.android.gaia.core.java.AppAction
 import com.yuyakaido.android.gaia.core.java.AppDispatcher
+import com.yuyakaido.android.gaia.core.java.AppSignal
+import com.yuyakaido.android.gaia.core.java.SessionState
 import dagger.android.support.DaggerAppCompatActivity
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -20,7 +20,7 @@ class CompleteAuthorizationActivity : DaggerAppCompatActivity() {
     private val binding by lazy { ActivityCompleteAuthorizationBinding.inflate(layoutInflater) }
 
     @Inject
-    lateinit var homeIntentResolver: HomeIntentResolverType
+    lateinit var session: SessionState
 
     @Inject
     lateinit var getAccessTokenUseCase: GetAccessTokenUseCase
@@ -48,14 +48,8 @@ class CompleteAuthorizationActivity : DaggerAppCompatActivity() {
         getAccessTokenUseCase.getAccessToken(code)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .doOnSuccess { token -> AppDispatcher.dispatch(AppAction.UpdateToken(token)) }
-            .subscribeBy { startHomeActivity() }
+            .subscribeBy { token -> AppDispatcher.dispatch(AppSignal.LogInSession(session, token)) }
             .addTo(disposables)
-    }
-
-    private fun startHomeActivity() {
-        startActivity(homeIntentResolver.getHomeActivityIntent(this))
-        finish()
     }
 
 }

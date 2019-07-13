@@ -2,12 +2,12 @@ package com.yuyakaido.android.gaia.gateway.ui
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
-import com.yuyakaido.android.gaia.core.java.Session
+import com.yuyakaido.android.gaia.core.java.SessionState
 import io.reactivex.subjects.PublishSubject
 
 class GatewayViewModel(
     application: Application,
-    private val session: Session
+    private val session: SessionState
 ) : AndroidViewModel(application) {
 
     val startAuthorizationActivity = PublishSubject.create<Unit>()
