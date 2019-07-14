@@ -10,7 +10,7 @@ import com.yuyakaido.android.gaia.di.SessionComponent
 import com.yuyakaido.android.gaia.ext.newSessionComponent
 
 data class RunningSession(
-    private var components: Map<Long, SessionComponent> = mutableMapOf()
+    private val components: MutableMap<Long, SessionComponent> = mutableMapOf()
 ) {
 
     companion object {
@@ -22,15 +22,15 @@ data class RunningSession(
     }
 
     fun add(session: SessionState, component: SessionComponent) {
-        components = components.plus(session.id to component)
+        components[session.id] = component
     }
 
     fun remove(session: SessionState) {
-        components = components.minus(session.id)
+        components.remove(session.id)
     }
 
     fun replace(session: SessionState, component: SessionComponent) {
-        components = components.mapValues { if (it.key == session.id) { component } else { it.value } }
+        components[session.id] = component
     }
 
     fun get(session: SessionState): SessionComponent {
@@ -62,8 +62,9 @@ data class RunningSession(
             .map { gson.fromJson(it.toString(), SerializableSession::class.java) }
             .map { it.toSessionState() }
 
-        components = sessions
-            .associate { session -> session.id to gaia.component.newSessionComponent(session) }
+        sessions.associateTo(components) { session ->
+            session.id to gaia.component.newSessionComponent(session)
+        }
 
         return sessions
     }

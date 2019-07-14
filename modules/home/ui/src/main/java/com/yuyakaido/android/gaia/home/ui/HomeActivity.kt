@@ -49,7 +49,7 @@ class HomeActivity : DaggerAppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         when (item?.itemId) {
-            R.id.logged_out -> {
+            R.id.log_out -> {
                 AppDispatcher.dispatch(AppSignal.LogOutSession(session))
             }
         }
