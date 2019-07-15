@@ -127,7 +127,7 @@ class Gaia : DaggerApplication(), CurrentSession {
                 appRouter.navigateToEnvironment()
             }
             .addTo(disposables)
-        AppDispatcher.on(AppSignal.LogInSession::class.java)
+        AppDispatcher.on(AppSignal.LogInSessionWithoutEnv::class.java)
             .subscribeBy { signal ->
                 val session = signal.session.toLoggedIn(signal.token)
                 val component = component.newSessionComponent(session)
@@ -135,6 +135,30 @@ class Gaia : DaggerApplication(), CurrentSession {
                 AppDispatcher.dispatch(AppAction.LogInSession(session))
                 appRouter.navigateToHome()
             }
+            .addTo(disposables)
+        AppDispatcher.on(AppSignal.LogInSessionWithEnv::class.java)
+            .subscribeBy { signal ->
+                val session = signal.session.toLoggedIn(signal.env, signal.token)
+                val component = component.newSessionComponent(session)
+                runningSession.replace(session, component)
+                AppDispatcher.dispatch(AppAction.LogInSession(session))
+                appRouter.navigateToHome()
+            }
+            .addTo(disposables)
+        AppDispatcher.on(AppSignal.ResolveEnvironment::class.java)
+            .subscribeBy { signal ->
+                val session = signal.session.toLoggedOut(signal.env)
+                val component = component.newSessionComponent(session)
+                runningSession.replace(session, component)
+                AppDispatcher.dispatch(AppAction.LogInSession(session))
+                AppDispatcher.dispatch(AppSignal.NavigateToAuth)
+            }
+            .addTo(disposables)
+        AppDispatcher.on(AppSignal.NavigateToAuth::class.java)
+            .subscribeBy { appRouter.navigateToAuth() }
+            .addTo(disposables)
+        AppDispatcher.on(AppSignal.NavigateToHome::class.java)
+            .subscribeBy { appRouter.navigateToHome() }
             .addTo(disposables)
     }
 

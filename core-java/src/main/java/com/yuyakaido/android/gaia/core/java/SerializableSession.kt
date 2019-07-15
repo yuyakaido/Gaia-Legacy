@@ -44,24 +44,27 @@ data class SerializableSession(
         }
     }
 
-    fun toSessionState(): SessionState {
+    fun toSessionState(available: AvailableEnvironment): SessionState {
         return when (type) {
             Type.Resolving -> {
                 SessionState.Resolving(
                     id = id,
-                    environment = environment
+                    environment = environment,
+                    available = available
                 )
             }
             Type.ResolvedLoggedOut -> {
                 SessionState.Resolved.LoggedOut(
                     id = id,
-                    environment = environment
+                    environment = environment,
+                    available = available
                 )
             }
             Type.ResolvedLoggedIn -> {
                 SessionState.Resolved.LoggedIn(
                     id = id,
                     environment = environment,
+                    available = available,
                     token = token!!
                 )
             }

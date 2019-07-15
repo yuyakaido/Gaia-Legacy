@@ -5,6 +5,7 @@ import com.yuyakaido.android.gaia.auth.domain.GetAccessTokenUseCase
 import com.yuyakaido.android.gaia.auth.ui.databinding.ActivityCompleteAuthorizationBinding
 import com.yuyakaido.android.gaia.core.java.AppDispatcher
 import com.yuyakaido.android.gaia.core.java.AppSignal
+import com.yuyakaido.android.gaia.core.java.AvailableEnvironment
 import com.yuyakaido.android.gaia.core.java.SessionState
 import dagger.android.support.DaggerAppCompatActivity
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -18,6 +19,9 @@ class CompleteAuthorizationActivity : DaggerAppCompatActivity() {
 
     private val disposables = CompositeDisposable()
     private val binding by lazy { ActivityCompleteAuthorizationBinding.inflate(layoutInflater) }
+
+    @Inject
+    lateinit var available: AvailableEnvironment
 
     @Inject
     lateinit var session: SessionState
@@ -48,7 +52,9 @@ class CompleteAuthorizationActivity : DaggerAppCompatActivity() {
         getAccessTokenUseCase.getAccessToken(code)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribeBy { token -> AppDispatcher.dispatch(AppSignal.LogInSession(session, token)) }
+            .subscribeBy { token ->
+                AppDispatcher.dispatch(AppSignal.LogInSessionWithEnv(session, available.secoundary(), token))
+            }
             .addTo(disposables)
     }
 

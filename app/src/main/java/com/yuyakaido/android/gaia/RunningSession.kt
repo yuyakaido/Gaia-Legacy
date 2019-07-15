@@ -4,12 +4,14 @@ import android.preference.PreferenceManager
 import com.google.gson.Gson
 import com.google.gson.JsonArray
 import com.google.gson.JsonParser
+import com.yuyakaido.android.gaia.core.java.AvailableEnvironment
 import com.yuyakaido.android.gaia.core.java.SerializableSession
 import com.yuyakaido.android.gaia.core.java.SessionState
 import com.yuyakaido.android.gaia.di.SessionComponent
 import com.yuyakaido.android.gaia.ext.newSessionComponent
 
 data class RunningSession(
+    private val available: AvailableEnvironment,
     private val components: MutableMap<Long, SessionComponent> = mutableMapOf()
 ) {
 
@@ -60,7 +62,7 @@ data class RunningSession(
 
         val sessions = jsonArray
             .map { gson.fromJson(it.toString(), SerializableSession::class.java) }
-            .map { it.toSessionState() }
+            .map { it.toSessionState(available) }
 
         sessions.associateTo(components) { session ->
             session.id to gaia.component.newSessionComponent(session)

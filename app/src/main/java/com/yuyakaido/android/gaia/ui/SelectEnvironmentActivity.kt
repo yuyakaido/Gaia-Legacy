@@ -28,6 +28,9 @@ class SelectEnvironmentActivity : DaggerAppCompatActivity(), SelectEnvironmentDi
     @Inject
     lateinit var appStore: AppStore
 
+    @Inject
+    lateinit var available: AvailableEnvironment
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
@@ -40,7 +43,7 @@ class SelectEnvironmentActivity : DaggerAppCompatActivity(), SelectEnvironmentDi
     }
 
     override fun onDismiss(environment: Environment) {
-        val session = SessionState.newResolvingSession(environment)
+        val session = SessionState.newResolvingSession(environment, available)
         AppDispatcher.dispatch(AppSignal.AddSession(session))
     }
 

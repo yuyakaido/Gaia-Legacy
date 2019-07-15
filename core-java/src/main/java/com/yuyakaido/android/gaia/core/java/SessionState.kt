@@ -7,6 +7,7 @@ sealed class SessionState {
 
     abstract val id: Long
     abstract val environment: Environment
+    abstract val available: AvailableEnvironment
 
     abstract fun isLoggedOut(): Boolean
     abstract fun isLoggedIn(): Boolean
@@ -14,7 +15,16 @@ sealed class SessionState {
     fun toLoggedOut(): Resolved.LoggedOut {
         return Resolved.LoggedOut(
             id = id,
-            environment = environment
+            environment = environment,
+            available = available
+        )
+    }
+
+    fun toLoggedOut(environment: Environment): Resolved.LoggedOut {
+        return Resolved.LoggedOut(
+            id = id,
+            environment = environment,
+            available = available
         )
     }
 
@@ -22,22 +32,37 @@ sealed class SessionState {
         return Resolved.LoggedIn(
             id = id,
             environment = environment,
+            available = available,
+            token = token
+        )
+    }
+
+    fun toLoggedIn(environment: Environment, token: String): Resolved.LoggedIn {
+        return Resolved.LoggedIn(
+            id = id,
+            environment = environment,
+            available = available,
             token = token
         )
     }
 
     companion object {
-        fun newResolvingSession(environment: Environment): Resolving {
+        fun newResolvingSession(
+            environment: Environment,
+            available: AvailableEnvironment
+        ): Resolving {
             return Resolving(
                 id = Random(System.currentTimeMillis()).nextLong().absoluteValue,
-                environment = environment
+                environment = environment,
+                available = available
             )
         }
     }
 
     data class Resolving(
         override val id: Long,
-        override val environment: Environment
+        override val environment: Environment,
+        override val available: AvailableEnvironment
     ) : SessionState() {
         override fun isLoggedOut(): Boolean {
             return true
@@ -54,7 +79,8 @@ sealed class SessionState {
 
         data class LoggedOut(
             override val id: Long,
-            override val environment: Environment
+            override val environment: Environment,
+            override val available: AvailableEnvironment
         ) : Resolved() {
             override fun isLoggedOut(): Boolean {
                 return true
@@ -70,6 +96,7 @@ sealed class SessionState {
         data class LoggedIn(
             override val id: Long,
             override val environment: Environment,
+            override val available: AvailableEnvironment,
             val token: String
         ) : Resolved() {
             override fun isLoggedOut(): Boolean {

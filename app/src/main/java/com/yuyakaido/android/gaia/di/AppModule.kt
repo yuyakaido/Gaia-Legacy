@@ -61,8 +61,10 @@ class AppModule(private val gaia: Gaia) {
 
     @AppScope
     @Provides
-    fun provideRunningSession(): RunningSession {
-        return RunningSession()
+    fun provideRunningSession(available: AvailableEnvironment): RunningSession {
+        return RunningSession(
+            available = available
+        )
     }
 
     @AppScope

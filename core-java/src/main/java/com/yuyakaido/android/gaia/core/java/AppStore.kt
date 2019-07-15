@@ -19,8 +19,10 @@ class AppStore(
         AppDispatcher.on(AppAction::class.java)
             .subscribeBy { action ->
                 state.value?.let { currentState ->
+                    println("Before: action = $action, state = $currentState")
                     val nextState = AppReducer.reduce(currentState, action)
                     state.onNext(nextState)
+                    println("After: action = $action, state = $nextState")
                 }
             }
     }
