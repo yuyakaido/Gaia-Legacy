@@ -27,7 +27,7 @@ class SelectEnvironmentDialog : DaggerAppCompatDialogFragment() {
     @Inject
     lateinit var available: AvailableEnvironment
 
-    override fun onAttach(context: Context?) {
+    override fun onAttach(context: Context) {
         super.onAttach(context)
         if (context is OnDismissListener) {
             listener = context

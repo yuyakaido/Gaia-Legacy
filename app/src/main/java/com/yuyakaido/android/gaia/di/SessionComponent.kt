@@ -1,6 +1,5 @@
 package com.yuyakaido.android.gaia.di
 
-import android.app.Activity
 import com.yuyakaido.android.gaia.auth.infra.AuthClientModule
 import dagger.Subcomponent
 import dagger.android.DispatchingAndroidInjector
@@ -20,5 +19,5 @@ interface SessionComponent {
         fun sessionModule(sessionModule: SessionModule): Builder
         fun build(): SessionComponent
     }
-    fun activityInjector(): DispatchingAndroidInjector<Activity>
+    fun androidInjector(): DispatchingAndroidInjector<Any>
 }

@@ -13,7 +13,6 @@ import com.yuyakaido.android.gaia.di.DaggerAppComponent
 import com.yuyakaido.android.gaia.ext.newSessionComponent
 import com.yuyakaido.android.gaia.ui.SelectEnvironmentActivity
 import dagger.android.AndroidInjector
-import dagger.android.DispatchingAndroidInjector
 import dagger.android.support.DaggerApplication
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.addTo
@@ -48,13 +47,13 @@ class Gaia : DaggerApplication(), CurrentSession {
             .build()
     }
 
-    override fun activityInjector(): DispatchingAndroidInjector<Activity> {
+    override fun androidInjector(): AndroidInjector<Any> {
         return if (runningSession.hasSession()) {
             val state = appStore.state()
             val session = state.sessions[state.index]
-            runningSession.get(session).activityInjector()
+            runningSession.get(session).androidInjector()
         } else {
-            component.activityInjector()
+            component.androidInjector()
         }
     }
 

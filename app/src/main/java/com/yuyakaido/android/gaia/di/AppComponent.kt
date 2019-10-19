@@ -1,6 +1,5 @@
 package com.yuyakaido.android.gaia.di
 
-import android.app.Activity
 import com.yuyakaido.android.gaia.Gaia
 import com.yuyakaido.android.gaia.core.java.AppScope
 import dagger.Component
@@ -21,6 +20,6 @@ interface AppComponent : AndroidInjector<Gaia> {
         fun appModule(appModule: AppModule): Builder
         fun build(): AppComponent
     }
-    fun activityInjector(): DispatchingAndroidInjector<Activity>
+    fun androidInjector(): DispatchingAndroidInjector<Any>
     fun sessionComponentBuilder(): SessionComponent.Builder
 }
