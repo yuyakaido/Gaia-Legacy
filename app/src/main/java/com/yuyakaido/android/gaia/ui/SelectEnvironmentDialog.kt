@@ -12,36 +12,36 @@ import javax.inject.Inject
 
 class SelectEnvironmentDialog : DaggerAppCompatDialogFragment() {
 
-    companion object {
-        fun newInstance(): DialogFragment {
-            return SelectEnvironmentDialog()
-        }
+  companion object {
+    fun newInstance(): DialogFragment {
+      return SelectEnvironmentDialog()
     }
+  }
 
-    interface OnDismissListener {
-        fun onDismiss(environment: Environment)
+  interface OnDismissListener {
+    fun onDismiss(environment: Environment)
+  }
+
+  private var listener: OnDismissListener? = null
+
+  @Inject
+  lateinit var available: AvailableEnvironment
+
+  override fun onAttach(context: Context) {
+    super.onAttach(context)
+    if (context is OnDismissListener) {
+      listener = context
     }
+  }
 
-    private var listener: OnDismissListener? = null
-
-    @Inject
-    lateinit var available: AvailableEnvironment
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        if (context is OnDismissListener) {
-            listener = context
-        }
-    }
-
-    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        val items = available.environments
-            .map { it.title }
-            .toTypedArray()
-        return AlertDialog.Builder(requireContext())
-            .setTitle("Select environment")
-            .setItems(items) { _, which -> listener?.onDismiss(available.environments[which]) }
-            .create()
-    }
+  override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
+    val items = available.environments
+      .map { it.title }
+      .toTypedArray()
+    return AlertDialog.Builder(requireContext())
+      .setTitle("Select environment")
+      .setItems(items) { _, which -> listener?.onDismiss(available.environments[which]) }
+      .create()
+  }
 
 }

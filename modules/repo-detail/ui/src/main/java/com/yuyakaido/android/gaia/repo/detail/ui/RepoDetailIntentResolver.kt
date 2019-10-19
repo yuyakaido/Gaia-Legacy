@@ -7,14 +7,14 @@ import com.yuyakaido.android.gaia.core.java.Repo
 
 class RepoDetailIntentResolver : RepoDetailIntentResolverType {
 
-    override fun getRepoDetailActivityIntent(
-        context: Context,
-        repo: Repo
-    ): Intent {
-        return RepoDetailActivity.createIntent(
-            context,
-            repo
-        )
-    }
+  override fun getRepoDetailActivityIntent(
+    context: Context,
+    repo: Repo
+  ): Intent {
+    return RepoDetailActivity.createIntent(
+      context,
+      repo
+    )
+  }
 
 }

@@ -5,10 +5,10 @@ import androidx.lifecycle.AndroidViewModel
 import com.yuyakaido.android.gaia.profile.domain.GetUserUseCase
 
 class ProfileViewModel(
-    application: Application,
-    private val getUserUseCase: GetUserUseCase
+  application: Application,
+  private val getUserUseCase: GetUserUseCase
 ) : AndroidViewModel(application) {
 
-    val user = getUserUseCase.getUser()
+  val user = getUserUseCase.getUser()
 
 }

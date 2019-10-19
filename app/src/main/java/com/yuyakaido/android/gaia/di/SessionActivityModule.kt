@@ -13,19 +13,19 @@ import dagger.android.ContributesAndroidInjector
 @Module
 abstract class SessionActivityModule {
 
-    @ContributesAndroidInjector
-    abstract fun contributeLaunchAuthorizationActivity(): LaunchAuthorizationActivity
+  @ContributesAndroidInjector
+  abstract fun contributeLaunchAuthorizationActivity(): LaunchAuthorizationActivity
 
-    @ContributesAndroidInjector
-    abstract fun contributeCompleteAuthorizationActivity(): CompleteAuthorizationActivity
+  @ContributesAndroidInjector
+  abstract fun contributeCompleteAuthorizationActivity(): CompleteAuthorizationActivity
 
-    @ContributesAndroidInjector(modules = [GatewayActivityModule::class])
-    abstract fun contributeGatewayActivity(): GatewayActivity
+  @ContributesAndroidInjector(modules = [GatewayActivityModule::class])
+  abstract fun contributeGatewayActivity(): GatewayActivity
 
-    @ContributesAndroidInjector
-    abstract fun contributeHomeActivity(): HomeActivity
+  @ContributesAndroidInjector
+  abstract fun contributeHomeActivity(): HomeActivity
 
-    @ContributesAndroidInjector(modules = [RepoDetailActivityModule::class])
-    abstract fun contributeRepoDetailActivity(): RepoDetailActivity
+  @ContributesAndroidInjector(modules = [RepoDetailActivityModule::class])
+  abstract fun contributeRepoDetailActivity(): RepoDetailActivity
 
 }

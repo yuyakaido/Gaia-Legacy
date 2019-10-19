@@ -17,45 +17,51 @@ import javax.inject.Inject
 
 class CompleteAuthorizationActivity : DaggerAppCompatActivity() {
 
-    private val disposables = CompositeDisposable()
-    private val binding by lazy { ActivityCompleteAuthorizationBinding.inflate(layoutInflater) }
+  private val disposables = CompositeDisposable()
+  private val binding by lazy { ActivityCompleteAuthorizationBinding.inflate(layoutInflater) }
 
-    @Inject
-    lateinit var available: AvailableEnvironment
+  @Inject
+  lateinit var available: AvailableEnvironment
 
-    @Inject
-    lateinit var session: SessionState
+  @Inject
+  lateinit var session: SessionState
 
-    @Inject
-    lateinit var getAccessTokenUseCase: GetAccessTokenUseCase
+  @Inject
+  lateinit var getAccessTokenUseCase: GetAccessTokenUseCase
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(binding.root)
-        handleUrlScheme()
+  override fun onCreate(savedInstanceState: Bundle?) {
+    super.onCreate(savedInstanceState)
+    setContentView(binding.root)
+    handleUrlScheme()
+  }
+
+  override fun onDestroy() {
+    disposables.dispose()
+    super.onDestroy()
+  }
+
+  private fun handleUrlScheme() {
+    intent.data?.let { uri ->
+      uri.getQueryParameter("code")?.let { code ->
+        getAccessToken(code)
+      }
     }
+  }
 
-    override fun onDestroy() {
-        disposables.dispose()
-        super.onDestroy()
-    }
-
-    private fun handleUrlScheme() {
-        intent.data?.let { uri ->
-            uri.getQueryParameter("code")?.let { code ->
-                getAccessToken(code)
-            }
-        }
-    }
-
-    private fun getAccessToken(code: String) {
-        getAccessTokenUseCase.getAccessToken(code)
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribeBy { token ->
-                AppDispatcher.dispatch(AppSignal.LogInSessionWithEnv(session, available.secoundary(), token))
-            }
-            .addTo(disposables)
-    }
+  private fun getAccessToken(code: String) {
+    getAccessTokenUseCase.getAccessToken(code)
+      .subscribeOn(Schedulers.io())
+      .observeOn(AndroidSchedulers.mainThread())
+      .subscribeBy { token ->
+        AppDispatcher.dispatch(
+          AppSignal.LogInSessionWithEnv(
+            session,
+            available.secoundary(),
+            token
+          )
+        )
+      }
+      .addTo(disposables)
+  }
 
 }

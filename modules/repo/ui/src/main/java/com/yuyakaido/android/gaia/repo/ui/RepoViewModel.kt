@@ -9,14 +9,14 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
 class RepoViewModel(
-    application: Application,
-    private val getRepoUseCase: GetRepoUseCase
+  application: Application,
+  private val getRepoUseCase: GetRepoUseCase
 ) : AndroidViewModel(application) {
 
-    fun getRepos(query: String): Single<List<Repo>> {
-        return getRepoUseCase.getRepos(query)
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-    }
+  fun getRepos(query: String): Single<List<Repo>> {
+    return getRepoUseCase.getRepos(query)
+      .subscribeOn(Schedulers.io())
+      .observeOn(AndroidSchedulers.mainThread())
+  }
 
 }

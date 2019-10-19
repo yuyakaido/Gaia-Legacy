@@ -16,52 +16,52 @@ import javax.inject.Inject
 
 class HomeActivity : DaggerAppCompatActivity() {
 
-    private val disposables = CompositeDisposable()
-    private val binding by lazy { ActivityHomeBinding.inflate(layoutInflater) }
+  private val disposables = CompositeDisposable()
+  private val binding by lazy { ActivityHomeBinding.inflate(layoutInflater) }
 
-    @Inject
-    lateinit var repoFragmentResolver: RepoFragmentResolverType
+  @Inject
+  lateinit var repoFragmentResolver: RepoFragmentResolverType
 
-    @Inject
-    lateinit var profileFragmentResolver: ProfileFragmentResolverType
+  @Inject
+  lateinit var profileFragmentResolver: ProfileFragmentResolverType
 
-    @Inject
-    lateinit var session: SessionState
+  @Inject
+  lateinit var session: SessionState
 
-    @Inject
-    lateinit var appStore: AppStore
+  @Inject
+  lateinit var appStore: AppStore
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(binding.root)
-        setupViewPager()
+  override fun onCreate(savedInstanceState: Bundle?) {
+    super.onCreate(savedInstanceState)
+    setContentView(binding.root)
+    setupViewPager()
+  }
+
+  override fun onDestroy() {
+    disposables.dispose()
+    super.onDestroy()
+  }
+
+  override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+    menuInflater.inflate(R.menu.activity_home, menu)
+    return true
+  }
+
+  override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+    when (item?.itemId) {
+      R.id.log_out -> {
+        AppDispatcher.dispatch(AppSignal.LogOutSession(session))
+      }
     }
+    return super.onOptionsItemSelected(item)
+  }
 
-    override fun onDestroy() {
-        disposables.dispose()
-        super.onDestroy()
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.activity_home, menu)
-        return true
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        when (item?.itemId) {
-            R.id.log_out -> {
-                AppDispatcher.dispatch(AppSignal.LogOutSession(session))
-            }
-        }
-        return super.onOptionsItemSelected(item)
-    }
-
-    private fun setupViewPager() {
-        binding.viewPager.adapter = HomeFragmentPager(
-            manager = supportFragmentManager,
-            repoFragmentResolver = repoFragmentResolver,
-            profileFragmentResolver = profileFragmentResolver
-        )
-    }
+  private fun setupViewPager() {
+    binding.viewPager.adapter = HomeFragmentPager(
+      manager = supportFragmentManager,
+      repoFragmentResolver = repoFragmentResolver,
+      profileFragmentResolver = profileFragmentResolver
+    )
+  }
 
 }

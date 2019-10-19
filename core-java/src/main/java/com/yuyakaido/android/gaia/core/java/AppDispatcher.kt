@@ -5,14 +5,14 @@ import io.reactivex.subjects.PublishSubject
 
 object AppDispatcher {
 
-    private val dispatcher = PublishSubject.create<EventType>()
+  private val dispatcher = PublishSubject.create<EventType>()
 
-    fun dispatch(event: EventType) {
-        dispatcher.onNext(event)
-    }
+  fun dispatch(event: EventType) {
+    dispatcher.onNext(event)
+  }
 
-    fun <T : EventType> on(clazz: Class<T>): Observable<T> {
-        return dispatcher.ofType(clazz)
-    }
+  fun <T : EventType> on(clazz: Class<T>): Observable<T> {
+    return dispatcher.ofType(clazz)
+  }
 
 }

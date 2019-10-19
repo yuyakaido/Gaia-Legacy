@@ -14,57 +14,57 @@ import javax.inject.Inject
 
 class RepoDetailActivity : DaggerAppCompatActivity() {
 
-    private val disposables = CompositeDisposable()
-    private val binding by lazy { ActivityRepoDetailBinding.inflate(layoutInflater) }
+  private val disposables = CompositeDisposable()
+  private val binding by lazy { ActivityRepoDetailBinding.inflate(layoutInflater) }
 
-    @Inject
-    lateinit var viewModel: RepoDetailViewModel
+  @Inject
+  lateinit var viewModel: RepoDetailViewModel
 
-    companion object {
-        private const val REPO = "REPO"
+  companion object {
+    private const val REPO = "REPO"
 
-        fun createIntent(context: Context, repo: Repo): Intent {
-            return Intent(context, RepoDetailActivity::class.java)
-                .apply { putExtra(REPO, repo) }
-        }
+    fun createIntent(context: Context, repo: Repo): Intent {
+      return Intent(context, RepoDetailActivity::class.java)
+        .apply { putExtra(REPO, repo) }
     }
+  }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(binding.root)
-        setupToolbar()
-        setupRepo()
-    }
+  override fun onCreate(savedInstanceState: Bundle?) {
+    super.onCreate(savedInstanceState)
+    setContentView(binding.root)
+    setupToolbar()
+    setupRepo()
+  }
 
-    override fun onDestroy() {
-        disposables.dispose()
-        super.onDestroy()
-    }
+  override fun onDestroy() {
+    disposables.dispose()
+    super.onDestroy()
+  }
 
-    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        when (item?.itemId) {
-            android.R.id.home-> finish()
-        }
-        return super.onOptionsItemSelected(item)
+  override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+    when (item?.itemId) {
+      android.R.id.home -> finish()
     }
+    return super.onOptionsItemSelected(item)
+  }
 
-    private fun setupToolbar() {
-        supportActionBar?.apply {
-            setDisplayHomeAsUpEnabled(true)
-        }
+  private fun setupToolbar() {
+    supportActionBar?.apply {
+      setDisplayHomeAsUpEnabled(true)
     }
+  }
 
-    private fun setupRepo() {
-        viewModel.repo()
-            .subscribeBy { repo ->
-                binding.id.text = repo.name
-                binding.name.text = repo.id.toString()
-            }
-            .addTo(disposables)
-    }
+  private fun setupRepo() {
+    viewModel.repo()
+      .subscribeBy { repo ->
+        binding.id.text = repo.name
+        binding.name.text = repo.id.toString()
+      }
+      .addTo(disposables)
+  }
 
-    fun getRepo(): Repo {
-        return intent.getSerializableExtra(REPO) as Repo
-    }
+  fun getRepo(): Repo {
+    return intent.getSerializableExtra(REPO) as Repo
+  }
 
 }

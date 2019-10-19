@@ -6,8 +6,8 @@ import com.yuyakaido.android.gaia.core.android.HomeIntentResolverType
 
 class HomeIntentResolver : HomeIntentResolverType {
 
-    override fun getHomeActivityIntent(context: Context): Intent {
-        return Intent(context, HomeActivity::class.java)
-    }
+  override fun getHomeActivityIntent(context: Context): Intent {
+    return Intent(context, HomeActivity::class.java)
+  }
 
 }

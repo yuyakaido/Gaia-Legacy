@@ -4,5 +4,5 @@ import android.content.Context
 import android.content.Intent
 
 interface GatewayIntentResolverType {
-    fun getGatewayActivityIntent(context: Context): Intent
+  fun getGatewayActivityIntent(context: Context): Intent
 }

@@ -8,17 +8,17 @@ import com.yuyakaido.android.gaia.core.java.SessionState
 import javax.inject.Inject
 
 class GatewayViewModelFactory @Inject constructor(
-    private val application: Application,
-    private val available: AvailableEnvironment,
-    private val session: SessionState
+  private val application: Application,
+  private val available: AvailableEnvironment,
+  private val session: SessionState
 ) : ViewModelProvider.Factory {
 
-    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-        return GatewayViewModel(
-            application = application,
-            available = available,
-            session = session
-        ) as T
-    }
+  override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+    return GatewayViewModel(
+      application = application,
+      available = available,
+      session = session
+    ) as T
+  }
 
 }

@@ -5,19 +5,22 @@ import dagger.Subcomponent
 import dagger.android.DispatchingAndroidInjector
 
 @SessionScope
-@Subcomponent(modules = [
+@Subcomponent(
+  modules = [
     SessionModule::class,
     ClientModule::class,
     AuthClientModule::class,
     RepositoryModule::class,
     SessionActivityModule::class,
     SessionFragmentModule::class
-])
+  ]
+)
 interface SessionComponent {
-    @Subcomponent.Builder
-    interface Builder {
-        fun sessionModule(sessionModule: SessionModule): Builder
-        fun build(): SessionComponent
-    }
-    fun androidInjector(): DispatchingAndroidInjector<Any>
+  @Subcomponent.Builder
+  interface Builder {
+    fun sessionModule(sessionModule: SessionModule): Builder
+    fun build(): SessionComponent
+  }
+
+  fun androidInjector(): DispatchingAndroidInjector<Any>
 }

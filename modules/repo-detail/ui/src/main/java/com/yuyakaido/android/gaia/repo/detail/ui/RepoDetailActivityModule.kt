@@ -8,19 +8,19 @@ import dagger.Provides
 @Module
 class RepoDetailActivityModule {
 
-    @Provides
-    fun provideRepo(activity: RepoDetailActivity): Repo {
-        return activity.getRepo()
-    }
+  @Provides
+  fun provideRepo(activity: RepoDetailActivity): Repo {
+    return activity.getRepo()
+  }
 
-    @Provides
-    fun provideRepoDetailViewModel(
-        activity: RepoDetailActivity,
-        factory: RepoDetailViewModelFactory
-    ): RepoDetailViewModel {
-        return ViewModelProviders
-            .of(activity, factory)
-            .get(RepoDetailViewModel::class.java)
-    }
+  @Provides
+  fun provideRepoDetailViewModel(
+    activity: RepoDetailActivity,
+    factory: RepoDetailViewModelFactory
+  ): RepoDetailViewModel {
+    return ViewModelProviders
+      .of(activity, factory)
+      .get(RepoDetailViewModel::class.java)
+  }
 
 }

@@ -7,15 +7,15 @@ import com.yuyakaido.android.gaia.repo.domain.GetRepoUseCase
 import javax.inject.Inject
 
 class RepoViewModelFactory @Inject constructor(
-    private val application: Application,
-    private val getRepoUseCase: GetRepoUseCase
+  private val application: Application,
+  private val getRepoUseCase: GetRepoUseCase
 ) : ViewModelProvider.Factory {
 
-    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-        return RepoViewModel(
-            application = application,
-            getRepoUseCase = getRepoUseCase
-        ) as T
-    }
+  override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+    return RepoViewModel(
+      application = application,
+      getRepoUseCase = getRepoUseCase
+    ) as T
+  }
 
 }

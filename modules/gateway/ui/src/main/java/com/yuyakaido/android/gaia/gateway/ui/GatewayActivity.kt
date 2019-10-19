@@ -12,39 +12,39 @@ import javax.inject.Inject
 
 class GatewayActivity : DaggerAppCompatActivity() {
 
-    private val disposables = CompositeDisposable()
-    private val binding by lazy { ActivityGatewayBinding.inflate(layoutInflater) }
+  private val disposables = CompositeDisposable()
+  private val binding by lazy { ActivityGatewayBinding.inflate(layoutInflater) }
 
-    @Inject
-    lateinit var gatewayViewModel: GatewayViewModel
+  @Inject
+  lateinit var gatewayViewModel: GatewayViewModel
 
-    @Inject
-    lateinit var authIntentResolver: AuthorizationIntentResolverType
+  @Inject
+  lateinit var authIntentResolver: AuthorizationIntentResolverType
 
-    @Inject
-    lateinit var homeIntentResolver: HomeIntentResolverType
+  @Inject
+  lateinit var homeIntentResolver: HomeIntentResolverType
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(binding.root)
-        setupTransition()
-        gatewayViewModel.onCreate()
-    }
+  override fun onCreate(savedInstanceState: Bundle?) {
+    super.onCreate(savedInstanceState)
+    setContentView(binding.root)
+    setupTransition()
+    gatewayViewModel.onCreate()
+  }
 
-    override fun onDestroy() {
-        disposables.dispose()
-        super.onDestroy()
-    }
+  override fun onDestroy() {
+    disposables.dispose()
+    super.onDestroy()
+  }
 
-    private fun setupTransition() {
-        gatewayViewModel.startAuthorizationActivity
-            .doOnNext { finish() }
-            .subscribeBy { startActivity(authIntentResolver.getAuthorizationActivityIntent(this)) }
-            .addTo(disposables)
-        gatewayViewModel.startHomeActivity
-            .doOnNext { finish() }
-            .subscribeBy { startActivity(homeIntentResolver.getHomeActivityIntent(this)) }
-            .addTo(disposables)
-    }
+  private fun setupTransition() {
+    gatewayViewModel.startAuthorizationActivity
+      .doOnNext { finish() }
+      .subscribeBy { startActivity(authIntentResolver.getAuthorizationActivityIntent(this)) }
+      .addTo(disposables)
+    gatewayViewModel.startHomeActivity
+      .doOnNext { finish() }
+      .subscribeBy { startActivity(homeIntentResolver.getHomeActivityIntent(this)) }
+      .addTo(disposables)
+  }
 
 }

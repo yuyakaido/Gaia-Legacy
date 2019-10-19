@@ -8,18 +8,21 @@ import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
 
 @AppScope
-@Component(modules = [
+@Component(
+  modules = [
     AndroidInjectionModule::class,
     AppModule::class,
     AppActivityModule::class,
     AppDialogModule::class
-])
+  ]
+)
 interface AppComponent : AndroidInjector<Gaia> {
-    @Component.Builder
-    interface Builder {
-        fun appModule(appModule: AppModule): Builder
-        fun build(): AppComponent
-    }
-    fun androidInjector(): DispatchingAndroidInjector<Any>
-    fun sessionComponentBuilder(): SessionComponent.Builder
+  @Component.Builder
+  interface Builder {
+    fun appModule(appModule: AppModule): Builder
+    fun build(): AppComponent
+  }
+
+  fun androidInjector(): DispatchingAndroidInjector<Any>
+  fun sessionComponentBuilder(): SessionComponent.Builder
 }

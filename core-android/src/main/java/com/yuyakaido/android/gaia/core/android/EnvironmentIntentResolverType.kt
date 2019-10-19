@@ -4,5 +4,5 @@ import android.content.Context
 import android.content.Intent
 
 interface EnvironmentIntentResolverType {
-    fun getEnvironmentActivityIntent(context: Context): Intent
+  fun getEnvironmentActivityIntent(context: Context): Intent
 }

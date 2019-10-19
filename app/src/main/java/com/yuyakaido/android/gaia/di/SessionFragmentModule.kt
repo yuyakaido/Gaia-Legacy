@@ -10,10 +10,10 @@ import dagger.android.ContributesAndroidInjector
 @Module
 abstract class SessionFragmentModule {
 
-    @ContributesAndroidInjector(modules = [RepoFragmentModule::class])
-    abstract fun contributeRepoFragment(): RepoFragment
+  @ContributesAndroidInjector(modules = [RepoFragmentModule::class])
+  abstract fun contributeRepoFragment(): RepoFragment
 
-    @ContributesAndroidInjector(modules = [ProfileFragmentModule::class])
-    abstract fun contributeProfileFragment(): ProfileFragment
+  @ContributesAndroidInjector(modules = [ProfileFragmentModule::class])
+  abstract fun contributeProfileFragment(): ProfileFragment
 
 }

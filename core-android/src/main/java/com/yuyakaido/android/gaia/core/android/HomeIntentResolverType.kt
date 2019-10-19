@@ -4,5 +4,5 @@ import android.content.Context
 import android.content.Intent
 
 interface HomeIntentResolverType {
-    fun getHomeActivityIntent(context: Context): Intent
+  fun getHomeActivityIntent(context: Context): Intent
 }

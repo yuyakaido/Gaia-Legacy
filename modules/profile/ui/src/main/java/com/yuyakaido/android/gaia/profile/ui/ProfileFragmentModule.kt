@@ -7,14 +7,14 @@ import dagger.Provides
 @Module
 class ProfileFragmentModule {
 
-    @Provides
-    fun provideProfileViewModel(
-        fragment: ProfileFragment,
-        factory: ProfileViewModelFactory
-    ): ProfileViewModel {
-        return ViewModelProviders
-            .of(fragment, factory)
-            .get(ProfileViewModel::class.java)
-    }
+  @Provides
+  fun provideProfileViewModel(
+    fragment: ProfileFragment,
+    factory: ProfileViewModelFactory
+  ): ProfileViewModel {
+    return ViewModelProviders
+      .of(fragment, factory)
+      .get(ProfileViewModel::class.java)
+  }
 
 }

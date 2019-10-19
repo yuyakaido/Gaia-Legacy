@@ -7,20 +7,20 @@ import com.yuyakaido.android.gaia.core.android.ProfileFragmentResolverType
 import com.yuyakaido.android.gaia.core.android.RepoFragmentResolverType
 
 class HomeFragmentPager(
-    manager: FragmentManager,
-    private val repoFragmentResolver: RepoFragmentResolverType,
-    private val profileFragmentResolver: ProfileFragmentResolverType
+  manager: FragmentManager,
+  private val repoFragmentResolver: RepoFragmentResolverType,
+  private val profileFragmentResolver: ProfileFragmentResolverType
 ) : FragmentPagerAdapter(manager) {
 
-    override fun getCount(): Int {
-        return Page.values().size
-    }
+  override fun getCount(): Int {
+    return Page.values().size
+  }
 
-    override fun getItem(position: Int): Fragment {
-        return when (Page.fromPosition(position)) {
-            Page.Repo -> repoFragmentResolver.getRepoFragment()
-            Page.Profile -> profileFragmentResolver.getProfileFragment()
-        }
+  override fun getItem(position: Int): Fragment {
+    return when (Page.fromPosition(position)) {
+      Page.Repo -> repoFragmentResolver.getRepoFragment()
+      Page.Profile -> profileFragmentResolver.getProfileFragment()
     }
+  }
 
 }

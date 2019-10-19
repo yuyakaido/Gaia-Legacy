@@ -7,14 +7,14 @@ import dagger.Provides
 @Module
 class RepoFragmentModule {
 
-    @Provides
-    fun provideRepoViewModel(
-        fragment: RepoFragment,
-        factory: RepoViewModelFactory
-    ): RepoViewModel {
-        return ViewModelProviders
-            .of(fragment, factory)
-            .get(RepoViewModel::class.java)
-    }
+  @Provides
+  fun provideRepoViewModel(
+    fragment: RepoFragment,
+    factory: RepoViewModelFactory
+  ): RepoViewModel {
+    return ViewModelProviders
+      .of(fragment, factory)
+      .get(RepoViewModel::class.java)
+  }
 
 }

@@ -16,44 +16,44 @@ import javax.inject.Inject
 
 class ProfileFragment : DaggerFragment() {
 
-    companion object {
-        fun newInstance(): Fragment {
-            return ProfileFragment()
-        }
+  companion object {
+    fun newInstance(): Fragment {
+      return ProfileFragment()
     }
+  }
 
-    private val disposables = CompositeDisposable()
-    private val binding by lazy { FragmentProfileBinding.inflate(layoutInflater) }
+  private val disposables = CompositeDisposable()
+  private val binding by lazy { FragmentProfileBinding.inflate(layoutInflater) }
 
-    @Inject
-    lateinit var profileViewModel: ProfileViewModel
+  @Inject
+  lateinit var profileViewModel: ProfileViewModel
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        return binding.root
-    }
+  override fun onCreateView(
+    inflater: LayoutInflater,
+    container: ViewGroup?,
+    savedInstanceState: Bundle?
+  ): View? {
+    return binding.root
+  }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        setupUser()
-    }
+  override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    super.onViewCreated(view, savedInstanceState)
+    setupUser()
+  }
 
-    override fun onDestroyView() {
-        disposables.dispose()
-        super.onDestroyView()
-    }
+  override fun onDestroyView() {
+    disposables.dispose()
+    super.onDestroyView()
+  }
 
-    private fun setupUser() {
-        profileViewModel.user
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribeBy { user ->
-                binding.name.text = user.login
-            }
-            .addTo(disposables)
-    }
+  private fun setupUser() {
+    profileViewModel.user
+      .subscribeOn(Schedulers.io())
+      .observeOn(AndroidSchedulers.mainThread())
+      .subscribeBy { user ->
+        binding.name.text = user.login
+      }
+      .addTo(disposables)
+  }
 
 }

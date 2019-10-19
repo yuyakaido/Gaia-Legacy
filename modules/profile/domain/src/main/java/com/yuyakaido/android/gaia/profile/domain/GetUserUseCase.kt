@@ -5,11 +5,11 @@ import io.reactivex.Single
 import javax.inject.Inject
 
 class GetUserUseCase @Inject constructor(
-    private val repository: UserRepositoryType
+  private val repository: UserRepositoryType
 ) {
 
-    fun getUser(): Single<User> {
-        return repository.getUser()
-    }
+  fun getUser(): Single<User> {
+    return repository.getUser()
+  }
 
 }

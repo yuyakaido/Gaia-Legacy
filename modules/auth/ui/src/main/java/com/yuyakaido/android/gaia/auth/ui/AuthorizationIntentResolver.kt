@@ -6,8 +6,8 @@ import com.yuyakaido.android.gaia.core.android.AuthorizationIntentResolverType
 
 class AuthorizationIntentResolver : AuthorizationIntentResolverType {
 
-    override fun getAuthorizationActivityIntent(context: Context): Intent {
-        return LaunchAuthorizationActivity.createIntent(context)
-    }
+  override fun getAuthorizationActivityIntent(context: Context): Intent {
+    return LaunchAuthorizationActivity.createIntent(context)
+  }
 
 }

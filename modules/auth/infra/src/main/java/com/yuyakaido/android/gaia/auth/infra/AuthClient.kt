@@ -9,27 +9,28 @@ import retrofit2.http.POST
 import javax.inject.Inject
 
 class AuthClient @Inject constructor(
-    private val environment: Environment,
-    private val service: AuthService
+  private val environment: Environment,
+  private val service: AuthService
 ) {
 
-    fun getAccessToken(code: String): Single<String> {
-        return service.getAccessToken(
-            clientId = environment.githubClientId,
-            clientSecret = environment.githubClientSecret,
-            code = code)
-            .map { it.value }
-    }
+  fun getAccessToken(code: String): Single<String> {
+    return service.getAccessToken(
+      clientId = environment.githubClientId,
+      clientSecret = environment.githubClientSecret,
+      code = code
+    )
+      .map { it.value }
+  }
 
-    interface AuthService {
-        @FormUrlEncoded
-        @Headers("Accept: application/json")
-        @POST("access_token")
-        fun getAccessToken(
-            @Field("client_id") clientId: String,
-            @Field("client_secret") clientSecret: String,
-            @Field("code") code: String
-        ): Single<AccessTokenResponse>
-    }
+  interface AuthService {
+    @FormUrlEncoded
+    @Headers("Accept: application/json")
+    @POST("access_token")
+    fun getAccessToken(
+      @Field("client_id") clientId: String,
+      @Field("client_secret") clientSecret: String,
+      @Field("code") code: String
+    ): Single<AccessTokenResponse>
+  }
 
 }

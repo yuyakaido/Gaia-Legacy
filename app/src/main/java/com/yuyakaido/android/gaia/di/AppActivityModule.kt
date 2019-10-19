@@ -7,7 +7,7 @@ import dagger.android.ContributesAndroidInjector
 @Module
 abstract class AppActivityModule {
 
-    @ContributesAndroidInjector
-    abstract fun contributeSelectEnvironmentActivity(): SelectEnvironmentActivity
+  @ContributesAndroidInjector
+  abstract fun contributeSelectEnvironmentActivity(): SelectEnvironmentActivity
 
 }

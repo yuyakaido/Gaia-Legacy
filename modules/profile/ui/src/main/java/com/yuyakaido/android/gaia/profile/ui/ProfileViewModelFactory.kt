@@ -7,15 +7,15 @@ import com.yuyakaido.android.gaia.profile.domain.GetUserUseCase
 import javax.inject.Inject
 
 class ProfileViewModelFactory @Inject constructor(
-    private val application: Application,
-    private val getUserUseCase: GetUserUseCase
+  private val application: Application,
+  private val getUserUseCase: GetUserUseCase
 ) : ViewModelProvider.Factory {
 
-    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-        return ProfileViewModel(
-            application = application,
-            getUserUseCase = getUserUseCase
-        ) as T
-    }
+  override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+    return ProfileViewModel(
+      application = application,
+      getUserUseCase = getUserUseCase
+    ) as T
+  }
 
 }

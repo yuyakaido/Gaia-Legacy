@@ -5,8 +5,8 @@ import com.yuyakaido.android.gaia.core.android.RepoFragmentResolverType
 
 class RepoFragmentResolver : RepoFragmentResolverType {
 
-    override fun getRepoFragment(): Fragment {
-        return RepoFragment.newInstance()
-    }
+  override fun getRepoFragment(): Fragment {
+    return RepoFragment.newInstance()
+  }
 
 }

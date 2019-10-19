@@ -21,53 +21,53 @@ import java.net.URI
 @Module
 class ClientModule {
 
-    @Provides
-    fun provideOkHttpClient(gaia: Gaia): OkHttpClient {
-        return OkHttpClient.Builder()
-            .addInterceptor(HttpLoggingInterceptor())
-            .addInterceptor(GitHubInterceptor(gaia))
-            .build()
-    }
+  @Provides
+  fun provideOkHttpClient(gaia: Gaia): OkHttpClient {
+    return OkHttpClient.Builder()
+      .addInterceptor(HttpLoggingInterceptor())
+      .addInterceptor(GitHubInterceptor(gaia))
+      .build()
+  }
 
-    @GithubRetrofit
-    @Provides
-    fun provideGithubRetrofit(
-        env: Environment,
-        client: OkHttpClient
-    ): Retrofit {
-        return Retrofit.Builder()
-            .client(client)
-            .baseUrl(env.githubApiEndpoint)
-            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
-    }
+  @GithubRetrofit
+  @Provides
+  fun provideGithubRetrofit(
+    env: Environment,
+    client: OkHttpClient
+  ): Retrofit {
+    return Retrofit.Builder()
+      .client(client)
+      .baseUrl(env.githubApiEndpoint)
+      .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+      .addConverterFactory(GsonConverterFactory.create())
+      .build()
+  }
 
-    @Provides
-    fun provideGithubService(
-        @GithubRetrofit retrofit: Retrofit
-    ): GithubClient.GithubService {
-        return retrofit.create(GithubClient.GithubService::class.java)
-    }
+  @Provides
+  fun provideGithubService(
+    @GithubRetrofit retrofit: Retrofit
+  ): GithubClient.GithubService {
+    return retrofit.create(GithubClient.GithubService::class.java)
+  }
 
-    @Provides
-    fun provideApolloClient(
-        env: Environment,
-        client: OkHttpClient
-    ): ApolloClient {
-        val uriAdapter = object : CustomTypeAdapter<URI> {
-            override fun decode(value: CustomTypeValue<*>): URI {
-                return URI(value.value as String)
-            }
-            override fun encode(value: URI): CustomTypeValue<*> {
-                return CustomTypeValue.GraphQLString(value.toString())
-            }
-        }
-        return ApolloClient.builder()
-            .okHttpClient(client)
-            .serverUrl(env.githubGraphQlEndpoint)
-            .addCustomTypeAdapter(CustomType.URI, uriAdapter)
-            .build()
+  @Provides
+  fun provideApolloClient(
+    env: Environment,
+    client: OkHttpClient
+  ): ApolloClient {
+    val uriAdapter = object : CustomTypeAdapter<URI> {
+      override fun decode(value: CustomTypeValue<*>): URI {
+        return URI(value.value as String)
+      }
+      override fun encode(value: URI): CustomTypeValue<*> {
+        return CustomTypeValue.GraphQLString(value.toString())
+      }
     }
+    return ApolloClient.builder()
+      .okHttpClient(client)
+      .serverUrl(env.githubGraphQlEndpoint)
+      .addCustomTypeAdapter(CustomType.URI, uriAdapter)
+      .build()
+  }
 
 }

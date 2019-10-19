@@ -13,26 +13,28 @@ import retrofit2.converter.gson.GsonConverterFactory
 @Module
 class AuthClientModule {
 
-    @AuthRetrofit
-    @Provides
-    fun provideRetrofit(env: Environment): Retrofit {
-        val okHttpClient = OkHttpClient.Builder()
-            .addNetworkInterceptor(HttpLoggingInterceptor().apply { level = HttpLoggingInterceptor.Level.BODY })
-            .build()
+  @AuthRetrofit
+  @Provides
+  fun provideRetrofit(env: Environment): Retrofit {
+    val okHttpClient = OkHttpClient.Builder()
+      .addNetworkInterceptor(HttpLoggingInterceptor().apply {
+        level = HttpLoggingInterceptor.Level.BODY
+      })
+      .build()
 
-        return Retrofit.Builder()
-            .client(okHttpClient)
-            .baseUrl(env.githubAuthEndpoint)
-            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
-    }
+    return Retrofit.Builder()
+      .client(okHttpClient)
+      .baseUrl(env.githubAuthEndpoint)
+      .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+      .addConverterFactory(GsonConverterFactory.create())
+      .build()
+  }
 
-    @Provides
-    fun provideAuthService(
-        @AuthRetrofit retrofit: Retrofit
-    ): AuthClient.AuthService {
-        return retrofit.create(AuthClient.AuthService::class.java)
-    }
+  @Provides
+  fun provideAuthService(
+    @AuthRetrofit retrofit: Retrofit
+  ): AuthClient.AuthService {
+    return retrofit.create(AuthClient.AuthService::class.java)
+  }
 
 }

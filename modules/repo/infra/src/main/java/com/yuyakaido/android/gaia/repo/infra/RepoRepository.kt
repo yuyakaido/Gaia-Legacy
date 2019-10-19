@@ -6,11 +6,11 @@ import io.reactivex.Single
 import javax.inject.Inject
 
 class RepoRepository @Inject constructor(
-    private val client: GithubClient
+  private val client: GithubClient
 ) : RepoRepositoryType {
 
-    override fun fetchRepos(query: String): Single<List<Repo>> {
-        return client.search(query = query)
-    }
+  override fun fetchRepos(query: String): Single<List<Repo>> {
+    return client.search(query = query)
+  }
 
 }

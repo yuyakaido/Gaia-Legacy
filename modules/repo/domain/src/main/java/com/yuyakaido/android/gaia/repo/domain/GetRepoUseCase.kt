@@ -5,11 +5,11 @@ import io.reactivex.Single
 import javax.inject.Inject
 
 class GetRepoUseCase @Inject constructor(
-    private val repository: RepoRepositoryType
+  private val repository: RepoRepositoryType
 ) {
 
-    fun getRepos(query: String): Single<List<Repo>> {
-        return repository.fetchRepos(query = query)
-    }
+  fun getRepos(query: String): Single<List<Repo>> {
+    return repository.fetchRepos(query = query)
+  }
 
 }

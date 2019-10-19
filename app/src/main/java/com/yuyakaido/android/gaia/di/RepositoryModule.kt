@@ -15,31 +15,31 @@ import dagger.Provides
 @Module
 class RepositoryModule {
 
-    @Provides
-    fun provideAuthRepositoryType(
-        client: AuthClient
-    ): AuthRepositoryType {
-        return AuthRepository(
-            client = client
-        )
-    }
+  @Provides
+  fun provideAuthRepositoryType(
+    client: AuthClient
+  ): AuthRepositoryType {
+    return AuthRepository(
+      client = client
+    )
+  }
 
-    @Provides
-    fun provideRepoRepositoryType(
-        client: GithubClient
-    ): RepoRepositoryType {
-        return RepoRepository(
-            client = client
-        )
-    }
+  @Provides
+  fun provideRepoRepositoryType(
+    client: GithubClient
+  ): RepoRepositoryType {
+    return RepoRepository(
+      client = client
+    )
+  }
 
-    @Provides
-    fun provideUserRepository(
-        client: ApolloClient
-    ): UserRepositoryType {
-        return UserRepository(
-            client = client
-        )
-    }
+  @Provides
+  fun provideUserRepository(
+    client: ApolloClient
+  ): UserRepositoryType {
+    return UserRepository(
+      client = client
+    )
+  }
 
 }
