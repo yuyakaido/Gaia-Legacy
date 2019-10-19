@@ -60,6 +60,7 @@ class RepoFragment : DaggerFragment() {
         binding.editText.textChanges()
             .skipInitialValue()
             .throttleLast(1, TimeUnit.SECONDS)
+            .filter { it.isNotEmpty() }
             .map { it.toString() }
             .subscribeBy { query ->
                 viewModel.getRepos(query)
