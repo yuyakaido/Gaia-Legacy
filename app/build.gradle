@@ -3,14 +3,14 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
 
 android {
-  compileSdkVersion 29
-  buildToolsVersion '29.0.2'
+  buildToolsVersion versions.android.buildTools
+  compileSdkVersion versions.android.compileSdk
   defaultConfig {
-    minSdkVersion 21
-    targetSdkVersion 29
-    applicationId 'com.yuyakaido.android.gaia'
-    versionCode 1
-    versionName '1.0.0'
+    targetSdkVersion versions.android.targetSdk
+    minSdkVersion versions.android.minSdk
+    applicationId versions.app.applicationId
+    versionCode versions.app.versionCode
+    versionName versions.app.versionName
   }
   dataBinding {
     enabled = true
@@ -18,6 +18,9 @@ android {
 }
 
 dependencies {
-  implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-  implementation 'androidx.appcompat:appcompat:1.1.0'
+  // Kotlin
+  implementation libs.kotlin.stdlib
+
+  // AndroidX
+  implementation libs.androidx.appcompat
 }
