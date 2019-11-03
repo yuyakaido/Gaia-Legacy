@@ -23,4 +23,5 @@ dependencies {
 
   // AndroidX
   implementation libs.androidx.appcompat
+  implementation libs.androidx.constraintlayout
 }
