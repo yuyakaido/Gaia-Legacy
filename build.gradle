@@ -17,7 +17,8 @@ buildscript {
     kotlin: '1.3.50',
     androidx: [
       appcompat: '1.1.0',
-      constraintlayout: '1.1.3'
+      constraintlayout: '1.1.3',
+      recyclerview: '1.0.0'
     ]
   ]
   ext.libs = [
@@ -30,7 +31,8 @@ buildscript {
     ],
     androidx: [
       appcompat: "androidx.appcompat:appcompat:$versions.androidx.appcompat",
-      constraintlayout: "androidx.constraintlayout:constraintlayout:$versions.androidx.constraintlayout"
+      constraintlayout: "androidx.constraintlayout:constraintlayout:$versions.androidx.constraintlayout",
+      recyclerview: "androidx.recyclerview:recyclerview:$versions.androidx.recyclerview"
     ]
   ]
   repositories {
