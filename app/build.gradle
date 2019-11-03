@@ -1,5 +1,6 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
 
 android {
   compileSdkVersion 29
@@ -10,6 +11,9 @@ android {
     applicationId 'com.yuyakaido.android.gaia'
     versionCode 1
     versionName '1.0.0'
+  }
+  dataBinding {
+    enabled = true
   }
 }
 
