@@ -31,6 +31,7 @@ dependencies {
   implementation libs.androidx.recyclerview
 
   // Networking
+  implementation libs.networking.okhttp.core
   implementation libs.networking.retrofit.core
   implementation libs.networking.retrofit.moshi
   implementation libs.networking.glide.core

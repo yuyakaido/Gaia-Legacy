@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
 import com.yuyakaido.android.gaia.databinding.ActivityMainBinding
+import okhttp3.OkHttpClient
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -21,7 +22,9 @@ class MainActivity : AppCompatActivity() {
     super.onCreate(savedInstanceState)
     setContentView(binding.root)
 
+    val client = OkHttpClient.Builder().build()
     val retrofit = Retrofit.Builder()
+      .client(client)
       .baseUrl("https://www.reddit.com")
       .addConverterFactory(MoshiConverterFactory.create())
       .build()

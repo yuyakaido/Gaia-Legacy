@@ -21,6 +21,7 @@ buildscript {
       recyclerview: '1.0.0'
     ],
     networking: [
+      okhttp: '4.2.2',
       retrofit: '2.6.2',
       glide: '4.10.0'
     ],
@@ -42,19 +43,22 @@ buildscript {
       recyclerview: "androidx.recyclerview:recyclerview:$versions.androidx.recyclerview"
     ],
     networking: [
+      okhttp: [
+        core: "com.squareup.okhttp3:okhttp:$versions.networking.okhttp"
+      ],
       retrofit: [
         core: "com.squareup.retrofit2:retrofit:$versions.networking.retrofit",
         moshi: "com.squareup.retrofit2:converter-moshi:$versions.networking.retrofit"
       ],
       glide: [
-        core: "com.github.bumptech.glide:glide:${versions.networking.glide}",
-        compiler: "com.github.bumptech.glide:compiler:${versions.networking.glide}"
+        core: "com.github.bumptech.glide:glide:$versions.networking.glide",
+        compiler: "com.github.bumptech.glide:compiler:$versions.networking.glide"
       ]
     ],
     widget: [
       groupie: [
-        core: "com.xwray:groupie:${versions.widget.groupie}",
-        databinding: "com.xwray:groupie-databinding:${versions.widget.groupie}"
+        core: "com.xwray:groupie:$versions.widget.groupie",
+        databinding: "com.xwray:groupie-databinding:$versions.widget.groupie"
       ]
     ]
   ]
