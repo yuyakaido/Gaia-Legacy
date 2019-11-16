@@ -44,7 +44,8 @@ buildscript {
     ],
     networking: [
       okhttp: [
-        core: "com.squareup.okhttp3:okhttp:$versions.networking.okhttp"
+        core: "com.squareup.okhttp3:okhttp:$versions.networking.okhttp",
+        logging: "com.squareup.okhttp3:logging-interceptor:$versions.networking.okhttp"
       ],
       retrofit: [
         core: "com.squareup.retrofit2:retrofit:$versions.networking.retrofit",
