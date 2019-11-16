@@ -1,5 +1,7 @@
 package com.yuyakaido.android.gaia
 
+import android.net.Uri
+import com.bumptech.glide.Glide
 import com.xwray.groupie.databinding.BindableItem
 import com.yuyakaido.android.gaia.databinding.ItemSubredditBinding
 
@@ -13,6 +15,12 @@ class SubredditItem(
 
   override fun bind(binding: ItemSubredditBinding, position: Int) {
     binding.title.text = subreddit.title
+    if (subreddit.thumbnail != Uri.EMPTY) {
+      Glide
+        .with(binding.root.context)
+        .load(subreddit.thumbnail)
+        .into(binding.thumbnail)
+    }
   }
 
 }
