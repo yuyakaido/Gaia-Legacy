@@ -32,6 +32,11 @@ class MainActivity : AppCompatActivity() {
         override fun onResponse(call: Call<SearchResult>, response: Response<SearchResult>) {
           response.body()?.let { body ->
             val adapter = GroupAdapter<GroupieViewHolder>()
+            adapter.setOnItemClickListener { item, _ ->
+              if (item is SubredditItem) {
+                startActivity(SubredditActivity.createIntent(this@MainActivity, item.subreddit))
+              }
+            }
             binding.recyclerView.layoutManager = LinearLayoutManager(this@MainActivity)
             binding.recyclerView.adapter = adapter
             adapter.updateAsync(body.toEntities().map { entity -> SubredditItem(subreddit = entity) })

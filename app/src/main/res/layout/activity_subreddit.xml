@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
+
 <layout>
 
   <androidx.constraintlayout.widget.ConstraintLayout
@@ -7,10 +8,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingTop="8dp"
-    android:paddingBottom="8dp"
-    android:paddingStart="16dp"
-    android:paddingEnd="16dp">
+    android:padding="16dp">
 
     <ImageView
       android:id="@+id/thumbnail"
@@ -18,7 +16,6 @@
       android:layout_height="80dp"
       android:scaleType="centerCrop"
       app:layout_constraintTop_toTopOf="parent"
-      app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintEnd_toStartOf="@id/title"
       />
@@ -30,8 +27,8 @@
       android:layout_marginStart="16dp"
       android:maxLines="3"
       android:ellipsize="end"
-      app:layout_constraintTop_toTopOf="parent"
-      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintTop_toTopOf="@id/thumbnail"
+      app:layout_constraintBottom_toBottomOf="@id/thumbnail"
       app:layout_constraintStart_toEndOf="@id/thumbnail"
       app:layout_constraintEnd_toEndOf="parent"
       />

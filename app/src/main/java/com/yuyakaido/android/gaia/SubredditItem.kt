@@ -8,7 +8,7 @@ import com.xwray.groupie.databinding.BindableItem
 import com.yuyakaido.android.gaia.databinding.ItemSubredditBinding
 
 class SubredditItem(
-  private val subreddit: Subreddit
+  val subreddit: Subreddit
 ) : BindableItem<ItemSubredditBinding>() {
 
   private val placeholder = ColorDrawable(Color.LTGRAY)
