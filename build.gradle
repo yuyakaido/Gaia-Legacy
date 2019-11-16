@@ -19,6 +19,9 @@ buildscript {
       appcompat: '1.1.0',
       constraintlayout: '1.1.3',
       recyclerview: '1.0.0'
+    ],
+    networking: [
+      retrofit: '2.6.2'
     ]
   ]
   ext.libs = [
@@ -33,6 +36,12 @@ buildscript {
       appcompat: "androidx.appcompat:appcompat:$versions.androidx.appcompat",
       constraintlayout: "androidx.constraintlayout:constraintlayout:$versions.androidx.constraintlayout",
       recyclerview: "androidx.recyclerview:recyclerview:$versions.androidx.recyclerview"
+    ],
+    networking: [
+      retrofit: [
+        core: "com.squareup.retrofit2:retrofit:$versions.networking.retrofit",
+        moshi: "com.squareup.retrofit2:converter-moshi:$versions.networking.retrofit"
+      ]
     ]
   ]
   repositories {

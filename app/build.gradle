@@ -25,4 +25,8 @@ dependencies {
   implementation libs.androidx.appcompat
   implementation libs.androidx.constraintlayout
   implementation libs.androidx.recyclerview
+
+  // Networking
+  implementation libs.networking.retrofit.core
+  implementation libs.networking.retrofit.moshi
 }

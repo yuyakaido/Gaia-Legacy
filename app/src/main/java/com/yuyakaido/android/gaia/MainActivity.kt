@@ -1,8 +1,14 @@
 package com.yuyakaido.android.gaia
 
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.yuyakaido.android.gaia.databinding.ActivityMainBinding
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import retrofit2.Retrofit
+import retrofit2.converter.moshi.MoshiConverterFactory
 
 class MainActivity : AppCompatActivity() {
 
@@ -11,6 +17,24 @@ class MainActivity : AppCompatActivity() {
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     setContentView(binding.root)
+
+    val retrofit = Retrofit.Builder()
+      .baseUrl("https://www.reddit.com")
+      .addConverterFactory(MoshiConverterFactory.create())
+      .build()
+    val service = retrofit.create(RedditService::class.java)
+
+    service.search()
+      .enqueue(object : Callback<SearchResult> {
+        override fun onResponse(call: Call<SearchResult>, response: Response<SearchResult>) {
+          response.body()?.let { body ->
+            body.data.children.forEach { child -> Log.d("Gaia", child.data.title) }
+          }
+        }
+        override fun onFailure(call: Call<SearchResult>, t: Throwable) {
+          Log.d("Gaia", t.toString())
+        }
+      })
   }
 
 }
