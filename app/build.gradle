@@ -29,4 +29,8 @@ dependencies {
   // Networking
   implementation libs.networking.retrofit.core
   implementation libs.networking.retrofit.moshi
+
+  // Widget
+  implementation libs.widget.groupie.core
+  implementation libs.widget.groupie.databinding
 }

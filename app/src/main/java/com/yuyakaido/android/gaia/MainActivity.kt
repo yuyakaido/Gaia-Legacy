@@ -3,6 +3,9 @@ package com.yuyakaido.android.gaia
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.xwray.groupie.GroupAdapter
+import com.xwray.groupie.GroupieViewHolder
 import com.yuyakaido.android.gaia.databinding.ActivityMainBinding
 import retrofit2.Call
 import retrofit2.Callback
@@ -28,7 +31,10 @@ class MainActivity : AppCompatActivity() {
       .enqueue(object : Callback<SearchResult> {
         override fun onResponse(call: Call<SearchResult>, response: Response<SearchResult>) {
           response.body()?.let { body ->
-            body.data.children.forEach { child -> Log.d("Gaia", child.data.title) }
+            val adapter = GroupAdapter<GroupieViewHolder>()
+            binding.recyclerView.layoutManager = LinearLayoutManager(this@MainActivity)
+            binding.recyclerView.adapter = adapter
+            adapter.updateAsync(body.toEntities().map { entity -> SubredditItem(subreddit = entity) })
           }
         }
         override fun onFailure(call: Call<SearchResult>, t: Throwable) {

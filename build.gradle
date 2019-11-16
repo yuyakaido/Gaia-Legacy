@@ -22,6 +22,9 @@ buildscript {
     ],
     networking: [
       retrofit: '2.6.2'
+    ],
+    widget: [
+      groupie: '2.7.1'
     ]
   ]
   ext.libs = [
@@ -41,6 +44,12 @@ buildscript {
       retrofit: [
         core: "com.squareup.retrofit2:retrofit:$versions.networking.retrofit",
         moshi: "com.squareup.retrofit2:converter-moshi:$versions.networking.retrofit"
+      ]
+    ],
+    widget: [
+      groupie: [
+        core: "com.xwray:groupie:${versions.widget.groupie}",
+        databinding: "com.xwray:groupie-databinding:${versions.widget.groupie}"
       ]
     ]
   ]
