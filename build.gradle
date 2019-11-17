@@ -28,6 +28,7 @@ buildscript {
     networking: [
       okhttp: '4.2.2',
       retrofit: '2.6.2',
+      moshi: '1.9.1',
       glide: '4.10.0'
     ],
     widget: [
@@ -64,6 +65,7 @@ buildscript {
         core: "com.squareup.retrofit2:retrofit:$versions.networking.retrofit",
         moshi: "com.squareup.retrofit2:converter-moshi:$versions.networking.retrofit"
       ],
+      moshi: "com.squareup.moshi:moshi-kotlin:$versions.networking.moshi",
       glide: [
         core: "com.github.bumptech.glide:glide:$versions.networking.glide",
         compiler: "com.github.bumptech.glide:compiler:$versions.networking.glide"

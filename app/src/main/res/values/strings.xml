@@ -2,4 +2,5 @@
 
 <resources>
   <string name="app_name">Gaia</string>
+  <string name="author">Posted by u/%1$s</string>
 </resources>

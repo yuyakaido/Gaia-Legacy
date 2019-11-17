@@ -5,7 +5,7 @@ import retrofit2.http.GET
 import retrofit2.http.Path
 
 interface RedditService {
-  @GET("r/{path}/hot.json")
+  @GET("r/{path}.json")
   fun subreddits(
     @Path("path") path: String
   ): Call<SubredditListResponse>

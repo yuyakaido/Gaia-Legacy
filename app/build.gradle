@@ -39,6 +39,7 @@ dependencies {
   implementation libs.networking.okhttp.logging
   implementation libs.networking.retrofit.core
   implementation libs.networking.retrofit.moshi
+  implementation libs.networking.moshi
   implementation libs.networking.glide.core
   kapt libs.networking.glide.compiler
 

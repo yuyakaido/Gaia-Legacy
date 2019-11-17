@@ -16,8 +16,10 @@ data class SubredditListResponse(
     ) {
       data class Data(
         @Json(name = "id") val id: String,
+        @Json(name = "subreddit_name_prefixed") val name: String,
         @Json(name = "title") val title: String,
-        @Json(name = "thumbnail") val thumbnail: String
+        @Json(name = "thumbnail") val thumbnail: String?,
+        @Json(name = "author") val author: String
       ) {
         private fun toUri(): Uri {
           return if (URLUtil.isNetworkUrl(thumbnail)) {
@@ -29,8 +31,10 @@ data class SubredditListResponse(
         fun toEntity(): Subreddit {
           return Subreddit(
             id = Subreddit.ID(value = id),
+            name = name,
             title = title,
-            thumbnail = toUri()
+            thumbnail = toUri(),
+            author = author
           )
         }
       }

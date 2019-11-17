@@ -18,6 +18,8 @@ class SubredditItem(
   }
 
   override fun bind(binding: ItemSubredditBinding, position: Int) {
+    binding.name.text = subreddit.name
+    binding.author.text = binding.root.resources.getString(R.string.author, subreddit.author)
     binding.title.text = subreddit.title
     if (subreddit.thumbnail == Uri.EMPTY) {
       binding.thumbnail.setImageDrawable(placeholder)

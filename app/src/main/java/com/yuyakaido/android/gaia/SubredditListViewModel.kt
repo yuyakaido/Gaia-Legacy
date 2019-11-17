@@ -3,6 +3,8 @@ package com.yuyakaido.android.gaia
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.squareup.moshi.Moshi
+import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Call
@@ -17,13 +19,21 @@ class SubredditListViewModel : ViewModel() {
 
   fun onBind(page: HomePage) {
     if (subreddits.value == null) {
-      val client = OkHttpClient.Builder()
-        .addInterceptor(HttpLoggingInterceptor().apply { level = HttpLoggingInterceptor.Level.BASIC })
+      val interceptor = HttpLoggingInterceptor()
+      interceptor.level = HttpLoggingInterceptor.Level.BASIC
+      val client = OkHttpClient
+        .Builder()
+        .addInterceptor(interceptor)
         .build()
-      val retrofit = Retrofit.Builder()
+      val moshi = Moshi
+        .Builder()
+        .add(KotlinJsonAdapterFactory())
+        .build()
+      val retrofit = Retrofit
+        .Builder()
         .client(client)
         .baseUrl("https://www.reddit.com")
-        .addConverterFactory(MoshiConverterFactory.create())
+        .addConverterFactory(MoshiConverterFactory.create(moshi))
         .build()
       val service = retrofit.create(RedditService::class.java)
 
