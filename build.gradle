@@ -17,6 +17,11 @@ buildscript {
     kotlin: '1.3.50',
     androidx: [
       appcompat: '1.1.0',
+      ktx: [
+        core: '1.1.0',
+        fragment: '1.1.0'
+      ],
+      lifecycle: '2.1.0',
       constraintlayout: '1.1.3',
       recyclerview: '1.0.0'
     ],
@@ -39,6 +44,14 @@ buildscript {
     ],
     androidx: [
       appcompat: "androidx.appcompat:appcompat:$versions.androidx.appcompat",
+      ktx: [
+        core: "androidx.core:core-ktx:$versions.androidx.ktx.core",
+        fragment: "androidx.fragment:fragment-ktx:$versions.androidx.ktx.fragment"
+      ],
+      lifecycle: [
+        viewmodel: "androidx.lifecycle:lifecycle-viewmodel-ktx:$versions.androidx.lifecycle",
+        livedata: "androidx.lifecycle:lifecycle-livedata-ktx:$versions.androidx.lifecycle"
+      ],
       constraintlayout: "androidx.constraintlayout:constraintlayout:$versions.androidx.constraintlayout",
       recyclerview: "androidx.recyclerview:recyclerview:$versions.androidx.recyclerview"
     ],

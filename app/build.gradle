@@ -27,6 +27,10 @@ dependencies {
 
   // AndroidX
   implementation libs.androidx.appcompat
+  implementation libs.androidx.ktx.core
+  implementation libs.androidx.ktx.fragment
+  implementation libs.androidx.lifecycle.viewmodel
+  implementation libs.androidx.lifecycle.livedata
   implementation libs.androidx.constraintlayout
   implementation libs.androidx.recyclerview
 
