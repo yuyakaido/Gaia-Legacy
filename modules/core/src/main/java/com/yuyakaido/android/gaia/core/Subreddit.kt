@@ -1,4 +1,4 @@
-package com.yuyakaido.android.gaia
+package com.yuyakaido.android.gaia.core
 
 import android.net.Uri
 import android.os.Parcelable

@@ -5,6 +5,7 @@ import android.graphics.drawable.ColorDrawable
 import android.net.Uri
 import com.bumptech.glide.Glide
 import com.xwray.groupie.databinding.BindableItem
+import com.yuyakaido.android.gaia.core.Subreddit
 import com.yuyakaido.android.gaia.databinding.ItemSubredditBinding
 
 class SubredditItem(

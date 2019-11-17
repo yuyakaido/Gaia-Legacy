@@ -7,6 +7,7 @@ import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
+import com.yuyakaido.android.gaia.core.Subreddit
 import com.yuyakaido.android.gaia.databinding.ActivitySubredditBinding
 
 class SubredditActivity : AppCompatActivity() {

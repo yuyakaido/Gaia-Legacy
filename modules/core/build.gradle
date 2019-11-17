@@ -1,0 +1,20 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+
+android {
+  buildToolsVersion versions.android.buildTools
+  compileSdkVersion versions.android.compileSdk
+  defaultConfig {
+    targetSdkVersion versions.android.targetSdk
+    minSdkVersion versions.android.minSdk
+  }
+  androidExtensions {
+    experimental = true
+  }
+}
+
+dependencies {
+  // Kotlin
+  implementation libs.kotlin.stdlib
+}
