@@ -11,11 +11,11 @@ import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 
-class SearchSubredditViewModel : ViewModel() {
+class SubredditListViewModel : ViewModel() {
 
   val subreddits = MutableLiveData<List<Subreddit>>()
 
-  fun onBind() {
+  fun onBind(page: HomePage) {
     if (subreddits.value == null) {
       val client = OkHttpClient.Builder()
         .addInterceptor(HttpLoggingInterceptor().apply { level = HttpLoggingInterceptor.Level.BASIC })
@@ -27,14 +27,14 @@ class SearchSubredditViewModel : ViewModel() {
         .build()
       val service = retrofit.create(RedditService::class.java)
 
-      service.search()
-        .enqueue(object : Callback<SearchResult> {
-          override fun onResponse(call: Call<SearchResult>, response: Response<SearchResult>) {
+      service.subreddits(path = page.path)
+        .enqueue(object : Callback<SubredditListResponse> {
+          override fun onResponse(call: Call<SubredditListResponse>, response: Response<SubredditListResponse>) {
             response.body()?.let { body ->
               subreddits.postValue(body.toEntities())
             }
           }
-          override fun onFailure(call: Call<SearchResult>, t: Throwable) {
+          override fun onFailure(call: Call<SubredditListResponse>, t: Throwable) {
             Log.d("Gaia", t.toString())
           }
         })

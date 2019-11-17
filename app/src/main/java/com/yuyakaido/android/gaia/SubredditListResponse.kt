@@ -4,7 +4,7 @@ import android.net.Uri
 import android.webkit.URLUtil
 import com.squareup.moshi.Json
 
-data class SearchResult(
+data class SubredditListResponse(
   @Json(name = "data") val data: Data
 ) {
 
