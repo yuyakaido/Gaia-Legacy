@@ -57,7 +57,9 @@ class SubredditListFragment : Fragment() {
     viewModel
       .subreddits
       .observe(this) { subreddits ->
-        adapter.updateAsync(subreddits.map { subreddit -> SubredditItem(subreddit = subreddit) })
+        adapter.updateAsync(subreddits.map { subreddit ->
+          SubredditItem(viewModel = viewModel, subreddit = subreddit)
+        })
       }
   }
 

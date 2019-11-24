@@ -12,6 +12,10 @@ android {
     applicationId versions.app.applicationId
     versionCode versions.app.versionCode
     versionName versions.app.versionName
+
+    def properties = new Properties()
+    properties.load(project.rootProject.file('local.properties').newDataInputStream())
+    buildConfigField "String", "REDDIT_ACCESS_TOKEN", "\"${properties.getProperty('REDDIT_ACCESS_TOKEN')}\""
   }
   dataBinding {
     enabled = true
