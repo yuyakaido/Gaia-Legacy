@@ -14,10 +14,21 @@ class HomeActivity : AppCompatActivity() {
     super.onCreate(savedInstanceState)
     setContentView(binding.root)
     setupViewPager()
+    replaceFragment(HomePage.Popular)
   }
 
   private fun setupViewPager() {
-    binding.viewPager.adapter = SubredditListFragmentPagerAdapter(supportFragmentManager)
+    binding.bottomNavigationView.setOnNavigationItemSelectedListener { item ->
+      replaceFragment(HomePage.from(item.itemId))
+      return@setOnNavigationItemSelectedListener true
+    }
+  }
+
+  private fun replaceFragment(page: HomePage) {
+    supportFragmentManager
+      .beginTransaction()
+      .replace(R.id.fragment_container, page.fragment.invoke())
+      .commitNow()
   }
 
 }

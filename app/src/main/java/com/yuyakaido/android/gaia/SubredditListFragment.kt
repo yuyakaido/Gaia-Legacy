@@ -16,9 +16,9 @@ import com.yuyakaido.android.gaia.databinding.FragmentSubredditListBinding
 class SubredditListFragment : Fragment() {
 
   companion object {
-    private val PAGE = HomePage::class.java.simpleName
+    private val PAGE = SubredditListPage::class.java.simpleName
 
-    fun newInstance(page: HomePage): Fragment {
+    fun newInstance(page: SubredditListPage): Fragment {
       return SubredditListFragment()
         .apply { arguments = bundleOf(PAGE to page) }
     }
@@ -39,7 +39,7 @@ class SubredditListFragment : Fragment() {
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
     setupRecyclerView()
-    val page = arguments?.getSerializable(PAGE) as HomePage
+    val page = arguments?.getSerializable(PAGE) as SubredditListPage
     viewModel.onBind(page = page)
   }
 

@@ -37,7 +37,7 @@ class SubredditListViewModel : ViewModel() {
 
   val subreddits = MutableLiveData<List<Subreddit>>()
 
-  fun onBind(page: HomePage) {
+  fun onBind(page: SubredditListPage) {
     if (subreddits.value == null) {
       service.subreddits(path = page.path)
         .enqueue(object : Callback<SubredditListResponse> {

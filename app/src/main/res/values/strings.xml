@@ -3,4 +3,6 @@
 <resources>
   <string name="app_name">Gaia</string>
   <string name="author">Posted by u/%1$s</string>
+  <string name="popular">Popular</string>
+  <string name="profile">Profile</string>
 </resources>

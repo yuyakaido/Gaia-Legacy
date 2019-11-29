@@ -32,7 +32,8 @@ buildscript {
       glide: '4.10.0'
     ],
     widget: [
-      groupie: '2.7.1'
+      groupie: '2.7.1',
+      material: '1.0.0'
     ]
   ]
   ext.libs = [
@@ -75,7 +76,8 @@ buildscript {
       groupie: [
         core: "com.xwray:groupie:$versions.widget.groupie",
         databinding: "com.xwray:groupie-databinding:$versions.widget.groupie"
-      ]
+      ],
+      material: "com.google.android.material:material:$versions.widget.material"
     ]
   ]
   repositories {
