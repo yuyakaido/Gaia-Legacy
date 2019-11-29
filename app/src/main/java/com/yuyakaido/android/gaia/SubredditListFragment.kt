@@ -56,7 +56,7 @@ class SubredditListFragment : Fragment() {
 
     viewModel
       .subreddits
-      .observe(this) { subreddits ->
+      .observe(viewLifecycleOwner) { subreddits ->
         adapter.updateAsync(subreddits.map { subreddit ->
           SubredditItem(viewModel = viewModel, subreddit = subreddit)
         })

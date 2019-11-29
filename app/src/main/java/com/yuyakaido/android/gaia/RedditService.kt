@@ -10,6 +10,9 @@ interface RedditService {
     @Path("path") path: String
   ): Call<SubredditListResponse>
 
+  @GET("api/v1/me")
+  fun me(): Call<MeResponse>
+
   @FormUrlEncoded
   @POST("api/vote")
   fun vote(
