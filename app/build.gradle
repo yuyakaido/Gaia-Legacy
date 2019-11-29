@@ -26,8 +26,11 @@ android {
 }
 
 dependencies {
-  // Module
+  // Modules - Core
   implementation project(':modules:core')
+
+  // Modules - Feature
+  implementation project(':modules:profile')
 
   // Kotlin
   implementation libs.kotlin.stdlib

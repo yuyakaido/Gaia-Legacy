@@ -1,4 +1,7 @@
 include ':app'
 
-// Modules
+// Modules - Core
 include ':modules:core'
+
+// Modules - Feature
+include ':modules:profile'
