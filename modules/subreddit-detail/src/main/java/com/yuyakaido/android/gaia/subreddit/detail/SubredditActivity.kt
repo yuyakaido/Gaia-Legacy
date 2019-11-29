@@ -1,4 +1,4 @@
-package com.yuyakaido.android.gaia.subreddit.list
+package com.yuyakaido.android.gaia.subreddit.detail
 
 import android.content.Context
 import android.content.Intent
@@ -8,7 +8,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
 import com.yuyakaido.android.gaia.core.Subreddit
-import com.yuyakaido.android.gaia.subreddit.list.databinding.ActivitySubredditBinding
+import com.yuyakaido.android.gaia.subreddit.detail.databinding.ActivitySubredditBinding
 
 class SubredditActivity : AppCompatActivity() {
 

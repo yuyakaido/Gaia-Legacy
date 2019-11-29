@@ -6,4 +6,5 @@ include ':modules:core'
 // Modules - Feature
 include ':modules:home'
 include ':modules:subreddit-list'
+include ':modules:subreddit-detail'
 include ':modules:profile'

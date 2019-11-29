@@ -11,6 +11,7 @@ import androidx.lifecycle.observe
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
+import com.yuyakaido.android.gaia.core.GaiaType
 import com.yuyakaido.android.gaia.subreddit.list.databinding.FragmentSubredditListBinding
 
 class SubredditListFragment : Fragment() {
@@ -47,7 +48,8 @@ class SubredditListFragment : Fragment() {
     val adapter = GroupAdapter<GroupieViewHolder>()
     adapter.setOnItemClickListener { item, _ ->
       if (item is SubredditItem) {
-        startActivity(SubredditActivity.createIntent(requireContext(), item.subreddit))
+        val app = requireActivity().application as GaiaType
+        startActivity(app.newSubredditActivity(item.subreddit))
       }
     }
 

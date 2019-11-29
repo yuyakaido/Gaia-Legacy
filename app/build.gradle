@@ -29,4 +29,5 @@ dependencies {
   implementation project(':modules:home')
   implementation project(':modules:profile')
   implementation project(':modules:subreddit-list')
+  implementation project(':modules:subreddit-detail')
 }
