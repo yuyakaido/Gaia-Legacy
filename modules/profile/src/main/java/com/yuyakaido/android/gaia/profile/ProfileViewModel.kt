@@ -1,4 +1,4 @@
-package com.yuyakaido.android.gaia
+package com.yuyakaido.android.gaia.profile
 
 import android.util.Log
 import androidx.lifecycle.MutableLiveData

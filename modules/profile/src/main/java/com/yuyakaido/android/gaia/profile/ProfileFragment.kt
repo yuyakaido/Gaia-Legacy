@@ -1,4 +1,4 @@
-package com.yuyakaido.android.gaia
+package com.yuyakaido.android.gaia.profile
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,9 +8,8 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.observe
 import com.bumptech.glide.Glide
-import com.bumptech.glide.load.resource.bitmap.CircleCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
-import com.yuyakaido.android.gaia.databinding.FragmentProfileBinding
+import com.yuyakaido.android.gaia.profile.databinding.FragmentProfileBinding
 
 class ProfileFragment : Fragment() {
 

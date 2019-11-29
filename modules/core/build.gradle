@@ -13,7 +13,6 @@ android {
   androidExtensions {
     experimental = true
   }
-
   buildTypes {
     debug {
       def properties = new Properties()
@@ -21,7 +20,6 @@ android {
       buildConfigField "String", "REDDIT_ACCESS_TOKEN", "\"${properties.getProperty('REDDIT_ACCESS_TOKEN')}\""
     }
     release {
-
     }
   }
 }

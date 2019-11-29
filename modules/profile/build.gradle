@@ -16,4 +16,6 @@ android {
 }
 
 dependencies {
+  // Module
+  implementation project(':modules:core')
 }
