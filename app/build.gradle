@@ -31,6 +31,7 @@ dependencies {
 
   // Modules - Feature
   implementation project(':modules:profile')
+  implementation project(':modules:subreddit-list')
 
   // Kotlin
   implementation libs.kotlin.stdlib
