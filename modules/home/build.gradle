@@ -1,4 +1,4 @@
-apply plugin: 'com.android.application'
+apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
@@ -9,24 +9,16 @@ android {
   defaultConfig {
     targetSdkVersion versions.android.targetSdk
     minSdkVersion versions.android.minSdk
-    applicationId versions.app.applicationId
-    versionCode versions.app.versionCode
-    versionName versions.app.versionName
   }
   dataBinding {
     enabled = true
   }
-  androidExtensions {
-    experimental = true
-  }
 }
 
 dependencies {
-  // Modules - Core
+  // Module
   implementation project(':modules:core')
 
-  // Modules - Feature
-  implementation project(':modules:home')
-  implementation project(':modules:profile')
-  implementation project(':modules:subreddit-list')
+  // Widget
+  implementation libs.widget.material
 }

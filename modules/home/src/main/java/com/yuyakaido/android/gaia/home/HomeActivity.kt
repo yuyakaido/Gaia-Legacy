@@ -1,9 +1,10 @@
-package com.yuyakaido.android.gaia
+package com.yuyakaido.android.gaia.home
 
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import com.yuyakaido.android.gaia.databinding.ActivityHomeBinding
+import com.yuyakaido.android.gaia.core.GaiaType
+import com.yuyakaido.android.gaia.home.databinding.ActivityHomeBinding
 
 class HomeActivity : AppCompatActivity() {
 
@@ -25,9 +26,10 @@ class HomeActivity : AppCompatActivity() {
   }
 
   private fun replaceFragment(page: HomePage) {
+    val app = application as GaiaType
     supportFragmentManager
       .beginTransaction()
-      .replace(R.id.fragment_container, page.fragment.invoke())
+      .replace(R.id.fragment_container, page.fragment.invoke(app))
       .commitNow()
   }
 
