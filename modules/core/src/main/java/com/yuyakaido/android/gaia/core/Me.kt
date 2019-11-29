@@ -1,4 +1,4 @@
-package com.yuyakaido.android.gaia
+package com.yuyakaido.android.gaia.core
 
 data class Me(
   val id: String,

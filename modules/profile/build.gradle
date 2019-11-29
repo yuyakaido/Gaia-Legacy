@@ -1,5 +1,7 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
 
 android {
   buildToolsVersion versions.android.buildTools
@@ -8,9 +10,10 @@ android {
     targetSdkVersion versions.android.targetSdk
     minSdkVersion versions.android.minSdk
   }
+  dataBinding {
+    enabled = true
+  }
 }
 
 dependencies {
-  // Kotlin
-  implementation libs.kotlin.stdlib
 }

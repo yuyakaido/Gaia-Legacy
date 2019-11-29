@@ -5,6 +5,10 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
+import com.yuyakaido.android.gaia.core.AuthInterceptor
+import com.yuyakaido.android.gaia.core.Me
+import com.yuyakaido.android.gaia.core.MeResponse
+import com.yuyakaido.android.gaia.core.RedditService
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Call

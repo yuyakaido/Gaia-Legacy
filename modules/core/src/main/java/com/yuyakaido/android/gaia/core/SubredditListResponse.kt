@@ -1,9 +1,8 @@
-package com.yuyakaido.android.gaia
+package com.yuyakaido.android.gaia.core
 
 import android.net.Uri
 import android.webkit.URLUtil
 import com.squareup.moshi.Json
-import com.yuyakaido.android.gaia.core.Subreddit
 
 data class SubredditListResponse(
   @Json(name = "data") val data: Data

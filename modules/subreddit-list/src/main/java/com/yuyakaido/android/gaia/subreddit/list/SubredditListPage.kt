@@ -1,4 +1,4 @@
-package com.yuyakaido.android.gaia
+package com.yuyakaido.android.gaia.subreddit.list
 
 enum class SubredditListPage(
   val path: String

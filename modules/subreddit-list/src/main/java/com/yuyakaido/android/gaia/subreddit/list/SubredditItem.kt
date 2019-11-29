@@ -1,4 +1,4 @@
-package com.yuyakaido.android.gaia
+package com.yuyakaido.android.gaia.subreddit.list
 
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
@@ -7,7 +7,7 @@ import com.bumptech.glide.Glide
 import com.xwray.groupie.Item
 import com.xwray.groupie.databinding.BindableItem
 import com.yuyakaido.android.gaia.core.Subreddit
-import com.yuyakaido.android.gaia.databinding.ItemSubredditBinding
+import com.yuyakaido.android.gaia.subreddit.list.databinding.ItemSubredditBinding
 
 class SubredditItem(
   private val viewModel: SubredditListViewModel,

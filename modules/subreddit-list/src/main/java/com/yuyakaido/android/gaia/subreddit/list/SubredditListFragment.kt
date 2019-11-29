@@ -1,4 +1,4 @@
-package com.yuyakaido.android.gaia
+package com.yuyakaido.android.gaia.subreddit.list
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -11,7 +11,7 @@ import androidx.lifecycle.observe
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
-import com.yuyakaido.android.gaia.databinding.FragmentSubredditListBinding
+import com.yuyakaido.android.gaia.subreddit.list.databinding.FragmentSubredditListBinding
 
 class SubredditListFragment : Fragment() {
 
@@ -58,7 +58,10 @@ class SubredditListFragment : Fragment() {
       .subreddits
       .observe(viewLifecycleOwner) { subreddits ->
         adapter.updateAsync(subreddits.map { subreddit ->
-          SubredditItem(viewModel = viewModel, subreddit = subreddit)
+          SubredditItem(
+            viewModel = viewModel,
+            subreddit = subreddit
+          )
         })
       }
   }

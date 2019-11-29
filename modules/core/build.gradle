@@ -1,6 +1,7 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
 
 android {
   buildToolsVersion versions.android.buildTools
@@ -12,9 +13,38 @@ android {
   androidExtensions {
     experimental = true
   }
+
+  buildTypes {
+    debug {
+      def properties = new Properties()
+      properties.load(project.rootProject.file('local.properties').newDataInputStream())
+      buildConfigField "String", "REDDIT_ACCESS_TOKEN", "\"${properties.getProperty('REDDIT_ACCESS_TOKEN')}\""
+    }
+    release {
+
+    }
+  }
 }
 
 dependencies {
   // Kotlin
-  implementation libs.kotlin.stdlib
+  api libs.kotlin.stdlib
+
+  // AndroidX
+  api libs.androidx.appcompat
+  api libs.androidx.ktx.core
+  api libs.androidx.ktx.fragment
+  api libs.androidx.lifecycle.viewmodel
+  api libs.androidx.lifecycle.livedata
+  api libs.androidx.constraintlayout
+  api libs.androidx.recyclerview
+
+  // Networking
+  api libs.networking.okhttp.core
+  api libs.networking.okhttp.logging
+  api libs.networking.retrofit.core
+  api libs.networking.retrofit.moshi
+  api libs.networking.moshi
+  api libs.networking.glide.core
+  kapt libs.networking.glide.compiler
 }

@@ -12,10 +12,6 @@ android {
     applicationId versions.app.applicationId
     versionCode versions.app.versionCode
     versionName versions.app.versionName
-
-    def properties = new Properties()
-    properties.load(project.rootProject.file('local.properties').newDataInputStream())
-    buildConfigField "String", "REDDIT_ACCESS_TOKEN", "\"${properties.getProperty('REDDIT_ACCESS_TOKEN')}\""
   }
   dataBinding {
     enabled = true
@@ -33,29 +29,6 @@ dependencies {
   implementation project(':modules:profile')
   implementation project(':modules:subreddit-list')
 
-  // Kotlin
-  implementation libs.kotlin.stdlib
-
-  // AndroidX
-  implementation libs.androidx.appcompat
-  implementation libs.androidx.ktx.core
-  implementation libs.androidx.ktx.fragment
-  implementation libs.androidx.lifecycle.viewmodel
-  implementation libs.androidx.lifecycle.livedata
-  implementation libs.androidx.constraintlayout
-  implementation libs.androidx.recyclerview
-
-  // Networking
-  implementation libs.networking.okhttp.core
-  implementation libs.networking.okhttp.logging
-  implementation libs.networking.retrofit.core
-  implementation libs.networking.retrofit.moshi
-  implementation libs.networking.moshi
-  implementation libs.networking.glide.core
-  kapt libs.networking.glide.compiler
-
   // Widget
-  implementation libs.widget.groupie.core
-  implementation libs.widget.groupie.databinding
   implementation libs.widget.material
 }

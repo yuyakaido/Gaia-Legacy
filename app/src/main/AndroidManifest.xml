@@ -19,7 +19,7 @@
       </intent-filter>
     </activity>
 
-    <activity android:name=".SubredditActivity" />
+    <activity android:name=".subreddit.list.SubredditActivity" />
 
   </application>
 

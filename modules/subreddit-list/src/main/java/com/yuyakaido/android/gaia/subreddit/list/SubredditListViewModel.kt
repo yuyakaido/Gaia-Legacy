@@ -1,11 +1,14 @@
-package com.yuyakaido.android.gaia
+package com.yuyakaido.android.gaia.subreddit.list
 
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
+import com.yuyakaido.android.gaia.core.AuthInterceptor
+import com.yuyakaido.android.gaia.core.RedditService
 import com.yuyakaido.android.gaia.core.Subreddit
+import com.yuyakaido.android.gaia.core.SubredditListResponse
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Call
