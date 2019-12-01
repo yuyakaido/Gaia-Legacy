@@ -12,6 +12,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
 import com.yuyakaido.android.gaia.core.GaiaType
+import com.yuyakaido.android.gaia.core.Subreddit
+import com.yuyakaido.android.gaia.core.SubredditItem
 import com.yuyakaido.android.gaia.subreddit.list.databinding.FragmentSubredditListBinding
 import timber.log.Timber
 
@@ -59,13 +61,17 @@ class SubredditListFragment : Fragment() {
     binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
     binding.recyclerView.adapter = adapter
 
+    val upvoteListener = { subreddit: Subreddit -> viewModel.onUpvote(subreddit = subreddit) }
+    val downvoteListener = { subreddit: Subreddit -> viewModel.onDownvote(subreddit = subreddit) }
+
     viewModel
       .subreddits
       .observe(viewLifecycleOwner) { subreddits ->
         adapter.updateAsync(subreddits.map { subreddit ->
           SubredditItem(
-            viewModel = viewModel,
-            subreddit = subreddit
+            subreddit = subreddit,
+            upvoteListener = upvoteListener,
+            downvoteListener = downvoteListener
           )
         })
       }

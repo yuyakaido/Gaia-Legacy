@@ -10,6 +10,9 @@ android {
     targetSdkVersion versions.android.targetSdk
     minSdkVersion versions.android.minSdk
   }
+  dataBinding {
+    enabled = true
+  }
   androidExtensions {
     experimental = true
   }
@@ -45,6 +48,10 @@ dependencies {
   api libs.networking.moshi
   api libs.networking.glide.core
   kapt libs.networking.glide.compiler
+
+  // Widget
+  api libs.widget.groupie.core
+  api libs.widget.groupie.databinding
 
   // Debugging
   api libs.debugging.timber

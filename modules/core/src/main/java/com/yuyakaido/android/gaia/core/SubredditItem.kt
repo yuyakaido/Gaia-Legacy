@@ -1,4 +1,4 @@
-package com.yuyakaido.android.gaia.subreddit.list
+package com.yuyakaido.android.gaia.core
 
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
@@ -6,12 +6,12 @@ import android.net.Uri
 import com.bumptech.glide.Glide
 import com.xwray.groupie.Item
 import com.xwray.groupie.databinding.BindableItem
-import com.yuyakaido.android.gaia.core.Subreddit
-import com.yuyakaido.android.gaia.subreddit.list.databinding.ItemSubredditBinding
+import com.yuyakaido.android.gaia.core.databinding.ItemSubredditBinding
 
 class SubredditItem(
-  private val viewModel: SubredditListViewModel,
-  val subreddit: Subreddit
+  val subreddit: Subreddit,
+  private val upvoteListener: (Subreddit) -> Unit,
+  private val downvoteListener: (Subreddit) -> Unit
 ) : BindableItem<ItemSubredditBinding>() {
 
   private val placeholder = ColorDrawable(Color.LTGRAY)
@@ -45,8 +45,8 @@ class SubredditItem(
     binding.author.text = binding.root.resources.getString(R.string.author, subreddit.author)
     binding.title.text = subreddit.title
     binding.voteCount.text = subreddit.voteCount.toString()
-    binding.upvote.setOnClickListener { viewModel.onUpvote(subreddit) }
-    binding.downvote.setOnClickListener { viewModel.onDownvote(subreddit) }
+    binding.upvote.setOnClickListener { upvoteListener.invoke(subreddit) }
+    binding.downvote.setOnClickListener { downvoteListener.invoke(subreddit) }
     when {
       subreddit.likes == null -> {
         binding.upvote.setImageResource(R.drawable.ic_upvote_inactive)

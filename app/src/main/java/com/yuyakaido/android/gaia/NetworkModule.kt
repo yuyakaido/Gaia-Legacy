@@ -28,21 +28,6 @@ class NetworkModule {
   }
 
   @Provides
-  fun provideRedditAuthService(client: OkHttpClient): RedditAuthService {
-    val moshi = Moshi
-      .Builder()
-      .add(KotlinJsonAdapterFactory())
-      .build()
-    val retrofit = Retrofit
-      .Builder()
-      .client(client)
-      .baseUrl("https://oauth.reddit.com")
-      .addConverterFactory(MoshiConverterFactory.create(moshi))
-      .build()
-    return retrofit.create(RedditAuthService::class.java)
-  }
-
-  @Provides
   fun provideRedditPublicService(client: OkHttpClient): RedditPublicService {
     val moshi = Moshi
       .Builder()
@@ -55,6 +40,21 @@ class NetworkModule {
       .addConverterFactory(MoshiConverterFactory.create(moshi))
       .build()
     return retrofit.create(RedditPublicService::class.java)
+  }
+
+  @Provides
+  fun provideRedditAuthService(client: OkHttpClient): RedditAuthService {
+    val moshi = Moshi
+      .Builder()
+      .add(KotlinJsonAdapterFactory())
+      .build()
+    val retrofit = Retrofit
+      .Builder()
+      .client(client)
+      .baseUrl("https://oauth.reddit.com")
+      .addConverterFactory(MoshiConverterFactory.create(moshi))
+      .build()
+    return retrofit.create(RedditAuthService::class.java)
   }
 
 }

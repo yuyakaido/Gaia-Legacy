@@ -17,8 +17,4 @@ android {
 dependencies {
   // Module
   implementation project(':modules:core')
-
-  // Widget
-  implementation libs.widget.groupie.core
-  implementation libs.widget.groupie.databinding
 }
