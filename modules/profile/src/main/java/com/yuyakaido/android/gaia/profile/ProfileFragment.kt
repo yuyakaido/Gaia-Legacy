@@ -10,6 +10,7 @@ import androidx.lifecycle.observe
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.yuyakaido.android.gaia.profile.databinding.FragmentProfileBinding
+import timber.log.Timber
 
 class ProfileFragment : Fragment() {
 
@@ -35,6 +36,8 @@ class ProfileFragment : Fragment() {
   override fun onActivityCreated(savedInstanceState: Bundle?) {
     super.onActivityCreated(savedInstanceState)
     setupProfile()
+    Timber.d("Gaia - ProfileFragment: fragment = ${hashCode()}")
+    Timber.d("Gaia - ProfileFragment: viewmodel = ${viewModel.hashCode()}")
     viewModel.onBind()
   }
 

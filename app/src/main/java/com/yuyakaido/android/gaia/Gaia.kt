@@ -9,6 +9,7 @@ import com.yuyakaido.android.gaia.profile.ProfileFragment
 import com.yuyakaido.android.gaia.subreddit.detail.SubredditActivity
 import com.yuyakaido.android.gaia.subreddit.list.SubredditListFragment
 import com.yuyakaido.android.gaia.subreddit.list.SubredditListPage
+import timber.log.Timber
 import javax.inject.Inject
 
 class Gaia : GaiaType() {
@@ -18,10 +19,8 @@ class Gaia : GaiaType() {
 
   override fun onCreate() {
     super.onCreate()
-    DaggerAppComponent
-      .builder()
-      .build()
-      .inject(this)
+    initializeDagger()
+    initializeTimber()
   }
 
   override fun newSubredditActivity(subreddit: Subreddit): Intent {
@@ -34,6 +33,17 @@ class Gaia : GaiaType() {
 
   override fun newProfileFragment(): Fragment {
     return ProfileFragment.newInstance()
+  }
+
+  private fun initializeDagger() {
+    DaggerAppComponent
+      .builder()
+      .build()
+      .inject(this)
+  }
+
+  private fun initializeTimber() {
+    Timber.plant(Timber.DebugTree())
   }
 
 }

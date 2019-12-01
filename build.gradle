@@ -35,6 +35,9 @@ buildscript {
     widget: [
       groupie: '2.7.1',
       material: '1.0.0'
+    ],
+    debugging: [
+      timber: '4.7.1'
     ]
   ]
   ext.libs = [
@@ -90,6 +93,9 @@ buildscript {
         databinding: "com.xwray:groupie-databinding:$versions.widget.groupie"
       ],
       material: "com.google.android.material:material:$versions.widget.material"
+    ],
+    debugging: [
+      timber: "com.jakewharton.timber:timber:$versions.debugging.timber"
     ]
   ]
   repositories {

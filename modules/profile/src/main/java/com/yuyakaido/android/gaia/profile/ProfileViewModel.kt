@@ -10,6 +10,7 @@ import com.yuyakaido.android.gaia.core.MeResponse
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import timber.log.Timber
 
 class ProfileViewModel(
   application: Application
@@ -22,6 +23,7 @@ class ProfileViewModel(
   val me = MutableLiveData<Me>()
 
   fun onBind() {
+    Timber.d("Gaia - ProfileViewModel: service = ${service.hashCode()}")
     service
       .me()
       .enqueue(object : Callback<MeResponse> {
@@ -31,7 +33,7 @@ class ProfileViewModel(
           }
         }
         override fun onFailure(call: Call<MeResponse>, t: Throwable) {
-          Log.d("Gaia", t.toString())
+          Timber.e(t.toString())
         }
       })
   }

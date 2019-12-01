@@ -10,6 +10,7 @@ import com.yuyakaido.android.gaia.core.SubredditListResponse
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import timber.log.Timber
 
 class SubredditListViewModel(
   application: Application
@@ -22,8 +23,7 @@ class SubredditListViewModel(
   val subreddits = MutableLiveData<List<Subreddit>>()
 
   fun onBind(page: SubredditListPage) {
-
-
+    Timber.d("Gaia - SubredditListViewModel: service = ${service.hashCode()}")
     if (subreddits.value == null) {
       service
         .subreddits(path = page.path)
@@ -34,7 +34,7 @@ class SubredditListViewModel(
             }
           }
           override fun onFailure(call: Call<SubredditListResponse>, t: Throwable) {
-            Log.d("Gaia", t.toString())
+            Timber.e(t.toString())
           }
         })
     }
@@ -90,7 +90,7 @@ class SubredditListViewModel(
           subreddits.postValue(newSubreddits)
         }
         override fun onFailure(call: Call<Unit>, t: Throwable) {
-          Log.d("Gaia", t.toString())
+          Timber.e(t.toString())
         }
       })
   }

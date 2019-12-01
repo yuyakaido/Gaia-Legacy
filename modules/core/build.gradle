@@ -45,4 +45,7 @@ dependencies {
   api libs.networking.moshi
   api libs.networking.glide.core
   kapt libs.networking.glide.compiler
+
+  // Debugging
+  api libs.debugging.timber
 }

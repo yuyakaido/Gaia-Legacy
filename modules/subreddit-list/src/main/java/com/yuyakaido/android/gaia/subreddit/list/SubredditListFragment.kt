@@ -13,6 +13,7 @@ import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
 import com.yuyakaido.android.gaia.core.GaiaType
 import com.yuyakaido.android.gaia.subreddit.list.databinding.FragmentSubredditListBinding
+import timber.log.Timber
 
 class SubredditListFragment : Fragment() {
 
@@ -41,6 +42,8 @@ class SubredditListFragment : Fragment() {
     super.onViewCreated(view, savedInstanceState)
     setupRecyclerView()
     val page = arguments?.getSerializable(PAGE) as SubredditListPage
+    Timber.d("Gaia - SubredditListFragment: fragment = ${hashCode()}")
+    Timber.d("Gaia - SubredditListFragment: viewmodel = ${viewModel.hashCode()}")
     viewModel.onBind(page = page)
   }
 
