@@ -26,4 +26,11 @@ dependencies {
   implementation project(':modules:profile')
   implementation project(':modules:subreddit-list')
   implementation project(':modules:subreddit-detail')
+
+  // Dependency Injection
+  implementation libs.dagger.java.core
+  kapt libs.dagger.java.compiler
+  implementation libs.dagger.android.core
+  implementation libs.dagger.android.support
+  kapt libs.dagger.android.compiler
 }

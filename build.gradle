@@ -25,6 +25,7 @@ buildscript {
       constraintlayout: '1.1.3',
       recyclerview: '1.0.0'
     ],
+    dagger: '2.25.2',
     networking: [
       okhttp: '4.2.2',
       retrofit: '2.6.2',
@@ -56,6 +57,17 @@ buildscript {
       ],
       constraintlayout: "androidx.constraintlayout:constraintlayout:$versions.androidx.constraintlayout",
       recyclerview: "androidx.recyclerview:recyclerview:$versions.androidx.recyclerview"
+    ],
+    dagger: [
+      java: [
+        core: "com.google.dagger:dagger:${versions.dagger}",
+        compiler: "com.google.dagger:dagger-compiler:${versions.dagger}"
+      ],
+      android: [
+        core: "com.google.dagger:dagger-android:${versions.dagger}",
+        support: "com.google.dagger:dagger-android-support:${versions.dagger}",
+        compiler: "com.google.dagger:dagger-android-processor:${versions.dagger}"
+      ]
     ],
     networking: [
       okhttp: [
