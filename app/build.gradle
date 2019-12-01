@@ -23,9 +23,10 @@ dependencies {
 
   // Modules - Feature
   implementation project(':modules:home')
-  implementation project(':modules:profile')
   implementation project(':modules:subreddit-list')
   implementation project(':modules:subreddit-detail')
+  implementation project(':modules:profile')
+  implementation project(':modules:search')
 
   // Dependency Injection
   implementation libs.dagger.java.core
