@@ -11,6 +11,10 @@ enum class HomePage(
     id = R.id.navigation_popular,
     fragment = fun (app: GaiaType) = app.newSubredditListFragment()
   ),
+  Search(
+    id = R.id.navigation_search,
+    fragment = fun (app: GaiaType) = app.newSearchFragment()
+  ),
   Profile(
     id = R.id.navigation_profile,
     fragment = fun (app: GaiaType) = app.newProfileFragment()

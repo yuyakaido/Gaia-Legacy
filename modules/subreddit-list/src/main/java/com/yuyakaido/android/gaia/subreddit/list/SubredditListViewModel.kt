@@ -18,7 +18,7 @@ class SubredditListViewModel(
   application
 ) {
 
-  private val service = (getApplication<GaiaType>()).redditService
+  private val service = (getApplication<GaiaType>()).redditAuthService
 
   val subreddits = MutableLiveData<List<Subreddit>>()
 

@@ -1,7 +1,6 @@
 package com.yuyakaido.android.gaia.profile
 
 import android.app.Application
-import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import com.yuyakaido.android.gaia.core.GaiaType
@@ -18,7 +17,7 @@ class ProfileViewModel(
   application
 ) {
 
-  private val service = (getApplication<GaiaType>()).redditService
+  private val service = (getApplication<GaiaType>()).redditAuthService
 
   val me = MutableLiveData<Me>()
 

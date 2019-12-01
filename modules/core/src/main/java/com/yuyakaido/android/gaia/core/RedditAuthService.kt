@@ -3,7 +3,7 @@ package com.yuyakaido.android.gaia.core
 import retrofit2.Call
 import retrofit2.http.*
 
-interface RedditService {
+interface RedditAuthService {
 
   @GET("r/{path}.json")
   fun subreddits(
