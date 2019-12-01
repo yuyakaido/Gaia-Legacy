@@ -2,5 +2,7 @@ package com.yuyakaido.android.gaia
 
 import dagger.Component
 
-@Component
-interface AppComponent
+@Component(modules = [NetworkModule::class])
+interface AppComponent {
+  fun inject(gaia: Gaia)
+}

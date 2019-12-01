@@ -1,48 +1,32 @@
 package com.yuyakaido.android.gaia.subreddit.list
 
+import android.app.Application
 import android.util.Log
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import com.squareup.moshi.Moshi
-import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
-import com.yuyakaido.android.gaia.core.AuthInterceptor
-import com.yuyakaido.android.gaia.core.RedditService
+import com.yuyakaido.android.gaia.core.GaiaType
 import com.yuyakaido.android.gaia.core.Subreddit
 import com.yuyakaido.android.gaia.core.SubredditListResponse
-import okhttp3.OkHttpClient
-import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import retrofit2.Retrofit
-import retrofit2.converter.moshi.MoshiConverterFactory
 
-class SubredditListViewModel : ViewModel() {
+class SubredditListViewModel(
+  application: Application
+) : AndroidViewModel(
+  application
+) {
 
-  private val interceptor = HttpLoggingInterceptor()
-    .apply { level = HttpLoggingInterceptor.Level.BASIC }
-  private val client = OkHttpClient
-    .Builder()
-    .addInterceptor(interceptor)
-    .addInterceptor(AuthInterceptor())
-    .build()
-  private val moshi = Moshi
-    .Builder()
-    .add(KotlinJsonAdapterFactory())
-    .build()
-  private val retrofit = Retrofit
-    .Builder()
-    .client(client)
-    .baseUrl("https://oauth.reddit.com")
-    .addConverterFactory(MoshiConverterFactory.create(moshi))
-    .build()
-  private val service = retrofit.create(RedditService::class.java)
+  private val service = (getApplication<GaiaType>()).redditService
 
   val subreddits = MutableLiveData<List<Subreddit>>()
 
   fun onBind(page: SubredditListPage) {
+
+
     if (subreddits.value == null) {
-      service.subreddits(path = page.path)
+      service
+        .subreddits(path = page.path)
         .enqueue(object : Callback<SubredditListResponse> {
           override fun onResponse(call: Call<SubredditListResponse>, response: Response<SubredditListResponse>) {
             response.body()?.let { body ->
@@ -63,7 +47,8 @@ class SubredditListViewModel : ViewModel() {
       subreddit.likes == false -> 1 to true
       else -> 0 to null
     }
-    service.vote(id = subreddit.name, dir = pair.first)
+    service
+      .vote(id = subreddit.name, dir = pair.first)
       .enqueue(object : Callback<Unit> {
         override fun onResponse(call: Call<Unit>, response: Response<Unit>) {
           val newSubreddits = subreddits
