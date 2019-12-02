@@ -1,10 +1,9 @@
 package com.yuyakaido.android.gaia
 
 import com.squareup.moshi.Moshi
+import com.squareup.moshi.adapters.PolymorphicJsonAdapterFactory
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
-import com.yuyakaido.android.gaia.core.AuthInterceptor
-import com.yuyakaido.android.gaia.core.RedditAuthService
-import com.yuyakaido.android.gaia.core.RedditPublicService
+import com.yuyakaido.android.gaia.core.*
 import dagger.Module
 import dagger.Provides
 import okhttp3.OkHttpClient
@@ -28,11 +27,30 @@ class NetworkModule {
   }
 
   @Provides
-  fun provideRedditPublicService(client: OkHttpClient): RedditPublicService {
-    val moshi = Moshi
+  fun provideMoshi(): Moshi {
+    return Moshi
       .Builder()
+      .add(
+        PolymorphicJsonAdapterFactory
+          .of(ListingDataResponse.Children.Child::class.java, "kind")
+          .withSubtype(
+            ListingDataResponse.Children.Child.Comment::class.java,
+            ListingDataResponse.Children.Child.Kind.t1.name
+          )
+          .withSubtype(
+            ListingDataResponse.Children.Child.Article::class.java,
+            ListingDataResponse.Children.Child.Kind.t3.name
+          )
+      )
       .add(KotlinJsonAdapterFactory())
       .build()
+  }
+
+  @Provides
+  fun provideRedditPublicService(
+    moshi: Moshi,
+    client: OkHttpClient
+  ): RedditPublicService {
     val retrofit = Retrofit
       .Builder()
       .client(client)
@@ -43,11 +61,10 @@ class NetworkModule {
   }
 
   @Provides
-  fun provideRedditAuthService(client: OkHttpClient): RedditAuthService {
-    val moshi = Moshi
-      .Builder()
-      .add(KotlinJsonAdapterFactory())
-      .build()
+  fun provideRedditAuthService(
+    moshi: Moshi,
+    client: OkHttpClient
+  ): RedditAuthService {
     val retrofit = Retrofit
       .Builder()
       .client(client)

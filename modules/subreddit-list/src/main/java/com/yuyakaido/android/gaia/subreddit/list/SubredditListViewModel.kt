@@ -1,12 +1,9 @@
 package com.yuyakaido.android.gaia.subreddit.list
 
 import android.app.Application
-import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
-import com.yuyakaido.android.gaia.core.GaiaType
-import com.yuyakaido.android.gaia.core.Subreddit
-import com.yuyakaido.android.gaia.core.SubredditListResponse
+import com.yuyakaido.android.gaia.core.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -27,17 +24,27 @@ class SubredditListViewModel(
     if (subreddits.value == null) {
       service
         .subreddits(path = page.path)
-        .enqueue(object : Callback<SubredditListResponse> {
-          override fun onResponse(call: Call<SubredditListResponse>, response: Response<SubredditListResponse>) {
+        .enqueue(object : Callback<ListingDataResponse> {
+          override fun onResponse(call: Call<ListingDataResponse>, response: Response<ListingDataResponse>) {
             response.body()?.let { body ->
               subreddits.postValue(body.toEntities())
             }
           }
-          override fun onFailure(call: Call<SubredditListResponse>, t: Throwable) {
+          override fun onFailure(call: Call<ListingDataResponse>, t: Throwable) {
             Timber.e(t.toString())
           }
         })
     }
+    service
+      .comments()
+      .enqueue(object : Callback<List<ListingDataResponse>> {
+        override fun onResponse(call: Call<List<ListingDataResponse>>, response: Response<List<ListingDataResponse>>) {
+          Timber.d(response.toString())
+        }
+        override fun onFailure(call: Call<List<ListingDataResponse>>, t: Throwable) {
+          Timber.e(t.toString())
+        }
+      })
   }
 
   fun onUpvote(subreddit: Subreddit) {
@@ -63,7 +70,7 @@ class SubredditListViewModel(
           subreddits.postValue(newSubreddits)
         }
         override fun onFailure(call: Call<Unit>, t: Throwable) {
-          Log.d("Gaia", t.toString())
+          Timber.e(t.toString())
         }
       })
   }

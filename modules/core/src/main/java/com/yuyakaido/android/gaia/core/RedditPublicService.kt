@@ -12,6 +12,6 @@ interface RedditPublicService {
   @GET("search.json")
   fun search(
     @Query("q") query: String
-  ): Call<SubredditListResponse>
+  ): Call<ListingDataResponse>
 
 }

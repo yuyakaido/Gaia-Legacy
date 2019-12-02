@@ -38,13 +38,13 @@ class SearchViewModel(
   fun onTextChange(text: String) {
     service
       .search(query = text)
-      .enqueue(object : Callback<SubredditListResponse> {
-        override fun onResponse(call: Call<SubredditListResponse>, response: Response<SubredditListResponse>) {
+      .enqueue(object : Callback<ListingDataResponse> {
+        override fun onResponse(call: Call<ListingDataResponse>, response: Response<ListingDataResponse>) {
           response.body()?.let { body ->
             searchedSubreddits.postValue(body.toEntities())
           }
         }
-        override fun onFailure(call: Call<SubredditListResponse>, t: Throwable) {
+        override fun onFailure(call: Call<ListingDataResponse>, t: Throwable) {
           Timber.e(t.toString())
         }
       })

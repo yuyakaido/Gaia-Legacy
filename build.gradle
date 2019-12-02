@@ -81,7 +81,10 @@ buildscript {
         core: "com.squareup.retrofit2:retrofit:$versions.networking.retrofit",
         moshi: "com.squareup.retrofit2:converter-moshi:$versions.networking.retrofit"
       ],
-      moshi: "com.squareup.moshi:moshi-kotlin:$versions.networking.moshi",
+      moshi: [
+        core: "com.squareup.moshi:moshi-kotlin:$versions.networking.moshi",
+        adapter: "com.squareup.moshi:moshi-adapters:$versions.networking.moshi"
+      ],
       glide: [
         core: "com.github.bumptech.glide:glide:$versions.networking.glide",
         compiler: "com.github.bumptech.glide:compiler:$versions.networking.glide"
