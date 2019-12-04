@@ -8,7 +8,7 @@ abstract class GaiaType : Application() {
   abstract val redditPublicService: RedditPublicService
   abstract val redditAuthService: RedditAuthService
 
-  abstract fun newSubredditActivity(subreddit: Subreddit): Intent
+  abstract fun newSubredditDetailActivity(subreddit: Subreddit): Intent
   abstract fun newSubredditListFragment(): Fragment
   abstract fun newProfileFragment(): Fragment
   abstract fun newSearchFragment(): Fragment

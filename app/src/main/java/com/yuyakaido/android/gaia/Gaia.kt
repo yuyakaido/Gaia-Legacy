@@ -5,7 +5,7 @@ import androidx.fragment.app.Fragment
 import com.yuyakaido.android.gaia.core.*
 import com.yuyakaido.android.gaia.profile.ProfileFragment
 import com.yuyakaido.android.gaia.search.SearchFragment
-import com.yuyakaido.android.gaia.subreddit.detail.SubredditActivity
+import com.yuyakaido.android.gaia.subreddit.detail.SubredditDetailActivity
 import com.yuyakaido.android.gaia.subreddit.list.SubredditListFragment
 import com.yuyakaido.android.gaia.subreddit.list.SubredditListPage
 import timber.log.Timber
@@ -25,8 +25,8 @@ class Gaia : GaiaType() {
     initializeTimber()
   }
 
-  override fun newSubredditActivity(subreddit: Subreddit): Intent {
-    return SubredditActivity.createIntent(this, subreddit)
+  override fun newSubredditDetailActivity(subreddit: Subreddit): Intent {
+    return SubredditDetailActivity.createIntent(this, subreddit)
   }
 
   override fun newSubredditListFragment(): Fragment {

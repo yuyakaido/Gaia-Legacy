@@ -35,16 +35,6 @@ class SubredditListViewModel(
           }
         })
     }
-    service
-      .comments()
-      .enqueue(object : Callback<List<ListingDataResponse>> {
-        override fun onResponse(call: Call<List<ListingDataResponse>>, response: Response<List<ListingDataResponse>>) {
-          Timber.d(response.toString())
-        }
-        override fun onFailure(call: Call<List<ListingDataResponse>>, t: Throwable) {
-          Timber.e(t.toString())
-        }
-      })
   }
 
   fun onUpvote(subreddit: Subreddit) {

@@ -54,7 +54,7 @@ class SubredditListFragment : Fragment() {
     adapter.setOnItemClickListener { item, _ ->
       if (item is SubredditItem) {
         val app = requireActivity().application as GaiaType
-        startActivity(app.newSubredditActivity(item.subreddit))
+        startActivity(app.newSubredditDetailActivity(item.subreddit))
       }
     }
 
