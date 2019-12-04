@@ -8,6 +8,8 @@ import com.yuyakaido.android.gaia.search.SearchFragment
 import com.yuyakaido.android.gaia.subreddit.detail.SubredditDetailActivity
 import com.yuyakaido.android.gaia.subreddit.list.SubredditListFragment
 import com.yuyakaido.android.gaia.subreddit.list.SubredditListPage
+import dagger.android.AndroidInjector
+import dagger.android.support.DaggerApplication
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -19,9 +21,15 @@ class Gaia : GaiaType() {
   @Inject
   override lateinit var redditAuthService: RedditAuthService
 
+  override fun applicationInjector(): AndroidInjector<out DaggerApplication> {
+    return DaggerAppComponent
+      .builder()
+      .application(this)
+      .build()
+  }
+
   override fun onCreate() {
     super.onCreate()
-    initializeDagger()
     initializeTimber()
   }
 
@@ -39,13 +47,6 @@ class Gaia : GaiaType() {
 
   override fun newSearchFragment(): Fragment {
     return SearchFragment.newInstance()
-  }
-
-  private fun initializeDagger() {
-    DaggerAppComponent
-      .builder()
-      .build()
-      .inject(this)
   }
 
   private fun initializeTimber() {

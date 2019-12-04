@@ -1,10 +1,10 @@
 package com.yuyakaido.android.gaia.core
 
-import android.app.Application
 import android.content.Intent
 import androidx.fragment.app.Fragment
+import dagger.android.support.DaggerApplication
 
-abstract class GaiaType : Application() {
+abstract class GaiaType : DaggerApplication() {
   abstract val redditPublicService: RedditPublicService
   abstract val redditAuthService: RedditAuthService
 

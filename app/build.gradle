@@ -29,9 +29,6 @@ dependencies {
   implementation project(':modules:search')
 
   // Dependency Injection
-  implementation libs.dagger.java.core
   kapt libs.dagger.java.compiler
-  implementation libs.dagger.android.core
-  implementation libs.dagger.android.support
   kapt libs.dagger.android.compiler
 }

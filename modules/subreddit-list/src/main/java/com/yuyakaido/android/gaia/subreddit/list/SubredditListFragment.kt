@@ -44,8 +44,8 @@ class SubredditListFragment : Fragment() {
     super.onViewCreated(view, savedInstanceState)
     setupRecyclerView()
     val page = arguments?.getSerializable(PAGE) as SubredditListPage
-    Timber.d("Gaia - SubredditListFragment: fragment = ${hashCode()}")
-    Timber.d("Gaia - SubredditListFragment: viewmodel = ${viewModel.hashCode()}")
+    Timber.d("fragment = ${hashCode()}")
+    Timber.d("viewmodel = ${viewModel.hashCode()}")
     viewModel.onBind(page = page)
   }
 

@@ -20,7 +20,7 @@ class SubredditListViewModel(
   val subreddits = MutableLiveData<List<Subreddit>>()
 
   fun onBind(page: SubredditListPage) {
-    Timber.d("Gaia - SubredditListViewModel: service = ${service.hashCode()}")
+    Timber.d("service = ${service.hashCode()}")
     if (subreddits.value == null) {
       service
         .subreddits(path = page.path)

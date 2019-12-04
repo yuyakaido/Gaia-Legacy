@@ -18,6 +18,10 @@ dependencies {
   // Module
   implementation project(':modules:core')
 
+  // Dependency Injection
+  kapt libs.dagger.java.compiler
+  kapt libs.dagger.android.compiler
+
   // Widget
   implementation libs.widget.material
 }

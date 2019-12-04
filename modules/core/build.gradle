@@ -35,10 +35,18 @@ dependencies {
   api libs.androidx.appcompat
   api libs.androidx.ktx.core
   api libs.androidx.ktx.fragment
+  api libs.androidx.lifecycle.extensions
   api libs.androidx.lifecycle.viewmodel
   api libs.androidx.lifecycle.livedata
   api libs.androidx.constraintlayout
   api libs.androidx.recyclerview
+
+  // Dependency Injection
+  api libs.dagger.java.core
+  kapt libs.dagger.java.compiler
+  api libs.dagger.android.core
+  api libs.dagger.android.support
+  kapt libs.dagger.android.compiler
 
   // Networking
   api libs.networking.okhttp.core

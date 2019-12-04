@@ -1,5 +1,11 @@
 package com.yuyakaido.android.gaia.home
 
-import androidx.lifecycle.ViewModel
+import android.app.Application
+import androidx.lifecycle.AndroidViewModel
+import javax.inject.Inject
 
-class HomeViewModel : ViewModel()
+class HomeViewModel @Inject constructor(
+  application: Application
+) : AndroidViewModel(
+  application
+)
