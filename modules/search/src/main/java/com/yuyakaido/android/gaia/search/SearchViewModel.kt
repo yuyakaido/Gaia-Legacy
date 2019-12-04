@@ -41,7 +41,7 @@ class SearchViewModel(
       .enqueue(object : Callback<ListingDataResponse> {
         override fun onResponse(call: Call<ListingDataResponse>, response: Response<ListingDataResponse>) {
           response.body()?.let { body ->
-            searchedSubreddits.postValue(body.toEntities())
+            searchedSubreddits.postValue(body.toArticles())
           }
         }
         override fun onFailure(call: Call<ListingDataResponse>, t: Throwable) {

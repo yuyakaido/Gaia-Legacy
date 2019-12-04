@@ -8,7 +8,10 @@ import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.observe
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
+import com.xwray.groupie.GroupAdapter
+import com.xwray.groupie.GroupieViewHolder
 import com.yuyakaido.android.gaia.core.Subreddit
 import com.yuyakaido.android.gaia.subreddit.detail.databinding.ActivitySubredditBinding
 
@@ -45,6 +48,13 @@ class SubredditDetailActivity : AppCompatActivity() {
           .load(thumbnail)
           .placeholder(ColorDrawable(Color.LTGRAY))
           .into(binding.thumbnail)
+      }
+    viewModel.comments
+      .observe(this) { comments ->
+        val adapter = GroupAdapter<GroupieViewHolder>()
+        binding.comments.layoutManager = LinearLayoutManager(this)
+        binding.comments.adapter = adapter
+        adapter.updateAsync(comments.map { comment -> CommentItem(comment = comment) })
       }
   }
 

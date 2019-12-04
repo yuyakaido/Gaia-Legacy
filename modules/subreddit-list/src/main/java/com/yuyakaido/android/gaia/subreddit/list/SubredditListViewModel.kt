@@ -27,7 +27,7 @@ class SubredditListViewModel(
         .enqueue(object : Callback<ListingDataResponse> {
           override fun onResponse(call: Call<ListingDataResponse>, response: Response<ListingDataResponse>) {
             response.body()?.let { body ->
-              subreddits.postValue(body.toEntities())
+              subreddits.postValue(body.toArticles())
             }
           }
           override fun onFailure(call: Call<ListingDataResponse>, t: Throwable) {

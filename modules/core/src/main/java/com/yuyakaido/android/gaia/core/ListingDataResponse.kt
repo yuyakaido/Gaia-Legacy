@@ -36,7 +36,14 @@ data class ListingDataResponse(
       }
       data class Comment(
         @Json(name = "data") override val data: Data.Comment
-      ) : Child(Kind.t1)
+      ) : Child(Kind.t1) {
+        fun toEntity(): com.yuyakaido.android.gaia.core.Comment {
+          return Comment(
+            id = com.yuyakaido.android.gaia.core.Comment.ID(value = data.id),
+            body = data.body
+          )
+        }
+      }
       data class Article(
         @Json(name = "data") override val data: Data.Subreddit
       ) : Child(Kind.t3) {
@@ -65,10 +72,14 @@ data class ListingDataResponse(
       abstract val data: Data
     }
   }
-  fun toEntities(): List<Subreddit> {
-    return data
-      .children
+  fun toArticles(): List<Subreddit> {
+    return data.children
       .filterIsInstance<Children.Child.Article>()
+      .map { it.toEntity() }
+  }
+  fun toComments(): List<Comment> {
+    return data.children
+      .filterIsInstance<Children.Child.Comment>()
       .map { it.toEntity() }
   }
 }

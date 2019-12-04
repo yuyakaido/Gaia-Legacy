@@ -4,6 +4,7 @@ import android.app.Application
 import android.net.Uri
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
+import com.yuyakaido.android.gaia.core.Comment
 import com.yuyakaido.android.gaia.core.GaiaType
 import com.yuyakaido.android.gaia.core.ListingDataResponse
 import com.yuyakaido.android.gaia.core.Subreddit
@@ -22,6 +23,7 @@ class SubredditDetailViewModel(
 
   val title = MutableLiveData<String>()
   val thumbnail = MutableLiveData<Uri>()
+  val comments = MutableLiveData<List<Comment>>()
 
   fun onBind(subreddit: Subreddit) {
     title.postValue(subreddit.title)
@@ -31,6 +33,14 @@ class SubredditDetailViewModel(
       .enqueue(object : Callback<List<ListingDataResponse>> {
         override fun onResponse(call: Call<List<ListingDataResponse>>, response: Response<List<ListingDataResponse>>) {
           Timber.d(response.toString())
+          response.body()?.let { body ->
+            val responseOfComment = body.firstOrNull {
+              it.data.children.any { child ->
+                child.kind == ListingDataResponse.Children.Child.Kind.t1
+              }
+            }
+            comments.postValue(responseOfComment?.toComments() ?: emptyList())
+          }
         }
         override fun onFailure(call: Call<List<ListingDataResponse>>, t: Throwable) {
           Timber.e(t.toString())
