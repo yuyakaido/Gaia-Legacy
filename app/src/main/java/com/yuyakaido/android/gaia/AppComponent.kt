@@ -10,6 +10,7 @@ import dagger.android.AndroidInjector
 @Component(modules = [
   AndroidInjectionModule::class,
   ActivityModule::class,
+  FragmentModule::class,
   NetworkModule::class
 ])
 interface AppComponent : AndroidInjector<Gaia> {

@@ -4,15 +4,15 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.observe
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
+import com.yuyakaido.android.gaia.core.BaseFragment
 import com.yuyakaido.android.gaia.profile.databinding.FragmentProfileBinding
 import timber.log.Timber
+import javax.inject.Inject
 
-class ProfileFragment : Fragment() {
+class ProfileFragment : BaseFragment() {
 
   companion object {
     fun newInstance(): ProfileFragment {
@@ -20,7 +20,8 @@ class ProfileFragment : Fragment() {
     }
   }
 
-  private val viewModel by viewModels<ProfileViewModel>()
+  @Inject
+  internal lateinit var viewModel: ProfileViewModel
 
   private lateinit var binding: FragmentProfileBinding
 

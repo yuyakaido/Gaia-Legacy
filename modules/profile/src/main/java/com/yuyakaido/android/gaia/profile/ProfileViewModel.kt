@@ -3,21 +3,20 @@ package com.yuyakaido.android.gaia.profile
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
-import com.yuyakaido.android.gaia.core.GaiaType
 import com.yuyakaido.android.gaia.core.Me
 import com.yuyakaido.android.gaia.core.MeResponse
+import com.yuyakaido.android.gaia.core.RedditAuthService
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import timber.log.Timber
 
 class ProfileViewModel(
-  application: Application
+  application: Application,
+  private val service: RedditAuthService
 ) : AndroidViewModel(
   application
 ) {
-
-  private val service = (getApplication<GaiaType>()).redditAuthService
 
   val me = MutableLiveData<Me>()
 
