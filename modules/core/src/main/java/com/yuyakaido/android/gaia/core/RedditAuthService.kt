@@ -7,7 +7,8 @@ interface RedditAuthService {
 
   @GET("r/{path}.json")
   fun subreddits(
-    @Path("path") path: String
+    @Path("path") path: String,
+    @Query("after") after: String?
   ): Call<ListingDataResponse>
 
   @GET("r/androiddev/comments/e4xhq3.json")

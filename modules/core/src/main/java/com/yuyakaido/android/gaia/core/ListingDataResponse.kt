@@ -8,7 +8,9 @@ data class ListingDataResponse(
   @Json(name = "data") val data: Children
 ) {
   data class Children(
-    @Json(name = "children") val children: List<Child>
+    @Json(name = "children") val children: List<Child>,
+    @Json(name = "before") val before: String?,
+    @Json(name = "after") val after: String?
   ) {
     sealed class Child(
       @Json(name = "kind") val kind: Kind
@@ -72,10 +74,15 @@ data class ListingDataResponse(
       abstract val data: Data
     }
   }
-  fun toArticles(): List<Subreddit> {
-    return data.children
-      .filterIsInstance<Children.Child.Article>()
-      .map { it.toEntity() }
+  fun toSubredditPaginationItem(): EntityPaginationItem<Subreddit> {
+    return EntityPaginationItem(
+      entities = data
+        .children
+        .filterIsInstance<Children.Child.Article>()
+        .map { article -> article.toEntity() },
+      before = data.before,
+      after = data.after
+    )
   }
   fun toComments(): List<Comment> {
     return data.children

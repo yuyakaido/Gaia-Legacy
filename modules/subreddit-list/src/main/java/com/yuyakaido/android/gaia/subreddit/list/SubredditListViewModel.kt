@@ -3,6 +3,7 @@ package com.yuyakaido.android.gaia.subreddit.list
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
+import com.yuyakaido.android.gaia.core.EntityPaginationItem
 import com.yuyakaido.android.gaia.core.ListingDataResponse
 import com.yuyakaido.android.gaia.core.RedditAuthService
 import com.yuyakaido.android.gaia.core.Subreddit
@@ -18,24 +19,43 @@ class SubredditListViewModel(
   application
 ) {
 
-  val subreddits = MutableLiveData<List<Subreddit>>()
+  val items = MutableLiveData<List<EntityPaginationItem<Subreddit>>>()
+  var after: String? = null
+  var isLoading: Boolean = false
 
   fun onBind(page: SubredditListPage) {
     Timber.d("service = ${service.hashCode()}")
-    if (subreddits.value == null) {
-      service
-        .subreddits(path = page.path)
-        .enqueue(object : Callback<ListingDataResponse> {
-          override fun onResponse(call: Call<ListingDataResponse>, response: Response<ListingDataResponse>) {
-            response.body()?.let { body ->
-              subreddits.postValue(body.toArticles())
-            }
-          }
-          override fun onFailure(call: Call<ListingDataResponse>, t: Throwable) {
-            Timber.e(t.toString())
-          }
-        })
+    if (items.value == null) {
+      onPaginate(page)
     }
+  }
+
+  fun onPaginate(page: SubredditListPage) {
+    if (isLoading) {
+      return
+    }
+
+    isLoading = true
+    service
+      .subreddits(
+        path = page.path,
+        after = after
+      )
+      .enqueue(object : Callback<ListingDataResponse> {
+        override fun onResponse(call: Call<ListingDataResponse>, response: Response<ListingDataResponse>) {
+          response.body()?.let { body ->
+            val oldItems = items.value ?: emptyList()
+            val newItems = oldItems.plus(body.toSubredditPaginationItem())
+            items.postValue(newItems)
+            after = body.data.after
+          }
+          isLoading = false
+        }
+        override fun onFailure(call: Call<ListingDataResponse>, t: Throwable) {
+          Timber.e(t.toString())
+          isLoading = false
+        }
+      })
   }
 
   fun onUpvote(subreddit: Subreddit) {
@@ -49,16 +69,22 @@ class SubredditListViewModel(
       .vote(id = subreddit.name, dir = pair.first)
       .enqueue(object : Callback<Unit> {
         override fun onResponse(call: Call<Unit>, response: Response<Unit>) {
-          val newSubreddits = subreddits
+          val newItems = items
             .value
-            ?.map {
-              if (it.id == subreddit.id) {
-                subreddit.copy(likes = pair.second)
-              } else {
-                it
-              }
+            ?.map { item ->
+              item.copy(
+                entities = item
+                  .entities
+                  .map { entity ->
+                    if (entity.id == subreddit.id) {
+                      entity.copy(likes = pair.second)
+                    } else {
+                      entity
+                    }
+                  }
+              )
             }
-          subreddits.postValue(newSubreddits)
+          items.postValue(newItems)
         }
         override fun onFailure(call: Call<Unit>, t: Throwable) {
           Timber.e(t.toString())
@@ -76,16 +102,22 @@ class SubredditListViewModel(
     service.vote(id = subreddit.name, dir = pair.first)
       .enqueue(object : Callback<Unit> {
         override fun onResponse(call: Call<Unit>, response: Response<Unit>) {
-          val newSubreddits = subreddits
+          val newItems = items
             .value
-            ?.map {
-              if (it.id == subreddit.id) {
-                subreddit.copy(likes = pair.second)
-              } else {
-                it
-              }
+            ?.map { item ->
+              item.copy(
+                entities = item
+                  .entities
+                  .map { entity ->
+                    if (entity.id == subreddit.id) {
+                      entity.copy(likes = pair.second)
+                    } else {
+                      entity
+                    }
+                  }
+              )
             }
-          subreddits.postValue(newSubreddits)
+          items.postValue(newItems)
         }
         override fun onFailure(call: Call<Unit>, t: Throwable) {
           Timber.e(t.toString())

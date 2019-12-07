@@ -17,7 +17,7 @@ data class Subreddit(
   val ups: Int,
   val downs: Int,
   val comments: Int
-) : Parcelable {
+) : EntityType, Parcelable {
 
   @Parcelize
   data class ID(val value: String) : Parcelable

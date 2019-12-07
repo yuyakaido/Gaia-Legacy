@@ -6,8 +6,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.map
 import androidx.lifecycle.observe
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
 import com.yuyakaido.android.gaia.core.BaseFragment
@@ -53,6 +55,7 @@ class SubredditListFragment : BaseFragment() {
   }
 
   private fun setupRecyclerView() {
+    val manager = LinearLayoutManager(requireContext())
     val adapter = GroupAdapter<GroupieViewHolder>()
     adapter.setOnItemClickListener { item, _ ->
       if (item is SubredditItem) {
@@ -61,18 +64,31 @@ class SubredditListFragment : BaseFragment() {
       }
     }
 
-    binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
+    binding.recyclerView.layoutManager = manager
     binding.recyclerView.adapter = adapter
+    binding.recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+      override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+        val page = arguments?.getSerializable(PAGE) as SubredditListPage
+        val itemCount = manager.itemCount
+        val lastPosition = manager.findLastCompletelyVisibleItemPosition()
+        if (itemCount != 0 && lastPosition == itemCount - 1) {
+          viewModel.onPaginate(page)
+        }
+      }
+    })
 
     val upvoteListener = { subreddit: Subreddit -> viewModel.onUpvote(subreddit = subreddit) }
     val downvoteListener = { subreddit: Subreddit -> viewModel.onDownvote(subreddit = subreddit) }
 
     viewModel
-      .subreddits
-      .observe(viewLifecycleOwner) { subreddits ->
-        adapter.updateAsync(subreddits.map { subreddit ->
+      .items
+      .map { items ->
+        items.flatMap { item -> item.entities }
+      }
+      .observe(viewLifecycleOwner) { items ->
+        adapter.updateAsync(items.map { item ->
           SubredditItem(
-            subreddit = subreddit,
+            subreddit = item,
             upvoteListener = upvoteListener,
             downvoteListener = downvoteListener
           )
