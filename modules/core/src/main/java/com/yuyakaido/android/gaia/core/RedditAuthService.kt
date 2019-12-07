@@ -1,27 +1,26 @@
 package com.yuyakaido.android.gaia.core
 
-import retrofit2.Call
 import retrofit2.http.*
 
 interface RedditAuthService {
 
   @GET("r/{path}.json")
-  fun articles(
+  suspend fun articles(
     @Path("path") path: String,
     @Query("after") after: String?
-  ): Call<ListingDataResponse>
+  ): ListingDataResponse
 
   @GET("r/androiddev/comments/e4xhq3.json")
-  fun comments(): Call<List<ListingDataResponse>>
+  suspend fun comments(): List<ListingDataResponse>
 
   @GET("api/v1/me")
-  fun me(): Call<MeResponse>
+  suspend fun me(): MeResponse
 
   @FormUrlEncoded
   @POST("api/vote")
-  fun vote(
+  suspend fun vote(
     @Field("id") id: String,
     @Field("dir") dir: Int
-  ): Call<Unit>
+  )
 
 }

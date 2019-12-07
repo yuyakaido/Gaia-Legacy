@@ -37,8 +37,8 @@ class ProfileFragment : BaseFragment() {
   override fun onActivityCreated(savedInstanceState: Bundle?) {
     super.onActivityCreated(savedInstanceState)
     setupProfile()
-    Timber.d("Gaia - ProfileFragment: fragment = ${hashCode()}")
-    Timber.d("Gaia - ProfileFragment: viewmodel = ${viewModel.hashCode()}")
+    Timber.d("fragment = ${hashCode()}")
+    Timber.d("viewmodel = ${viewModel.hashCode()}")
     viewModel.onBind()
   }
 

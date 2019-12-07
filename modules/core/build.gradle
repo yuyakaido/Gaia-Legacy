@@ -30,6 +30,7 @@ android {
 dependencies {
   // Kotlin
   api libs.kotlin.stdlib
+  api libs.kotlin.coroutines
 
   // AndroidX
   api libs.androidx.appcompat
