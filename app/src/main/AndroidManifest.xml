@@ -20,7 +20,7 @@
       </intent-filter>
     </activity>
 
-    <activity android:name=".subreddit.detail.SubredditDetailActivity" />
+    <activity android:name=".article.detail.ArticleDetailActivity" />
 
   </application>
 

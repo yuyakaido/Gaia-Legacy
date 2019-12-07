@@ -1,8 +1,8 @@
-package com.yuyakaido.android.gaia.subreddit.detail
+package com.yuyakaido.android.gaia.article.detail
 
 import com.xwray.groupie.databinding.BindableItem
+import com.yuyakaido.android.gaia.article.detail.databinding.ItemCommentBinding
 import com.yuyakaido.android.gaia.core.Comment
-import com.yuyakaido.android.gaia.subreddit.detail.databinding.ItemCommentBinding
 
 class CommentItem(
   private val comment: Comment

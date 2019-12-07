@@ -1,4 +1,4 @@
-package com.yuyakaido.android.gaia.subreddit.detail
+package com.yuyakaido.android.gaia.article.detail
 
 import android.app.Application
 import android.net.Uri
@@ -13,7 +13,7 @@ import retrofit2.Callback
 import retrofit2.Response
 import timber.log.Timber
 
-class SubredditDetailViewModel(
+class ArticleDetailViewModel(
   application: Application
 ) : AndroidViewModel(
   application

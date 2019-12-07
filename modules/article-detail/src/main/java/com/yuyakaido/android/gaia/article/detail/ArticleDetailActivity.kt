@@ -1,4 +1,4 @@
-package com.yuyakaido.android.gaia.subreddit.detail
+package com.yuyakaido.android.gaia.article.detail
 
 import android.content.Context
 import android.content.Intent
@@ -12,22 +12,22 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
+import com.yuyakaido.android.gaia.article.detail.databinding.ActivityArticleDetailBinding
 import com.yuyakaido.android.gaia.core.Subreddit
-import com.yuyakaido.android.gaia.subreddit.detail.databinding.ActivitySubredditBinding
 
-class SubredditDetailActivity : AppCompatActivity() {
+class ArticleDetailActivity : AppCompatActivity() {
 
   companion object {
     private val SUBREDDIT = Subreddit::class.java.simpleName
 
     fun createIntent(context: Context, subreddit: Subreddit): Intent {
-      return Intent(context, SubredditDetailActivity::class.java)
+      return Intent(context, ArticleDetailActivity::class.java)
         .apply { putExtra(SUBREDDIT, subreddit) }
     }
   }
 
-  private val viewModel by viewModels<SubredditDetailViewModel>()
-  private val binding by lazy { ActivitySubredditBinding.inflate(layoutInflater) }
+  private val viewModel by viewModels<ArticleDetailViewModel>()
+  private val binding by lazy { ActivityArticleDetailBinding.inflate(layoutInflater) }
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
