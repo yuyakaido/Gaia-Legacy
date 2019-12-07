@@ -6,18 +6,19 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.observe
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
+import com.yuyakaido.android.gaia.core.BaseFragment
 import com.yuyakaido.android.gaia.core.GaiaType
 import com.yuyakaido.android.gaia.core.Subreddit
 import com.yuyakaido.android.gaia.core.SubredditItem
 import com.yuyakaido.android.gaia.subreddit.list.databinding.FragmentSubredditListBinding
 import timber.log.Timber
+import javax.inject.Inject
 
-class SubredditListFragment : Fragment() {
+class SubredditListFragment : BaseFragment() {
 
   companion object {
     private val PAGE = SubredditListPage::class.java.simpleName
@@ -28,7 +29,9 @@ class SubredditListFragment : Fragment() {
     }
   }
 
-  private val viewModel by viewModels<SubredditListViewModel>()
+  @Inject
+  internal lateinit var viewModel: SubredditListViewModel
+
   private lateinit var binding: FragmentSubredditListBinding
 
   override fun onCreateView(

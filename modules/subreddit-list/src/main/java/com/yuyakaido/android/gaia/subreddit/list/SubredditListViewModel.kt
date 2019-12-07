@@ -3,19 +3,20 @@ package com.yuyakaido.android.gaia.subreddit.list
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
-import com.yuyakaido.android.gaia.core.*
+import com.yuyakaido.android.gaia.core.ListingDataResponse
+import com.yuyakaido.android.gaia.core.RedditAuthService
+import com.yuyakaido.android.gaia.core.Subreddit
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import timber.log.Timber
 
 class SubredditListViewModel(
-  application: Application
+  application: Application,
+  private val service: RedditAuthService
 ) : AndroidViewModel(
   application
 ) {
-
-  private val service = (getApplication<GaiaType>()).redditAuthService
 
   val subreddits = MutableLiveData<List<Subreddit>>()
 
