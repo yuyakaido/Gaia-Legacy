@@ -1,4 +1,4 @@
-package com.yuyakaido.android.gaia.subreddit.list
+package com.yuyakaido.android.gaia.article.list
 
 import android.os.Bundle
 import android.view.LayoutInflater

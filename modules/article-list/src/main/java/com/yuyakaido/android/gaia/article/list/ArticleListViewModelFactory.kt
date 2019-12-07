@@ -1,4 +1,4 @@
-package com.yuyakaido.android.gaia.subreddit.list
+package com.yuyakaido.android.gaia.article.list
 
 import android.app.Application
 import androidx.lifecycle.ViewModel

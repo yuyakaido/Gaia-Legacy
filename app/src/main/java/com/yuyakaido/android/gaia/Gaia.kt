@@ -6,8 +6,8 @@ import com.yuyakaido.android.gaia.core.*
 import com.yuyakaido.android.gaia.profile.ProfileFragment
 import com.yuyakaido.android.gaia.search.SearchFragment
 import com.yuyakaido.android.gaia.article.detail.ArticleDetailActivity
-import com.yuyakaido.android.gaia.subreddit.list.ArticleListFragment
-import com.yuyakaido.android.gaia.subreddit.list.ArticleListPage
+import com.yuyakaido.android.gaia.article.list.ArticleListFragment
+import com.yuyakaido.android.gaia.article.list.ArticleListPage
 import dagger.android.AndroidInjector
 import dagger.android.support.DaggerApplication
 import timber.log.Timber
