@@ -4,6 +4,7 @@ import android.net.Uri
 import android.webkit.URLUtil
 import com.squareup.moshi.Json
 
+// https://www.reddit.com/dev/api/
 data class ListingDataResponse(
   @Json(name = "data") val data: Children
 ) {
@@ -15,8 +16,13 @@ data class ListingDataResponse(
     sealed class Child(
       @Json(name = "kind") val kind: Kind
     ) {
-      enum class Kind {
-        t1, t2, t3, t4, t5
+      enum class Kind(val id: String) {
+        Comment(id = "t1"),
+        Account(id = "t2"),
+        Article(id = "t3"),
+        Message(id = "t4"),
+        Subreddit(id = "t5"),
+        Award(id = "t6")
       }
       sealed class Data {
         data class Comment(
@@ -38,7 +44,7 @@ data class ListingDataResponse(
       }
       data class Comment(
         @Json(name = "data") override val data: Data.Comment
-      ) : Child(Kind.t1) {
+      ) : Child(Kind.Comment) {
         fun toEntity(): com.yuyakaido.android.gaia.core.Comment {
           return Comment(
             id = com.yuyakaido.android.gaia.core.Comment.ID(value = data.id),
@@ -48,7 +54,7 @@ data class ListingDataResponse(
       }
       data class Article(
         @Json(name = "data") override val data: Data.Article
-      ) : Child(Kind.t3) {
+      ) : Child(Kind.Article) {
         fun toEntity(): com.yuyakaido.android.gaia.core.Article {
           return Article(
             id = com.yuyakaido.android.gaia.core.Article.ID(value = data.id),

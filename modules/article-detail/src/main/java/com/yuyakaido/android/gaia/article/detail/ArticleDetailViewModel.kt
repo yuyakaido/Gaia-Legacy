@@ -36,7 +36,7 @@ class ArticleDetailViewModel(
           response.body()?.let { body ->
             val responseOfComment = body.firstOrNull {
               it.data.children.any { child ->
-                child.kind == ListingDataResponse.Children.Child.Kind.t1
+                child.kind == ListingDataResponse.Children.Child.Kind.Comment
               }
             }
             comments.postValue(responseOfComment?.toComments() ?: emptyList())
