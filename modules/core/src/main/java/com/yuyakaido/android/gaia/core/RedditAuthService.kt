@@ -16,6 +16,12 @@ interface RedditAuthService {
   @GET("api/v1/me")
   suspend fun me(): MeResponse
 
+  @GET("user/{user}/{type}")
+  suspend fun voted(
+    @Path("user") user: String,
+    @Path("type") type: String
+  ): ListingDataResponse
+
   @FormUrlEncoded
   @POST("api/vote")
   suspend fun vote(

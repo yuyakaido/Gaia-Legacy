@@ -8,6 +8,8 @@ import androidx.lifecycle.observe
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.yuyakaido.android.gaia.core.BaseFragment
+import com.yuyakaido.android.gaia.core.Me
+import com.yuyakaido.android.gaia.core.dpTpPx
 import com.yuyakaido.android.gaia.profile.databinding.FragmentProfileBinding
 import timber.log.Timber
 import javax.inject.Inject
@@ -47,10 +49,18 @@ class ProfileFragment : BaseFragment() {
       .observe(viewLifecycleOwner) { me ->
         Glide.with(requireContext())
           .load(me.icon)
-          .transform(RoundedCorners(16))
+          .transform(RoundedCorners(16.dpTpPx(requireContext())))
           .into(binding.icon)
         binding.name.text = me.name
+        setupViewPager(me)
       }
+  }
+
+  private fun setupViewPager(me: Me) {
+    val adapter = VoteListFragmentPagerAdapter(childFragmentManager, me)
+    binding.viewPager.adapter = adapter
+    binding.viewPager.pageMargin = 16.dpTpPx(requireContext())
+    binding.tabLayout.setupWithViewPager(binding.viewPager)
   }
 
 }
