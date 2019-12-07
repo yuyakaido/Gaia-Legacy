@@ -7,17 +7,16 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.yuyakaido.android.gaia.core.Article
 import com.yuyakaido.android.gaia.core.Comment
-import com.yuyakaido.android.gaia.core.GaiaType
 import com.yuyakaido.android.gaia.core.ListingDataResponse
+import com.yuyakaido.android.gaia.core.RedditAuthService
 import kotlinx.coroutines.launch
 
 class ArticleDetailViewModel(
-  application: Application
+  application: Application,
+  private val service: RedditAuthService
 ) : AndroidViewModel(
   application
 ) {
-
-  private val service = getApplication<GaiaType>().redditAuthService
 
   val title = MutableLiveData<String>()
   val thumbnail = MutableLiveData<Uri>()
