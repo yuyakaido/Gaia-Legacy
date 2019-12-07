@@ -17,8 +17,8 @@ class SearchViewModel(
 
   private val service = getApplication<GaiaType>().redditPublicService
 
-  val trendingSubreddits = MutableLiveData<List<TrendingSubreddit>>()
-  val searchedSubreddits = MutableLiveData<List<Subreddit>>()
+  val trendingArticles = MutableLiveData<List<TrendingArticle>>()
+  val searchedArticles = MutableLiveData<List<Article>>()
 
   fun onBind() {
     service
@@ -26,7 +26,7 @@ class SearchViewModel(
       .enqueue(object : Callback<TrendingResponse> {
         override fun onResponse(call: Call<TrendingResponse>, response: Response<TrendingResponse>) {
           response.body()?.let { body ->
-            trendingSubreddits.postValue(body.toEntities())
+            trendingArticles.postValue(body.toEntities())
           }
         }
         override fun onFailure(call: Call<TrendingResponse>, t: Throwable) {
@@ -40,9 +40,7 @@ class SearchViewModel(
       .search(query = text)
       .enqueue(object : Callback<ListingDataResponse> {
         override fun onResponse(call: Call<ListingDataResponse>, response: Response<ListingDataResponse>) {
-          response.body()?.let { body ->
-//            searchedSubreddits.postValue(body.toArticles())
-          }
+          Timber.d(response.toString())
         }
         override fun onFailure(call: Call<ListingDataResponse>, t: Throwable) {
           Timber.e(t.toString())

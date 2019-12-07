@@ -7,7 +7,7 @@ import androidx.lifecycle.MutableLiveData
 import com.yuyakaido.android.gaia.core.Comment
 import com.yuyakaido.android.gaia.core.GaiaType
 import com.yuyakaido.android.gaia.core.ListingDataResponse
-import com.yuyakaido.android.gaia.core.Subreddit
+import com.yuyakaido.android.gaia.core.Article
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -25,9 +25,9 @@ class ArticleDetailViewModel(
   val thumbnail = MutableLiveData<Uri>()
   val comments = MutableLiveData<List<Comment>>()
 
-  fun onBind(subreddit: Subreddit) {
-    title.postValue(subreddit.title)
-    thumbnail.postValue(subreddit.thumbnail)
+  fun onBind(article: Article) {
+    title.postValue(article.title)
+    thumbnail.postValue(article.thumbnail)
     service
       .comments()
       .enqueue(object : Callback<List<ListingDataResponse>> {

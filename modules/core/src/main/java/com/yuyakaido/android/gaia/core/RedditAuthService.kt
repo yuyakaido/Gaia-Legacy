@@ -6,7 +6,7 @@ import retrofit2.http.*
 interface RedditAuthService {
 
   @GET("r/{path}.json")
-  fun subreddits(
+  fun articles(
     @Path("path") path: String,
     @Query("after") after: String?
   ): Call<ListingDataResponse>

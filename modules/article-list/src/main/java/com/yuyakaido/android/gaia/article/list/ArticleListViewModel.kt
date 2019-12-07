@@ -6,7 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import com.yuyakaido.android.gaia.core.EntityPaginationItem
 import com.yuyakaido.android.gaia.core.ListingDataResponse
 import com.yuyakaido.android.gaia.core.RedditAuthService
-import com.yuyakaido.android.gaia.core.Subreddit
+import com.yuyakaido.android.gaia.core.Article
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -19,7 +19,7 @@ class ArticleListViewModel(
   application
 ) {
 
-  val items = MutableLiveData<List<EntityPaginationItem<Subreddit>>>()
+  val items = MutableLiveData<List<EntityPaginationItem<Article>>>()
   var after: String? = null
   var isLoading: Boolean = false
 
@@ -37,7 +37,7 @@ class ArticleListViewModel(
 
     isLoading = true
     service
-      .subreddits(
+      .articles(
         path = page.path,
         after = after
       )
@@ -45,7 +45,7 @@ class ArticleListViewModel(
         override fun onResponse(call: Call<ListingDataResponse>, response: Response<ListingDataResponse>) {
           response.body()?.let { body ->
             val oldItems = items.value ?: emptyList()
-            val newItems = oldItems.plus(body.toSubredditPaginationItem())
+            val newItems = oldItems.plus(body.toArticlePaginationItem())
             items.postValue(newItems)
             after = body.data.after
           }
@@ -58,15 +58,15 @@ class ArticleListViewModel(
       })
   }
 
-  fun onUpvote(subreddit: Subreddit) {
+  fun onUpvote(article: Article) {
     val pair: Pair<Int, Boolean?> = when {
-      subreddit.likes == null -> 1 to true
-      subreddit.likes == true -> 0 to null
-      subreddit.likes == false -> 1 to true
+      article.likes == null -> 1 to true
+      article.likes == true -> 0 to null
+      article.likes == false -> 1 to true
       else -> 0 to null
     }
     service
-      .vote(id = subreddit.name, dir = pair.first)
+      .vote(id = article.name, dir = pair.first)
       .enqueue(object : Callback<Unit> {
         override fun onResponse(call: Call<Unit>, response: Response<Unit>) {
           val newItems = items
@@ -76,7 +76,7 @@ class ArticleListViewModel(
                 entities = item
                   .entities
                   .map { entity ->
-                    if (entity.id == subreddit.id) {
+                    if (entity.id == article.id) {
                       entity.copy(likes = pair.second)
                     } else {
                       entity
@@ -92,14 +92,14 @@ class ArticleListViewModel(
       })
   }
 
-  fun onDownvote(subreddit: Subreddit) {
+  fun onDownvote(article: Article) {
     val pair: Pair<Int, Boolean?> = when {
-      subreddit.likes == null -> -1 to false
-      subreddit.likes == true -> -1 to false
-      subreddit.likes == false -> 0 to null
+      article.likes == null -> -1 to false
+      article.likes == true -> -1 to false
+      article.likes == false -> 0 to null
       else -> 0 to null
     }
-    service.vote(id = subreddit.name, dir = pair.first)
+    service.vote(id = article.name, dir = pair.first)
       .enqueue(object : Callback<Unit> {
         override fun onResponse(call: Call<Unit>, response: Response<Unit>) {
           val newItems = items
@@ -109,7 +109,7 @@ class ArticleListViewModel(
                 entities = item
                   .entities
                   .map { entity ->
-                    if (entity.id == subreddit.id) {
+                    if (entity.id == article.id) {
                       entity.copy(likes = pair.second)
                     } else {
                       entity

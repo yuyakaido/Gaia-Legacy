@@ -33,8 +33,8 @@ class Gaia : GaiaType() {
     initializeTimber()
   }
 
-  override fun newArticleDetailActivity(subreddit: Subreddit): Intent {
-    return ArticleDetailActivity.createIntent(this, subreddit)
+  override fun newArticleDetailActivity(article: Article): Intent {
+    return ArticleDetailActivity.createIntent(this, article)
   }
 
   override fun newArticleListFragment(): Fragment {

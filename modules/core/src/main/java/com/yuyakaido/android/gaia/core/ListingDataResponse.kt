@@ -23,7 +23,7 @@ data class ListingDataResponse(
           @Json(name = "id") val id: String,
           @Json(name = "body") val body: String
         ) : Data()
-        data class Subreddit(
+        data class Article(
           @Json(name = "id") val id: String,
           @Json(name = "name") val name: String,
           @Json(name = "subreddit_name_prefixed") val category: String,
@@ -47,11 +47,11 @@ data class ListingDataResponse(
         }
       }
       data class Article(
-        @Json(name = "data") override val data: Data.Subreddit
+        @Json(name = "data") override val data: Data.Article
       ) : Child(Kind.t3) {
-        fun toEntity(): Subreddit {
-          return Subreddit(
-            id = Subreddit.ID(value = data.id),
+        fun toEntity(): com.yuyakaido.android.gaia.core.Article {
+          return Article(
+            id = com.yuyakaido.android.gaia.core.Article.ID(value = data.id),
             name = data.name,
             category = data.category,
             title = data.title,
@@ -74,7 +74,7 @@ data class ListingDataResponse(
       abstract val data: Data
     }
   }
-  fun toSubredditPaginationItem(): EntityPaginationItem<Subreddit> {
+  fun toArticlePaginationItem(): EntityPaginationItem<Article> {
     return EntityPaginationItem(
       entities = data
         .children

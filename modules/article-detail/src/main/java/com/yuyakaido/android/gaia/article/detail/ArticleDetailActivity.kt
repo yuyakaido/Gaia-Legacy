@@ -13,16 +13,16 @@ import com.bumptech.glide.Glide
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
 import com.yuyakaido.android.gaia.article.detail.databinding.ActivityArticleDetailBinding
-import com.yuyakaido.android.gaia.core.Subreddit
+import com.yuyakaido.android.gaia.core.Article
 
 class ArticleDetailActivity : AppCompatActivity() {
 
   companion object {
-    private val SUBREDDIT = Subreddit::class.java.simpleName
+    private val ARTICLE = Article::class.java.simpleName
 
-    fun createIntent(context: Context, subreddit: Subreddit): Intent {
+    fun createIntent(context: Context, article: Article): Intent {
       return Intent(context, ArticleDetailActivity::class.java)
-        .apply { putExtra(SUBREDDIT, subreddit) }
+        .apply { putExtra(ARTICLE, article) }
     }
   }
 
@@ -32,9 +32,9 @@ class ArticleDetailActivity : AppCompatActivity() {
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     setContentView(binding.root)
-    val subreddit = intent.getParcelableExtra(SUBREDDIT) as Subreddit
+    val article = intent.getParcelableExtra(ARTICLE) as Article
     setupDetail()
-    viewModel.onBind(subreddit)
+    viewModel.onBind(article)
   }
 
   private fun setupDetail() {

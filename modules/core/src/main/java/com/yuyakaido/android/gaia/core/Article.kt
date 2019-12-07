@@ -6,7 +6,7 @@ import kotlinx.android.parcel.IgnoredOnParcel
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
-data class Subreddit(
+data class Article(
   val id: ID,
   val name: String,
   val category: String,

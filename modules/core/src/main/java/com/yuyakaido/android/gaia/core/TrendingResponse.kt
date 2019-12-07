@@ -5,8 +5,8 @@ import com.squareup.moshi.Json
 data class TrendingResponse(
   @Json(name = "subreddit_names") val names: List<String>
 ) {
-  fun toEntities(): List<TrendingSubreddit> {
+  fun toEntities(): List<TrendingArticle> {
     return names
-      .map { name -> TrendingSubreddit(name = name) }
+      .map { name -> TrendingArticle(name = name) }
   }
 }

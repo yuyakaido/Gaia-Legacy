@@ -15,8 +15,8 @@ import com.xwray.groupie.GroupieViewHolder
 import com.yuyakaido.android.gaia.article.list.databinding.FragmentArticleListBinding
 import com.yuyakaido.android.gaia.core.BaseFragment
 import com.yuyakaido.android.gaia.core.GaiaType
-import com.yuyakaido.android.gaia.core.Subreddit
-import com.yuyakaido.android.gaia.core.SubredditItem
+import com.yuyakaido.android.gaia.core.Article
+import com.yuyakaido.android.gaia.core.ArticleItem
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -58,9 +58,9 @@ class ArticleListFragment : BaseFragment() {
     val manager = LinearLayoutManager(requireContext())
     val adapter = GroupAdapter<GroupieViewHolder>()
     adapter.setOnItemClickListener { item, _ ->
-      if (item is SubredditItem) {
+      if (item is ArticleItem) {
         val app = requireActivity().application as GaiaType
-        startActivity(app.newArticleDetailActivity(item.subreddit))
+        startActivity(app.newArticleDetailActivity(item.article))
       }
     }
 
@@ -77,8 +77,8 @@ class ArticleListFragment : BaseFragment() {
       }
     })
 
-    val upvoteListener = { subreddit: Subreddit -> viewModel.onUpvote(subreddit = subreddit) }
-    val downvoteListener = { subreddit: Subreddit -> viewModel.onDownvote(subreddit = subreddit) }
+    val upvoteListener = { article: Article -> viewModel.onUpvote(article = article) }
+    val downvoteListener = { article: Article -> viewModel.onDownvote(article = article) }
 
     viewModel
       .items
@@ -87,8 +87,8 @@ class ArticleListFragment : BaseFragment() {
       }
       .observe(viewLifecycleOwner) { items ->
         adapter.updateAsync(items.map { item ->
-          SubredditItem(
-            subreddit = item,
+          ArticleItem(
+            article = item,
             upvoteListener = upvoteListener,
             downvoteListener = downvoteListener
           )

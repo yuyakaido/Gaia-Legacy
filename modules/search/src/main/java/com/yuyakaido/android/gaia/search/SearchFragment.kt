@@ -11,8 +11,8 @@ import androidx.lifecycle.observe
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
-import com.yuyakaido.android.gaia.core.Subreddit
-import com.yuyakaido.android.gaia.core.SubredditItem
+import com.yuyakaido.android.gaia.core.Article
+import com.yuyakaido.android.gaia.core.ArticleItem
 import com.yuyakaido.android.gaia.search.databinding.FragmentSearchBinding
 
 class SearchFragment : Fragment() {
@@ -57,11 +57,11 @@ class SearchFragment : Fragment() {
     binding.trendingRecyclerView.adapter = adapter
 
     viewModel
-      .trendingSubreddits
-      .observe(viewLifecycleOwner) { subreddits ->
-        adapter.updateAsync(subreddits.map { trendingSubreddit ->
-          TrendingSubredditItem(
-            trendingSubreddit = trendingSubreddit
+      .trendingArticles
+      .observe(viewLifecycleOwner) { articles ->
+        adapter.updateAsync(articles.map { article ->
+          TrendingArticleItem(
+            article = article
           )
         })
       }
@@ -72,15 +72,15 @@ class SearchFragment : Fragment() {
     binding.searchedRecyclerView.layoutManager = LinearLayoutManager(requireContext())
     binding.searchedRecyclerView.adapter = adapter
 
-    val upvoteListener = { _: Subreddit -> Unit }
-    val downvoteListener = { _: Subreddit -> Unit }
+    val upvoteListener = { _: Article -> Unit }
+    val downvoteListener = { _: Article -> Unit }
 
     viewModel
-      .searchedSubreddits
-      .observe(viewLifecycleOwner) { subreddits ->
-        adapter.updateAsync(subreddits.map { subreddit ->
-          SubredditItem(
-            subreddit = subreddit,
+      .searchedArticles
+      .observe(viewLifecycleOwner) { articles ->
+        adapter.updateAsync(articles.map { article ->
+          ArticleItem(
+            article = article,
             upvoteListener = upvoteListener,
             downvoteListener = downvoteListener
           )
