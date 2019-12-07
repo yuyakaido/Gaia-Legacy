@@ -5,17 +5,16 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.yuyakaido.android.gaia.core.Article
-import com.yuyakaido.android.gaia.core.GaiaType
+import com.yuyakaido.android.gaia.core.RedditPublicService
 import com.yuyakaido.android.gaia.core.TrendingArticle
 import kotlinx.coroutines.launch
 
 class SearchViewModel(
-  application: Application
+  application: Application,
+  private val service: RedditPublicService
 ) : AndroidViewModel(
   application
 ) {
-
-  private val service = getApplication<GaiaType>().redditPublicService
 
   val trendingArticles = MutableLiveData<List<TrendingArticle>>()
   val searchedArticles = MutableLiveData<List<Article>>()
