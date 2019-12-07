@@ -23,7 +23,7 @@ dependencies {
 
   // Modules - Feature
   implementation project(':modules:home')
-  implementation project(':modules:subreddit-list')
+  implementation project(':modules:article-list')
   implementation project(':modules:article-detail')
   implementation project(':modules:profile')
   implementation project(':modules:search')

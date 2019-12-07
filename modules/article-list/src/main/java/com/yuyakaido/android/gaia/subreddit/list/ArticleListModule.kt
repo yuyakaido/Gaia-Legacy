@@ -5,16 +5,16 @@ import dagger.Module
 import dagger.Provides
 
 @Module
-class SubredditListModule {
+class ArticleListModule {
 
   @Provides
-  fun provideSubredditListViewModel(
-    fragment: SubredditListFragment,
-    factory: SubredditListViewModelFactory
-  ): SubredditListViewModel {
+  fun provideArticleListViewModel(
+    fragment: ArticleListFragment,
+    factory: ArticleListViewModelFactory
+  ): ArticleListViewModel {
     return ViewModelProviders
       .of(fragment, factory)
-      .get(SubredditListViewModel::class.java)
+      .get(ArticleListViewModel::class.java)
   }
 
 }

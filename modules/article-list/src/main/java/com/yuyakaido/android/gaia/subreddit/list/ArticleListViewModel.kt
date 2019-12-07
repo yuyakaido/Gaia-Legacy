@@ -12,7 +12,7 @@ import retrofit2.Callback
 import retrofit2.Response
 import timber.log.Timber
 
-class SubredditListViewModel(
+class ArticleListViewModel(
   application: Application,
   private val service: RedditAuthService
 ) : AndroidViewModel(
@@ -23,14 +23,14 @@ class SubredditListViewModel(
   var after: String? = null
   var isLoading: Boolean = false
 
-  fun onBind(page: SubredditListPage) {
+  fun onBind(page: ArticleListPage) {
     Timber.d("service = ${service.hashCode()}")
     if (items.value == null) {
       onPaginate(page)
     }
   }
 
-  fun onPaginate(page: SubredditListPage) {
+  fun onPaginate(page: ArticleListPage) {
     if (isLoading) {
       return
     }

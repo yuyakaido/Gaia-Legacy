@@ -6,8 +6,8 @@ import com.yuyakaido.android.gaia.core.*
 import com.yuyakaido.android.gaia.profile.ProfileFragment
 import com.yuyakaido.android.gaia.search.SearchFragment
 import com.yuyakaido.android.gaia.article.detail.ArticleDetailActivity
-import com.yuyakaido.android.gaia.subreddit.list.SubredditListFragment
-import com.yuyakaido.android.gaia.subreddit.list.SubredditListPage
+import com.yuyakaido.android.gaia.subreddit.list.ArticleListFragment
+import com.yuyakaido.android.gaia.subreddit.list.ArticleListPage
 import dagger.android.AndroidInjector
 import dagger.android.support.DaggerApplication
 import timber.log.Timber
@@ -33,12 +33,12 @@ class Gaia : GaiaType() {
     initializeTimber()
   }
 
-  override fun newSubredditDetailActivity(subreddit: Subreddit): Intent {
+  override fun newArticleDetailActivity(subreddit: Subreddit): Intent {
     return ArticleDetailActivity.createIntent(this, subreddit)
   }
 
-  override fun newSubredditListFragment(): Fragment {
-    return SubredditListFragment.newInstance(page = SubredditListPage.Popular)
+  override fun newArticleListFragment(): Fragment {
+    return ArticleListFragment.newInstance(page = ArticleListPage.Popular)
   }
 
   override fun newProfileFragment(): Fragment {

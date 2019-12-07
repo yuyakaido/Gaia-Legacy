@@ -8,8 +8,8 @@ abstract class GaiaType : DaggerApplication() {
   abstract val redditPublicService: RedditPublicService
   abstract val redditAuthService: RedditAuthService
 
-  abstract fun newSubredditDetailActivity(subreddit: Subreddit): Intent
-  abstract fun newSubredditListFragment(): Fragment
+  abstract fun newArticleDetailActivity(subreddit: Subreddit): Intent
+  abstract fun newArticleListFragment(): Fragment
   abstract fun newProfileFragment(): Fragment
   abstract fun newSearchFragment(): Fragment
 }

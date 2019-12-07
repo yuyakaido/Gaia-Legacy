@@ -9,7 +9,7 @@ enum class HomePage(
   ) {
   Popular(
     id = R.id.navigation_popular,
-    fragment = fun (app: GaiaType) = app.newSubredditListFragment()
+    fragment = fun (app: GaiaType) = app.newArticleListFragment()
   ),
   Search(
     id = R.id.navigation_search,
