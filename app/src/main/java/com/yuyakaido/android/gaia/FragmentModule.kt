@@ -1,29 +1,25 @@
 package com.yuyakaido.android.gaia
 
 import com.yuyakaido.android.gaia.article.list.ArticleListFragment
-import com.yuyakaido.android.gaia.article.list.ArticleListModule
 import com.yuyakaido.android.gaia.profile.ProfileFragment
-import com.yuyakaido.android.gaia.profile.ProfileModule
 import com.yuyakaido.android.gaia.profile.VoteListFragment
-import com.yuyakaido.android.gaia.profile.VoteListModule
 import com.yuyakaido.android.gaia.search.SearchFragment
-import com.yuyakaido.android.gaia.search.SearchModule
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 
 @Module
 abstract class FragmentModule {
 
-  @ContributesAndroidInjector(modules = [ArticleListModule::class])
+  @ContributesAndroidInjector
   abstract fun contributeArticleListFragment(): ArticleListFragment
 
-  @ContributesAndroidInjector(modules = [SearchModule::class])
+  @ContributesAndroidInjector
   abstract fun contributeSearchFragment(): SearchFragment
 
-  @ContributesAndroidInjector(modules = [ProfileModule::class])
+  @ContributesAndroidInjector
   abstract fun contributeProfileFragment(): ProfileFragment
 
-  @ContributesAndroidInjector(modules = [VoteListModule::class])
+  @ContributesAndroidInjector
   abstract fun contributeVoteListFragment(): VoteListFragment
 
 }

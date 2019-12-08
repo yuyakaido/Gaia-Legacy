@@ -9,8 +9,9 @@ import com.yuyakaido.android.gaia.core.EntityPaginationItem
 import com.yuyakaido.android.gaia.core.RedditAuthService
 import kotlinx.coroutines.launch
 import timber.log.Timber
+import javax.inject.Inject
 
-class ArticleListViewModel(
+class ArticleListViewModel @Inject constructor(
   application: Application,
   private val service: RedditAuthService
 ) : AndroidViewModel(application) {

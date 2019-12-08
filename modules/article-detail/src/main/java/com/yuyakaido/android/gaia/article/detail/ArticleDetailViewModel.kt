@@ -10,13 +10,12 @@ import com.yuyakaido.android.gaia.core.Comment
 import com.yuyakaido.android.gaia.core.ListingDataResponse
 import com.yuyakaido.android.gaia.core.RedditAuthService
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class ArticleDetailViewModel(
+class ArticleDetailViewModel @Inject constructor(
   application: Application,
   private val service: RedditAuthService
-) : AndroidViewModel(
-  application
-) {
+) : AndroidViewModel(application) {
 
   val title = MutableLiveData<String>()
   val thumbnail = MutableLiveData<Uri>()

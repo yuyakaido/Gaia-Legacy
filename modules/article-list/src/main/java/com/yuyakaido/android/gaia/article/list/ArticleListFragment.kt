@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.map
 import androidx.lifecycle.observe
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -13,10 +14,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
 import com.yuyakaido.android.gaia.article.list.databinding.FragmentArticleListBinding
-import com.yuyakaido.android.gaia.core.BaseFragment
-import com.yuyakaido.android.gaia.core.GaiaType
-import com.yuyakaido.android.gaia.core.Article
-import com.yuyakaido.android.gaia.core.ArticleItem
+import com.yuyakaido.android.gaia.core.*
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -32,7 +30,9 @@ class ArticleListFragment : BaseFragment() {
   }
 
   @Inject
-  internal lateinit var viewModel: ArticleListViewModel
+  internal lateinit var factory: ViewModelFactory<ArticleListViewModel>
+
+  private val viewModel: ArticleListViewModel by activityViewModels { factory }
 
   private lateinit var binding: FragmentArticleListBinding
 

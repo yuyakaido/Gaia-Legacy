@@ -8,13 +8,12 @@ import com.yuyakaido.android.gaia.core.Article
 import com.yuyakaido.android.gaia.core.RedditPublicService
 import com.yuyakaido.android.gaia.core.TrendingArticle
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class SearchViewModel(
+class SearchViewModel @Inject constructor(
   application: Application,
   private val service: RedditPublicService
-) : AndroidViewModel(
-  application
-) {
+) : AndroidViewModel(application) {
 
   val trendingArticles = MutableLiveData<List<TrendingArticle>>()
   val searchedArticles = MutableLiveData<List<Article>>()

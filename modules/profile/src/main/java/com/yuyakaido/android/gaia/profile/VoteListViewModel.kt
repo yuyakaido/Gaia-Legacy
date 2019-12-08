@@ -8,8 +8,9 @@ import com.yuyakaido.android.gaia.core.Article
 import com.yuyakaido.android.gaia.core.Me
 import com.yuyakaido.android.gaia.core.RedditAuthService
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class VoteListViewModel(
+class VoteListViewModel @Inject constructor(
   application: Application,
   private val service: RedditAuthService
 ) : AndroidViewModel(application) {

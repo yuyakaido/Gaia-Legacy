@@ -4,11 +4,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.observe
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.yuyakaido.android.gaia.core.BaseFragment
 import com.yuyakaido.android.gaia.core.Me
+import com.yuyakaido.android.gaia.core.ViewModelFactory
 import com.yuyakaido.android.gaia.core.dpTpPx
 import com.yuyakaido.android.gaia.profile.databinding.FragmentProfileBinding
 import timber.log.Timber
@@ -23,7 +25,9 @@ class ProfileFragment : BaseFragment() {
   }
 
   @Inject
-  internal lateinit var viewModel: ProfileViewModel
+  internal lateinit var factory: ViewModelFactory<ProfileViewModel>
+
+  private val viewModel: ProfileViewModel by activityViewModels { factory }
 
   private lateinit var binding: FragmentProfileBinding
 

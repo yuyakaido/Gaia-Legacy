@@ -5,6 +5,7 @@ import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import androidx.activity.viewModels
 import androidx.lifecycle.observe
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
@@ -13,6 +14,7 @@ import com.xwray.groupie.GroupieViewHolder
 import com.yuyakaido.android.gaia.article.detail.databinding.ActivityArticleDetailBinding
 import com.yuyakaido.android.gaia.core.Article
 import com.yuyakaido.android.gaia.core.BaseActivity
+import com.yuyakaido.android.gaia.core.ViewModelFactory
 import javax.inject.Inject
 
 class ArticleDetailActivity : BaseActivity() {
@@ -27,7 +29,9 @@ class ArticleDetailActivity : BaseActivity() {
   }
 
   @Inject
-  internal lateinit var viewModel: ArticleDetailViewModel
+  internal lateinit var factory: ViewModelFactory<ArticleDetailViewModel>
+
+  private val viewModel: ArticleDetailViewModel by viewModels { factory }
 
   private val binding by lazy { ActivityArticleDetailBinding.inflate(layoutInflater) }
 

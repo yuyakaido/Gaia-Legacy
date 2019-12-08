@@ -6,6 +6,4 @@ import javax.inject.Inject
 
 class HomeViewModel @Inject constructor(
   application: Application
-) : AndroidViewModel(
-  application
-)
+) : AndroidViewModel(application)

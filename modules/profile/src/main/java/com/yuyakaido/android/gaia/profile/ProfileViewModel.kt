@@ -8,13 +8,12 @@ import com.yuyakaido.android.gaia.core.Me
 import com.yuyakaido.android.gaia.core.RedditAuthService
 import kotlinx.coroutines.launch
 import timber.log.Timber
+import javax.inject.Inject
 
-class ProfileViewModel(
+class ProfileViewModel @Inject constructor(
   application: Application,
   private val service: RedditAuthService
-) : AndroidViewModel(
-  application
-) {
+) : AndroidViewModel(application) {
 
   val me = MutableLiveData<Me>()
 

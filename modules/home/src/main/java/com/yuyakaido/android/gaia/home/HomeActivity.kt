@@ -1,8 +1,10 @@
 package com.yuyakaido.android.gaia.home
 
 import android.os.Bundle
+import androidx.activity.viewModels
 import com.yuyakaido.android.gaia.core.BaseActivity
 import com.yuyakaido.android.gaia.core.GaiaType
+import com.yuyakaido.android.gaia.core.ViewModelFactory
 import com.yuyakaido.android.gaia.home.databinding.ActivityHomeBinding
 import timber.log.Timber
 import javax.inject.Inject
@@ -10,7 +12,9 @@ import javax.inject.Inject
 class HomeActivity : BaseActivity() {
 
   @Inject
-  internal lateinit var viewModel: HomeViewModel
+  internal lateinit var factory: ViewModelFactory<HomeViewModel>
+
+  private val viewModel: HomeViewModel by viewModels { factory }
 
   private val binding by lazy { ActivityHomeBinding.inflate(layoutInflater) }
 

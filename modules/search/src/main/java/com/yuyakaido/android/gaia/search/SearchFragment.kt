@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.widget.doOnTextChanged
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.observe
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.xwray.groupie.GroupAdapter
@@ -12,6 +13,7 @@ import com.xwray.groupie.GroupieViewHolder
 import com.yuyakaido.android.gaia.core.Article
 import com.yuyakaido.android.gaia.core.ArticleItem
 import com.yuyakaido.android.gaia.core.BaseFragment
+import com.yuyakaido.android.gaia.core.ViewModelFactory
 import com.yuyakaido.android.gaia.search.databinding.FragmentSearchBinding
 import javax.inject.Inject
 
@@ -24,7 +26,9 @@ class SearchFragment : BaseFragment() {
   }
 
   @Inject
-  internal lateinit var viewModel: SearchViewModel
+  internal lateinit var factory: ViewModelFactory<SearchViewModel>
+
+  private val viewModel: SearchViewModel by activityViewModels { factory }
 
   private lateinit var binding: FragmentSearchBinding
 
