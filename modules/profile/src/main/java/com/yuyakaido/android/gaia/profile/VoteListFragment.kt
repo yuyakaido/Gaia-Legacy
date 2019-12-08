@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.observe
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.xwray.groupie.GroupAdapter
@@ -25,8 +25,8 @@ class VoteListFragment : BaseFragment() {
       return VoteListFragment()
         .apply {
           arguments = bundleOf(
-            (PAGE to page),
-            (ME to me)
+            (ME to me),
+            (PAGE to page)
           )
         }
     }
@@ -35,7 +35,7 @@ class VoteListFragment : BaseFragment() {
   @Inject
   internal lateinit var factory: ViewModelFactory<VoteListViewModel>
 
-  private val viewModel: VoteListViewModel by activityViewModels { factory }
+  private val viewModel: VoteListViewModel by viewModels { factory }
 
   private lateinit var binding: FragmentVoteListBinding
 
