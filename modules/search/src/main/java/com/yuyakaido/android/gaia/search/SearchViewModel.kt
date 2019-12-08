@@ -4,9 +4,9 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.yuyakaido.android.gaia.core.Article
-import com.yuyakaido.android.gaia.core.RedditPublicService
-import com.yuyakaido.android.gaia.core.TrendingArticle
+import com.yuyakaido.android.gaia.core.entity.Article
+import com.yuyakaido.android.gaia.core.infrastructure.RedditPublicService
+import com.yuyakaido.android.gaia.core.value.TrendingArticle
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 

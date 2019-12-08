@@ -1,5 +1,6 @@
-package com.yuyakaido.android.gaia.core
+package com.yuyakaido.android.gaia.core.infrastructure
 
+import com.yuyakaido.android.gaia.core.BuildConfig
 import okhttp3.Interceptor
 import okhttp3.Response
 

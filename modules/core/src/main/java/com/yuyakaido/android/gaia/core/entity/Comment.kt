@@ -1,4 +1,4 @@
-package com.yuyakaido.android.gaia.core
+package com.yuyakaido.android.gaia.core.entity
 
 data class Comment(
   val id: ID,

@@ -1,6 +1,7 @@
-package com.yuyakaido.android.gaia.core
+package com.yuyakaido.android.gaia.core.infrastructure
 
 import com.squareup.moshi.Json
+import com.yuyakaido.android.gaia.core.entity.Me
 
 data class MeResponse(
   @Json(name = "id") val id: String,

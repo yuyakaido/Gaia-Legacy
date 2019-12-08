@@ -2,9 +2,9 @@ package com.yuyakaido.android.gaia.home
 
 import android.os.Bundle
 import androidx.activity.viewModels
-import com.yuyakaido.android.gaia.core.BaseActivity
-import com.yuyakaido.android.gaia.core.GaiaType
-import com.yuyakaido.android.gaia.core.ViewModelFactory
+import com.yuyakaido.android.gaia.core.presentation.BaseActivity
+import com.yuyakaido.android.gaia.core.app.GaiaType
+import com.yuyakaido.android.gaia.core.presentation.ViewModelFactory
 import com.yuyakaido.android.gaia.home.databinding.ActivityHomeBinding
 import timber.log.Timber
 import javax.inject.Inject

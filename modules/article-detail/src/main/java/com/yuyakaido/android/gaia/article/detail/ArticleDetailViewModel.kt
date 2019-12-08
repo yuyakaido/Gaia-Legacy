@@ -5,10 +5,10 @@ import android.net.Uri
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.yuyakaido.android.gaia.core.Article
-import com.yuyakaido.android.gaia.core.Comment
-import com.yuyakaido.android.gaia.core.ListingDataResponse
-import com.yuyakaido.android.gaia.core.RedditAuthService
+import com.yuyakaido.android.gaia.core.entity.Article
+import com.yuyakaido.android.gaia.core.entity.Comment
+import com.yuyakaido.android.gaia.core.infrastructure.ListingDataResponse
+import com.yuyakaido.android.gaia.core.infrastructure.RedditAuthService
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 

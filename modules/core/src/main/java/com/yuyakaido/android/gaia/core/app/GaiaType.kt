@@ -1,7 +1,10 @@
-package com.yuyakaido.android.gaia.core
+package com.yuyakaido.android.gaia.core.app
 
 import android.content.Intent
 import androidx.fragment.app.Fragment
+import com.yuyakaido.android.gaia.core.entity.Article
+import com.yuyakaido.android.gaia.core.infrastructure.RedditAuthService
+import com.yuyakaido.android.gaia.core.infrastructure.RedditPublicService
 import dagger.android.support.DaggerApplication
 
 abstract class GaiaType : DaggerApplication() {

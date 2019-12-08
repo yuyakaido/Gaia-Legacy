@@ -3,7 +3,10 @@ package com.yuyakaido.android.gaia
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.adapters.PolymorphicJsonAdapterFactory
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
-import com.yuyakaido.android.gaia.core.*
+import com.yuyakaido.android.gaia.core.infrastructure.AuthInterceptor
+import com.yuyakaido.android.gaia.core.infrastructure.ListingDataResponse
+import com.yuyakaido.android.gaia.core.infrastructure.RedditAuthService
+import com.yuyakaido.android.gaia.core.infrastructure.RedditPublicService
 import dagger.Module
 import dagger.Provides
 import okhttp3.OkHttpClient
@@ -18,11 +21,10 @@ class NetworkModule {
   fun provideOkHttpClient(): OkHttpClient {
     val httpLoggingInterceptor = HttpLoggingInterceptor()
       .apply { level = HttpLoggingInterceptor.Level.BASIC }
-    val authInterceptor = AuthInterceptor()
     return OkHttpClient
       .Builder()
       .addInterceptor(httpLoggingInterceptor)
-      .addInterceptor(authInterceptor)
+      .addInterceptor(AuthInterceptor())
       .build()
   }
 

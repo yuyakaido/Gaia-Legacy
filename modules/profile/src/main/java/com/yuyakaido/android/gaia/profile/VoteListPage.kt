@@ -1,7 +1,7 @@
 package com.yuyakaido.android.gaia.profile
 
 import androidx.fragment.app.Fragment
-import com.yuyakaido.android.gaia.core.Me
+import com.yuyakaido.android.gaia.core.entity.Me
 
 enum class VoteListPage(
   val path: String,

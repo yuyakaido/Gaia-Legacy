@@ -10,10 +10,10 @@ import androidx.lifecycle.observe
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
-import com.yuyakaido.android.gaia.core.Article
-import com.yuyakaido.android.gaia.core.ArticleItem
-import com.yuyakaido.android.gaia.core.BaseFragment
-import com.yuyakaido.android.gaia.core.ViewModelFactory
+import com.yuyakaido.android.gaia.core.entity.Article
+import com.yuyakaido.android.gaia.core.presentation.ArticleItem
+import com.yuyakaido.android.gaia.core.presentation.BaseFragment
+import com.yuyakaido.android.gaia.core.presentation.ViewModelFactory
 import com.yuyakaido.android.gaia.search.databinding.FragmentSearchBinding
 import javax.inject.Inject
 

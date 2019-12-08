@@ -2,12 +2,15 @@ package com.yuyakaido.android.gaia
 
 import android.content.Intent
 import androidx.fragment.app.Fragment
-import com.yuyakaido.android.gaia.core.*
 import com.yuyakaido.android.gaia.profile.ProfileFragment
 import com.yuyakaido.android.gaia.search.SearchFragment
 import com.yuyakaido.android.gaia.article.detail.ArticleDetailActivity
 import com.yuyakaido.android.gaia.article.list.ArticleListFragment
 import com.yuyakaido.android.gaia.article.list.ArticleListPage
+import com.yuyakaido.android.gaia.core.app.GaiaType
+import com.yuyakaido.android.gaia.core.entity.Article
+import com.yuyakaido.android.gaia.core.infrastructure.RedditAuthService
+import com.yuyakaido.android.gaia.core.infrastructure.RedditPublicService
 import dagger.android.AndroidInjector
 import dagger.android.support.DaggerApplication
 import timber.log.Timber

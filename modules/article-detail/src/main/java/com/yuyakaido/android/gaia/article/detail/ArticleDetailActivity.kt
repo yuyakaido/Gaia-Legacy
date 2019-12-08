@@ -12,9 +12,9 @@ import com.bumptech.glide.Glide
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
 import com.yuyakaido.android.gaia.article.detail.databinding.ActivityArticleDetailBinding
-import com.yuyakaido.android.gaia.core.Article
-import com.yuyakaido.android.gaia.core.BaseActivity
-import com.yuyakaido.android.gaia.core.ViewModelFactory
+import com.yuyakaido.android.gaia.core.entity.Article
+import com.yuyakaido.android.gaia.core.presentation.BaseActivity
+import com.yuyakaido.android.gaia.core.presentation.ViewModelFactory
 import javax.inject.Inject
 
 class ArticleDetailActivity : BaseActivity() {

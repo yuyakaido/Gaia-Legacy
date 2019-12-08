@@ -1,4 +1,4 @@
-package com.yuyakaido.android.gaia.core
+package com.yuyakaido.android.gaia.core.entity
 
 import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize

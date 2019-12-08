@@ -1,4 +1,6 @@
-package com.yuyakaido.android.gaia.core
+package com.yuyakaido.android.gaia.core.value
+
+import com.yuyakaido.android.gaia.core.entity.EntityType
 
 data class EntityPaginationItem<E : EntityType>(
   val entities: List<E>,

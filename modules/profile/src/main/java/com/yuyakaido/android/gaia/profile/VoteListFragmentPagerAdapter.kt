@@ -3,7 +3,7 @@ package com.yuyakaido.android.gaia.profile
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
-import com.yuyakaido.android.gaia.core.Me
+import com.yuyakaido.android.gaia.core.entity.Me
 
 class VoteListFragmentPagerAdapter(
   manager: FragmentManager,

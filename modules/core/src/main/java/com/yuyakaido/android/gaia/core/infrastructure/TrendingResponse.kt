@@ -1,6 +1,7 @@
-package com.yuyakaido.android.gaia.core
+package com.yuyakaido.android.gaia.core.infrastructure
 
 import com.squareup.moshi.Json
+import com.yuyakaido.android.gaia.core.value.TrendingArticle
 
 data class TrendingResponse(
   @Json(name = "subreddit_names") val names: List<String>

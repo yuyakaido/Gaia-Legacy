@@ -1,6 +1,6 @@
 package com.yuyakaido.android.gaia.profile
 
-import com.yuyakaido.android.gaia.core.Me
+import com.yuyakaido.android.gaia.core.entity.Me
 import dagger.Module
 import dagger.Provides
 

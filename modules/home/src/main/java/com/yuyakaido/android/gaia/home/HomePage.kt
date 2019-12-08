@@ -1,7 +1,7 @@
 package com.yuyakaido.android.gaia.home
 
 import androidx.fragment.app.Fragment
-import com.yuyakaido.android.gaia.core.GaiaType
+import com.yuyakaido.android.gaia.core.app.GaiaType
 
 enum class HomePage(
   val id: Int,

@@ -1,4 +1,4 @@
-package com.yuyakaido.android.gaia.core
+package com.yuyakaido.android.gaia.core.presentation
 
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
@@ -7,7 +7,9 @@ import androidx.core.content.ContextCompat
 import com.bumptech.glide.Glide
 import com.xwray.groupie.Item
 import com.xwray.groupie.databinding.BindableItem
+import com.yuyakaido.android.gaia.core.R
 import com.yuyakaido.android.gaia.core.databinding.ItemArticleBinding
+import com.yuyakaido.android.gaia.core.entity.Article
 
 class ArticleItem(
   val article: Article,
@@ -58,12 +60,16 @@ class ArticleItem(
       article.likes == true -> {
         binding.upvote.setImageResource(R.drawable.ic_upvote_active)
         binding.downvote.setImageResource(R.drawable.ic_downvote_inactive)
-        binding.voteCount.setTextColor(ContextCompat.getColor(context, R.color.upvpte))
+        binding.voteCount.setTextColor(
+          ContextCompat.getColor(context, R.color.upvpte)
+        )
       }
       article.likes == false -> {
         binding.upvote.setImageResource(R.drawable.ic_upvote_inactive)
         binding.downvote.setImageResource(R.drawable.ic_downvote_active)
-        binding.voteCount.setTextColor(ContextCompat.getColor(context, R.color.downvote))
+        binding.voteCount.setTextColor(
+          ContextCompat.getColor(context, R.color.downvote)
+        )
       }
       else -> Unit
     }
