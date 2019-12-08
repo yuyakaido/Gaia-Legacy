@@ -54,7 +54,6 @@ class ArticleItem(
       article.likes == null -> {
         binding.upvote.setImageResource(R.drawable.ic_upvote_inactive)
         binding.downvote.setImageResource(R.drawable.ic_downvote_inactive)
-        binding.voteCount.setTextColor(ContextCompat.getColor(context, android.R.color.tab_indicator_text))
       }
       article.likes == true -> {
         binding.upvote.setImageResource(R.drawable.ic_upvote_active)
