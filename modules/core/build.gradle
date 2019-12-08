@@ -62,6 +62,8 @@ dependencies {
   // Widget
   api libs.widget.groupie.core
   api libs.widget.groupie.databinding
+  api libs.widget.divider
+  api libs.widget.material
 
   // Debugging
   api libs.debugging.timber

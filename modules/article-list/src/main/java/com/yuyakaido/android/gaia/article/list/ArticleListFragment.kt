@@ -1,5 +1,6 @@
 package com.yuyakaido.android.gaia.article.list
 
+import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -13,6 +14,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
+import com.yqritc.recyclerviewflexibledivider.HorizontalDividerItemDecoration
+import com.yqritc.recyclerviewflexibledivider.VerticalDividerItemDecoration
 import com.yuyakaido.android.gaia.article.list.databinding.FragmentArticleListBinding
 import com.yuyakaido.android.gaia.core.*
 import timber.log.Timber
@@ -69,6 +72,13 @@ class ArticleListFragment : BaseFragment() {
 
     binding.recyclerView.layoutManager = manager
     binding.recyclerView.adapter = adapter
+    binding.recyclerView.addItemDecoration(
+      HorizontalDividerItemDecoration.Builder(requireContext())
+        .color(Color.TRANSPARENT)
+        .size(8.dpTpPx(requireContext()))
+        .showLastDivider()
+        .build()
+    )
     binding.recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
       override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
         val page = arguments?.getSerializable(PAGE) as ArticleListPage

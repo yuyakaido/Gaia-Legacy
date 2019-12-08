@@ -37,6 +37,7 @@ buildscript {
     ],
     widget: [
       groupie: '2.7.1',
+      divider: '1.4.0',
       material: '1.0.0'
     ],
     debugging: [
@@ -100,6 +101,7 @@ buildscript {
         core: "com.xwray:groupie:$versions.widget.groupie",
         databinding: "com.xwray:groupie-databinding:$versions.widget.groupie"
       ],
+      divider: "com.yqritc:recyclerview-flexibledivider:$versions.widget.divider",
       material: "com.google.android.material:material:$versions.widget.material"
     ],
     debugging: [

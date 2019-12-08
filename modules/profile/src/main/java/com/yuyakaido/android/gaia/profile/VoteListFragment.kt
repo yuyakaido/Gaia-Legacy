@@ -1,5 +1,6 @@
 package com.yuyakaido.android.gaia.profile
 
+import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -11,6 +12,7 @@ import androidx.lifecycle.observe
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
+import com.yqritc.recyclerviewflexibledivider.HorizontalDividerItemDecoration
 import com.yuyakaido.android.gaia.core.*
 import com.yuyakaido.android.gaia.profile.databinding.FragmentVoteListBinding
 import javax.inject.Inject
@@ -73,6 +75,13 @@ class VoteListFragment : BaseFragment() {
 
     binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
     binding.recyclerView.adapter = adapter
+    binding.recyclerView.addItemDecoration(
+      HorizontalDividerItemDecoration.Builder(requireContext())
+        .color(Color.TRANSPARENT)
+        .size(8.dpTpPx(requireContext()))
+        .showLastDivider()
+        .build()
+    )
 
     val upvoteListener = { _: Article -> Unit }
     val downvoteListener = { _: Article -> Unit }

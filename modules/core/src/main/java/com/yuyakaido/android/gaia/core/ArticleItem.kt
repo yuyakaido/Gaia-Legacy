@@ -3,6 +3,7 @@ package com.yuyakaido.android.gaia.core
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.net.Uri
+import androidx.core.content.ContextCompat
 import com.bumptech.glide.Glide
 import com.xwray.groupie.Item
 import com.xwray.groupie.databinding.BindableItem
@@ -41,6 +42,8 @@ class ArticleItem(
   }
 
   override fun bind(binding: ItemArticleBinding, position: Int) {
+    val context = binding.root.context
+
     binding.category.text = article.category
     binding.author.text = binding.root.resources.getString(R.string.author, article.author)
     binding.title.text = article.title
@@ -51,14 +54,17 @@ class ArticleItem(
       article.likes == null -> {
         binding.upvote.setImageResource(R.drawable.ic_upvote_inactive)
         binding.downvote.setImageResource(R.drawable.ic_downvote_inactive)
+        binding.voteCount.setTextColor(ContextCompat.getColor(context, android.R.color.tab_indicator_text))
       }
       article.likes == true -> {
         binding.upvote.setImageResource(R.drawable.ic_upvote_active)
         binding.downvote.setImageResource(R.drawable.ic_downvote_inactive)
+        binding.voteCount.setTextColor(ContextCompat.getColor(context, R.color.upvpte))
       }
       article.likes == false -> {
         binding.upvote.setImageResource(R.drawable.ic_upvote_inactive)
         binding.downvote.setImageResource(R.drawable.ic_downvote_active)
+        binding.voteCount.setTextColor(ContextCompat.getColor(context, R.color.downvote))
       }
       else -> Unit
     }
