@@ -7,5 +7,8 @@ import kotlinx.android.parcel.Parcelize
 data class Me(
   val id: String,
   val name: String,
-  val icon: String
+  val icon: String,
+  val birthday: Float,
+  val karma: Int,
+  val follower: Int
 ) : Parcelable

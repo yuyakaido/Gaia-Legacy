@@ -1,10 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <resources>
+  <!-- App -->
   <string name="app_name">Gaia</string>
-  <string name="author">Posted by u/%1$s</string>
-  <string name="share">Share</string>
+
+  <!-- Home -->
   <string name="popular">Popular</string>
   <string name="search">Search</string>
   <string name="profile">Profile</string>
+
+  <!-- ArticleList -->
+  <string name="author">Posted by u/%1$s</string>
+  <string name="share">Share</string>
+
+  <!-- Profile -->
+  <string name="identity">u/%1$s</string>
+  <string name="karma">%1$d karmas</string>
+  <string name="follower">%1$d followers</string>
+
 </resources>

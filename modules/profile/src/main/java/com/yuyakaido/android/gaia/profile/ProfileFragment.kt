@@ -55,7 +55,10 @@ class ProfileFragment : BaseFragment() {
           .load(me.icon)
           .transform(RoundedCorners(16.dpTpPx(requireContext())))
           .into(binding.icon)
-        binding.name.text = me.name
+        binding.identity.text = getString(R.string.identity, me.name)
+        binding.birthday.text = me.birthday.toString()
+        binding.karma.text = getString(R.string.karma, me.karma)
+        binding.follower.text = getString(R.string.follower, me.follower)
         setupViewPager(me)
       }
   }
@@ -63,7 +66,6 @@ class ProfileFragment : BaseFragment() {
   private fun setupViewPager(me: Me) {
     val adapter = VoteListFragmentPagerAdapter(childFragmentManager, me)
     binding.viewPager.adapter = adapter
-    binding.viewPager.pageMargin = 16.dpTpPx(requireContext())
     binding.tabLayout.setupWithViewPager(binding.viewPager)
   }
 
