@@ -17,6 +17,7 @@ import retrofit2.converter.moshi.MoshiConverterFactory
 @Module
 class NetworkModule {
 
+  @AppScope
   @Provides
   fun provideOkHttpClient(): OkHttpClient {
     val httpLoggingInterceptor = HttpLoggingInterceptor()
@@ -28,6 +29,7 @@ class NetworkModule {
       .build()
   }
 
+  @AppScope
   @Provides
   fun provideMoshi(): Moshi {
     return Moshi
@@ -48,6 +50,7 @@ class NetworkModule {
       .build()
   }
 
+  @AppScope
   @Provides
   fun provideRedditPublicService(
     moshi: Moshi,
@@ -62,6 +65,7 @@ class NetworkModule {
     return retrofit.create(RedditPublicService::class.java)
   }
 
+  @AppScope
   @Provides
   fun provideRedditAuthService(
     moshi: Moshi,

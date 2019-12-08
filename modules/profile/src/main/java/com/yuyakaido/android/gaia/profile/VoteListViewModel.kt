@@ -8,6 +8,7 @@ import com.yuyakaido.android.gaia.core.entity.Article
 import com.yuyakaido.android.gaia.core.entity.Me
 import com.yuyakaido.android.gaia.core.infrastructure.RedditAuthService
 import kotlinx.coroutines.launch
+import timber.log.Timber
 import javax.inject.Inject
 
 class VoteListViewModel @Inject constructor(
@@ -20,6 +21,7 @@ class VoteListViewModel @Inject constructor(
   val articles = MutableLiveData<List<Article>>()
 
   fun onBind() {
+    Timber.d("service = ${service.hashCode()}")
     viewModelScope.launch {
       val response = service.voted(user = me.name, type = page.path)
       val entities = response.toArticlePaginationItem().entities
