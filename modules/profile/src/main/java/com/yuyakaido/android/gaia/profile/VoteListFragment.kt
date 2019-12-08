@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.observe
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.xwray.groupie.GroupAdapter
@@ -32,9 +33,19 @@ class VoteListFragment : BaseFragment() {
   }
 
   @Inject
-  internal lateinit var viewModel: VoteListViewModel
+  internal lateinit var factory: ViewModelFactory<VoteListViewModel>
+
+  private val viewModel: VoteListViewModel by activityViewModels { factory }
 
   private lateinit var binding: FragmentVoteListBinding
+
+  internal fun getMe(): Me {
+    return requireArguments().getParcelable<Me>(ME) as Me
+  }
+
+  internal fun getVoteListPage(): VoteListPage {
+    return requireArguments().getSerializable(PAGE) as VoteListPage
+  }
 
   override fun onCreateView(
     inflater: LayoutInflater,
@@ -48,10 +59,7 @@ class VoteListFragment : BaseFragment() {
   override fun onActivityCreated(savedInstanceState: Bundle?) {
     super.onActivityCreated(savedInstanceState)
     setupRecyclerView()
-    val bundle = requireArguments()
-    val me = bundle.getParcelable<Me>(ME) as Me
-    val page = bundle.getSerializable(PAGE) as VoteListPage
-    viewModel.onBind(me = me, page = page)
+    viewModel.onBind()
   }
 
   private fun setupRecyclerView() {

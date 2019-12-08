@@ -13,6 +13,7 @@ import javax.inject.Inject
 
 class ArticleListViewModel @Inject constructor(
   application: Application,
+  private val page: ArticleListPage,
   private val service: RedditAuthService
 ) : AndroidViewModel(application) {
 
@@ -20,7 +21,7 @@ class ArticleListViewModel @Inject constructor(
   var after: String? = null
   var isLoading: Boolean = false
 
-  fun onBind(page: ArticleListPage) {
+  fun onBind() {
     Timber.d("service = ${service.hashCode()}")
     if (items.value == null) {
       onPaginate(page)

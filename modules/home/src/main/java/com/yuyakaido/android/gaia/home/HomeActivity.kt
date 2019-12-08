@@ -15,7 +15,6 @@ class HomeActivity : BaseActivity() {
   internal lateinit var factory: ViewModelFactory<HomeViewModel>
 
   private val viewModel: HomeViewModel by viewModels { factory }
-
   private val binding by lazy { ActivityHomeBinding.inflate(layoutInflater) }
 
   override fun onCreate(savedInstanceState: Bundle?) {

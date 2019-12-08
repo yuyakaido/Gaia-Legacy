@@ -32,15 +32,17 @@ class ArticleDetailActivity : BaseActivity() {
   internal lateinit var factory: ViewModelFactory<ArticleDetailViewModel>
 
   private val viewModel: ArticleDetailViewModel by viewModels { factory }
-
   private val binding by lazy { ActivityArticleDetailBinding.inflate(layoutInflater) }
+
+  internal fun getArticle(): Article {
+    return intent.getParcelableExtra(ARTICLE) as Article
+  }
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     setContentView(binding.root)
-    val article = intent.getParcelableExtra(ARTICLE) as Article
     setupDetail()
-    viewModel.onBind(article)
+    viewModel.onBind()
   }
 
   private fun setupDetail() {

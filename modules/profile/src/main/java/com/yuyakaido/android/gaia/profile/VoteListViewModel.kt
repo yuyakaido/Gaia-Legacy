@@ -12,12 +12,14 @@ import javax.inject.Inject
 
 class VoteListViewModel @Inject constructor(
   application: Application,
+  private val me: Me,
+  private val page: VoteListPage,
   private val service: RedditAuthService
 ) : AndroidViewModel(application) {
 
   val articles = MutableLiveData<List<Article>>()
 
-  fun onBind(me: Me, page: VoteListPage) {
+  fun onBind() {
     viewModelScope.launch {
       val response = service.voted(user = me.name, type = page.path)
       val entities = response.toArticlePaginationItem().entities

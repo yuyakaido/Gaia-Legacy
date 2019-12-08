@@ -14,6 +14,7 @@ import javax.inject.Inject
 
 class ArticleDetailViewModel @Inject constructor(
   application: Application,
+  private val article: Article,
   private val service: RedditAuthService
 ) : AndroidViewModel(application) {
 
@@ -21,7 +22,7 @@ class ArticleDetailViewModel @Inject constructor(
   val thumbnail = MutableLiveData<Uri>()
   val comments = MutableLiveData<List<Comment>>()
 
-  fun onBind(article: Article) {
+  fun onBind() {
     title.postValue(article.title)
     thumbnail.postValue(article.thumbnail)
 

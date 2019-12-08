@@ -36,6 +36,10 @@ class ArticleListFragment : BaseFragment() {
 
   private lateinit var binding: FragmentArticleListBinding
 
+  internal fun getArticleListPage(): ArticleListPage {
+    return requireArguments().getSerializable(PAGE) as ArticleListPage
+  }
+
   override fun onCreateView(
     inflater: LayoutInflater,
     container: ViewGroup?,
@@ -48,10 +52,9 @@ class ArticleListFragment : BaseFragment() {
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
     setupRecyclerView()
-    val page = arguments?.getSerializable(PAGE) as ArticleListPage
     Timber.d("fragment = ${hashCode()}")
     Timber.d("viewmodel = ${viewModel.hashCode()}")
-    viewModel.onBind(page = page)
+    viewModel.onBind()
   }
 
   private fun setupRecyclerView() {
