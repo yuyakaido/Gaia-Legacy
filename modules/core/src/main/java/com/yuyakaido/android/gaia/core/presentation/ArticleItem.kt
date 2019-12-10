@@ -50,8 +50,8 @@ class ArticleItem(
     binding.author.text = binding.root.resources.getString(R.string.author, article.author)
     binding.title.text = article.title
     binding.voteCount.text = article.voteCount.toString()
-    binding.upvote.setOnClickListener { upvoteListener.invoke(article) }
-    binding.downvote.setOnClickListener { downvoteListener.invoke(article) }
+    binding.upvote.setOnClickListener { upvoteListener?.invoke(article) }
+    binding.downvote.setOnClickListener { downvoteListener?.invoke(article) }
     when {
       article.likes == null -> {
         binding.upvote.setImageResource(R.drawable.ic_upvote_inactive)

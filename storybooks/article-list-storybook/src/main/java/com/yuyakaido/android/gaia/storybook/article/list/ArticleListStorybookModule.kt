@@ -1,12 +1,15 @@
-package com.yuyakaido.android.gaia.article.list
+package com.yuyakaido.android.gaia.storybook.article.list
 
 import android.app.Application
+import com.yuyakaido.android.gaia.article.list.ArticleListFragment
+import com.yuyakaido.android.gaia.article.list.ArticleListModuleType
+import com.yuyakaido.android.gaia.article.list.ArticleListViewModelType
 import com.yuyakaido.android.gaia.core.infrastructure.RedditAuthService
 import dagger.Module
 import dagger.Provides
 
 @Module
-class ArticleListModule : ArticleListModuleType {
+class ArticleListStorybookModule : ArticleListModuleType {
 
   @Provides
   override fun provideArticleListViewModel(
@@ -14,7 +17,7 @@ class ArticleListModule : ArticleListModuleType {
     fragment: ArticleListFragment,
     service: RedditAuthService
   ): ArticleListViewModelType {
-    return ArticleListViewModel(
+    return ArticleListStorybookViewModel(
       application = application,
       page = fragment.getArticleListPage(),
       service = service

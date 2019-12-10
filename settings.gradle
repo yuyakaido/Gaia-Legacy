@@ -9,3 +9,6 @@ include ':modules:article-list'
 include ':modules:article-detail'
 include ':modules:profile'
 include ':modules:search'
+
+// Modules - Storybook
+include ':storybooks:article-list-storybook'

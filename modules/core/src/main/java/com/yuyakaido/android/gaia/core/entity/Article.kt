@@ -25,4 +25,21 @@ data class Article(
   @IgnoredOnParcel
   val voteCount = ups - downs
 
+  companion object {
+    fun create(id: String): Article {
+      return Article(
+        id = ID(id),
+        name = "name",
+        category = "category",
+        title = "title",
+        thumbnail = Uri.parse("https://dummyimage.com/600x400/000/fff"),
+        author = "yuyakaido",
+        likes = null,
+        ups = 0,
+        downs = 0,
+        comments = 0
+      )
+    }
+  }
+
 }

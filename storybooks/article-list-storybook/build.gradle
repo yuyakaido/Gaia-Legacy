@@ -1,4 +1,4 @@
-apply plugin: 'com.android.library'
+apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
 
@@ -8,6 +8,9 @@ android {
   defaultConfig {
     targetSdkVersion versions.android.targetSdk
     minSdkVersion versions.android.minSdk
+    applicationId versions.app.applicationId
+    versionCode versions.app.versionCode
+    versionName versions.app.versionName
   }
   dataBinding {
     enabled = true
@@ -15,8 +18,8 @@ android {
 }
 
 dependencies {
-  // Module
-  api project(':modules:core')
+  // Modules - Feature
+  implementation project(':modules:article-list')
 
   // Dependency Injection
   kapt libs.dagger.java.compiler

@@ -37,13 +37,13 @@ class ArticleListFragment : BaseFragment() {
   }
 
   @Inject
-  internal lateinit var factory: ViewModelFactory<ArticleListViewModel>
+  internal lateinit var factory: ViewModelFactory<ArticleListViewModelType>
 
-  private val viewModel: ArticleListViewModel by activityViewModels { factory }
+  private val viewModel: ArticleListViewModelType by activityViewModels { factory }
 
   private lateinit var binding: FragmentArticleListBinding
 
-  internal fun getArticleListPage(): ArticleListPage {
+  fun getArticleListPage(): ArticleListPage {
     return requireArguments().getSerializable(PAGE) as ArticleListPage
   }
 

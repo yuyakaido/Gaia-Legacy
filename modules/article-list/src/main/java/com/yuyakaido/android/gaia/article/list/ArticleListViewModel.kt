@@ -1,34 +1,35 @@
 package com.yuyakaido.android.gaia.article.list
 
 import android.app.Application
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.yuyakaido.android.gaia.core.entity.Article
-import com.yuyakaido.android.gaia.core.value.EntityPaginationItem
 import com.yuyakaido.android.gaia.core.infrastructure.RedditAuthService
+import com.yuyakaido.android.gaia.core.value.EntityPaginationItem
+import com.yuyakaido.android.gaia.core.value.VoteResult
 import kotlinx.coroutines.launch
 import timber.log.Timber
 import javax.inject.Inject
 
 class ArticleListViewModel @Inject constructor(
   application: Application,
-  private val page: ArticleListPage,
-  private val service: RedditAuthService
-) : AndroidViewModel(application) {
+  override val page: ArticleListPage,
+  override val service: RedditAuthService
+) : ArticleListViewModelType(application) {
 
-  val items = MutableLiveData<List<EntityPaginationItem<Article>>>()
+  override val items = MutableLiveData<List<EntityPaginationItem<Article>>>()
+
   var after: String? = null
   var isLoading: Boolean = false
 
-  fun onBind() {
+  override fun onBind() {
     Timber.d("service = ${service.hashCode()}")
     if (items.value == null) {
       onPaginate(page)
     }
   }
 
-  fun onPaginate(page: ArticleListPage) {
+  override fun onPaginate(page: ArticleListPage) {
     if (isLoading) {
       return
     }
@@ -43,45 +44,18 @@ class ArticleListViewModel @Inject constructor(
     }
   }
 
-  fun onUpvote(article: Article) {
-    val pair: Pair<Int, Boolean?> = when {
-      article.likes == null -> 1 to true
-      article.likes == true -> 0 to null
-      article.likes == false -> 1 to true
-      else -> 0 to null
-    }
-    vote(article = article, pair = pair)
+  override fun onUpvote(article: Article) {
+    vote(result = VoteResult.forUpvote(article = article))
   }
 
-  fun onDownvote(article: Article) {
-    val pair: Pair<Int, Boolean?> = when {
-      article.likes == null -> -1 to false
-      article.likes == true -> -1 to false
-      article.likes == false -> 0 to null
-      else -> 0 to null
-    }
-    vote(article = article, pair = pair)
+  override fun onDownvote(article: Article) {
+    vote(result = VoteResult.forDownvote(article = article))
   }
 
-  private fun vote(article: Article, pair: Pair<Int, Boolean?>) {
+  private fun vote(result: VoteResult) {
     viewModelScope.launch {
-      service.vote(id = article.name, dir = pair.first)
-      val newItems = items
-        .value
-        ?.map { item ->
-          item.copy(
-            entities = item
-              .entities
-              .map { entity ->
-                if (entity.id == article.id) {
-                  entity.copy(likes = pair.second)
-                } else {
-                  entity
-                }
-              }
-          )
-        }
-      items.postValue(newItems)
+      service.vote(id = result.article.name, dir = result.dir)
+      refreshByVoteResult(result)
     }
   }
 

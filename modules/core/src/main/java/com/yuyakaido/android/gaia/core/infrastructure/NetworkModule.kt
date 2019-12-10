@@ -1,12 +1,9 @@
-package com.yuyakaido.android.gaia
+package com.yuyakaido.android.gaia.core.infrastructure
 
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.adapters.PolymorphicJsonAdapterFactory
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
-import com.yuyakaido.android.gaia.core.infrastructure.AuthInterceptor
-import com.yuyakaido.android.gaia.core.infrastructure.ListingDataResponse
-import com.yuyakaido.android.gaia.core.infrastructure.RedditAuthService
-import com.yuyakaido.android.gaia.core.infrastructure.RedditPublicService
+import com.yuyakaido.android.gaia.core.app.AppScope
 import dagger.Module
 import dagger.Provides
 import okhttp3.OkHttpClient
