@@ -4,6 +4,7 @@ include ':app'
 include ':modules:core'
 
 // Modules - Feature
+include ':modules:auth'
 include ':modules:home'
 include ':modules:article-list'
 include ':modules:article-detail'
