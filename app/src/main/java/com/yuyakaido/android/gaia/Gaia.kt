@@ -11,7 +11,6 @@ import com.yuyakaido.android.gaia.profile.ProfileFragment
 import com.yuyakaido.android.gaia.search.SearchFragment
 import dagger.android.AndroidInjector
 import dagger.android.support.DaggerApplication
-import timber.log.Timber
 
 class Gaia : GaiaType() {
 
@@ -20,11 +19,6 @@ class Gaia : GaiaType() {
       .builder()
       .application(this)
       .build()
-  }
-
-  override fun onCreate() {
-    super.onCreate()
-    initializeTimber()
   }
 
   override fun newArticleDetailActivity(article: Article): Intent {
@@ -41,10 +35,6 @@ class Gaia : GaiaType() {
 
   override fun newSearchFragment(): Fragment {
     return SearchFragment.newInstance()
-  }
-
-  private fun initializeTimber() {
-    Timber.plant(Timber.DebugTree())
   }
 
 }
