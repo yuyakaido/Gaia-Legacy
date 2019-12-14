@@ -7,15 +7,14 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.yuyakaido.android.gaia.core.entity.Article
 import com.yuyakaido.android.gaia.core.entity.Comment
-import com.yuyakaido.android.gaia.core.infrastructure.ListingDataResponse
-import com.yuyakaido.android.gaia.core.infrastructure.RedditAuthService
+import com.yuyakaido.android.gaia.core.infrastructure.CommentRepository
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class ArticleDetailViewModel @Inject constructor(
   application: Application,
   private val article: Article,
-  private val service: RedditAuthService
+  private val repository: CommentRepository
 ) : AndroidViewModel(application) {
 
   val title = MutableLiveData<String>()
@@ -27,16 +26,7 @@ class ArticleDetailViewModel @Inject constructor(
     thumbnail.postValue(article.thumbnail)
 
     viewModelScope.launch {
-      val response = service.comments(
-        category = article.category,
-        id = article.id.value
-      )
-      val responseOfComment = response.firstOrNull {
-        it.data.children.any { child ->
-          child.kind == ListingDataResponse.Children.Child.Kind.Comment
-        }
-      }
-      comments.postValue(responseOfComment?.toComments() ?: emptyList())
+      comments.postValue(repository.comments(article = article))
     }
   }
 
