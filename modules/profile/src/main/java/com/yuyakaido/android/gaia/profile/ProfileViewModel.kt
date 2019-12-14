@@ -5,23 +5,22 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.yuyakaido.android.gaia.core.entity.Me
-import com.yuyakaido.android.gaia.core.infrastructure.RedditAuthService
+import com.yuyakaido.android.gaia.core.infrastructure.MeRepository
 import kotlinx.coroutines.launch
 import timber.log.Timber
 import javax.inject.Inject
 
 class ProfileViewModel @Inject constructor(
   application: Application,
-  private val service: RedditAuthService
+  private val repository: MeRepository
 ) : AndroidViewModel(application) {
 
   val me = MutableLiveData<Me>()
 
   fun onBind() {
-    Timber.d("service = ${service.hashCode()}")
+    Timber.d("repository = ${repository.hashCode()}")
     viewModelScope.launch {
-      val response = service.me()
-      me.postValue(response.toEntity())
+      me.postValue(repository.me())
     }
   }
 
