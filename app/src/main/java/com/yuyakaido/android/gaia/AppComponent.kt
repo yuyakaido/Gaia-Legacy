@@ -11,6 +11,7 @@ import dagger.android.AndroidInjector
 @AppScope
 @Component(modules = [
   AndroidInjectionModule::class,
+  AppModule::class,
   ActivityModule::class,
   FragmentModule::class,
   NetworkModule::class

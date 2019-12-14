@@ -4,7 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.activity.viewModels
-import com.yuyakaido.android.gaia.core.app.GaiaType
+import com.yuyakaido.android.gaia.core.app.AppRouterType
 import com.yuyakaido.android.gaia.core.presentation.BaseActivity
 import com.yuyakaido.android.gaia.core.presentation.ViewModelFactory
 import com.yuyakaido.android.gaia.home.databinding.ActivityHomeBinding
@@ -22,6 +22,9 @@ class HomeActivity : BaseActivity() {
         }
     }
   }
+
+  @Inject
+  internal lateinit var appRouter: AppRouterType
 
   @Inject
   internal lateinit var factory: ViewModelFactory<HomeViewModel>
@@ -46,10 +49,9 @@ class HomeActivity : BaseActivity() {
   }
 
   private fun replaceFragment(page: HomePage) {
-    val app = application as GaiaType
     supportFragmentManager
       .beginTransaction()
-      .replace(R.id.fragment_container, page.fragment.invoke(app))
+      .replace(R.id.fragment_container, page.fragment.invoke(appRouter))
       .commitNow()
   }
 

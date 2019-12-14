@@ -1,21 +1,15 @@
 package com.yuyakaido.android.gaia.core.app
 
-import android.content.Intent
-import androidx.fragment.app.Fragment
-import com.yuyakaido.android.gaia.core.entity.Article
 import com.yuyakaido.android.gaia.core.value.AccessToken
 import dagger.android.support.DaggerApplication
 import retrofit2.HttpException
 import timber.log.Timber
+import javax.inject.Inject
 
 abstract class GaiaType : DaggerApplication() {
 
-  abstract fun newLaunchAuthorizationActivity(): Intent
-  abstract fun newHomeActivity(): Intent
-  abstract fun newArticleDetailActivity(article: Article): Intent
-  abstract fun newArticleListFragment(): Fragment
-  abstract fun newProfileFragment(): Fragment
-  abstract fun newSearchFragment(): Fragment
+  @Inject
+  internal lateinit var appRouter: AppRouterType
 
   override fun onCreate() {
     super.onCreate()
@@ -32,7 +26,7 @@ abstract class GaiaType : DaggerApplication() {
     Thread.setDefaultUncaughtExceptionHandler { thread, throwable ->
       if (throwable is HttpException) {
         AccessToken.delete(this)
-        startActivity(newLaunchAuthorizationActivity())
+        startActivity(appRouter.newLaunchAuthorizationActivity())
       } else {
         defaultHandler?.uncaughtException(thread, throwable)
       }

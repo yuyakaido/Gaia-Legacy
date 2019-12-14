@@ -5,10 +5,11 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import com.yuyakaido.android.gaia.auth.databinding.ActivityLaunchAuthorizationBinding
-import com.yuyakaido.android.gaia.core.app.GaiaType
+import com.yuyakaido.android.gaia.core.app.AppRouterType
 import com.yuyakaido.android.gaia.core.presentation.BaseActivity
 import com.yuyakaido.android.gaia.core.value.AccessToken
 import com.yuyakaido.android.gaia.core.value.Constant
+import javax.inject.Inject
 
 class LaunchAuthorizationActivity : BaseActivity() {
 
@@ -22,6 +23,9 @@ class LaunchAuthorizationActivity : BaseActivity() {
     }
   }
 
+  @Inject
+  internal lateinit var appRouter: AppRouterType
+
   private val binding by lazy { ActivityLaunchAuthorizationBinding.inflate(layoutInflater) }
 
   override fun onCreate(savedInstanceState: Bundle?) {
@@ -33,8 +37,7 @@ class LaunchAuthorizationActivity : BaseActivity() {
   private fun dispatch() {
     val token = AccessToken.current(this)
     if (token.isLoggedIn()) {
-      val app = application as GaiaType
-      startActivity(app.newHomeActivity())
+      startActivity(appRouter.newHomeActivity())
     } else {
       val uri = Uri.Builder()
         .scheme(Constant.OAUTH_SCHEME)

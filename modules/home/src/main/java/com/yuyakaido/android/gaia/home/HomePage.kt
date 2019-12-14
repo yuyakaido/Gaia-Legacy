@@ -1,23 +1,23 @@
 package com.yuyakaido.android.gaia.home
 
 import androidx.fragment.app.Fragment
-import com.yuyakaido.android.gaia.core.app.GaiaType
+import com.yuyakaido.android.gaia.core.app.AppRouterType
 
 enum class HomePage(
   val id: Int,
-  val fragment: (GaiaType) -> Fragment
+  val fragment: (AppRouterType) -> Fragment
   ) {
   Popular(
     id = R.id.navigation_popular,
-    fragment = fun (app: GaiaType) = app.newArticleListFragment()
+    fragment = fun (router: AppRouterType) = router.newArticleListFragment()
   ),
   Search(
     id = R.id.navigation_search,
-    fragment = fun (app: GaiaType) = app.newSearchFragment()
+    fragment = fun (router: AppRouterType) = router.newSearchFragment()
   ),
   Profile(
     id = R.id.navigation_profile,
-    fragment = fun (app: GaiaType) = app.newProfileFragment()
+    fragment = fun (router: AppRouterType) = router.newProfileFragment()
   );
 
   companion object {

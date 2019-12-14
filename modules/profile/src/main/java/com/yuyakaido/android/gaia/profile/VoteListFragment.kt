@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
 import com.yqritc.recyclerviewflexibledivider.HorizontalDividerItemDecoration
-import com.yuyakaido.android.gaia.core.app.GaiaType
+import com.yuyakaido.android.gaia.core.app.AppRouterType
 import com.yuyakaido.android.gaia.core.entity.Article
 import com.yuyakaido.android.gaia.core.entity.Me
 import com.yuyakaido.android.gaia.core.misc.dpTpPx
@@ -39,6 +39,9 @@ class VoteListFragment : BaseFragment() {
         }
     }
   }
+
+  @Inject
+  internal lateinit var appRouter: AppRouterType
 
   @Inject
   internal lateinit var factory: ViewModelFactory<VoteListViewModel>
@@ -74,8 +77,7 @@ class VoteListFragment : BaseFragment() {
     val adapter = GroupAdapter<GroupieViewHolder>()
     adapter.setOnItemClickListener { item, _ ->
       if (item is ArticleItem) {
-        val app = requireActivity().application as GaiaType
-        startActivity(app.newArticleDetailActivity(item.article))
+        startActivity(appRouter.newArticleDetailActivity(item.article))
       }
     }
 
