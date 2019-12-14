@@ -25,7 +25,8 @@ data class ListingDataResponse(
         Article(id = "t3"),
         Message(id = "t4"),
         Subreddit(id = "t5"),
-        Award(id = "t6")
+        Award(id = "t6"),
+        More(id = "more")
       }
       sealed class Data {
         data class Comment(
@@ -35,7 +36,7 @@ data class ListingDataResponse(
         data class Article(
           @Json(name = "id") val id: String,
           @Json(name = "name") val name: String,
-          @Json(name = "subreddit_name_prefixed") val category: String,
+          @Json(name = "subreddit") val category: String,
           @Json(name = "title") val title: String,
           @Json(name = "thumbnail") val thumbnail: String?,
           @Json(name = "author") val author: String,
@@ -43,6 +44,11 @@ data class ListingDataResponse(
           @Json(name = "ups") val ups: Int,
           @Json(name = "downs") val downs: Int,
           @Json(name = "num_comments") val comments: Int
+        ) : Data()
+        data class More(
+          @Json(name = "id") val id: String,
+          @Json(name = "name") val name: String,
+          @Json(name = "count") val count: String
         ) : Data()
       }
       data class Comment(
@@ -80,6 +86,9 @@ data class ListingDataResponse(
           }
         }
       }
+      data class More(
+        @Json(name = "data") override val data: Data.More
+      ) : Child(Kind.More)
       abstract val data: Data
     }
   }

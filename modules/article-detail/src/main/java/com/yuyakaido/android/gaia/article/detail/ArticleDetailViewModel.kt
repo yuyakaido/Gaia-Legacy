@@ -27,7 +27,10 @@ class ArticleDetailViewModel @Inject constructor(
     thumbnail.postValue(article.thumbnail)
 
     viewModelScope.launch {
-      val response = service.comments()
+      val response = service.comments(
+        category = article.category,
+        id = article.id.value
+      )
       val responseOfComment = response.firstOrNull {
         it.data.children.any { child ->
           child.kind == ListingDataResponse.Children.Child.Kind.Comment

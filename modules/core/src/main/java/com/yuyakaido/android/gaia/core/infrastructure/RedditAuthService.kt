@@ -10,8 +10,11 @@ interface RedditAuthService {
     @Query("after") after: String?
   ): ListingDataResponse
 
-  @GET("r/androiddev/comments/e4xhq3.json")
-  suspend fun comments(): List<ListingDataResponse>
+  @GET("r/{category}/comments/{id}.json")
+  suspend fun comments(
+    @Path("category") category: String,
+    @Path("id") id: String
+  ): List<ListingDataResponse>
 
   @GET("api/v1/me")
   suspend fun me(): MeResponse

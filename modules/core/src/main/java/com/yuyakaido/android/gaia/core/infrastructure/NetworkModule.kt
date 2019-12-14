@@ -45,6 +45,10 @@ class NetworkModule {
             ListingDataResponse.Children.Child.Article::class.java,
             ListingDataResponse.Children.Child.Kind.Article.id
           )
+          .withSubtype(
+            ListingDataResponse.Children.Child.More::class.java,
+            ListingDataResponse.Children.Child.Kind.More.id
+          )
       )
       .add(KotlinJsonAdapterFactory())
       .build()
