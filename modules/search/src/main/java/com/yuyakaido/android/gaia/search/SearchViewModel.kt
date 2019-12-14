@@ -5,14 +5,14 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.yuyakaido.android.gaia.core.entity.Article
-import com.yuyakaido.android.gaia.core.infrastructure.RedditPublicService
+import com.yuyakaido.android.gaia.core.infrastructure.ArticleRepository
 import com.yuyakaido.android.gaia.core.value.TrendingArticle
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class SearchViewModel @Inject constructor(
   application: Application,
-  private val service: RedditPublicService
+  private val repository: ArticleRepository
 ) : AndroidViewModel(application) {
 
   val trendingArticles = MutableLiveData<List<TrendingArticle>>()
@@ -20,16 +20,15 @@ class SearchViewModel @Inject constructor(
 
   fun onBind() {
     viewModelScope.launch {
-      val response = service.trending()
-      trendingArticles.postValue(response.toEntities())
+      val articles = repository.trendingArticles()
+      trendingArticles.postValue(articles)
     }
   }
 
   fun onTextChange(text: String) {
     viewModelScope.launch {
-      val response = service.search(query = text)
-      val item = response.toArticlePaginationItem()
-      searchedArticles.postValue(item.entities)
+      val result = repository.search(query = text)
+      searchedArticles.postValue(result.entities)
     }
   }
 

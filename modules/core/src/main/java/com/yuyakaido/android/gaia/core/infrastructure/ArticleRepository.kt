@@ -3,22 +3,20 @@ package com.yuyakaido.android.gaia.core.infrastructure
 import com.yuyakaido.android.gaia.core.app.AppScope
 import com.yuyakaido.android.gaia.core.entity.Article
 import com.yuyakaido.android.gaia.core.entity.Me
-import com.yuyakaido.android.gaia.core.value.ArticleListPage
-import com.yuyakaido.android.gaia.core.value.EntityPaginationItem
-import com.yuyakaido.android.gaia.core.value.VoteListPage
-import com.yuyakaido.android.gaia.core.value.VoteResult
+import com.yuyakaido.android.gaia.core.value.*
 import javax.inject.Inject
 
 @AppScope
 class ArticleRepository @Inject constructor(
-  private val service: RedditAuthService
+  private val publicService: RedditPublicService,
+  private val authService: RedditAuthService
 ) {
 
   suspend fun articles(
     page: ArticleListPage,
     after: String?
   ): EntityPaginationItem<Article> {
-    return service
+    return authService
       .articles(
         path = page.path,
         after = after
@@ -30,7 +28,7 @@ class ArticleRepository @Inject constructor(
     me: Me,
     page: VoteListPage
   ): EntityPaginationItem<Article> {
-    return service
+    return authService
       .voted(
         user = me.name,
         type = page.path
@@ -39,7 +37,19 @@ class ArticleRepository @Inject constructor(
   }
 
   suspend fun vote(result: VoteResult) {
-    service.vote(id = result.article.name, dir = result.dir)
+    authService.vote(id = result.article.name, dir = result.dir)
+  }
+
+  suspend fun trendingArticles(): List<TrendingArticle> {
+    return publicService
+      .trending()
+      .toEntities()
+  }
+
+  suspend fun search(query: String): EntityPaginationItem<Article> {
+    return publicService
+      .search(query = query)
+      .toArticlePaginationItem()
   }
 
 }
