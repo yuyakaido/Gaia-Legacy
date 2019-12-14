@@ -1,6 +1,7 @@
 package com.yuyakaido.android.gaia.core.infrastructure
 
 import android.app.Application
+import com.facebook.stetho.okhttp3.StethoInterceptor
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.adapters.PolymorphicJsonAdapterFactory
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
@@ -22,6 +23,7 @@ class NetworkModule {
       .apply { level = HttpLoggingInterceptor.Level.BASIC }
     return OkHttpClient
       .Builder()
+      .addNetworkInterceptor(StethoInterceptor())
       .addInterceptor(httpLoggingInterceptor)
       .addInterceptor(AuthInterceptor(application))
       .build()

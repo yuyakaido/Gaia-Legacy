@@ -42,7 +42,8 @@ buildscript {
       material: '1.0.0'
     ],
     debugging: [
-      timber: '4.7.1'
+      timber: '4.7.1',
+      stetho: '1.5.1'
     ]
   ]
   ext.libs = [
@@ -107,7 +108,11 @@ buildscript {
       material: "com.google.android.material:material:$versions.widget.material"
     ],
     debugging: [
-      timber: "com.jakewharton.timber:timber:$versions.debugging.timber"
+      timber: "com.jakewharton.timber:timber:$versions.debugging.timber",
+      stetho: [
+        core: "com.facebook.stetho:stetho:$versions.debugging.stetho",
+        okhttp: "com.facebook.stetho:stetho-okhttp3:$versions.debugging.stetho"
+      ]
     ]
   ]
   repositories {
