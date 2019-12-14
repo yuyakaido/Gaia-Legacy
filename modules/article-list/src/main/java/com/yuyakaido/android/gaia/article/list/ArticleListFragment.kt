@@ -22,6 +22,7 @@ import com.yuyakaido.android.gaia.core.misc.dpTpPx
 import com.yuyakaido.android.gaia.core.presentation.ArticleItem
 import com.yuyakaido.android.gaia.core.presentation.BaseFragment
 import com.yuyakaido.android.gaia.core.presentation.ViewModelFactory
+import com.yuyakaido.android.gaia.core.value.ArticleListPage
 import timber.log.Timber
 import javax.inject.Inject
 

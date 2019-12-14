@@ -20,6 +20,7 @@ import com.yuyakaido.android.gaia.core.misc.dpTpPx
 import com.yuyakaido.android.gaia.core.presentation.ArticleItem
 import com.yuyakaido.android.gaia.core.presentation.BaseFragment
 import com.yuyakaido.android.gaia.core.presentation.ViewModelFactory
+import com.yuyakaido.android.gaia.core.value.VoteListPage
 import com.yuyakaido.android.gaia.profile.databinding.FragmentVoteListBinding
 import javax.inject.Inject
 

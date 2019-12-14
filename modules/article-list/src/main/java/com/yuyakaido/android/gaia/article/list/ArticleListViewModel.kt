@@ -4,7 +4,8 @@ import android.app.Application
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.yuyakaido.android.gaia.core.entity.Article
-import com.yuyakaido.android.gaia.core.infrastructure.RedditAuthService
+import com.yuyakaido.android.gaia.core.infrastructure.ArticleRepository
+import com.yuyakaido.android.gaia.core.value.ArticleListPage
 import com.yuyakaido.android.gaia.core.value.EntityPaginationItem
 import com.yuyakaido.android.gaia.core.value.VoteResult
 import kotlinx.coroutines.launch
@@ -14,7 +15,7 @@ import javax.inject.Inject
 class ArticleListViewModel @Inject constructor(
   application: Application,
   override val page: ArticleListPage,
-  override val service: RedditAuthService
+  override val repository: ArticleRepository
 ) : ArticleListViewModelType(application) {
 
   override val items = MutableLiveData<List<EntityPaginationItem<Article>>>()
@@ -23,7 +24,7 @@ class ArticleListViewModel @Inject constructor(
   var isLoading: Boolean = false
 
   override fun onBind() {
-    Timber.d("service = ${service.hashCode()}")
+    Timber.d("repository = ${repository.hashCode()}")
     if (items.value == null) {
       onPaginate(page)
     }
@@ -35,11 +36,11 @@ class ArticleListViewModel @Inject constructor(
     }
     viewModelScope.launch {
       isLoading = true
-      val response = service.articles(path = page.path, after = after)
+      val result = repository.articles(page = page, after = after)
       val oldItems = items.value ?: emptyList()
-      val newItems = oldItems.plus(response.toArticlePaginationItem())
+      val newItems = oldItems.plus(result)
       items.postValue(newItems)
-      after = response.data.after
+      after = result.after
       isLoading = false
     }
   }
@@ -54,7 +55,7 @@ class ArticleListViewModel @Inject constructor(
 
   private fun vote(result: VoteResult) {
     viewModelScope.launch {
-      service.vote(id = result.article.name, dir = result.dir)
+      repository.vote(result = result)
       refreshByVoteResult(result)
     }
   }

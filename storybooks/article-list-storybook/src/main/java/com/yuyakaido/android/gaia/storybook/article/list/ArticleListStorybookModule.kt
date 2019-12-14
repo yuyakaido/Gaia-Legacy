@@ -4,7 +4,7 @@ import android.app.Application
 import com.yuyakaido.android.gaia.article.list.ArticleListFragment
 import com.yuyakaido.android.gaia.article.list.ArticleListModuleType
 import com.yuyakaido.android.gaia.article.list.ArticleListViewModelType
-import com.yuyakaido.android.gaia.core.infrastructure.RedditAuthService
+import com.yuyakaido.android.gaia.core.infrastructure.ArticleRepository
 import dagger.Module
 import dagger.Provides
 
@@ -15,12 +15,12 @@ class ArticleListStorybookModule : ArticleListModuleType {
   override fun provideArticleListViewModel(
     application: Application,
     fragment: ArticleListFragment,
-    service: RedditAuthService
+    repository: ArticleRepository
   ): ArticleListViewModelType {
     return ArticleListStorybookViewModel(
       application = application,
       page = fragment.getArticleListPage(),
-      service = service
+      repository = repository
     )
   }
 

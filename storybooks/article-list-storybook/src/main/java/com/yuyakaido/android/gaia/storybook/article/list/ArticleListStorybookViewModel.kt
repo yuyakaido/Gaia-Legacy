@@ -2,10 +2,10 @@ package com.yuyakaido.android.gaia.storybook.article.list
 
 import android.app.Application
 import androidx.lifecycle.MutableLiveData
-import com.yuyakaido.android.gaia.article.list.ArticleListPage
 import com.yuyakaido.android.gaia.article.list.ArticleListViewModelType
 import com.yuyakaido.android.gaia.core.entity.Article
-import com.yuyakaido.android.gaia.core.infrastructure.RedditAuthService
+import com.yuyakaido.android.gaia.core.infrastructure.ArticleRepository
+import com.yuyakaido.android.gaia.core.value.ArticleListPage
 import com.yuyakaido.android.gaia.core.value.EntityPaginationItem
 import com.yuyakaido.android.gaia.core.value.VoteResult
 import javax.inject.Inject
@@ -14,7 +14,7 @@ import kotlin.random.Random
 class ArticleListStorybookViewModel @Inject constructor(
   application: Application,
   override val page: ArticleListPage,
-  override val service: RedditAuthService
+  override val repository: ArticleRepository
 ) : ArticleListViewModelType(application) {
 
   override val items = MutableLiveData<List<EntityPaginationItem<Article>>>()

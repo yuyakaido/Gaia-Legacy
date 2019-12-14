@@ -4,7 +4,8 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import com.yuyakaido.android.gaia.core.entity.Article
-import com.yuyakaido.android.gaia.core.infrastructure.RedditAuthService
+import com.yuyakaido.android.gaia.core.infrastructure.ArticleRepository
+import com.yuyakaido.android.gaia.core.value.ArticleListPage
 import com.yuyakaido.android.gaia.core.value.EntityPaginationItem
 import com.yuyakaido.android.gaia.core.value.VoteResult
 
@@ -13,7 +14,7 @@ abstract class ArticleListViewModelType(
 ) : AndroidViewModel(application) {
 
   abstract val page: ArticleListPage
-  abstract val service: RedditAuthService
+  abstract val repository: ArticleRepository
 
   abstract val items: MutableLiveData<List<EntityPaginationItem<Article>>>
 
