@@ -1,15 +1,27 @@
 package com.yuyakaido.android.gaia.home
 
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.viewModels
-import com.yuyakaido.android.gaia.core.presentation.BaseActivity
 import com.yuyakaido.android.gaia.core.app.GaiaType
+import com.yuyakaido.android.gaia.core.presentation.BaseActivity
 import com.yuyakaido.android.gaia.core.presentation.ViewModelFactory
 import com.yuyakaido.android.gaia.home.databinding.ActivityHomeBinding
 import timber.log.Timber
 import javax.inject.Inject
 
 class HomeActivity : BaseActivity() {
+
+  companion object {
+    fun createIntent(context: Context): Intent {
+      return Intent(context, HomeActivity::class.java)
+        .apply {
+          addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
+          addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+        }
+    }
+  }
 
   @Inject
   internal lateinit var factory: ViewModelFactory<HomeViewModel>

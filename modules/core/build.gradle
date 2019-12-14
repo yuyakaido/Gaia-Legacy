@@ -16,15 +16,6 @@ android {
   androidExtensions {
     experimental = true
   }
-  buildTypes {
-    debug {
-      def properties = new Properties()
-      properties.load(project.rootProject.file('local.properties').newDataInputStream())
-      buildConfigField "String", "REDDIT_ACCESS_TOKEN", "\"${properties.getProperty('REDDIT_ACCESS_TOKEN')}\""
-    }
-    release {
-    }
-  }
 }
 
 dependencies {
@@ -41,6 +32,7 @@ dependencies {
   api libs.androidx.lifecycle.livedata
   api libs.androidx.constraintlayout
   api libs.androidx.recyclerview
+  api libs.androidx.preference
 
   // Dependency Injection
   api libs.dagger.java.core

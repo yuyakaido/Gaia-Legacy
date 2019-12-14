@@ -1,5 +1,6 @@
 package com.yuyakaido.android.gaia.core.infrastructure
 
+import android.app.Application
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.adapters.PolymorphicJsonAdapterFactory
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
@@ -16,13 +17,13 @@ class NetworkModule {
 
   @AppScope
   @Provides
-  fun provideOkHttpClient(): OkHttpClient {
+  fun provideOkHttpClient(application: Application): OkHttpClient {
     val httpLoggingInterceptor = HttpLoggingInterceptor()
       .apply { level = HttpLoggingInterceptor.Level.BASIC }
     return OkHttpClient
       .Builder()
       .addInterceptor(httpLoggingInterceptor)
-      .addInterceptor(AuthInterceptor())
+      .addInterceptor(AuthInterceptor(application))
       .build()
   }
 
@@ -75,6 +76,21 @@ class NetworkModule {
       .addConverterFactory(MoshiConverterFactory.create(moshi))
       .build()
     return retrofit.create(RedditAuthService::class.java)
+  }
+
+  @AppScope
+  @Provides
+  fun provideRedditWwwService(
+    moshi: Moshi,
+    client: OkHttpClient
+  ): RedditWwwService {
+    val retrofit = Retrofit
+      .Builder()
+      .client(client)
+      .baseUrl("https://www.reddit.com/")
+      .addConverterFactory(MoshiConverterFactory.create(moshi))
+      .build()
+    return retrofit.create(RedditWwwService::class.java)
   }
 
 }

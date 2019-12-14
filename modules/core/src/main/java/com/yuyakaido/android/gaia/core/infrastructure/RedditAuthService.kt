@@ -1,7 +1,5 @@
 package com.yuyakaido.android.gaia.core.infrastructure
 
-import com.yuyakaido.android.gaia.core.infrastructure.ListingDataResponse
-import com.yuyakaido.android.gaia.core.infrastructure.MeResponse
 import retrofit2.http.*
 
 interface RedditAuthService {
