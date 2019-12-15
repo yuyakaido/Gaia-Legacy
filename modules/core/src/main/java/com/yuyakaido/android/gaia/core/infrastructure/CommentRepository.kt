@@ -1,8 +1,8 @@
 package com.yuyakaido.android.gaia.core.infrastructure
 
 import com.yuyakaido.android.gaia.core.app.AppScope
-import com.yuyakaido.android.gaia.core.entity.Article
-import com.yuyakaido.android.gaia.core.entity.Comment
+import com.yuyakaido.android.gaia.core.domain.entity.Article
+import com.yuyakaido.android.gaia.core.domain.entity.Comment
 import javax.inject.Inject
 
 @AppScope

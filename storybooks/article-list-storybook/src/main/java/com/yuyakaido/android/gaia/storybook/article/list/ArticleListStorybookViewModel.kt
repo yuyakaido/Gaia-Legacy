@@ -3,7 +3,7 @@ package com.yuyakaido.android.gaia.storybook.article.list
 import android.app.Application
 import androidx.lifecycle.MutableLiveData
 import com.yuyakaido.android.gaia.article.list.ArticleListViewModelType
-import com.yuyakaido.android.gaia.core.entity.Article
+import com.yuyakaido.android.gaia.core.domain.entity.Article
 import com.yuyakaido.android.gaia.core.infrastructure.ArticleRepository
 import com.yuyakaido.android.gaia.core.value.ArticleListPage
 import com.yuyakaido.android.gaia.core.value.EntityPaginationItem

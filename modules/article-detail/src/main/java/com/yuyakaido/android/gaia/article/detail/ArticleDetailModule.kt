@@ -1,6 +1,6 @@
 package com.yuyakaido.android.gaia.article.detail
 
-import com.yuyakaido.android.gaia.core.entity.Article
+import com.yuyakaido.android.gaia.core.domain.entity.Article
 import dagger.Module
 import dagger.Provides
 

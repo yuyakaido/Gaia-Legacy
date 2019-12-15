@@ -1,6 +1,6 @@
 package com.yuyakaido.android.gaia.core.value
 
-import com.yuyakaido.android.gaia.core.entity.Article
+import com.yuyakaido.android.gaia.core.domain.entity.Article
 
 data class VoteResult(
   val article: Article,

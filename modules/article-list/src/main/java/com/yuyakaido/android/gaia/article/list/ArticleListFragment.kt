@@ -17,7 +17,7 @@ import com.xwray.groupie.GroupieViewHolder
 import com.yqritc.recyclerviewflexibledivider.HorizontalDividerItemDecoration
 import com.yuyakaido.android.gaia.article.list.databinding.FragmentArticleListBinding
 import com.yuyakaido.android.gaia.core.app.AppRouterType
-import com.yuyakaido.android.gaia.core.entity.Article
+import com.yuyakaido.android.gaia.core.domain.entity.Article
 import com.yuyakaido.android.gaia.core.misc.dpTpPx
 import com.yuyakaido.android.gaia.core.presentation.ArticleItem
 import com.yuyakaido.android.gaia.core.presentation.BaseFragment

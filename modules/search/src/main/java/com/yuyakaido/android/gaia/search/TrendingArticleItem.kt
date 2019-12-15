@@ -2,7 +2,7 @@ package com.yuyakaido.android.gaia.search
 
 import com.xwray.groupie.Item
 import com.xwray.groupie.databinding.BindableItem
-import com.yuyakaido.android.gaia.core.value.TrendingArticle
+import com.yuyakaido.android.gaia.core.domain.value.TrendingArticle
 import com.yuyakaido.android.gaia.search.databinding.ItemTrendingArticleBinding
 
 class TrendingArticleItem(

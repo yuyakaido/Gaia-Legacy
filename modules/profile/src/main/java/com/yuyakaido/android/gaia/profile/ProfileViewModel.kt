@@ -4,7 +4,7 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.yuyakaido.android.gaia.core.entity.Me
+import com.yuyakaido.android.gaia.core.domain.entity.Me
 import com.yuyakaido.android.gaia.core.infrastructure.MeRepository
 import kotlinx.coroutines.launch
 import timber.log.Timber

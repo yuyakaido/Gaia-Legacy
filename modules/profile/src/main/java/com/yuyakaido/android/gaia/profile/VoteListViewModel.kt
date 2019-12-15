@@ -4,8 +4,8 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.yuyakaido.android.gaia.core.entity.Article
-import com.yuyakaido.android.gaia.core.entity.Me
+import com.yuyakaido.android.gaia.core.domain.entity.Article
+import com.yuyakaido.android.gaia.core.domain.entity.Me
 import com.yuyakaido.android.gaia.core.infrastructure.ArticleRepository
 import com.yuyakaido.android.gaia.core.value.VoteListPage
 import kotlinx.coroutines.launch

@@ -3,8 +3,8 @@ package com.yuyakaido.android.gaia.core.infrastructure
 import android.net.Uri
 import android.webkit.URLUtil
 import com.squareup.moshi.Json
-import com.yuyakaido.android.gaia.core.entity.Article
-import com.yuyakaido.android.gaia.core.entity.Comment
+import com.yuyakaido.android.gaia.core.domain.entity.Article
+import com.yuyakaido.android.gaia.core.domain.entity.Comment
 import com.yuyakaido.android.gaia.core.value.EntityPaginationItem
 
 // https://www.reddit.com/dev/api/
@@ -54,9 +54,9 @@ data class ListingDataResponse(
       data class Comment(
         @Json(name = "data") override val data: Data.Comment
       ) : Child(Kind.Comment) {
-        fun toEntity(): com.yuyakaido.android.gaia.core.entity.Comment {
+        fun toEntity(): com.yuyakaido.android.gaia.core.domain.entity.Comment {
           return Comment(
-            id = com.yuyakaido.android.gaia.core.entity.Comment.ID(value = data.id),
+            id = com.yuyakaido.android.gaia.core.domain.entity.Comment.ID(value = data.id),
             body = data.body
           )
         }
@@ -64,9 +64,9 @@ data class ListingDataResponse(
       data class Article(
         @Json(name = "data") override val data: Data.Article
       ) : Child(Kind.Article) {
-        fun toEntity(): com.yuyakaido.android.gaia.core.entity.Article {
+        fun toEntity(): com.yuyakaido.android.gaia.core.domain.entity.Article {
           return Article(
-            id = com.yuyakaido.android.gaia.core.entity.Article.ID(value = data.id),
+            id = com.yuyakaido.android.gaia.core.domain.entity.Article.ID(value = data.id),
             name = data.name,
             category = data.category,
             title = data.title,

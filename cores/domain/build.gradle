@@ -1,5 +1,6 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
 
 android {
   buildToolsVersion versions.android.buildTools
@@ -7,6 +8,9 @@ android {
   defaultConfig {
     targetSdkVersion versions.android.targetSdk
     minSdkVersion versions.android.minSdk
+  }
+  androidExtensions {
+    experimental = true
   }
 }
 

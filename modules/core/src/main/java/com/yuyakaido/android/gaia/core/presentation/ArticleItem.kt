@@ -9,7 +9,7 @@ import com.xwray.groupie.Item
 import com.xwray.groupie.databinding.BindableItem
 import com.yuyakaido.android.gaia.core.R
 import com.yuyakaido.android.gaia.core.databinding.ItemArticleBinding
-import com.yuyakaido.android.gaia.core.entity.Article
+import com.yuyakaido.android.gaia.core.domain.entity.Article
 
 class ArticleItem(
   val article: Article,

@@ -7,8 +7,8 @@ import com.yuyakaido.android.gaia.article.detail.ArticleDetailActivity
 import com.yuyakaido.android.gaia.article.list.ArticleListFragment
 import com.yuyakaido.android.gaia.auth.LaunchAuthorizationActivity
 import com.yuyakaido.android.gaia.core.app.AppRouterType
-import com.yuyakaido.android.gaia.core.entity.Article
-import com.yuyakaido.android.gaia.core.entity.Me
+import com.yuyakaido.android.gaia.core.domain.entity.Article
+import com.yuyakaido.android.gaia.core.domain.entity.Me
 import com.yuyakaido.android.gaia.core.value.ArticleListPage
 import com.yuyakaido.android.gaia.core.value.VoteListPage
 import com.yuyakaido.android.gaia.home.HomeActivity

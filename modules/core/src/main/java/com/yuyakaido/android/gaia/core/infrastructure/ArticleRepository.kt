@@ -1,8 +1,9 @@
 package com.yuyakaido.android.gaia.core.infrastructure
 
 import com.yuyakaido.android.gaia.core.app.AppScope
-import com.yuyakaido.android.gaia.core.entity.Article
-import com.yuyakaido.android.gaia.core.entity.Me
+import com.yuyakaido.android.gaia.core.domain.entity.Article
+import com.yuyakaido.android.gaia.core.domain.entity.Me
+import com.yuyakaido.android.gaia.core.domain.value.TrendingArticle
 import com.yuyakaido.android.gaia.core.value.*
 import javax.inject.Inject
 

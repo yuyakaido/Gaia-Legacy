@@ -1,4 +1,4 @@
-package com.yuyakaido.android.gaia.core.entity
+package com.yuyakaido.android.gaia.core.domain.entity
 
 import android.net.Uri
 import android.os.Parcelable
