@@ -19,7 +19,7 @@ android {
 
 dependencies {
   // Modules - Feature
-  implementation project(':modules:article-list')
+  implementation project(':features:article-list')
 
   // Dependency Injection
   kapt libs.dagger.java.compiler

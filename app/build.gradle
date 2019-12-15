@@ -22,12 +22,12 @@ dependencies {
   implementation project(':cores:gateway')
 
   // Modules - Feature
-  implementation project(':modules:auth')
-  implementation project(':modules:home')
-  implementation project(':modules:article-list')
-  implementation project(':modules:article-detail')
-  implementation project(':modules:profile')
-  implementation project(':modules:search')
+  implementation project(':features:auth')
+  implementation project(':features:home')
+  implementation project(':features:article-list')
+  implementation project(':features:article-detail')
+  implementation project(':features:profile')
+  implementation project(':features:search')
 
   // Dependency Injection
   kapt libs.dagger.java.compiler
