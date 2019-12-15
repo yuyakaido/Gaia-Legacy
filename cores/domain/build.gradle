@@ -1,0 +1,16 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+
+android {
+  buildToolsVersion versions.android.buildTools
+  compileSdkVersion versions.android.compileSdk
+  defaultConfig {
+    targetSdkVersion versions.android.targetSdk
+    minSdkVersion versions.android.minSdk
+  }
+}
+
+dependencies {
+  // Kotlin
+  api libs.kotlin.stdlib
+}

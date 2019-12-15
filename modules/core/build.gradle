@@ -19,6 +19,9 @@ android {
 }
 
 dependencies {
+  // Modules
+  api project(':cores:domain')
+
   // Kotlin
   api libs.kotlin.stdlib
   api libs.kotlin.coroutines
