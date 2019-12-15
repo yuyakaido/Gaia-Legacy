@@ -5,10 +5,10 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import com.yuyakaido.android.gaia.auth.databinding.ActivityLaunchAuthorizationBinding
+import com.yuyakaido.android.gaia.core.domain.app.AccessTokenServiceType
 import com.yuyakaido.android.gaia.core.domain.app.AppRouterType
-import com.yuyakaido.android.gaia.core.presentation.BaseActivity
-import com.yuyakaido.android.gaia.core.domain.value.AccessToken
 import com.yuyakaido.android.gaia.core.infrastructure.Constant
+import com.yuyakaido.android.gaia.core.presentation.BaseActivity
 import javax.inject.Inject
 
 class LaunchAuthorizationActivity : BaseActivity() {
@@ -26,6 +26,9 @@ class LaunchAuthorizationActivity : BaseActivity() {
   @Inject
   internal lateinit var appRouter: AppRouterType
 
+  @Inject
+  internal lateinit var accessTokenService: AccessTokenServiceType
+
   private val binding by lazy { ActivityLaunchAuthorizationBinding.inflate(layoutInflater) }
 
   override fun onCreate(savedInstanceState: Bundle?) {
@@ -35,7 +38,7 @@ class LaunchAuthorizationActivity : BaseActivity() {
   }
 
   private fun dispatch() {
-    val token = AccessToken.current(this)
+    val token = accessTokenService.current()
     if (token.isLoggedIn()) {
       startActivity(appRouter.newHomeActivity())
     } else {
