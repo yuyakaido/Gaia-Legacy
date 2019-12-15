@@ -20,7 +20,7 @@ android {
 
 dependencies {
   // Modules
-  api project(':cores:domain')
+  api project(':cores:presentation')
 
   // Kotlin
   api libs.kotlin.stdlib

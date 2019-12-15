@@ -2,6 +2,7 @@ include ':app'
 
 // Modules - Core
 include ':cores:domain'
+include ':cores:presentation'
 include ':modules:core'
 
 // Modules - Feature
