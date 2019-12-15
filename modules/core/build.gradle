@@ -24,25 +24,10 @@ dependencies {
   api project(':cores:presentation')
 
   // Kotlin
-  api libs.kotlin.stdlib
   api libs.kotlin.coroutines
 
-  // AndroidX
-  api libs.androidx.appcompat
-  api libs.androidx.ktx.core
-  api libs.androidx.ktx.fragment
-  api libs.androidx.lifecycle.extensions
-  api libs.androidx.lifecycle.viewmodel
-  api libs.androidx.lifecycle.livedata
-  api libs.androidx.constraintlayout
-  api libs.androidx.recyclerview
-  api libs.androidx.preference
-
   // Dependency Injection
-  api libs.dagger.java.core
   kapt libs.dagger.java.compiler
-  api libs.dagger.android.core
-  api libs.dagger.android.support
   kapt libs.dagger.android.compiler
 
   // Networking
@@ -52,14 +37,6 @@ dependencies {
   api libs.networking.retrofit.moshi
   api libs.networking.moshi.core
   api libs.networking.moshi.adapter
-  api libs.networking.glide.core
-  kapt libs.networking.glide.compiler
-
-  // Widget
-  api libs.widget.groupie.core
-  api libs.widget.groupie.databinding
-  api libs.widget.divider
-  api libs.widget.material
 
   // Debugging
   api libs.debugging.timber

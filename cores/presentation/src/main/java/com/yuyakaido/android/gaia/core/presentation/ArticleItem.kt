@@ -7,9 +7,8 @@ import androidx.core.content.ContextCompat
 import com.bumptech.glide.Glide
 import com.xwray.groupie.Item
 import com.xwray.groupie.databinding.BindableItem
-import com.yuyakaido.android.gaia.core.R
-import com.yuyakaido.android.gaia.core.databinding.ItemArticleBinding
 import com.yuyakaido.android.gaia.core.domain.entity.Article
+import com.yuyakaido.android.gaia.core.presentation.databinding.ItemArticleBinding
 
 class ArticleItem(
   val article: Article,
@@ -50,8 +49,8 @@ class ArticleItem(
     binding.author.text = binding.root.resources.getString(R.string.author, article.author)
     binding.title.text = article.title
     binding.voteCount.text = article.voteCount.toString()
-    binding.upvote.setOnClickListener { upvoteListener?.invoke(article) }
-    binding.downvote.setOnClickListener { downvoteListener?.invoke(article) }
+    binding.upvote.setOnClickListener { upvoteListener.invoke(article) }
+    binding.downvote.setOnClickListener { downvoteListener.invoke(article) }
     when {
       article.likes == null -> {
         binding.upvote.setImageResource(R.drawable.ic_upvote_inactive)
