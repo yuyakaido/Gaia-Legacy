@@ -1,9 +1,9 @@
 package com.yuyakaido.android.gaia.storybook.article.list
 
 import android.app.Application
-import com.yuyakaido.android.gaia.core.app.AppRouterType
-import com.yuyakaido.android.gaia.core.app.AppScope
-import com.yuyakaido.android.gaia.core.app.NoopAppRouter
+import com.yuyakaido.android.gaia.core.domain.app.AppRouterType
+import com.yuyakaido.android.gaia.core.domain.app.AppScope
+import com.yuyakaido.android.gaia.core.domain.app.NoopAppRouter
 import dagger.Module
 import dagger.Provides
 

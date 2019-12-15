@@ -1,4 +1,4 @@
-package com.yuyakaido.android.gaia.core.app
+package com.yuyakaido.android.gaia.core.domain.app
 
 import javax.inject.Scope
 

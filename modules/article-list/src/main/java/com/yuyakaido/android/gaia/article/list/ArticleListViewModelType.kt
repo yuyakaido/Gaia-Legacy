@@ -4,10 +4,10 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import com.yuyakaido.android.gaia.core.domain.entity.Article
+import com.yuyakaido.android.gaia.core.domain.value.ArticleListPage
+import com.yuyakaido.android.gaia.core.domain.value.EntityPaginationItem
+import com.yuyakaido.android.gaia.core.domain.value.VoteResult
 import com.yuyakaido.android.gaia.core.infrastructure.ArticleRepository
-import com.yuyakaido.android.gaia.core.value.ArticleListPage
-import com.yuyakaido.android.gaia.core.value.EntityPaginationItem
-import com.yuyakaido.android.gaia.core.value.VoteResult
 
 abstract class ArticleListViewModelType(
   application: Application

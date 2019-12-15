@@ -13,9 +13,16 @@ android {
   androidExtensions {
     experimental = true
   }
+  dataBinding {
+    enabled = true
+  }
 }
 
 dependencies {
   // Modules
   api project(':cores:domain')
+
+  // Dependency Injection
+  kapt libs.dagger.java.compiler
+  kapt libs.dagger.android.compiler
 }

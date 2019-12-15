@@ -5,7 +5,7 @@ import android.webkit.URLUtil
 import com.squareup.moshi.Json
 import com.yuyakaido.android.gaia.core.domain.entity.Article
 import com.yuyakaido.android.gaia.core.domain.entity.Comment
-import com.yuyakaido.android.gaia.core.value.EntityPaginationItem
+import com.yuyakaido.android.gaia.core.domain.value.EntityPaginationItem
 
 // https://www.reddit.com/dev/api/
 data class ListingDataResponse(

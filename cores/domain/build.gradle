@@ -13,11 +13,26 @@ android {
   androidExtensions {
     experimental = true
   }
+  dataBinding {
+    enabled = true
+  }
 }
 
 dependencies {
   // Kotlin
   api libs.kotlin.stdlib
+  api libs.kotlin.coroutines
+
+  // AndroidX
+  api libs.androidx.appcompat
+  api libs.androidx.ktx.core
+  api libs.androidx.ktx.fragment
+  api libs.androidx.lifecycle.extensions
+  api libs.androidx.lifecycle.viewmodel
+  api libs.androidx.lifecycle.livedata
+  api libs.androidx.constraintlayout
+  api libs.androidx.recyclerview
+  api libs.androidx.preference
 
   // Dependency Injection
   api libs.dagger.java.core
@@ -25,4 +40,19 @@ dependencies {
   api libs.dagger.android.core
   api libs.dagger.android.support
   kapt libs.dagger.android.compiler
+
+  // Networking
+  api libs.networking.okhttp.core
+  api libs.networking.okhttp.logging
+  api libs.networking.retrofit.core
+  api libs.networking.retrofit.moshi
+  api libs.networking.moshi.core
+  api libs.networking.moshi.adapter
+  api libs.networking.glide.core
+  kapt libs.networking.glide.compiler
+
+  // Debugging
+  api libs.debugging.timber
+  api libs.debugging.stetho.core
+  api libs.debugging.stetho.okhttp
 }

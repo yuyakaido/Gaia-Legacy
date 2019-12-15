@@ -6,11 +6,11 @@ import androidx.fragment.app.Fragment
 import com.yuyakaido.android.gaia.article.detail.ArticleDetailActivity
 import com.yuyakaido.android.gaia.article.list.ArticleListFragment
 import com.yuyakaido.android.gaia.auth.LaunchAuthorizationActivity
-import com.yuyakaido.android.gaia.core.app.AppRouterType
+import com.yuyakaido.android.gaia.core.domain.app.AppRouterType
 import com.yuyakaido.android.gaia.core.domain.entity.Article
 import com.yuyakaido.android.gaia.core.domain.entity.Me
-import com.yuyakaido.android.gaia.core.value.ArticleListPage
-import com.yuyakaido.android.gaia.core.value.VoteListPage
+import com.yuyakaido.android.gaia.core.domain.value.ArticleListPage
+import com.yuyakaido.android.gaia.core.domain.value.VoteListPage
 import com.yuyakaido.android.gaia.home.HomeActivity
 import com.yuyakaido.android.gaia.profile.ProfileFragment
 import com.yuyakaido.android.gaia.profile.VoteListFragment

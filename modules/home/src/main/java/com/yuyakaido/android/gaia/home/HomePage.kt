@@ -1,7 +1,7 @@
 package com.yuyakaido.android.gaia.home
 
 import androidx.fragment.app.Fragment
-import com.yuyakaido.android.gaia.core.app.AppRouterType
+import com.yuyakaido.android.gaia.core.domain.app.AppRouterType
 
 enum class HomePage(
   val id: Int,

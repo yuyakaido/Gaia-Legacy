@@ -1,4 +1,4 @@
-package com.yuyakaido.android.gaia.core.misc
+package com.yuyakaido.android.gaia.core.domain.extension
 
 import android.content.Context
 

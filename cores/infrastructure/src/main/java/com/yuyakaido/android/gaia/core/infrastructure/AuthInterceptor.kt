@@ -1,8 +1,7 @@
 package com.yuyakaido.android.gaia.core.infrastructure
 
 import android.app.Application
-import com.yuyakaido.android.gaia.core.value.AccessToken
-import com.yuyakaido.android.gaia.core.value.Constant
+import com.yuyakaido.android.gaia.core.domain.value.AccessToken
 import okhttp3.Credentials
 import okhttp3.Interceptor
 import okhttp3.Response

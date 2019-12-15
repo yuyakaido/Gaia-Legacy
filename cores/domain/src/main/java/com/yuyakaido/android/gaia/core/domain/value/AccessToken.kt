@@ -1,4 +1,4 @@
-package com.yuyakaido.android.gaia.core.value
+package com.yuyakaido.android.gaia.core.domain.value
 
 import android.content.Context
 import androidx.core.content.edit
@@ -13,8 +13,7 @@ data class AccessToken(
 
     fun current(context: Context): AccessToken {
       val preference = PreferenceManager.getDefaultSharedPreferences(context)
-      return AccessToken(
-        value = preference.getString(ACCESS_TOKEN, null)
+      return AccessToken(value = preference.getString(ACCESS_TOKEN, null)
       )
     }
 

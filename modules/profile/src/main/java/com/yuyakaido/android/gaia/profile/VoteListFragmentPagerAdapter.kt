@@ -3,9 +3,9 @@ package com.yuyakaido.android.gaia.profile
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
-import com.yuyakaido.android.gaia.core.app.AppRouterType
+import com.yuyakaido.android.gaia.core.domain.app.AppRouterType
 import com.yuyakaido.android.gaia.core.domain.entity.Me
-import com.yuyakaido.android.gaia.core.value.VoteListPage
+import com.yuyakaido.android.gaia.core.domain.value.VoteListPage
 
 class VoteListFragmentPagerAdapter(
   manager: FragmentManager,

@@ -5,7 +5,7 @@ import com.facebook.stetho.okhttp3.StethoInterceptor
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.adapters.PolymorphicJsonAdapterFactory
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
-import com.yuyakaido.android.gaia.core.app.AppScope
+import com.yuyakaido.android.gaia.core.domain.app.AppScope
 import dagger.Module
 import dagger.Provides
 import okhttp3.OkHttpClient

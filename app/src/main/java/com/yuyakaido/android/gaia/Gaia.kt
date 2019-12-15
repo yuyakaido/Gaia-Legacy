@@ -1,6 +1,6 @@
 package com.yuyakaido.android.gaia
 
-import com.yuyakaido.android.gaia.core.app.GaiaType
+import com.yuyakaido.android.gaia.core.domain.app.GaiaType
 import dagger.android.AndroidInjector
 import dagger.android.support.DaggerApplication
 

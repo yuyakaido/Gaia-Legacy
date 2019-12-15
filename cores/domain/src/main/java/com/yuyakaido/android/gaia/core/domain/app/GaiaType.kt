@@ -1,8 +1,8 @@
-package com.yuyakaido.android.gaia.core.app
+package com.yuyakaido.android.gaia.core.domain.app
 
 import com.facebook.stetho.Stetho
-import com.yuyakaido.android.gaia.core.BuildConfig
-import com.yuyakaido.android.gaia.core.value.AccessToken
+import com.yuyakaido.android.gaia.core.domain.BuildConfig
+import com.yuyakaido.android.gaia.core.domain.value.AccessToken
 import dagger.android.support.DaggerApplication
 import retrofit2.HttpException
 import timber.log.Timber

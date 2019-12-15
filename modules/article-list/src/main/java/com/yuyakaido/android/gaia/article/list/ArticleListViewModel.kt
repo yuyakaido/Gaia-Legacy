@@ -4,10 +4,10 @@ import android.app.Application
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.yuyakaido.android.gaia.core.domain.entity.Article
+import com.yuyakaido.android.gaia.core.domain.value.ArticleListPage
+import com.yuyakaido.android.gaia.core.domain.value.EntityPaginationItem
+import com.yuyakaido.android.gaia.core.domain.value.VoteResult
 import com.yuyakaido.android.gaia.core.infrastructure.ArticleRepository
-import com.yuyakaido.android.gaia.core.value.ArticleListPage
-import com.yuyakaido.android.gaia.core.value.EntityPaginationItem
-import com.yuyakaido.android.gaia.core.value.VoteResult
 import kotlinx.coroutines.launch
 import timber.log.Timber
 import javax.inject.Inject

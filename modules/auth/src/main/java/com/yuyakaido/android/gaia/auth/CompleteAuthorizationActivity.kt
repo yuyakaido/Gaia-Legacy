@@ -2,10 +2,10 @@ package com.yuyakaido.android.gaia.auth
 
 import android.os.Bundle
 import com.yuyakaido.android.gaia.auth.databinding.ActivityCompleteAuthorizationBinding
-import com.yuyakaido.android.gaia.core.app.AppRouterType
+import com.yuyakaido.android.gaia.core.domain.app.AppRouterType
+import com.yuyakaido.android.gaia.core.domain.value.AccessToken
 import com.yuyakaido.android.gaia.core.infrastructure.RedditWwwService
 import com.yuyakaido.android.gaia.core.presentation.BaseActivity
-import com.yuyakaido.android.gaia.core.value.AccessToken
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import javax.inject.Inject

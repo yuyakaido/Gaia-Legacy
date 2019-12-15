@@ -22,20 +22,9 @@ dependencies {
   // Modules
   api project(':cores:domain')
 
-  // AndroidX
-  api libs.androidx.appcompat
-  api libs.androidx.ktx.core
-  api libs.androidx.ktx.fragment
-  api libs.androidx.lifecycle.extensions
-  api libs.androidx.lifecycle.viewmodel
-  api libs.androidx.lifecycle.livedata
-  api libs.androidx.constraintlayout
-  api libs.androidx.recyclerview
-  api libs.androidx.preference
-
-  // Networking
-  api libs.networking.glide.core
-  kapt libs.networking.glide.compiler
+  // Dependency Injection
+  kapt libs.dagger.java.compiler
+  kapt libs.dagger.android.compiler
 
   // Widget
   api libs.widget.groupie.core

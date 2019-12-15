@@ -1,7 +1,7 @@
 package com.yuyakaido.android.gaia.profile
 
 import com.yuyakaido.android.gaia.core.domain.entity.Me
-import com.yuyakaido.android.gaia.core.value.VoteListPage
+import com.yuyakaido.android.gaia.core.domain.value.VoteListPage
 import dagger.Module
 import dagger.Provides
 

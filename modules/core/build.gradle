@@ -23,23 +23,7 @@ dependencies {
   api project(':cores:infrastructure')
   api project(':cores:presentation')
 
-  // Kotlin
-  api libs.kotlin.coroutines
-
   // Dependency Injection
   kapt libs.dagger.java.compiler
   kapt libs.dagger.android.compiler
-
-  // Networking
-  api libs.networking.okhttp.core
-  api libs.networking.okhttp.logging
-  api libs.networking.retrofit.core
-  api libs.networking.retrofit.moshi
-  api libs.networking.moshi.core
-  api libs.networking.moshi.adapter
-
-  // Debugging
-  api libs.debugging.timber
-  api libs.debugging.stetho.core
-  api libs.debugging.stetho.okhttp
 }

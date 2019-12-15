@@ -1,7 +1,7 @@
-package com.yuyakaido.android.gaia.core.value
+package com.yuyakaido.android.gaia.core.domain.value
 
 import androidx.fragment.app.Fragment
-import com.yuyakaido.android.gaia.core.app.AppRouterType
+import com.yuyakaido.android.gaia.core.domain.app.AppRouterType
 import com.yuyakaido.android.gaia.core.domain.entity.Me
 
 enum class VoteListPage(

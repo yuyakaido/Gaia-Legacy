@@ -1,4 +1,4 @@
-package com.yuyakaido.android.gaia.core.value
+package com.yuyakaido.android.gaia.core.infrastructure
 
 object Constant {
 
