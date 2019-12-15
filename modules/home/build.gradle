@@ -16,7 +16,7 @@ android {
 
 dependencies {
   // Module
-  implementation project(':modules:core')
+  implementation project(':cores:gateway')
 
   // Dependency Injection
   kapt libs.dagger.java.compiler

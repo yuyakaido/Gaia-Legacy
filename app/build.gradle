@@ -19,7 +19,7 @@ android {
 
 dependencies {
   // Modules - Core
-  implementation project(':modules:core')
+  implementation project(':cores:gateway')
 
   // Modules - Feature
   implementation project(':modules:auth')
