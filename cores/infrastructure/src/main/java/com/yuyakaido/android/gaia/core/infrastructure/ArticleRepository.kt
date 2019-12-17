@@ -36,8 +36,8 @@ class ArticleRepository @Inject constructor(
       .toArticlePaginationItem()
   }
 
-  suspend fun vote(result: VoteResult) {
-    authService.vote(id = result.article.name, dir = result.dir)
+  suspend fun vote(target: VoteTarget) {
+    authService.vote(id = target.article.name, dir = target.dir)
   }
 
   suspend fun trendingArticles(): List<TrendingArticle> {

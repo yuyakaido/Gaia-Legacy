@@ -1,9 +1,7 @@
 package com.yuyakaido.android.gaia.storybook.article.list
 
 import android.app.Application
-import com.yuyakaido.android.gaia.core.domain.app.AppRouterType
-import com.yuyakaido.android.gaia.core.domain.app.AppScope
-import com.yuyakaido.android.gaia.core.domain.app.NoopAppRouter
+import com.yuyakaido.android.gaia.core.domain.app.*
 import dagger.Module
 import dagger.Provides
 
@@ -16,6 +14,14 @@ class AppModule {
     application: Application
   ): AppRouterType {
     return NoopAppRouter(application = application)
+  }
+
+  @AppScope
+  @Provides
+  fun provideAccessTokenServiceType(
+    application: Application
+  ): AccessTokenServiceType {
+    return NoopAccessTokenService(application = application)
   }
 
 }

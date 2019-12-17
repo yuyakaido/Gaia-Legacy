@@ -6,7 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import com.yuyakaido.android.gaia.core.domain.entity.Article
 import com.yuyakaido.android.gaia.core.domain.value.ArticleListPage
 import com.yuyakaido.android.gaia.core.domain.value.EntityPaginationItem
-import com.yuyakaido.android.gaia.core.domain.value.VoteResult
+import com.yuyakaido.android.gaia.core.domain.value.VoteTarget
 import com.yuyakaido.android.gaia.core.infrastructure.ArticleRepository
 
 abstract class ArticleListViewModelType(
@@ -23,7 +23,7 @@ abstract class ArticleListViewModelType(
   abstract fun onUpvote(article: Article)
   abstract fun onDownvote(article: Article)
 
-  fun refreshByVoteResult(result: VoteResult) {
+  fun refresh(target: VoteTarget) {
     val newItems = items
       .value
       ?.map { item ->
@@ -31,8 +31,8 @@ abstract class ArticleListViewModelType(
           entities = item
             .entities
             .map { entity ->
-              if (entity.id == result.article.id) {
-                entity.copy(likes = result.likes)
+              if (entity.id == target.article.id) {
+                entity.copy(likes = target.likes)
               } else {
                 entity
               }

@@ -6,7 +6,7 @@ import androidx.lifecycle.viewModelScope
 import com.yuyakaido.android.gaia.core.domain.entity.Article
 import com.yuyakaido.android.gaia.core.domain.value.ArticleListPage
 import com.yuyakaido.android.gaia.core.domain.value.EntityPaginationItem
-import com.yuyakaido.android.gaia.core.domain.value.VoteResult
+import com.yuyakaido.android.gaia.core.domain.value.VoteTarget
 import com.yuyakaido.android.gaia.core.infrastructure.ArticleRepository
 import kotlinx.coroutines.launch
 import timber.log.Timber
@@ -46,17 +46,17 @@ class ArticleListViewModel @Inject constructor(
   }
 
   override fun onUpvote(article: Article) {
-    vote(result = VoteResult.forUpvote(article = article))
+    vote(target = VoteTarget.forUpvote(article = article))
   }
 
   override fun onDownvote(article: Article) {
-    vote(result = VoteResult.forDownvote(article = article))
+    vote(target = VoteTarget.forDownvote(article = article))
   }
 
-  private fun vote(result: VoteResult) {
+  private fun vote(target: VoteTarget) {
     viewModelScope.launch {
-      repository.vote(result = result)
-      refreshByVoteResult(result)
+      repository.vote(target = target)
+      refresh(target)
     }
   }
 
