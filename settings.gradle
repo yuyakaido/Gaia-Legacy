@@ -9,6 +9,7 @@ include ':cores:gateway'
 // Modules - Feature
 include ':features:auth'
 include ':features:home'
+include ':features:article'
 include ':features:article-list'
 include ':features:article-detail'
 include ':features:profile'
