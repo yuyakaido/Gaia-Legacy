@@ -29,7 +29,6 @@ dependencies {
   implementation project(':features:article-detail')
   implementation project(':features:profile')
   implementation project(':features:search')
-  implementation project(':features:vote')
 
   // Dependency Injection
   kapt libs.dagger.java.compiler

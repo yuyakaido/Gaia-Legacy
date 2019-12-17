@@ -18,7 +18,6 @@ dependencies {
   // Module
   implementation project(':cores:gateway')
   implementation project(':features:article')
-  implementation project(':features:vote')
 
   // Dependency Injection
   kapt libs.dagger.java.compiler
