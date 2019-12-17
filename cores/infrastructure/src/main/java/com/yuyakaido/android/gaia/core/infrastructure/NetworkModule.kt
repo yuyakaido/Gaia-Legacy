@@ -58,7 +58,7 @@ class NetworkModule {
 
   @AppScope
   @Provides
-  fun provideRedditPublicService(
+  fun provideRedditPublicApi(
     moshi: Moshi,
     client: OkHttpClient
   ): RedditPublicApi {
@@ -73,7 +73,7 @@ class NetworkModule {
 
   @AppScope
   @Provides
-  fun provideRedditAuthService(
+  fun provideRedditAuthApi(
     moshi: Moshi,
     client: OkHttpClient
   ): RedditAuthApi {
@@ -88,7 +88,7 @@ class NetworkModule {
 
   @AppScope
   @Provides
-  fun provideRedditWwwService(
+  fun provideRedditWwwApi(
     moshi: Moshi,
     client: OkHttpClient
   ): RedditWwwApi {
