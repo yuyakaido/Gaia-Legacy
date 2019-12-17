@@ -2,6 +2,7 @@ package com.yuyakaido.android.gaia.storybook.article.list
 
 import android.app.Application
 import com.yuyakaido.android.gaia.core.domain.app.*
+import com.yuyakaido.android.gaia.core.infrastructure.ArticleRepository
 import dagger.Module
 import dagger.Provides
 
@@ -22,6 +23,14 @@ class AppModule {
     application: Application
   ): AccessTokenServiceType {
     return NoopAccessTokenService(application = application)
+  }
+
+  @AppScope
+  @Provides
+  fun provideVoteServiceType(
+    repository: ArticleRepository
+  ): VoteServiceType {
+    return NoopVoteService()
   }
 
 }

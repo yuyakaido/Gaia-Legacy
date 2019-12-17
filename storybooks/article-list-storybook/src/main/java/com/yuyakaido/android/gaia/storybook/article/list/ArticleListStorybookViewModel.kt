@@ -3,18 +3,20 @@ package com.yuyakaido.android.gaia.storybook.article.list
 import android.app.Application
 import androidx.lifecycle.MutableLiveData
 import com.yuyakaido.android.gaia.article.list.ArticleListViewModelType
+import com.yuyakaido.android.gaia.core.domain.app.VoteServiceType
 import com.yuyakaido.android.gaia.core.domain.entity.Article
-import com.yuyakaido.android.gaia.core.infrastructure.ArticleRepository
 import com.yuyakaido.android.gaia.core.domain.value.ArticleListPage
 import com.yuyakaido.android.gaia.core.domain.value.EntityPaginationItem
 import com.yuyakaido.android.gaia.core.domain.value.VoteTarget
+import com.yuyakaido.android.gaia.core.infrastructure.ArticleRepository
 import javax.inject.Inject
 import kotlin.random.Random
 
 class ArticleListStorybookViewModel @Inject constructor(
   application: Application,
   override val page: ArticleListPage,
-  override val repository: ArticleRepository
+  override val repository: ArticleRepository,
+  override val service: VoteServiceType
 ) : ArticleListViewModelType(application) {
 
   override val items = MutableLiveData<List<EntityPaginationItem<Article>>>()
