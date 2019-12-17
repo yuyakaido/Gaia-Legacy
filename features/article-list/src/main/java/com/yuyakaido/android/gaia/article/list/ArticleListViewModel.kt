@@ -5,10 +5,10 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.yuyakaido.android.gaia.core.domain.app.VoteServiceType
 import com.yuyakaido.android.gaia.core.domain.entity.Article
+import com.yuyakaido.android.gaia.core.domain.repository.ArticleRepositoryType
 import com.yuyakaido.android.gaia.core.domain.value.ArticleListPage
 import com.yuyakaido.android.gaia.core.domain.value.EntityPaginationItem
 import com.yuyakaido.android.gaia.core.domain.value.VoteTarget
-import com.yuyakaido.android.gaia.core.infrastructure.ArticleRepository
 import kotlinx.coroutines.launch
 import timber.log.Timber
 import javax.inject.Inject
@@ -16,7 +16,7 @@ import javax.inject.Inject
 class ArticleListViewModel @Inject constructor(
   application: Application,
   override val page: ArticleListPage,
-  override val repository: ArticleRepository,
+  override val repository: ArticleRepositoryType,
   override val service: VoteServiceType
 ) : ArticleListViewModelType(application) {
 

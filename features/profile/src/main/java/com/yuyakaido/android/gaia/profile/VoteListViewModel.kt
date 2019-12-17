@@ -6,8 +6,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.yuyakaido.android.gaia.core.domain.entity.Article
 import com.yuyakaido.android.gaia.core.domain.entity.Me
+import com.yuyakaido.android.gaia.core.domain.repository.ArticleRepositoryType
 import com.yuyakaido.android.gaia.core.domain.value.VoteListPage
-import com.yuyakaido.android.gaia.core.infrastructure.ArticleRepository
 import kotlinx.coroutines.launch
 import timber.log.Timber
 import javax.inject.Inject
@@ -16,7 +16,7 @@ class VoteListViewModel @Inject constructor(
   application: Application,
   private val me: Me,
   private val page: VoteListPage,
-  private val repository: ArticleRepository
+  private val repository: ArticleRepositoryType
 ) : AndroidViewModel(application) {
 
   val articles = MutableLiveData<List<Article>>()

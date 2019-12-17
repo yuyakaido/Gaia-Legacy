@@ -1,18 +1,19 @@
-package com.yuyakaido.android.gaia.core.infrastructure
+package com.yuyakaido.android.gaia.article
 
-import com.yuyakaido.android.gaia.core.domain.app.AppScope
 import com.yuyakaido.android.gaia.core.domain.entity.Article
 import com.yuyakaido.android.gaia.core.domain.entity.Me
+import com.yuyakaido.android.gaia.core.domain.repository.ArticleRepositoryType
 import com.yuyakaido.android.gaia.core.domain.value.*
+import com.yuyakaido.android.gaia.core.infrastructure.RedditAuthService
+import com.yuyakaido.android.gaia.core.infrastructure.RedditPublicService
 import javax.inject.Inject
 
-@AppScope
 class ArticleRepository @Inject constructor(
-  private val publicService: RedditPublicService,
-  private val authService: RedditAuthService
-) {
+  private val authService: RedditAuthService,
+  private val publicService: RedditPublicService
+) : ArticleRepositoryType {
 
-  suspend fun articles(
+  override suspend fun articles(
     page: ArticleListPage,
     after: String?
   ): EntityPaginationItem<Article> {
@@ -24,7 +25,7 @@ class ArticleRepository @Inject constructor(
       .toArticlePaginationItem()
   }
 
-  suspend fun votedArticles(
+  override suspend fun votedArticles(
     me: Me,
     page: VoteListPage
   ): EntityPaginationItem<Article> {
@@ -36,17 +37,17 @@ class ArticleRepository @Inject constructor(
       .toArticlePaginationItem()
   }
 
-  suspend fun vote(target: VoteTarget) {
+  override suspend fun vote(target: VoteTarget) {
     authService.vote(id = target.article.name, dir = target.dir)
   }
 
-  suspend fun trendingArticles(): List<TrendingArticle> {
+  override suspend fun trendingArticles(): List<TrendingArticle> {
     return publicService
       .trending()
       .toEntities()
   }
 
-  suspend fun search(query: String): EntityPaginationItem<Article> {
+  override suspend fun search(query: String): EntityPaginationItem<Article> {
     return publicService
       .search(query = query)
       .toArticlePaginationItem()

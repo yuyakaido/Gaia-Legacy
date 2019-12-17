@@ -5,17 +5,17 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import com.yuyakaido.android.gaia.core.domain.app.VoteServiceType
 import com.yuyakaido.android.gaia.core.domain.entity.Article
+import com.yuyakaido.android.gaia.core.domain.repository.ArticleRepositoryType
 import com.yuyakaido.android.gaia.core.domain.value.ArticleListPage
 import com.yuyakaido.android.gaia.core.domain.value.EntityPaginationItem
 import com.yuyakaido.android.gaia.core.domain.value.VoteTarget
-import com.yuyakaido.android.gaia.core.infrastructure.ArticleRepository
 
 abstract class ArticleListViewModelType(
   application: Application
 ) : AndroidViewModel(application) {
 
   abstract val page: ArticleListPage
-  abstract val repository: ArticleRepository
+  abstract val repository: ArticleRepositoryType
   abstract val service: VoteServiceType
 
   abstract val items: MutableLiveData<List<EntityPaginationItem<Article>>>

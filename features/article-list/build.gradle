@@ -17,6 +17,8 @@ android {
 dependencies {
   // Module
   api project(':cores:gateway')
+  api project(':features:article')
+  api project(':features:vote')
 
   // Dependency Injection
   kapt libs.dagger.java.compiler

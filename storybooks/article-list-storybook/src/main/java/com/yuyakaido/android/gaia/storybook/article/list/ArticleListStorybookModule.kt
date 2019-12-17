@@ -5,7 +5,7 @@ import com.yuyakaido.android.gaia.article.list.ArticleListFragment
 import com.yuyakaido.android.gaia.article.list.ArticleListModuleType
 import com.yuyakaido.android.gaia.article.list.ArticleListViewModelType
 import com.yuyakaido.android.gaia.core.domain.app.VoteServiceType
-import com.yuyakaido.android.gaia.core.infrastructure.ArticleRepository
+import com.yuyakaido.android.gaia.core.domain.repository.ArticleRepositoryType
 import dagger.Module
 import dagger.Provides
 
@@ -16,7 +16,7 @@ class ArticleListStorybookModule : ArticleListModuleType {
   override fun provideArticleListViewModel(
     application: Application,
     fragment: ArticleListFragment,
-    repository: ArticleRepository,
+    repository: ArticleRepositoryType,
     service: VoteServiceType
   ): ArticleListViewModelType {
     return ArticleListStorybookViewModel(
