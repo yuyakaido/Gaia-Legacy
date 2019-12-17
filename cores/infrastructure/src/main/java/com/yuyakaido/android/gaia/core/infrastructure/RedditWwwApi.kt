@@ -3,7 +3,7 @@ package com.yuyakaido.android.gaia.core.infrastructure
 import retrofit2.http.POST
 import retrofit2.http.Query
 
-interface RedditWwwService {
+interface RedditWwwApi {
 
   @POST("api/v1/access_token")
   suspend fun accessToken(

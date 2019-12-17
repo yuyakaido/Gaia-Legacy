@@ -61,14 +61,14 @@ class NetworkModule {
   fun provideRedditPublicService(
     moshi: Moshi,
     client: OkHttpClient
-  ): RedditPublicService {
+  ): RedditPublicApi {
     val retrofit = Retrofit
       .Builder()
       .client(client)
       .baseUrl("https://reddit.com")
       .addConverterFactory(MoshiConverterFactory.create(moshi))
       .build()
-    return retrofit.create(RedditPublicService::class.java)
+    return retrofit.create(RedditPublicApi::class.java)
   }
 
   @AppScope
@@ -76,14 +76,14 @@ class NetworkModule {
   fun provideRedditAuthService(
     moshi: Moshi,
     client: OkHttpClient
-  ): RedditAuthService {
+  ): RedditAuthApi {
     val retrofit = Retrofit
       .Builder()
       .client(client)
       .baseUrl("https://oauth.reddit.com")
       .addConverterFactory(MoshiConverterFactory.create(moshi))
       .build()
-    return retrofit.create(RedditAuthService::class.java)
+    return retrofit.create(RedditAuthApi::class.java)
   }
 
   @AppScope
@@ -91,14 +91,14 @@ class NetworkModule {
   fun provideRedditWwwService(
     moshi: Moshi,
     client: OkHttpClient
-  ): RedditWwwService {
+  ): RedditWwwApi {
     val retrofit = Retrofit
       .Builder()
       .client(client)
       .baseUrl("https://www.reddit.com/")
       .addConverterFactory(MoshiConverterFactory.create(moshi))
       .build()
-    return retrofit.create(RedditWwwService::class.java)
+    return retrofit.create(RedditWwwApi::class.java)
   }
 
 }

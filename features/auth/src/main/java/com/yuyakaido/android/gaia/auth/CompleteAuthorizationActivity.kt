@@ -5,7 +5,7 @@ import com.yuyakaido.android.gaia.auth.databinding.ActivityCompleteAuthorization
 import com.yuyakaido.android.gaia.core.domain.app.AccessTokenServiceType
 import com.yuyakaido.android.gaia.core.domain.app.AppRouterType
 import com.yuyakaido.android.gaia.core.domain.value.AccessToken
-import com.yuyakaido.android.gaia.core.infrastructure.RedditWwwService
+import com.yuyakaido.android.gaia.core.infrastructure.RedditWwwApi
 import com.yuyakaido.android.gaia.core.presentation.BaseActivity
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -20,7 +20,7 @@ class CompleteAuthorizationActivity : BaseActivity() {
   internal lateinit var accessTokenService: AccessTokenServiceType
 
   @Inject
-  internal lateinit var service: RedditWwwService
+  internal lateinit var api: RedditWwwApi
 
   private val binding by lazy { ActivityCompleteAuthorizationBinding.inflate(layoutInflater) }
 
@@ -34,7 +34,7 @@ class CompleteAuthorizationActivity : BaseActivity() {
     GlobalScope.launch {
       intent.data?.let { uri ->
         uri.getQueryParameter("code")?.let { code ->
-          val response = service.accessToken(code = code)
+          val response = api.accessToken(code = code)
           val token = AccessToken(value = response.accessToken)
           accessTokenService.save(token)
           startActivity(appRouter.newHomeActivity())

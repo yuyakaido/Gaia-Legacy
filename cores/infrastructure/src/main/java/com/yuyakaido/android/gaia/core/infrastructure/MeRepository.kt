@@ -6,11 +6,11 @@ import javax.inject.Inject
 
 @AppScope
 class MeRepository @Inject constructor(
-  private val service: RedditAuthService
+  private val api: RedditAuthApi
 ) {
 
   suspend fun me(): Me {
-    return service.me().toEntity()
+    return api.me().toEntity()
   }
 
 }

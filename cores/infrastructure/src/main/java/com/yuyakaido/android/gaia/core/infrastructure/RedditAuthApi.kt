@@ -2,7 +2,7 @@ package com.yuyakaido.android.gaia.core.infrastructure
 
 import retrofit2.http.*
 
-interface RedditAuthService {
+interface RedditAuthApi {
 
   @GET("r/{path}.json")
   suspend fun articles(

@@ -8,8 +8,8 @@ import com.yuyakaido.android.gaia.core.domain.app.AppRouterType
 import com.yuyakaido.android.gaia.core.domain.app.AppScope
 import com.yuyakaido.android.gaia.core.domain.app.VoteServiceType
 import com.yuyakaido.android.gaia.core.domain.repository.ArticleRepositoryType
-import com.yuyakaido.android.gaia.core.infrastructure.RedditAuthService
-import com.yuyakaido.android.gaia.core.infrastructure.RedditPublicService
+import com.yuyakaido.android.gaia.core.infrastructure.RedditAuthApi
+import com.yuyakaido.android.gaia.core.infrastructure.RedditPublicApi
 import com.yuyakaido.android.gaia.vote.VoteService
 import dagger.Module
 import dagger.Provides
@@ -36,12 +36,12 @@ class AppModule {
   @AppScope
   @Provides
   fun provideArticleRepositoryType(
-    authService: RedditAuthService,
-    publicService: RedditPublicService
+    authApi: RedditAuthApi,
+    publicApi: RedditPublicApi
   ): ArticleRepositoryType {
     return ArticleRepository(
-      authService = authService,
-      publicService = publicService
+      authApi = authApi,
+      publicApi = publicApi
     )
   }
 
