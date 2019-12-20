@@ -8,6 +8,7 @@ object Constant {
   const val OAUTH_CLIENT_ID = "tDtKJlrx9OTNiA"
   const val OAUTH_RESPONSE_TYPE = "code"
   const val OAUTH_REDIRECT_URI = "com.yuyakaido.android.gaia://complete_authorization"
+  const val OAUTH_DURATION = "permanent"
   val OAUTH_SCOPES = listOf(
     "creddits",
     "modcontributors",

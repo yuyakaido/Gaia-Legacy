@@ -4,7 +4,7 @@ import com.facebook.stetho.okhttp3.StethoInterceptor
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.adapters.PolymorphicJsonAdapterFactory
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
-import com.yuyakaido.android.gaia.core.domain.app.AccessTokenServiceType
+import com.yuyakaido.android.gaia.core.domain.app.AuthTokenServiceType
 import com.yuyakaido.android.gaia.core.domain.app.AppScope
 import dagger.Module
 import dagger.Provides
@@ -19,7 +19,7 @@ class NetworkModule {
   @AppScope
   @Provides
   fun provideOkHttpClient(
-    service: AccessTokenServiceType
+    service: AuthTokenServiceType
   ): OkHttpClient {
     val httpLoggingInterceptor = HttpLoggingInterceptor()
       .apply { level = HttpLoggingInterceptor.Level.BASIC }

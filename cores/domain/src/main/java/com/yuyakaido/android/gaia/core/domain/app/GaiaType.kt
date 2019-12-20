@@ -13,7 +13,7 @@ abstract class GaiaType : DaggerApplication() {
   internal lateinit var appRouter: AppRouterType
 
   @Inject
-  internal lateinit var accessTokenService: AccessTokenServiceType
+  internal lateinit var authTokenService: AuthTokenServiceType
 
   override fun onCreate() {
     super.onCreate()
@@ -36,7 +36,7 @@ abstract class GaiaType : DaggerApplication() {
     val defaultHandler = Thread.getDefaultUncaughtExceptionHandler()
     Thread.setDefaultUncaughtExceptionHandler { thread, throwable ->
       if (throwable is HttpException) {
-        accessTokenService.delete()
+        authTokenService.delete()
         startActivity(appRouter.newLaunchAuthorizationActivity())
       } else {
         defaultHandler?.uncaughtException(thread, throwable)

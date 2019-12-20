@@ -18,10 +18,10 @@ class AppModule {
 
   @AppScope
   @Provides
-  fun provideAccessTokenServiceType(
+  fun provideAuthTokenServiceType(
     application: Application
-  ): AccessTokenServiceType {
-    return NoopAccessTokenService(application = application)
+  ): AuthTokenServiceType {
+    return NoopAuthTokenService(application = application)
   }
 
 }

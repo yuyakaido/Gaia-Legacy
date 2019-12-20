@@ -5,7 +5,7 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import com.yuyakaido.android.gaia.auth.databinding.ActivityLaunchAuthorizationBinding
-import com.yuyakaido.android.gaia.core.domain.app.AccessTokenServiceType
+import com.yuyakaido.android.gaia.core.domain.app.AuthTokenServiceType
 import com.yuyakaido.android.gaia.core.domain.app.AppRouterType
 import com.yuyakaido.android.gaia.core.infrastructure.Constant
 import com.yuyakaido.android.gaia.core.presentation.BaseActivity
@@ -27,7 +27,7 @@ class LaunchAuthorizationActivity : BaseActivity() {
   internal lateinit var appRouter: AppRouterType
 
   @Inject
-  internal lateinit var accessTokenService: AccessTokenServiceType
+  internal lateinit var authTokenService: AuthTokenServiceType
 
   private val binding by lazy { ActivityLaunchAuthorizationBinding.inflate(layoutInflater) }
 
@@ -38,7 +38,7 @@ class LaunchAuthorizationActivity : BaseActivity() {
   }
 
   private fun dispatch() {
-    val token = accessTokenService.current()
+    val token = authTokenService.current()
     if (token.isLoggedIn()) {
       startActivity(appRouter.newHomeActivity())
     } else {
@@ -50,6 +50,7 @@ class LaunchAuthorizationActivity : BaseActivity() {
         .appendQueryParameter("response_type", Constant.OAUTH_RESPONSE_TYPE)
         .appendQueryParameter("state", System.currentTimeMillis().toString())
         .appendQueryParameter("redirect_uri", Constant.OAUTH_REDIRECT_URI)
+        .appendQueryParameter("duration", Constant.OAUTH_DURATION)
         .appendQueryParameter("scope", Constant.OAUTH_SCOPES.joinToString(" "))
         .build()
       startActivity(Intent(Intent.ACTION_VIEW, uri))

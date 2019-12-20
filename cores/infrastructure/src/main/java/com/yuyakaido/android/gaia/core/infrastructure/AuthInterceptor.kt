@@ -1,12 +1,12 @@
 package com.yuyakaido.android.gaia.core.infrastructure
 
-import com.yuyakaido.android.gaia.core.domain.app.AccessTokenServiceType
+import com.yuyakaido.android.gaia.core.domain.app.AuthTokenServiceType
 import okhttp3.Credentials
 import okhttp3.Interceptor
 import okhttp3.Response
 
 class AuthInterceptor(
-  private val service: AccessTokenServiceType
+  private val service: AuthTokenServiceType
 ) : Interceptor {
 
   override fun intercept(chain: Interceptor.Chain): Response {
@@ -16,7 +16,7 @@ class AuthInterceptor(
         .apply {
           val token = service.current()
           if (token.isLoggedIn()) {
-            addHeader("Authorization", token.bearerValue())
+            addHeader("Authorization", token.bearerToken())
           } else {
             val credential = Credentials.basic(Constant.OAUTH_CLIENT_ID, "")
             addHeader("Authorization", credential)

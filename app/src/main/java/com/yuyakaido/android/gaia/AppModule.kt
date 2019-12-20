@@ -2,8 +2,8 @@ package com.yuyakaido.android.gaia
 
 import android.app.Application
 import com.yuyakaido.android.gaia.article.ArticleRepository
-import com.yuyakaido.android.gaia.auth.AccessTokenService
-import com.yuyakaido.android.gaia.core.domain.app.AccessTokenServiceType
+import com.yuyakaido.android.gaia.auth.AuthTokenService
+import com.yuyakaido.android.gaia.core.domain.app.AuthTokenServiceType
 import com.yuyakaido.android.gaia.core.domain.app.AppRouterType
 import com.yuyakaido.android.gaia.core.domain.app.AppScope
 import com.yuyakaido.android.gaia.core.domain.repository.ArticleRepositoryType
@@ -25,10 +25,10 @@ class AppModule {
 
   @AppScope
   @Provides
-  fun provideAccessTokenServiceType(
+  fun provideAuthTokenServiceType(
     application: Application
-  ): AccessTokenServiceType {
-    return AccessTokenService(application = application)
+  ): AuthTokenServiceType {
+    return AuthTokenService(application = application)
   }
 
   @AppScope

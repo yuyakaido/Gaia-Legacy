@@ -1,18 +1,18 @@
 package com.yuyakaido.android.gaia.core.domain.app
 
 import android.app.Application
-import com.yuyakaido.android.gaia.core.domain.value.AccessToken
+import com.yuyakaido.android.gaia.core.domain.value.AuthToken
 import javax.inject.Inject
 
-class NoopAccessTokenService @Inject constructor(
+class NoopAuthTokenService @Inject constructor(
   override val application: Application
-) : AccessTokenServiceType {
+) : AuthTokenServiceType {
 
-  override fun current(): AccessToken {
+  override fun current(): AuthToken {
     throw UnsupportedOperationException()
   }
 
-  override fun save(token: AccessToken) {
+  override fun save(token: AuthToken) {
     throw UnsupportedOperationException()
   }
 
