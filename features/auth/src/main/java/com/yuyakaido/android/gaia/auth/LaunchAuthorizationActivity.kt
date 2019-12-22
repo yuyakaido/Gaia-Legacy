@@ -5,8 +5,8 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import com.yuyakaido.android.gaia.auth.databinding.ActivityLaunchAuthorizationBinding
-import com.yuyakaido.android.gaia.core.domain.app.AuthTokenServiceType
 import com.yuyakaido.android.gaia.core.domain.app.AppRouterType
+import com.yuyakaido.android.gaia.core.domain.app.AuthTokenServiceType
 import com.yuyakaido.android.gaia.core.infrastructure.Constant
 import com.yuyakaido.android.gaia.core.presentation.BaseActivity
 import javax.inject.Inject

@@ -5,7 +5,7 @@ import com.yuyakaido.android.gaia.core.domain.value.AuthToken
 
 data class AccessTokenResponse(
   @Json(name = "access_token") val accessToken: String,
-  @Json(name = "refresh_token") val refreshToken: String
+  @Json(name = "refresh_token") val refreshToken: String?
 ) {
 
   fun toAuthToken(): AuthToken {

@@ -16,7 +16,4 @@ class NoopAuthTokenService @Inject constructor(
     throw UnsupportedOperationException()
   }
 
-  override fun delete() {
-    throw UnsupportedOperationException()
-  }
 }

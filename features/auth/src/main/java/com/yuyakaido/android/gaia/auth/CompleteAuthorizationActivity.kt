@@ -33,7 +33,7 @@ class CompleteAuthorizationActivity : BaseActivity() {
     GlobalScope.launch {
       intent.data?.let { uri ->
         uri.getQueryParameter("code")?.let { code ->
-          val response = api.accessToken(code = code)
+          val response = api.getInitialToken(code = code)
           authTokenService.save(response.toAuthToken())
           startActivity(appRouter.newHomeActivity())
         }

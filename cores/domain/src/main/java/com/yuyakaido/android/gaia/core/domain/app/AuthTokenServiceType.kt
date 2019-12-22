@@ -7,5 +7,4 @@ interface AuthTokenServiceType {
   val application: Application
   fun current(): AuthToken
   fun save(token: AuthToken)
-  fun delete()
 }

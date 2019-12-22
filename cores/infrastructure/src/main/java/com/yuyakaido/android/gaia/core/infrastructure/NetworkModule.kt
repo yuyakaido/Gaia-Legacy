@@ -4,8 +4,8 @@ import com.facebook.stetho.okhttp3.StethoInterceptor
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.adapters.PolymorphicJsonAdapterFactory
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
-import com.yuyakaido.android.gaia.core.domain.app.AuthTokenServiceType
 import com.yuyakaido.android.gaia.core.domain.app.AppScope
+import com.yuyakaido.android.gaia.core.domain.app.AuthTokenServiceType
 import dagger.Module
 import dagger.Provides
 import okhttp3.OkHttpClient
@@ -16,18 +16,42 @@ import retrofit2.converter.moshi.MoshiConverterFactory
 @Module
 class NetworkModule {
 
-  @AppScope
-  @Provides
-  fun provideOkHttpClient(
-    service: AuthTokenServiceType
-  ): OkHttpClient {
+  private fun createBaseOkHttpClientBuilder(): OkHttpClient.Builder {
     val httpLoggingInterceptor = HttpLoggingInterceptor()
       .apply { level = HttpLoggingInterceptor.Level.BASIC }
     return OkHttpClient
       .Builder()
       .addNetworkInterceptor(StethoInterceptor())
       .addInterceptor(httpLoggingInterceptor)
+  }
+
+  @AppScope
+  @OkHttpForPublic
+  @Provides
+  fun provideOkHttpClientForPublic(): OkHttpClient {
+    return createBaseOkHttpClientBuilder()
+      .build()
+  }
+
+  @AppScope
+  @OkHttpForWww
+  @Provides
+  fun provideOkHttpClientForWww(): OkHttpClient {
+    return createBaseOkHttpClientBuilder()
+      .addInterceptor(BasicAuthInterceptor())
+      .build()
+  }
+
+  @AppScope
+  @OkHttpForAuth
+  @Provides
+  fun provideOkHttpClientForAuth(
+    service: AuthTokenServiceType,
+    api: RedditWwwApi
+  ): OkHttpClient {
+    return createBaseOkHttpClientBuilder()
       .addInterceptor(AuthInterceptor(service = service))
+      .authenticator(TokenAuthenticator(service = service, api = api))
       .build()
   }
 
@@ -60,7 +84,7 @@ class NetworkModule {
   @Provides
   fun provideRedditPublicApi(
     moshi: Moshi,
-    client: OkHttpClient
+    @OkHttpForPublic client: OkHttpClient
   ): RedditPublicApi {
     val retrofit = Retrofit
       .Builder()
@@ -73,24 +97,9 @@ class NetworkModule {
 
   @AppScope
   @Provides
-  fun provideRedditAuthApi(
-    moshi: Moshi,
-    client: OkHttpClient
-  ): RedditAuthApi {
-    val retrofit = Retrofit
-      .Builder()
-      .client(client)
-      .baseUrl("https://oauth.reddit.com")
-      .addConverterFactory(MoshiConverterFactory.create(moshi))
-      .build()
-    return retrofit.create(RedditAuthApi::class.java)
-  }
-
-  @AppScope
-  @Provides
   fun provideRedditWwwApi(
     moshi: Moshi,
-    client: OkHttpClient
+    @OkHttpForWww client: OkHttpClient
   ): RedditWwwApi {
     val retrofit = Retrofit
       .Builder()
@@ -99,6 +108,21 @@ class NetworkModule {
       .addConverterFactory(MoshiConverterFactory.create(moshi))
       .build()
     return retrofit.create(RedditWwwApi::class.java)
+  }
+
+  @AppScope
+  @Provides
+  fun provideRedditAuthApi(
+    moshi: Moshi,
+    @OkHttpForAuth client: OkHttpClient
+  ): RedditAuthApi {
+    val retrofit = Retrofit
+      .Builder()
+      .client(client)
+      .baseUrl("https://oauth.reddit.com")
+      .addConverterFactory(MoshiConverterFactory.create(moshi))
+      .build()
+    return retrofit.create(RedditAuthApi::class.java)
   }
 
 }

@@ -26,15 +26,12 @@ class AuthTokenService(
 
   override fun save(token: AuthToken) {
     preference.edit(commit = false) {
-      putString(ACCESS_TOKEN, token.accessToken())
-      putString(REFRESH_TOKEN, token.refreshToken())
-    }
-  }
-
-  override fun delete() {
-    preference.edit(commit = false) {
-      putString(ACCESS_TOKEN, null)
-      putString(REFRESH_TOKEN, null)
+      token.accessToken()?.let { accessToken ->
+        putString(ACCESS_TOKEN, accessToken)
+      }
+      token.refreshToken()?.let { refreshToken ->
+        putString(REFRESH_TOKEN, refreshToken)
+      }
     }
   }
 
