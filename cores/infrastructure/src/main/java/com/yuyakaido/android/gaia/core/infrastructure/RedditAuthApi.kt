@@ -4,6 +4,11 @@ import retrofit2.http.*
 
 interface RedditAuthApi {
 
+  @GET("r/{path}/about")
+  suspend fun about(
+    @Path("path") path: String
+  ): CommunityResponse
+
   @GET("r/{path}.json")
   suspend fun articles(
     @Path("path") path: String,

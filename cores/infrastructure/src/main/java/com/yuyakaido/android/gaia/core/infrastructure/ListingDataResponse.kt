@@ -5,6 +5,7 @@ import android.webkit.URLUtil
 import com.squareup.moshi.Json
 import com.yuyakaido.android.gaia.core.domain.entity.Article
 import com.yuyakaido.android.gaia.core.domain.entity.Comment
+import com.yuyakaido.android.gaia.core.domain.entity.Community
 import com.yuyakaido.android.gaia.core.domain.value.EntityPaginationItem
 
 // https://www.reddit.com/dev/api/
@@ -19,15 +20,7 @@ data class ListingDataResponse(
     sealed class Child(
       @Json(name = "kind") val kind: Kind
     ) {
-      enum class Kind(val id: String) {
-        Comment(id = "t1"),
-        Account(id = "t2"),
-        Article(id = "t3"),
-        Message(id = "t4"),
-        Subreddit(id = "t5"),
-        Award(id = "t6"),
-        More(id = "more")
-      }
+
       sealed class Data {
         data class Comment(
           @Json(name = "id") val id: String,
@@ -36,7 +29,7 @@ data class ListingDataResponse(
         data class Article(
           @Json(name = "id") val id: String,
           @Json(name = "name") val name: String,
-          @Json(name = "subreddit") val category: String,
+          @Json(name = "subreddit") val community: String,
           @Json(name = "title") val title: String,
           @Json(name = "thumbnail") val thumbnail: String?,
           @Json(name = "author") val author: String,
@@ -68,7 +61,7 @@ data class ListingDataResponse(
           return Article(
             id = com.yuyakaido.android.gaia.core.domain.entity.Article.ID(value = data.id),
             name = data.name,
-            category = data.category,
+            community = Community.Summary(name = data.community),
             title = data.title,
             thumbnail = toUri(),
             author = data.author,

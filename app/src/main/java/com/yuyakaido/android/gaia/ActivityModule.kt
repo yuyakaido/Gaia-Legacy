@@ -4,6 +4,8 @@ import com.yuyakaido.android.gaia.article.detail.ArticleDetailActivity
 import com.yuyakaido.android.gaia.article.detail.ArticleDetailModule
 import com.yuyakaido.android.gaia.auth.CompleteAuthorizationActivity
 import com.yuyakaido.android.gaia.auth.LaunchAuthorizationActivity
+import com.yuyakaido.android.gaia.community.detail.CommunityDetailActivity
+import com.yuyakaido.android.gaia.community.detail.CommunityDetailModule
 import com.yuyakaido.android.gaia.home.HomeActivity
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
@@ -24,5 +26,10 @@ abstract class ActivityModule {
     modules = [ArticleDetailModule::class]
   )
   abstract fun contributeArticleDetailActivity(): ArticleDetailActivity
+
+  @ContributesAndroidInjector(
+    modules = [CommunityDetailModule::class]
+  )
+  abstract fun contributeCommunityDetailActivity(): CommunityDetailActivity
 
 }

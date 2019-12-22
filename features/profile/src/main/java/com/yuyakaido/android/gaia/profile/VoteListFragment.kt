@@ -94,6 +94,7 @@ class VoteListFragment : BaseFragment() {
 
     val upvoteListener = { _: Article -> Unit }
     val downvoteListener = { _: Article -> Unit }
+    val communityListener = { _: Article -> Unit }
 
     viewModel.articles
       .observe(viewLifecycleOwner) { items ->
@@ -101,7 +102,8 @@ class VoteListFragment : BaseFragment() {
           ArticleItem(
             article = item,
             upvoteListener = upvoteListener,
-            downvoteListener = downvoteListener
+            downvoteListener = downvoteListener,
+            communityListener = communityListener
           )
         })
       }

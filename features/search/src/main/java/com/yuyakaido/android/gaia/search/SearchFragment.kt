@@ -79,6 +79,7 @@ class SearchFragment : BaseFragment() {
 
     val upvoteListener = { _: Article -> Unit }
     val downvoteListener = { _: Article -> Unit }
+    val communityListener = { _: Article -> Unit }
 
     viewModel
       .searchedArticles
@@ -87,7 +88,8 @@ class SearchFragment : BaseFragment() {
           ArticleItem(
             article = article,
             upvoteListener = upvoteListener,
-            downvoteListener = downvoteListener
+            downvoteListener = downvoteListener,
+            communityListener = communityListener
           )
         })
       }

@@ -33,6 +33,8 @@
 
     <activity android:name=".article.detail.ArticleDetailActivity" />
 
+    <activity android:name=".community.detail.CommunityDetailActivity" />
+
   </application>
 
 </manifest>

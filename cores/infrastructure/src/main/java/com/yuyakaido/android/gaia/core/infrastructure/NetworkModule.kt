@@ -65,15 +65,15 @@ class NetworkModule {
           .of(ListingDataResponse.Children.Child::class.java, "kind")
           .withSubtype(
             ListingDataResponse.Children.Child.Comment::class.java,
-            ListingDataResponse.Children.Child.Kind.Comment.id
+            Kind.Comment.id
           )
           .withSubtype(
             ListingDataResponse.Children.Child.Article::class.java,
-            ListingDataResponse.Children.Child.Kind.Article.id
+            Kind.Article.id
           )
           .withSubtype(
             ListingDataResponse.Children.Child.More::class.java,
-            ListingDataResponse.Children.Child.Kind.More.id
+            Kind.More.id
           )
       )
       .add(KotlinJsonAdapterFactory())

@@ -18,6 +18,7 @@ import com.yqritc.recyclerviewflexibledivider.HorizontalDividerItemDecoration
 import com.yuyakaido.android.gaia.article.list.databinding.FragmentArticleListBinding
 import com.yuyakaido.android.gaia.core.domain.app.AppRouterType
 import com.yuyakaido.android.gaia.core.domain.entity.Article
+import com.yuyakaido.android.gaia.core.domain.entity.Community
 import com.yuyakaido.android.gaia.core.domain.extension.dpTpPx
 import com.yuyakaido.android.gaia.core.presentation.ArticleItem
 import com.yuyakaido.android.gaia.core.presentation.BaseFragment
@@ -99,6 +100,9 @@ class ArticleListFragment : BaseFragment() {
 
     val upvoteListener = { article: Article -> viewModel.onUpvote(article = article) }
     val downvoteListener = { article: Article -> viewModel.onDownvote(article = article) }
+    val communityListener = { article: Article ->
+      startActivity(appRouter.newCommunityDetailActivity(community = article.community))
+    }
 
     viewModel
       .items
@@ -110,7 +114,8 @@ class ArticleListFragment : BaseFragment() {
           ArticleItem(
             article = item,
             upvoteListener = upvoteListener,
-            downvoteListener = downvoteListener
+            downvoteListener = downvoteListener,
+            communityListener = communityListener
           )
         })
       }

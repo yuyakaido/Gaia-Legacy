@@ -9,7 +9,7 @@ import kotlinx.android.parcel.Parcelize
 data class Article(
   val id: ID,
   val name: String,
-  val category: String,
+  val community: Community.Summary,
   val title: String,
   val thumbnail: Uri,
   val author: String,
@@ -30,7 +30,7 @@ data class Article(
       return Article(
         id = ID(id),
         name = "name",
-        category = "category",
+        community = Community.Summary(name = "category"),
         title = "title",
         thumbnail = Uri.parse("https://dummyimage.com/600x400/000/fff"),
         author = "yuyakaido",

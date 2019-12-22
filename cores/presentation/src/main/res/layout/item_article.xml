@@ -47,7 +47,7 @@
           />
 
         <TextView
-          android:id="@+id/category"
+          android:id="@+id/community"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:textStyle="bold"
@@ -64,9 +64,9 @@
           android:layout_marginStart="8dp"
           android:maxLines="1"
           android:textSize="12sp"
-          app:layout_constraintTop_toTopOf="@id/category"
-          app:layout_constraintBottom_toBottomOf="@id/category"
-          app:layout_constraintStart_toEndOf="@id/category"
+          app:layout_constraintTop_toTopOf="@id/community"
+          app:layout_constraintBottom_toBottomOf="@id/community"
+          app:layout_constraintStart_toEndOf="@id/community"
           app:layout_constraintEnd_toEndOf="parent"
           />
 

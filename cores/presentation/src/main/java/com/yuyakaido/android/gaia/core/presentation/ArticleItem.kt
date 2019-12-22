@@ -13,7 +13,8 @@ import com.yuyakaido.android.gaia.core.presentation.databinding.ItemArticleBindi
 class ArticleItem(
   val article: Article,
   private val upvoteListener: (Article) -> Unit,
-  private val downvoteListener: (Article) -> Unit
+  private val downvoteListener: (Article) -> Unit,
+  private val communityListener: (Article) -> Unit
 ) : BindableItem<ItemArticleBinding>() {
 
   private val placeholder = ColorDrawable(Color.LTGRAY)
@@ -45,12 +46,13 @@ class ArticleItem(
   override fun bind(binding: ItemArticleBinding, position: Int) {
     val context = binding.root.context
 
-    binding.category.text = article.category
+    binding.community.text = article.community.name
     binding.author.text = binding.root.resources.getString(R.string.author, article.author)
     binding.title.text = article.title
     binding.voteCount.text = article.voteCount.toString()
     binding.upvote.setOnClickListener { upvoteListener.invoke(article) }
     binding.downvote.setOnClickListener { downvoteListener.invoke(article) }
+    binding.community.setOnClickListener { communityListener.invoke(article) }
     when {
       article.likes == null -> {
         binding.upvote.setImageResource(R.drawable.ic_upvote_inactive)
