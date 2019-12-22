@@ -12,6 +12,7 @@ include ':features:home'
 include ':features:article'
 include ':features:article-list'
 include ':features:article-detail'
+include ':features:community-detail'
 include ':features:profile'
 include ':features:search'
 
