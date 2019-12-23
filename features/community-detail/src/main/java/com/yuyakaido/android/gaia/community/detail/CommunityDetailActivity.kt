@@ -31,7 +31,7 @@ class CommunityDetailActivity : BaseActivity() {
   private val binding by lazy { ActivityCommunityDetailBinding.inflate(layoutInflater) }
 
   internal fun getCommunity(): Community.Summary {
-    return intent.getParcelableExtra(COMMUNITY) as Community.Summary
+    return requireNotNull(intent.getParcelableExtra(COMMUNITY))
   }
 
   override fun onCreate(savedInstanceState: Bundle?) {

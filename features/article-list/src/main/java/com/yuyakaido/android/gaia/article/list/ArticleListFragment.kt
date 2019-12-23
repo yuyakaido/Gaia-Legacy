@@ -18,12 +18,11 @@ import com.yqritc.recyclerviewflexibledivider.HorizontalDividerItemDecoration
 import com.yuyakaido.android.gaia.article.list.databinding.FragmentArticleListBinding
 import com.yuyakaido.android.gaia.core.domain.app.AppRouterType
 import com.yuyakaido.android.gaia.core.domain.entity.Article
-import com.yuyakaido.android.gaia.core.domain.entity.Community
 import com.yuyakaido.android.gaia.core.domain.extension.dpTpPx
+import com.yuyakaido.android.gaia.core.domain.value.ArticleListPage
 import com.yuyakaido.android.gaia.core.presentation.ArticleItem
 import com.yuyakaido.android.gaia.core.presentation.BaseFragment
 import com.yuyakaido.android.gaia.core.presentation.ViewModelFactory
-import com.yuyakaido.android.gaia.core.domain.value.ArticleListPage
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -49,7 +48,7 @@ class ArticleListFragment : BaseFragment() {
   private lateinit var binding: FragmentArticleListBinding
 
   fun getArticleListPage(): ArticleListPage {
-    return requireArguments().getSerializable(PAGE) as ArticleListPage
+    return requireNotNull(requireArguments().getParcelable(PAGE))
   }
 
   override fun onCreateView(
@@ -89,11 +88,10 @@ class ArticleListFragment : BaseFragment() {
     )
     binding.recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
       override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-        val page = arguments?.getSerializable(PAGE) as ArticleListPage
         val itemCount = manager.itemCount
         val lastPosition = manager.findLastCompletelyVisibleItemPosition()
         if (itemCount != 0 && lastPosition == itemCount - 1) {
-          viewModel.onPaginate(page)
+          viewModel.onPaginate(getArticleListPage())
         }
       }
     })

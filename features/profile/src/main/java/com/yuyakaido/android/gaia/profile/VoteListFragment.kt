@@ -17,10 +17,10 @@ import com.yuyakaido.android.gaia.core.domain.app.AppRouterType
 import com.yuyakaido.android.gaia.core.domain.entity.Article
 import com.yuyakaido.android.gaia.core.domain.entity.Me
 import com.yuyakaido.android.gaia.core.domain.extension.dpTpPx
+import com.yuyakaido.android.gaia.core.domain.value.VoteListPage
 import com.yuyakaido.android.gaia.core.presentation.ArticleItem
 import com.yuyakaido.android.gaia.core.presentation.BaseFragment
 import com.yuyakaido.android.gaia.core.presentation.ViewModelFactory
-import com.yuyakaido.android.gaia.core.domain.value.VoteListPage
 import com.yuyakaido.android.gaia.profile.databinding.FragmentVoteListBinding
 import javax.inject.Inject
 
@@ -52,7 +52,7 @@ class VoteListFragment : BaseFragment() {
   private lateinit var binding: FragmentVoteListBinding
 
   internal fun getMe(): Me {
-    return requireArguments().getParcelable<Me>(ME) as Me
+    return requireNotNull(requireArguments().getParcelable(ME))
   }
 
   internal fun getVoteListPage(): VoteListPage {

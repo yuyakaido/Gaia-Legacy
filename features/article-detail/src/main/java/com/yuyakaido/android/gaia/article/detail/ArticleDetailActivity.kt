@@ -35,7 +35,7 @@ class ArticleDetailActivity : BaseActivity() {
   private val binding by lazy { ActivityArticleDetailBinding.inflate(layoutInflater) }
 
   internal fun getArticle(): Article {
-    return intent.getParcelableExtra(ARTICLE) as Article
+    return requireNotNull(intent.getParcelableExtra(ARTICLE))
   }
 
   override fun onCreate(savedInstanceState: Bundle?) {

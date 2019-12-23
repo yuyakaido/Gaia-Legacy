@@ -19,7 +19,7 @@ class ArticleRepository @Inject constructor(
   ): EntityPaginationItem<Article> {
     return authApi
       .articles(
-        path = page.path,
+        path = page.path(),
         after = after
       )
       .toArticlePaginationItem()
