@@ -21,14 +21,14 @@ class SearchViewModel @Inject constructor(
   fun onBind() {
     viewModelScope.launch {
       val articles = repository.trendingArticles()
-      trendingArticles.postValue(articles)
+      trendingArticles.value = articles
     }
   }
 
   fun onTextChange(text: String) {
     viewModelScope.launch {
       val result = repository.search(query = text)
-      searchedArticles.postValue(result.entities)
+      searchedArticles.value = result.entities
     }
   }
 

@@ -20,7 +20,7 @@ class ProfileViewModel @Inject constructor(
   fun onBind() {
     Timber.d("repository = ${repository.hashCode()}")
     viewModelScope.launch {
-      me.postValue(repository.me())
+      me.value = repository.me()
     }
   }
 

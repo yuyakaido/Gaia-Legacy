@@ -36,7 +36,7 @@ class ArticleListStorybookViewModel @Inject constructor(
   override fun onPaginate(page: ArticleListPage) {
     val oldItems = items.value ?: emptyList()
     val newItems = oldItems.plus(createDummyItem())
-    items.postValue(newItems)
+    items.value = newItems
   }
 
   override fun onUpvote(article: Article) {

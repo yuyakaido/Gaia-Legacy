@@ -25,7 +25,7 @@ class VoteListViewModel @Inject constructor(
     Timber.d("repository = ${repository.hashCode()}")
     viewModelScope.launch {
       val result = repository.votedArticles(me = me, page = page)
-      articles.postValue(result.entities)
+      articles.value = result.entities
     }
   }
 

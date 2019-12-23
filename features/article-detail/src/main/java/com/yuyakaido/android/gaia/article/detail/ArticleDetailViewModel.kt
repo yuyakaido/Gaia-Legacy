@@ -22,11 +22,11 @@ class ArticleDetailViewModel @Inject constructor(
   val comments = MutableLiveData<List<Comment>>()
 
   fun onBind() {
-    title.postValue(article.title)
-    thumbnail.postValue(article.thumbnail)
+    title.value = article.title
+    thumbnail.value = article.thumbnail
 
     viewModelScope.launch {
-      comments.postValue(repository.comments(article = article))
+      comments.value = repository.comments(article = article)
     }
   }
 

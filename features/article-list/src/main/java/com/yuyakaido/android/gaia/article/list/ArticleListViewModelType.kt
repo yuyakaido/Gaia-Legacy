@@ -39,7 +39,7 @@ abstract class ArticleListViewModelType(
             }
         )
       }
-    items.postValue(newItems)
+    items.value = newItems
   }
 
 }

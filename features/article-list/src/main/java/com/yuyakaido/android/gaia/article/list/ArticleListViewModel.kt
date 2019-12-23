@@ -39,7 +39,7 @@ class ArticleListViewModel @Inject constructor(
       val result = repository.articles(page = page, after = after)
       val oldItems = items.value ?: emptyList()
       val newItems = oldItems.plus(result)
-      items.postValue(newItems)
+      items.value = newItems
       after = result.after
       isLoading = false
     }
