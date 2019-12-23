@@ -5,14 +5,14 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.yuyakaido.android.gaia.core.domain.entity.Community
-import com.yuyakaido.android.gaia.core.infrastructure.RedditAuthApi
+import com.yuyakaido.android.gaia.core.infrastructure.PrivateApi
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class CommunityDetailViewModel @Inject constructor(
   application: Application,
   private val summary: Community.Summary,
-  private val api: RedditAuthApi
+  private val api: PrivateApi
 ) : AndroidViewModel(application) {
 
   val community = MutableLiveData<Community.Detail>()

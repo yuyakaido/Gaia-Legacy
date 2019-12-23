@@ -4,20 +4,20 @@ import com.yuyakaido.android.gaia.core.domain.entity.Article
 import com.yuyakaido.android.gaia.core.domain.entity.Me
 import com.yuyakaido.android.gaia.core.domain.repository.ArticleRepositoryType
 import com.yuyakaido.android.gaia.core.domain.value.*
-import com.yuyakaido.android.gaia.core.infrastructure.RedditAuthApi
-import com.yuyakaido.android.gaia.core.infrastructure.RedditPublicApi
+import com.yuyakaido.android.gaia.core.infrastructure.PrivateApi
+import com.yuyakaido.android.gaia.core.infrastructure.PublicApi
 import javax.inject.Inject
 
 class ArticleRepository @Inject constructor(
-  private val authApi: RedditAuthApi,
-  private val publicApi: RedditPublicApi
+  private val privateApi: PrivateApi,
+  private val publicApi: PublicApi
 ) : ArticleRepositoryType {
 
   override suspend fun articles(
     page: ArticleListPage,
     after: String?
   ): EntityPaginationItem<Article> {
-    return authApi
+    return privateApi
       .articles(
         path = page.path(),
         after = after
@@ -29,7 +29,7 @@ class ArticleRepository @Inject constructor(
     me: Me,
     page: VoteListPage
   ): EntityPaginationItem<Article> {
-    return authApi
+    return privateApi
       .voted(
         user = me.name,
         type = page.path
@@ -38,7 +38,7 @@ class ArticleRepository @Inject constructor(
   }
 
   override suspend fun vote(target: VoteTarget) {
-    authApi.vote(id = target.article.name, dir = target.dir)
+    privateApi.vote(id = target.article.name, dir = target.dir)
   }
 
   override suspend fun trendingArticles(): List<TrendingArticle> {

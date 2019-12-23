@@ -9,7 +9,7 @@ import okhttp3.Route
 
 class TokenAuthenticator(
   private val service: AuthTokenServiceType,
-  private val api: RedditWwwApi
+  private val api: PublicApi
 ) : Authenticator {
 
   override fun authenticate(route: Route?, response: Response): Request? {

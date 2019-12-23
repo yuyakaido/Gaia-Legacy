@@ -30,24 +30,16 @@ class NetworkModule {
   @Provides
   fun provideOkHttpClientForPublic(): OkHttpClient {
     return createBaseOkHttpClientBuilder()
-      .build()
-  }
-
-  @AppScope
-  @OkHttpForWww
-  @Provides
-  fun provideOkHttpClientForWww(): OkHttpClient {
-    return createBaseOkHttpClientBuilder()
       .addInterceptor(BasicAuthInterceptor())
       .build()
   }
 
   @AppScope
-  @OkHttpForAuth
+  @OkHttpForPrivate
   @Provides
-  fun provideOkHttpClientForAuth(
+  fun provideOkHttpClientForPrivate(
     service: AuthTokenServiceType,
-    api: RedditWwwApi
+    api: PublicApi
   ): OkHttpClient {
     return createBaseOkHttpClientBuilder()
       .addInterceptor(AuthInterceptor(service = service))
@@ -82,47 +74,32 @@ class NetworkModule {
 
   @AppScope
   @Provides
-  fun provideRedditPublicApi(
+  fun providePublicApi(
     moshi: Moshi,
     @OkHttpForPublic client: OkHttpClient
-  ): RedditPublicApi {
-    val retrofit = Retrofit
-      .Builder()
-      .client(client)
-      .baseUrl("https://reddit.com")
-      .addConverterFactory(MoshiConverterFactory.create(moshi))
-      .build()
-    return retrofit.create(RedditPublicApi::class.java)
-  }
-
-  @AppScope
-  @Provides
-  fun provideRedditWwwApi(
-    moshi: Moshi,
-    @OkHttpForWww client: OkHttpClient
-  ): RedditWwwApi {
+  ): PublicApi {
     val retrofit = Retrofit
       .Builder()
       .client(client)
       .baseUrl("https://www.reddit.com/")
       .addConverterFactory(MoshiConverterFactory.create(moshi))
       .build()
-    return retrofit.create(RedditWwwApi::class.java)
+    return retrofit.create(PublicApi::class.java)
   }
 
   @AppScope
   @Provides
-  fun provideRedditAuthApi(
+  fun providePrivateApi(
     moshi: Moshi,
-    @OkHttpForAuth client: OkHttpClient
-  ): RedditAuthApi {
+    @OkHttpForPrivate client: OkHttpClient
+  ): PrivateApi {
     val retrofit = Retrofit
       .Builder()
       .client(client)
       .baseUrl("https://oauth.reddit.com")
       .addConverterFactory(MoshiConverterFactory.create(moshi))
       .build()
-    return retrofit.create(RedditAuthApi::class.java)
+    return retrofit.create(PrivateApi::class.java)
   }
 
 }

@@ -7,7 +7,7 @@ import javax.inject.Inject
 
 @AppScope
 class CommentRepository @Inject constructor(
-  private val api: RedditAuthApi
+  private val api: PrivateApi
 ) {
 
   suspend fun comments(article: Article): List<Comment> {

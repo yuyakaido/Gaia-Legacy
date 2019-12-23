@@ -6,7 +6,7 @@ import javax.inject.Inject
 
 @AppScope
 class MeRepository @Inject constructor(
-  private val api: RedditAuthApi
+  private val api: PrivateApi
 ) {
 
   suspend fun me(): Me {

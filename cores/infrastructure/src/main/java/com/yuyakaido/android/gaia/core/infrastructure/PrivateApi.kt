@@ -2,20 +2,20 @@ package com.yuyakaido.android.gaia.core.infrastructure
 
 import retrofit2.http.*
 
-interface RedditAuthApi {
+interface PrivateApi {
 
   @GET("r/{path}/about")
   suspend fun about(
     @Path("path") path: String
   ): CommunityResponse
 
-  @GET("r/{path}.json")
+  @GET("r/{path}")
   suspend fun articles(
     @Path("path") path: String,
     @Query("after") after: String?
   ): ListingDataResponse
 
-  @GET("r/{category}/comments/{id}.json")
+  @GET("r/{category}/comments/{id}")
   suspend fun comments(
     @Path("category") category: String,
     @Path("id") id: String
