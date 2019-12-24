@@ -7,13 +7,13 @@ import com.yuyakaido.android.gaia.core.domain.value.*
 interface ArticleRepositoryType {
 
   suspend fun articles(
-    page: ArticleListPage,
+    path: String,
     after: String?
   ): EntityPaginationItem<Article>
 
   suspend fun votedArticles(
     me: Me,
-    page: VoteListPage
+    path: String
   ): EntityPaginationItem<Article>
 
   suspend fun vote(target: VoteTarget)

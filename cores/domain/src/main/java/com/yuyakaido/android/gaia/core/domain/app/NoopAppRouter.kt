@@ -6,7 +6,6 @@ import androidx.fragment.app.Fragment
 import com.yuyakaido.android.gaia.core.domain.entity.Article
 import com.yuyakaido.android.gaia.core.domain.entity.Community
 import com.yuyakaido.android.gaia.core.domain.entity.Me
-import com.yuyakaido.android.gaia.core.domain.value.VoteListPage
 import javax.inject.Inject
 
 class NoopAppRouter @Inject constructor(
@@ -21,7 +20,15 @@ class NoopAppRouter @Inject constructor(
     throw UnsupportedOperationException()
   }
 
-  override fun newArticleListFragment(): Fragment {
+  override fun newPopularArticleListFragment(): Fragment {
+    throw UnsupportedOperationException()
+  }
+
+  override fun newUpvotedArticleListFragment(me: Me): Fragment {
+    throw UnsupportedOperationException()
+  }
+
+  override fun newDownvotedArticleListFragment(me: Me): Fragment {
     throw UnsupportedOperationException()
   }
 
@@ -34,10 +41,6 @@ class NoopAppRouter @Inject constructor(
   }
 
   override fun newProfileFragment(): Fragment {
-    throw UnsupportedOperationException()
-  }
-
-  override fun newVoteListFragment(me: Me, page: VoteListPage): Fragment {
     throw UnsupportedOperationException()
   }
 

@@ -36,7 +36,7 @@ class ArticleListViewModel @Inject constructor(
     }
     viewModelScope.launch {
       isLoading = true
-      val result = repository.articles(page = page, after = after)
+      val result = page.articles(repository = repository, after = after)
       val oldItems = items.value ?: emptyList()
       val newItems = oldItems.plus(result)
       items.value = newItems

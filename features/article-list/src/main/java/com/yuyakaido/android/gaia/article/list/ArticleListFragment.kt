@@ -7,7 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.map
 import androidx.lifecycle.observe
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -43,7 +43,7 @@ class ArticleListFragment : BaseFragment() {
   @Inject
   internal lateinit var factory: ViewModelFactory<ArticleListViewModelType>
 
-  private val viewModel: ArticleListViewModelType by activityViewModels { factory }
+  private val viewModel: ArticleListViewModelType by viewModels { factory }
 
   private lateinit var binding: FragmentArticleListBinding
 

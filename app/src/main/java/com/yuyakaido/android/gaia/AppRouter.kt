@@ -12,10 +12,8 @@ import com.yuyakaido.android.gaia.core.domain.entity.Article
 import com.yuyakaido.android.gaia.core.domain.entity.Community
 import com.yuyakaido.android.gaia.core.domain.entity.Me
 import com.yuyakaido.android.gaia.core.domain.value.ArticleListPage
-import com.yuyakaido.android.gaia.core.domain.value.VoteListPage
 import com.yuyakaido.android.gaia.home.HomeActivity
 import com.yuyakaido.android.gaia.profile.ProfileFragment
-import com.yuyakaido.android.gaia.profile.VoteListFragment
 import com.yuyakaido.android.gaia.search.SearchFragment
 import javax.inject.Inject
 
@@ -31,8 +29,16 @@ class AppRouter @Inject constructor(
     return HomeActivity.createIntent(context = application)
   }
 
-  override fun newArticleListFragment(): Fragment {
+  override fun newPopularArticleListFragment(): Fragment {
     return ArticleListFragment.newInstance(page = ArticleListPage.Popular)
+  }
+
+  override fun newUpvotedArticleListFragment(me: Me): Fragment {
+    return ArticleListFragment.newInstance(page = ArticleListPage.Upvote(me = me))
+  }
+
+  override fun newDownvotedArticleListFragment(me: Me): Fragment {
+    return ArticleListFragment.newInstance(page = ArticleListPage.Downvote(me = me))
   }
 
   override fun newArticleDetailActivity(article: Article): Intent {
@@ -45,10 +51,6 @@ class AppRouter @Inject constructor(
 
   override fun newProfileFragment(): Fragment {
     return ProfileFragment.newInstance()
-  }
-
-  override fun newVoteListFragment(me: Me, page: VoteListPage): Fragment {
-    return VoteListFragment.newInstance(me = me, page = page)
   }
 
   override fun newSearchFragment(): Fragment {

@@ -1,17 +1,30 @@
 package com.yuyakaido.android.gaia.core.domain.value
 
 import android.os.Parcelable
+import com.yuyakaido.android.gaia.core.domain.entity.Article
 import com.yuyakaido.android.gaia.core.domain.entity.Community
+import com.yuyakaido.android.gaia.core.domain.entity.Me
+import com.yuyakaido.android.gaia.core.domain.repository.ArticleRepositoryType
 import kotlinx.android.parcel.Parcelize
 
 sealed class ArticleListPage : Parcelable {
 
-  abstract fun path(): String
+  abstract suspend fun articles(
+    repository: ArticleRepositoryType,
+    after: String?
+  ): EntityPaginationItem<Article>
 
   @Parcelize
   object Popular : ArticleListPage(), Parcelable {
-    override fun path(): String {
-      return "popular"
+    override suspend fun articles(
+      repository: ArticleRepositoryType,
+      after: String?
+    ): EntityPaginationItem<Article> {
+      return repository
+        .articles(
+          path = "popular",
+          after = after
+        )
     }
   }
 
@@ -19,8 +32,43 @@ sealed class ArticleListPage : Parcelable {
   data class CommunityDetail(
     val community: Community.Summary
   ) : ArticleListPage(), Parcelable {
-    override fun path(): String {
-      return community.name
+    override suspend fun articles(
+      repository: ArticleRepositoryType,
+      after: String?
+    ): EntityPaginationItem<Article> {
+      throw RuntimeException()
+    }
+  }
+
+  @Parcelize
+  data class Upvote(
+    val me: Me
+  ) : ArticleListPage(), Parcelable {
+    override suspend fun articles(
+      repository: ArticleRepositoryType,
+      after: String?
+    ): EntityPaginationItem<Article> {
+      return repository
+        .votedArticles(
+          me = me,
+          path = "upvoted"
+        )
+    }
+  }
+
+  @Parcelize
+  data class Downvote(
+    val me: Me
+  ) : ArticleListPage(), Parcelable {
+    override suspend fun articles(
+      repository: ArticleRepositoryType,
+      after: String?
+    ): EntityPaginationItem<Article> {
+      return repository
+        .votedArticles(
+          me = me,
+          path = "downvoted"
+        )
     }
   }
 

@@ -9,7 +9,7 @@ enum class HomePage(
   ) {
   Popular(
     id = R.id.navigation_popular,
-    fragment = fun (router: AppRouterType) = router.newArticleListFragment()
+    fragment = fun (router: AppRouterType) = router.newPopularArticleListFragment()
   ),
   Search(
     id = R.id.navigation_search,

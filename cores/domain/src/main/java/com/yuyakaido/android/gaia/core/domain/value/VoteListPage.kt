@@ -11,13 +11,13 @@ enum class VoteListPage(
   Upvoted(
     path = "upvoted",
     fragment = fun (router: AppRouterType, me: Me): Fragment {
-      return router.newVoteListFragment(me = me, page = Upvoted)
+      return router.newUpvotedArticleListFragment(me = me)
     }
   ),
   Downvoted(
     path = "downvoted",
     fragment = fun (router: AppRouterType, me: Me): Fragment {
-      return router.newVoteListFragment(me = me, page = Downvoted)
+      return router.newDownvotedArticleListFragment(me = me)
     }
   )
 }
