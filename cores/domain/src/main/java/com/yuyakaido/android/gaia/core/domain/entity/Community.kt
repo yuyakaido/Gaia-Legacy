@@ -16,6 +16,7 @@ sealed class Community {
     val icon: Uri,
     val banner: Uri,
     val subscribers: Int,
-    val isSubscriber: Boolean
+    val isSubscriber: Boolean,
+    val description: String
   ) : Community(), Parcelable
 }

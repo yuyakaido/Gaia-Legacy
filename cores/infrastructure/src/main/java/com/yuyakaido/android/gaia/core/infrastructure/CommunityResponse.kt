@@ -15,7 +15,8 @@ data class CommunityResponse(
     @Json(name = "icon_img") val icon: String,
     @Json(name = "banner_background_image") val banner: String,
     @Json(name = "subscribers") val subscribers: Int,
-    @Json(name = "user_is_subscriber") val isSubscriber: Boolean
+    @Json(name = "user_is_subscriber") val isSubscriber: Boolean,
+    @Json(name = "public_description_html") val description: String
   )
 
   fun toEntity(): Community.Detail {
@@ -25,7 +26,8 @@ data class CommunityResponse(
       icon = Uri.parse(data.icon),
       banner = Uri.parse(data.banner),
       subscribers = data.subscribers,
-      isSubscriber = data.isSubscriber
+      isSubscriber = data.isSubscriber,
+      description = data.description
     )
   }
 

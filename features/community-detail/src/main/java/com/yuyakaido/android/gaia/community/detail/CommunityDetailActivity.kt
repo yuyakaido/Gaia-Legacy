@@ -77,6 +77,7 @@ class CommunityDetailActivity : BaseActivity() {
           binding.subscribe.text = getString(R.string.community_subscribe)
         }
         binding.subscribers.text = getString(R.string.community_subscribers, community.subscribers)
+        binding.description.text = community.description
       }
   }
 
