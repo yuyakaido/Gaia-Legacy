@@ -4,9 +4,9 @@ import retrofit2.http.*
 
 interface PrivateApi {
 
-  @GET("r/{path}/about")
-  suspend fun about(
-    @Path("path") path: String
+  @GET("r/{name}/about")
+  suspend fun detail(
+    @Path("name") name: String
   ): CommunityResponse
 
   @GET("r/{path}")

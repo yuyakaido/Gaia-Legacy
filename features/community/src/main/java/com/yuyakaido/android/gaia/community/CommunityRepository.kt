@@ -8,6 +8,10 @@ class CommunityRepository @Inject constructor(
   private val api: PrivateApi
 ) {
 
+  suspend fun detail(community: Community.Summary): Community.Detail {
+    return api.detail(name = community.name).toEntity()
+  }
+
   suspend fun subscribe(community: Community.Detail): Community.Detail {
     api.subscribe(name = community.name)
     return community.copy(isSubscriber = true)

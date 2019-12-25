@@ -6,22 +6,20 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.yuyakaido.android.gaia.community.CommunityRepository
 import com.yuyakaido.android.gaia.core.domain.entity.Community
-import com.yuyakaido.android.gaia.core.infrastructure.PrivateApi
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class CommunityDetailViewModel @Inject constructor(
   application: Application,
   private val summary: Community.Summary,
-  private val repository: CommunityRepository,
-  private val api: PrivateApi
+  private val repository: CommunityRepository
 ) : AndroidViewModel(application) {
 
   val community = MutableLiveData<Community.Detail>()
 
   fun onBind() {
     viewModelScope.launch {
-      val detail = api.about(path = summary.name).toEntity()
+      val detail = repository.detail(community = summary)
       community.value = detail
     }
   }
