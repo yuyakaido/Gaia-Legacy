@@ -16,6 +16,8 @@
   <!-- CommunityDetail -->
   <string name="community_name">r/%1$s</string>
   <string name="community_subscribers">%1$d subscribers</string>
+  <string name="community_subscribe">Subscribe</string>
+  <string name="community_unsubscribe">Unsubscribe</string>
   <string name="community_articles">Articles</string>
 
   <!-- Profile -->

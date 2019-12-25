@@ -37,4 +37,18 @@ interface PrivateApi {
     @Field("dir") dir: Int
   )
 
+  @FormUrlEncoded
+  @POST("api/subscribe")
+  suspend fun subscribe(
+    @Field("action") action: String = "sub",
+    @Field("sr_name") name: String
+  )
+
+  @FormUrlEncoded
+  @POST("api/subscribe")
+  suspend fun unsubscribe(
+    @Field("action") action: String = "unsub",
+    @Field("sr_name") name: String
+  )
+
 }

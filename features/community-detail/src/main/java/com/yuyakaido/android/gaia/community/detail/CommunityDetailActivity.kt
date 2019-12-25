@@ -70,6 +70,12 @@ class CommunityDetailActivity : BaseActivity() {
           .circleCrop()
           .into(binding.icon)
         binding.name.text = getString(R.string.community_name, community.name)
+        binding.subscribe.setOnClickListener { viewModel.onSubscribe() }
+        if (community.isSubscriber) {
+          binding.subscribe.text = getString(R.string.community_unsubscribe)
+        } else {
+          binding.subscribe.text = getString(R.string.community_subscribe)
+        }
         binding.subscribers.text = getString(R.string.community_subscribers, community.subscribers)
       }
   }
