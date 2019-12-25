@@ -8,6 +8,7 @@ import androidx.activity.viewModels
 import androidx.lifecycle.observe
 import com.bumptech.glide.Glide
 import com.yuyakaido.android.gaia.community.detail.databinding.ActivityCommunityDetailBinding
+import com.yuyakaido.android.gaia.core.domain.app.AppRouterType
 import com.yuyakaido.android.gaia.core.domain.entity.Community
 import com.yuyakaido.android.gaia.core.presentation.BaseActivity
 import com.yuyakaido.android.gaia.core.presentation.ViewModelFactory
@@ -25,6 +26,9 @@ class CommunityDetailActivity : BaseActivity() {
   }
 
   @Inject
+  internal lateinit var appRouter: AppRouterType
+
+  @Inject
   internal lateinit var factory: ViewModelFactory<CommunityDetailViewModel>
 
   private val viewModel: CommunityDetailViewModel by viewModels { factory }
@@ -39,6 +43,7 @@ class CommunityDetailActivity : BaseActivity() {
     setContentView(binding.root)
     setupToolbar()
     setupDetail()
+    setupViewPager()
     viewModel.onBind()
   }
 
@@ -67,6 +72,17 @@ class CommunityDetailActivity : BaseActivity() {
         binding.name.text = getString(R.string.community_name, community.name)
         binding.subscribers.text = getString(R.string.community_subscribers, community.subscribers)
       }
+  }
+
+  private fun setupViewPager() {
+    val adapter = CommunityDetailFragmentPagerAdapter(
+      manager = supportFragmentManager,
+      context = this,
+      appRouter = appRouter,
+      community = getCommunity()
+    )
+    binding.viewPager.adapter = adapter
+    binding.tabLayout.setupWithViewPager(binding.viewPager)
   }
 
 }

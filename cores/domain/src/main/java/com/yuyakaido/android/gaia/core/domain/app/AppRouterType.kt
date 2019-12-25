@@ -13,6 +13,7 @@ interface AppRouterType {
   fun newLaunchAuthorizationActivity(): Intent
   fun newHomeActivity(): Intent
   fun newPopularArticleListFragment(): Fragment
+  fun newCommunityDetailArticleListFragment(community: Community.Summary): Fragment
   fun newUpvotedArticleListFragment(me: Me): Fragment
   fun newDownvotedArticleListFragment(me: Me): Fragment
   fun newArticleDetailActivity(article: Article): Intent

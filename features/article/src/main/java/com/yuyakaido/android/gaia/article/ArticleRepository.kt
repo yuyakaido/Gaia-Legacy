@@ -1,6 +1,7 @@
 package com.yuyakaido.android.gaia.article
 
 import com.yuyakaido.android.gaia.core.domain.entity.Article
+import com.yuyakaido.android.gaia.core.domain.entity.Community
 import com.yuyakaido.android.gaia.core.domain.entity.Me
 import com.yuyakaido.android.gaia.core.domain.repository.ArticleRepositoryType
 import com.yuyakaido.android.gaia.core.domain.value.EntityPaginationItem
@@ -22,6 +23,18 @@ class ArticleRepository @Inject constructor(
     return privateApi
       .articles(
         path = path,
+        after = after
+      )
+      .toArticlePaginationItem()
+  }
+
+  override suspend fun articles(
+    community: Community.Summary,
+    after: String?
+  ): EntityPaginationItem<Article> {
+    return privateApi
+      .articles(
+        path = community.name,
         after = after
       )
       .toArticlePaginationItem()

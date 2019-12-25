@@ -33,6 +33,11 @@ class AppRouter @Inject constructor(
     return ArticleListFragment.newInstance(page = ArticleListPage.Popular)
   }
 
+  override fun newCommunityDetailArticleListFragment(community: Community.Summary): Fragment {
+    val page = ArticleListPage.CommunityDetail(community = community)
+    return ArticleListFragment.newInstance(page = page)
+  }
+
   override fun newUpvotedArticleListFragment(me: Me): Fragment {
     return ArticleListFragment.newInstance(page = ArticleListPage.Upvote(me = me))
   }

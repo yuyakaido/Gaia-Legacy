@@ -36,7 +36,11 @@ sealed class ArticleListPage : Parcelable {
       repository: ArticleRepositoryType,
       after: String?
     ): EntityPaginationItem<Article> {
-      throw RuntimeException()
+      return repository
+        .articles(
+          community = community,
+          after = after
+        )
     }
   }
 
