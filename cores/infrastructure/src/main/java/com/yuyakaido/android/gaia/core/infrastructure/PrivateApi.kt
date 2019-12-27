@@ -9,6 +9,11 @@ interface PrivateApi {
     @Path("name") name: String
   ): CommunityResponse
 
+  @GET("r/{name}/about/moderators")
+  suspend fun moderators(
+    @Path("name") name: String
+  ): UserListResponse
+
   @GET("r/{path}")
   suspend fun articles(
     @Path("path") path: String,
