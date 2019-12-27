@@ -13,8 +13,8 @@ class CommentRepository @Inject constructor(
   suspend fun comments(article: Article): List<Comment> {
     val response = api
       .comments(
-        category = article.community.name,
-        id = article.id.value
+        community = article.community.name,
+        article = article.id.value
       )
     val responseOfComment = response.firstOrNull {
       it.data.children.any { child -> child.kind == Kind.Comment }

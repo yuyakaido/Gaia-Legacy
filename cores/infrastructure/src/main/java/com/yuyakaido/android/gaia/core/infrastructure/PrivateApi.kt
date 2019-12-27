@@ -4,31 +4,31 @@ import retrofit2.http.*
 
 interface PrivateApi {
 
-  @GET("r/{name}/about")
+  @GET("r/{community}/about")
   suspend fun detail(
-    @Path("name") name: String
+    @Path("community") community: String
   ): CommunityResponse
 
-  @GET("r/{name}/about/moderators")
+  @GET("r/{community}/about/moderators")
   suspend fun moderators(
-    @Path("name") name: String
+    @Path("community") community: String
   ): UserListResponse
 
-  @GET("r/{name}/about/contributors")
+  @GET("r/{community}/about/contributors")
   suspend fun contributors(
-    @Path("name") name: String
+    @Path("community") community: String
   ): UserListResponse
 
-  @GET("r/{path}")
+  @GET("r/{community}")
   suspend fun articles(
-    @Path("path") path: String,
+    @Path("community") community: String,
     @Query("after") after: String?
   ): ListingDataResponse
 
-  @GET("r/{category}/comments/{id}")
+  @GET("r/{community}/comments/{article}")
   suspend fun comments(
-    @Path("category") category: String,
-    @Path("id") id: String
+    @Path("community") community: String,
+    @Path("article") article: String
   ): List<ListingDataResponse>
 
   @GET("api/v1/me")

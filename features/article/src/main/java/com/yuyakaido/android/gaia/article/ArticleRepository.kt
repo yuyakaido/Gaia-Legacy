@@ -22,7 +22,7 @@ class ArticleRepository @Inject constructor(
   ): EntityPaginationItem<Article> {
     return privateApi
       .articles(
-        path = path,
+        community = path,
         after = after
       )
       .toArticlePaginationItem()
@@ -34,7 +34,7 @@ class ArticleRepository @Inject constructor(
   ): EntityPaginationItem<Article> {
     return privateApi
       .articles(
-        path = community.name,
+        community = community.name,
         after = after
       )
       .toArticlePaginationItem()

@@ -9,7 +9,7 @@ class CommunityRepository @Inject constructor(
 ) {
 
   suspend fun detail(community: Community.Summary): Community.Detail {
-    return api.detail(name = community.name).toEntity()
+    return api.detail(community = community.name).toEntity()
   }
 
   suspend fun subscribe(community: Community.Detail): Community.Detail {
