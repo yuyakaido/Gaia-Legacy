@@ -19,6 +19,7 @@
   <string name="community_subscribe">Subscribe</string>
   <string name="community_unsubscribe">Unsubscribe</string>
   <string name="community_articles">Articles</string>
+  <string name="community_moderators">Moderators</string>
 
   <!-- Profile -->
   <string name="identity">u/%1$s</string>

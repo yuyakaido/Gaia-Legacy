@@ -4,6 +4,8 @@ import com.yuyakaido.android.gaia.article.list.ArticleListFragment
 import com.yuyakaido.android.gaia.article.list.ArticleListModule
 import com.yuyakaido.android.gaia.profile.ProfileFragment
 import com.yuyakaido.android.gaia.search.SearchFragment
+import com.yuyakaido.android.gaia.user.list.UserListFragment
+import com.yuyakaido.android.gaia.user.list.UserListModule
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 
@@ -15,10 +17,15 @@ abstract class FragmentModule {
   )
   abstract fun contributeArticleListFragment(): ArticleListFragment
 
-  @ContributesAndroidInjector
-  abstract fun contributeSearchFragment(): SearchFragment
+  @ContributesAndroidInjector(
+    modules = [UserListModule::class]
+  )
+  abstract fun contributeUserListFragment(): UserListFragment
 
   @ContributesAndroidInjector
   abstract fun contributeProfileFragment(): ProfileFragment
+
+  @ContributesAndroidInjector
+  abstract fun contributeSearchFragment(): SearchFragment
 
 }

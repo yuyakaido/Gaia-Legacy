@@ -85,7 +85,7 @@ class CommunityDetailActivity : BaseActivity() {
     val adapter = CommunityDetailFragmentPagerAdapter(
       manager = supportFragmentManager,
       context = this,
-      appRouter = appRouter,
+      router = appRouter,
       community = getCommunity()
     )
     binding.viewPager.adapter = adapter

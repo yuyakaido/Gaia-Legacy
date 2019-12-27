@@ -10,20 +10,21 @@ import com.yuyakaido.android.gaia.core.domain.entity.Community
 class CommunityDetailFragmentPagerAdapter(
   manager: FragmentManager,
   private val context: Context,
-  private val appRouter: AppRouterType,
+  private val router: AppRouterType,
   private val community: Community.Summary
 ) : FragmentPagerAdapter(manager, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
 
   override fun getPageTitle(position: Int): CharSequence? {
-    return context.getString(R.string.community_articles)
+    return context.getString(CommunityDetailPage.values()[position].title)
   }
 
   override fun getCount(): Int {
-    return 1
+    return CommunityDetailPage.values().size
   }
 
   override fun getItem(position: Int): Fragment {
-    return appRouter.newCommunityDetailArticleListFragment(community = community)
+    val page = CommunityDetailPage.values()[position]
+    return page.fragment.invoke(router, community)
   }
 
 }
