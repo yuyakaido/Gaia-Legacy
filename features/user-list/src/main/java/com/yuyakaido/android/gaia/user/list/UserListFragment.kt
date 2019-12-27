@@ -11,6 +11,7 @@ import androidx.lifecycle.observe
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
+import com.yuyakaido.android.gaia.core.domain.app.AppRouterType
 import com.yuyakaido.android.gaia.core.domain.value.UserListPage
 import com.yuyakaido.android.gaia.core.presentation.BaseFragment
 import com.yuyakaido.android.gaia.core.presentation.ViewModelFactory
@@ -27,6 +28,9 @@ class UserListFragment : BaseFragment() {
         .apply { arguments = bundleOf(PAGE to page) }
     }
   }
+
+  @Inject
+  internal lateinit var appRouter: AppRouterType
 
   @Inject
   internal lateinit var factory: ViewModelFactory<UserListViewModel>
@@ -57,6 +61,12 @@ class UserListFragment : BaseFragment() {
   private fun setupRecyclerView() {
     val manager = LinearLayoutManager(requireContext())
     val adapter = GroupAdapter<GroupieViewHolder>()
+    adapter.setOnItemClickListener { item, _ ->
+      if (item is UserItem) {
+        startActivity(appRouter.newUserDetailActivity(user = item.user))
+      }
+    }
+
     binding.recyclerView.layoutManager = manager
     binding.recyclerView.adapter = adapter
 

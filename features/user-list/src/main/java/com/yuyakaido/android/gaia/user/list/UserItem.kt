@@ -5,7 +5,7 @@ import com.yuyakaido.android.gaia.core.domain.entity.User
 import com.yuyakaido.android.gaia.user.list.databinding.ItemUserBinding
 
 class UserItem(
-  private val user: User
+  val user: User
 ) : BindableItem<ItemUserBinding>() {
 
   override fun getLayout(): Int {

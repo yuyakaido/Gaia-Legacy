@@ -35,6 +35,8 @@
 
     <activity android:name=".community.detail.CommunityDetailActivity" />
 
+    <activity android:name=".user.detail.UserDetailActivity" />
+
   </application>
 
 </manifest>

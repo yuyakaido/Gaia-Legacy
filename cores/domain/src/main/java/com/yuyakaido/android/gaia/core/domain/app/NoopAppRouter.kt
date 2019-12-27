@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import com.yuyakaido.android.gaia.core.domain.entity.Article
 import com.yuyakaido.android.gaia.core.domain.entity.Community
 import com.yuyakaido.android.gaia.core.domain.entity.Me
+import com.yuyakaido.android.gaia.core.domain.entity.User
 import javax.inject.Inject
 
 class NoopAppRouter @Inject constructor(
@@ -49,6 +50,10 @@ class NoopAppRouter @Inject constructor(
   }
 
   override fun newContributorListFragment(community: Community.Summary): Fragment {
+    throw UnsupportedOperationException()
+  }
+
+  override fun newUserDetailActivity(user: User): Intent {
     throw UnsupportedOperationException()
   }
 

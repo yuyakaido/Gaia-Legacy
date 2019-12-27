@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import com.yuyakaido.android.gaia.core.domain.entity.Article
 import com.yuyakaido.android.gaia.core.domain.entity.Community
 import com.yuyakaido.android.gaia.core.domain.entity.Me
+import com.yuyakaido.android.gaia.core.domain.entity.User
 
 interface AppRouterType {
   val application: Application
@@ -20,6 +21,7 @@ interface AppRouterType {
   fun newCommunityDetailActivity(community: Community.Summary): Intent
   fun newModeratorListFragment(community: Community.Summary): Fragment
   fun newContributorListFragment(community: Community.Summary): Fragment
+  fun newUserDetailActivity(user: User): Intent
   fun newProfileFragment(): Fragment
   fun newSearchFragment(): Fragment
 }
