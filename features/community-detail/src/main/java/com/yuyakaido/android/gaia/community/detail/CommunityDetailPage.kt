@@ -17,7 +17,7 @@ enum class CommunityDetailPage(
   Moderator(
     title = R.string.community_moderators,
     fragment = fun (router: AppRouterType, community: Community.Summary): Fragment {
-      return router.newUserListFragment(community = community)
+      return router.newModeratorListFragment(community = community)
     }
   );
 }

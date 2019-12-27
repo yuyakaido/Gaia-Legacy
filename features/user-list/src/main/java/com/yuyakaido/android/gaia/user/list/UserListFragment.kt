@@ -11,7 +11,7 @@ import androidx.lifecycle.observe
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
-import com.yuyakaido.android.gaia.core.domain.entity.Community
+import com.yuyakaido.android.gaia.core.domain.value.UserListPage
 import com.yuyakaido.android.gaia.core.presentation.BaseFragment
 import com.yuyakaido.android.gaia.core.presentation.ViewModelFactory
 import com.yuyakaido.android.gaia.user.list.databinding.FragmentUserListBinding
@@ -20,11 +20,11 @@ import javax.inject.Inject
 class UserListFragment : BaseFragment() {
 
   companion object {
-    private val COMMUNITY = Community::class.java.simpleName
+    private val PAGE = UserListPage::class.java.simpleName
 
-    fun newInstance(community: Community.Summary): Fragment {
+    fun newInstance(page: UserListPage): Fragment {
       return UserListFragment()
-        .apply { arguments = bundleOf(COMMUNITY to community) }
+        .apply { arguments = bundleOf(PAGE to page) }
     }
   }
 
@@ -35,8 +35,8 @@ class UserListFragment : BaseFragment() {
 
   private lateinit var binding: FragmentUserListBinding
 
-  internal fun getCommunity(): Community.Summary {
-    return requireNotNull(arguments?.getParcelable(COMMUNITY))
+  internal fun getUserListPage(): UserListPage {
+    return requireNotNull(arguments?.getParcelable(PAGE))
   }
 
   override fun onCreateView(

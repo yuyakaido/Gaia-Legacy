@@ -1,6 +1,6 @@
 package com.yuyakaido.android.gaia.user.list
 
-import com.yuyakaido.android.gaia.core.domain.entity.Community
+import com.yuyakaido.android.gaia.core.domain.value.UserListPage
 import dagger.Module
 import dagger.Provides
 
@@ -8,10 +8,10 @@ import dagger.Provides
 class UserListModule {
 
   @Provides
-  fun provideCommunity(
+  fun provideUserListPage(
     fragment: UserListFragment
-  ): Community.Summary {
-    return fragment.getCommunity()
+  ): UserListPage {
+    return fragment.getUserListPage()
   }
 
 }

@@ -12,6 +12,7 @@ import com.yuyakaido.android.gaia.core.domain.entity.Article
 import com.yuyakaido.android.gaia.core.domain.entity.Community
 import com.yuyakaido.android.gaia.core.domain.entity.Me
 import com.yuyakaido.android.gaia.core.domain.value.ArticleListPage
+import com.yuyakaido.android.gaia.core.domain.value.UserListPage
 import com.yuyakaido.android.gaia.home.HomeActivity
 import com.yuyakaido.android.gaia.profile.ProfileFragment
 import com.yuyakaido.android.gaia.search.SearchFragment
@@ -55,8 +56,9 @@ class AppRouter @Inject constructor(
     return CommunityDetailActivity.createIntent(context = application, community = community)
   }
 
-  override fun newUserListFragment(community: Community.Summary): Fragment {
-    return UserListFragment.newInstance(community = community)
+  override fun newModeratorListFragment(community: Community.Summary): Fragment {
+    val page = UserListPage.Moderator(community = community)
+    return UserListFragment.newInstance(page = page)
   }
 
   override fun newProfileFragment(): Fragment {
