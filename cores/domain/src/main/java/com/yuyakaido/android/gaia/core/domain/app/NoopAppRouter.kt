@@ -48,6 +48,10 @@ class NoopAppRouter @Inject constructor(
     throw UnsupportedOperationException()
   }
 
+  override fun newContributorListFragment(community: Community.Summary): Fragment {
+    throw UnsupportedOperationException()
+  }
+
   override fun newProfileFragment(): Fragment {
     throw UnsupportedOperationException()
   }

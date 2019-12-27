@@ -19,6 +19,7 @@ interface AppRouterType {
   fun newArticleDetailActivity(article: Article): Intent
   fun newCommunityDetailActivity(community: Community.Summary): Intent
   fun newModeratorListFragment(community: Community.Summary): Fragment
+  fun newContributorListFragment(community: Community.Summary): Fragment
   fun newProfileFragment(): Fragment
   fun newSearchFragment(): Fragment
 }

@@ -19,5 +19,11 @@ enum class CommunityDetailPage(
     fragment = fun (router: AppRouterType, community: Community.Summary): Fragment {
       return router.newModeratorListFragment(community = community)
     }
-  );
+  ),
+  Contributor(
+    title = R.string.community_contributors,
+    fragment = fun (router: AppRouterType, community: Community.Summary): Fragment {
+      return router.newContributorListFragment(community = community)
+    }
+  ),
 }

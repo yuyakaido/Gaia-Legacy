@@ -30,7 +30,7 @@ sealed class UserListPage : Parcelable {
     override suspend fun users(
       repository: UserRepositoryType
     ): List<User> {
-      return repository.moderators(community = community)
+      return repository.contributors(community = community)
     }
   }
 

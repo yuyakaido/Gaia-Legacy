@@ -61,6 +61,11 @@ class AppRouter @Inject constructor(
     return UserListFragment.newInstance(page = page)
   }
 
+  override fun newContributorListFragment(community: Community.Summary): Fragment {
+    val page = UserListPage.Contributor(community = community)
+    return UserListFragment.newInstance(page = page)
+  }
+
   override fun newProfileFragment(): Fragment {
     return ProfileFragment.newInstance()
   }

@@ -14,6 +14,11 @@ interface PrivateApi {
     @Path("name") name: String
   ): UserListResponse
 
+  @GET("r/{name}/about/contributors")
+  suspend fun contributors(
+    @Path("name") name: String
+  ): UserListResponse
+
   @GET("r/{path}")
   suspend fun articles(
     @Path("path") path: String,

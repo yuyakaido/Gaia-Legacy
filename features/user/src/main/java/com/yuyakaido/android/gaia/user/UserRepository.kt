@@ -16,10 +16,11 @@ class UserRepository @Inject constructor(
     return api.moderators(name = community.name).toUsers()
   }
 
-  override suspend fun contributers(
+  override suspend fun contributors(
     community: Community.Summary
   ): List<User> {
-    return api.moderators(name = community.name).toUsers()
+//    return api.contributors(name = community.name).toUsers()
+    return emptyList()
   }
 
 }
