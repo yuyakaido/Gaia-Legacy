@@ -16,6 +16,7 @@ include ':features:community'
 include ':features:community-detail'
 include ':features:user'
 include ':features:user-list'
+include ':features:user-detail'
 include ':features:profile'
 include ':features:search'
 
