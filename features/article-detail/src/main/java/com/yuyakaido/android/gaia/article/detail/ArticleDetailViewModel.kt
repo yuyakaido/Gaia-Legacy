@@ -7,14 +7,14 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.yuyakaido.android.gaia.core.domain.entity.Article
 import com.yuyakaido.android.gaia.core.domain.entity.Comment
-import com.yuyakaido.android.gaia.core.infrastructure.CommentRepository
+import com.yuyakaido.android.gaia.core.domain.repository.CommentRepositoryType
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class ArticleDetailViewModel @Inject constructor(
   application: Application,
   private val article: Article,
-  private val repository: CommentRepository
+  private val repository: CommentRepositoryType
 ) : AndroidViewModel(application) {
 
   val title = MutableLiveData<String>()
@@ -24,7 +24,6 @@ class ArticleDetailViewModel @Inject constructor(
   fun onBind() {
     title.value = article.title
     thumbnail.value = article.thumbnail
-
     viewModelScope.launch {
       comments.value = repository.comments(article = article)
     }

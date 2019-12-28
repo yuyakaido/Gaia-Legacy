@@ -1,16 +1,16 @@
-package com.yuyakaido.android.gaia.core.infrastructure
+package com.yuyakaido.android.gaia.comment
 
-import com.yuyakaido.android.gaia.core.domain.app.AppScope
 import com.yuyakaido.android.gaia.core.domain.entity.Article
 import com.yuyakaido.android.gaia.core.domain.entity.Comment
-import javax.inject.Inject
+import com.yuyakaido.android.gaia.core.domain.repository.CommentRepositoryType
+import com.yuyakaido.android.gaia.core.infrastructure.Kind
+import com.yuyakaido.android.gaia.core.infrastructure.PrivateApi
 
-@AppScope
-class CommentRepository @Inject constructor(
+class CommentRepository(
   private val api: PrivateApi
-) {
+) : CommentRepositoryType {
 
-  suspend fun comments(article: Article): List<Comment> {
+  override suspend fun comments(article: Article): List<Comment> {
     val response = api
       .comments(
         community = article.community.name,
