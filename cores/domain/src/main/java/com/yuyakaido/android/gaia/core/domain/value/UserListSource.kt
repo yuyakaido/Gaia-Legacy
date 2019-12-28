@@ -6,7 +6,7 @@ import com.yuyakaido.android.gaia.core.domain.entity.User
 import com.yuyakaido.android.gaia.core.domain.repository.UserRepositoryType
 import kotlinx.android.parcel.Parcelize
 
-sealed class UserListPage : Parcelable {
+sealed class UserListSource : Parcelable {
 
   abstract suspend fun users(
     repository: UserRepositoryType
@@ -15,7 +15,7 @@ sealed class UserListPage : Parcelable {
   @Parcelize
   data class Moderator(
     val community: Community.Summary
-  ) : UserListPage() {
+  ) : UserListSource() {
     override suspend fun users(
       repository: UserRepositoryType
     ): List<User> {
@@ -26,7 +26,7 @@ sealed class UserListPage : Parcelable {
   @Parcelize
   data class Contributor(
     val community: Community.Summary
-  ) : UserListPage() {
+  ) : UserListSource() {
     override suspend fun users(
       repository: UserRepositoryType
     ): List<User> {
