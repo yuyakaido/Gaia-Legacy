@@ -12,12 +12,12 @@ import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
 import com.yuyakaido.android.gaia.core.domain.entity.Article
 import com.yuyakaido.android.gaia.core.presentation.ArticleItem
-import com.yuyakaido.android.gaia.core.presentation.BaseFragment
 import com.yuyakaido.android.gaia.core.presentation.ViewModelFactory
 import com.yuyakaido.android.gaia.search.databinding.FragmentSearchBinding
+import dagger.android.support.DaggerFragment
 import javax.inject.Inject
 
-class SearchFragment : BaseFragment() {
+class SearchFragment : DaggerFragment() {
 
   companion object {
     fun newInstance(): SearchFragment {

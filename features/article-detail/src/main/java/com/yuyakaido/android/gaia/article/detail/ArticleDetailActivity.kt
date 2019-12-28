@@ -13,11 +13,11 @@ import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
 import com.yuyakaido.android.gaia.article.detail.databinding.ActivityArticleDetailBinding
 import com.yuyakaido.android.gaia.core.domain.entity.Article
-import com.yuyakaido.android.gaia.core.presentation.BaseActivity
 import com.yuyakaido.android.gaia.core.presentation.ViewModelFactory
+import dagger.android.support.DaggerAppCompatActivity
 import javax.inject.Inject
 
-class ArticleDetailActivity : BaseActivity() {
+class ArticleDetailActivity : DaggerAppCompatActivity() {
 
   companion object {
     private val ARTICLE = Article::class.java.simpleName

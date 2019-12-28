@@ -5,10 +5,10 @@ import android.content.Intent
 import android.os.Bundle
 import com.yuyakaido.android.gaia.core.domain.entity.User
 import com.yuyakaido.android.gaia.core.domain.value.UserDetailPage
-import com.yuyakaido.android.gaia.core.presentation.BaseActivity
 import com.yuyakaido.android.gaia.user.detail.databinding.ActivityUserDetailBinding
+import dagger.android.support.DaggerAppCompatActivity
 
-class UserDetailActivity : BaseActivity() {
+class UserDetailActivity : DaggerAppCompatActivity() {
 
   companion object {
     private val USER = User::class.java.simpleName

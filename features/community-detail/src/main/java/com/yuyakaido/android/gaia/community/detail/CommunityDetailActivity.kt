@@ -10,11 +10,11 @@ import com.bumptech.glide.Glide
 import com.yuyakaido.android.gaia.community.detail.databinding.ActivityCommunityDetailBinding
 import com.yuyakaido.android.gaia.core.domain.app.AppRouterType
 import com.yuyakaido.android.gaia.core.domain.entity.Community
-import com.yuyakaido.android.gaia.core.presentation.BaseActivity
 import com.yuyakaido.android.gaia.core.presentation.ViewModelFactory
+import dagger.android.support.DaggerAppCompatActivity
 import javax.inject.Inject
 
-class CommunityDetailActivity : BaseActivity() {
+class CommunityDetailActivity : DaggerAppCompatActivity() {
 
   companion object {
     private val COMMUNITY = Community::class.java.simpleName

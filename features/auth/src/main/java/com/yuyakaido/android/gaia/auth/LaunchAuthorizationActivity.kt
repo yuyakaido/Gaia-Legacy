@@ -8,10 +8,10 @@ import com.yuyakaido.android.gaia.auth.databinding.ActivityLaunchAuthorizationBi
 import com.yuyakaido.android.gaia.core.domain.app.AppRouterType
 import com.yuyakaido.android.gaia.core.domain.app.AuthTokenServiceType
 import com.yuyakaido.android.gaia.core.infrastructure.Constant
-import com.yuyakaido.android.gaia.core.presentation.BaseActivity
+import dagger.android.support.DaggerAppCompatActivity
 import javax.inject.Inject
 
-class LaunchAuthorizationActivity : BaseActivity() {
+class LaunchAuthorizationActivity : DaggerAppCompatActivity() {
 
   companion object {
     fun createIntent(context: Context): Intent {

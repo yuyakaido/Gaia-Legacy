@@ -2,15 +2,15 @@ package com.yuyakaido.android.gaia.auth
 
 import android.os.Bundle
 import com.yuyakaido.android.gaia.auth.databinding.ActivityCompleteAuthorizationBinding
-import com.yuyakaido.android.gaia.core.domain.app.AuthTokenServiceType
 import com.yuyakaido.android.gaia.core.domain.app.AppRouterType
+import com.yuyakaido.android.gaia.core.domain.app.AuthTokenServiceType
 import com.yuyakaido.android.gaia.core.infrastructure.PublicApi
-import com.yuyakaido.android.gaia.core.presentation.BaseActivity
+import dagger.android.support.DaggerAppCompatActivity
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-class CompleteAuthorizationActivity : BaseActivity() {
+class CompleteAuthorizationActivity : DaggerAppCompatActivity() {
 
   @Inject
   internal lateinit var appRouter: AppRouterType
