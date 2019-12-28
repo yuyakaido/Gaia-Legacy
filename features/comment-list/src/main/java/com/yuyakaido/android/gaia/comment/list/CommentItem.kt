@@ -1,7 +1,7 @@
-package com.yuyakaido.android.gaia.article.detail
+package com.yuyakaido.android.gaia.comment.list
 
 import com.xwray.groupie.databinding.BindableItem
-import com.yuyakaido.android.gaia.article.detail.databinding.ItemCommentBinding
+import com.yuyakaido.android.gaia.comment.list.databinding.ItemCommentBinding
 import com.yuyakaido.android.gaia.core.domain.entity.Comment
 
 class CommentItem(

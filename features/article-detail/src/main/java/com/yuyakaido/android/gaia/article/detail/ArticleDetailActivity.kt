@@ -7,10 +7,7 @@ import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.lifecycle.observe
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
-import com.xwray.groupie.GroupAdapter
-import com.xwray.groupie.GroupieViewHolder
 import com.yuyakaido.android.gaia.article.detail.databinding.ActivityArticleDetailBinding
 import com.yuyakaido.android.gaia.core.domain.entity.Article
 import com.yuyakaido.android.gaia.core.presentation.ViewModelFactory
@@ -56,13 +53,6 @@ class ArticleDetailActivity : DaggerAppCompatActivity() {
           .load(thumbnail)
           .placeholder(ColorDrawable(Color.LTGRAY))
           .into(binding.thumbnail)
-      }
-    viewModel.comments
-      .observe(this) { comments ->
-        val adapter = GroupAdapter<GroupieViewHolder>()
-        binding.comments.layoutManager = LinearLayoutManager(this)
-        binding.comments.adapter = adapter
-        adapter.updateAsync(comments.map { comment -> CommentItem(comment = comment) })
       }
   }
 

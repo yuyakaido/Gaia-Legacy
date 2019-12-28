@@ -86,7 +86,7 @@ class UserDetailFragment : DaggerFragment() {
   }
 
   private fun setupViewPager(user: User.Detail) {
-    val adapter = UserArticleListFragmentPagerAdapter(
+    val adapter = UserDetailFragmentPagerAdapter(
       manager = childFragmentManager,
       context = requireContext(),
       page = getUserDetailSource().page(),

@@ -26,6 +26,7 @@
   <string name="user_detail_identity">u/%1$s</string>
   <string name="user_detail_karma">%1$d karmas</string>
   <string name="user_detail_submitted_articles">Submitted</string>
+  <string name="user_detail_comments">Comments</string>
   <string name="user_detail_upvoted_articles">Upvoted</string>
   <string name="user_detail_downvoted_articles">Downvoted</string>
 

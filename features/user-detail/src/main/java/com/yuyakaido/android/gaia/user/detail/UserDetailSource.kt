@@ -7,15 +7,15 @@ import kotlinx.android.parcel.Parcelize
 
 sealed class UserDetailSource : Parcelable {
 
-  abstract fun page(): UserArticleListPage
+  abstract fun page(): UserDetailPage
   abstract suspend fun detail(
     repository: UserRepositoryType
   ): User.Detail
 
   @Parcelize
   object Me : UserDetailSource() {
-    override fun page(): UserArticleListPage {
-      return UserArticleListPage.Me
+    override fun page(): UserDetailPage {
+      return UserDetailPage.Me
     }
     override suspend fun detail(
       repository: UserRepositoryType
@@ -28,8 +28,8 @@ sealed class UserDetailSource : Parcelable {
   data class Other(
     val user: User
   ) : UserDetailSource() {
-    override fun page(): UserArticleListPage {
-      return UserArticleListPage.Other
+    override fun page(): UserDetailPage {
+      return UserDetailPage.Other
     }
     override suspend fun detail(
       repository: UserRepositoryType
