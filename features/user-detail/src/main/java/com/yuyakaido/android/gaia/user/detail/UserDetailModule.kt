@@ -1,6 +1,6 @@
 package com.yuyakaido.android.gaia.user.detail
 
-import com.yuyakaido.android.gaia.core.domain.value.UserDetailPage
+import com.yuyakaido.android.gaia.core.domain.value.UserDetailSource
 import dagger.Module
 import dagger.Provides
 
@@ -10,8 +10,8 @@ class UserDetailModule {
   @Provides
   fun provideUserDetailPage(
     fragment: UserDetailFragment
-  ): UserDetailPage {
-    return fragment.getPage()
+  ): UserDetailSource {
+    return fragment.getUserDetailSource()
   }
 
 }

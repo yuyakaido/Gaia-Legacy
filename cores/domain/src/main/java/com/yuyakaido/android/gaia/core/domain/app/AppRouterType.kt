@@ -6,7 +6,7 @@ import androidx.fragment.app.Fragment
 import com.yuyakaido.android.gaia.core.domain.entity.Article
 import com.yuyakaido.android.gaia.core.domain.entity.Community
 import com.yuyakaido.android.gaia.core.domain.entity.User
-import com.yuyakaido.android.gaia.core.domain.value.UserDetailPage
+import com.yuyakaido.android.gaia.core.domain.value.UserDetailSource
 
 interface AppRouterType {
 
@@ -33,7 +33,7 @@ interface AppRouterType {
 
   // User
   fun newUserDetailActivity(user: User): Intent
-  fun newUserDetailFragment(page: UserDetailPage): Fragment
+  fun newUserDetailFragment(source: UserDetailSource): Fragment
 
   // Search
   fun newSearchFragment(): Fragment

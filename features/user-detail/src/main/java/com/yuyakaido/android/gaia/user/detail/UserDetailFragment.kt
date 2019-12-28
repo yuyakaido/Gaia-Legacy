@@ -12,7 +12,7 @@ import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.yuyakaido.android.gaia.core.domain.app.AppRouterType
 import com.yuyakaido.android.gaia.core.domain.entity.User
 import com.yuyakaido.android.gaia.core.domain.extension.dpTpPx
-import com.yuyakaido.android.gaia.core.domain.value.UserDetailPage
+import com.yuyakaido.android.gaia.core.domain.value.UserDetailSource
 import com.yuyakaido.android.gaia.core.presentation.ViewModelFactory
 import com.yuyakaido.android.gaia.user.detail.databinding.FragmentUserDetailBinding
 import dagger.android.support.DaggerFragment
@@ -22,11 +22,11 @@ import javax.inject.Inject
 class UserDetailFragment : DaggerFragment() {
 
   companion object {
-    private val PAGE = UserDetailPage::class.java.simpleName
+    private val SOURCE = UserDetailSource::class.java.simpleName
 
-    fun newInstance(page: UserDetailPage): UserDetailFragment {
+    fun newInstance(source: UserDetailSource): UserDetailFragment {
       return UserDetailFragment()
-        .apply { arguments = bundleOf(PAGE to page) }
+        .apply { arguments = bundleOf(SOURCE to source) }
     }
   }
 
@@ -40,8 +40,8 @@ class UserDetailFragment : DaggerFragment() {
 
   private lateinit var binding: FragmentUserDetailBinding
 
-  internal fun getPage(): UserDetailPage {
-    return requireNotNull(requireArguments().getParcelable(PAGE))
+  internal fun getUserDetailSource(): UserDetailSource {
+    return requireNotNull(requireArguments().getParcelable(SOURCE))
   }
 
   override fun onCreateView(

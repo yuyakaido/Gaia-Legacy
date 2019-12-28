@@ -6,14 +6,14 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.yuyakaido.android.gaia.core.domain.entity.User
 import com.yuyakaido.android.gaia.core.domain.repository.UserRepositoryType
-import com.yuyakaido.android.gaia.core.domain.value.UserDetailPage
+import com.yuyakaido.android.gaia.core.domain.value.UserDetailSource
 import kotlinx.coroutines.launch
 import timber.log.Timber
 import javax.inject.Inject
 
 class UserDetailViewModel @Inject constructor(
   application: Application,
-  private val page: UserDetailPage,
+  private val source: UserDetailSource,
   private val repository: UserRepositoryType
 ) : AndroidViewModel(application) {
 
@@ -22,7 +22,7 @@ class UserDetailViewModel @Inject constructor(
   fun onBind() {
     Timber.d("repository = ${repository.hashCode()}")
     viewModelScope.launch {
-      detail.value = page.detail(repository = repository)
+      detail.value = source.detail(repository = repository)
     }
   }
 

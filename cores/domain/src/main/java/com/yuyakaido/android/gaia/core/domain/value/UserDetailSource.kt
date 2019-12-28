@@ -5,14 +5,14 @@ import com.yuyakaido.android.gaia.core.domain.entity.User
 import com.yuyakaido.android.gaia.core.domain.repository.UserRepositoryType
 import kotlinx.android.parcel.Parcelize
 
-sealed class UserDetailPage : Parcelable {
+sealed class UserDetailSource : Parcelable {
 
   abstract suspend fun detail(
     repository: UserRepositoryType
   ): User.Detail
 
   @Parcelize
-  object Me : UserDetailPage() {
+  object Me : UserDetailSource() {
     override suspend fun detail(
       repository: UserRepositoryType
     ): User.Detail {
@@ -23,7 +23,7 @@ sealed class UserDetailPage : Parcelable {
   @Parcelize
   data class Other(
     val user: User
-  ) : UserDetailPage() {
+  ) : UserDetailSource() {
     override suspend fun detail(
       repository: UserRepositoryType
     ): User.Detail {
