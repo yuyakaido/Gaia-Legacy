@@ -1,5 +1,6 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 
 android {
@@ -11,6 +12,9 @@ android {
     applicationId versions.app.applicationId
     versionCode versions.app.versionCode
     versionName versions.app.versionName
+  }
+  androidExtensions {
+    experimental = true
   }
   dataBinding {
     enabled = true

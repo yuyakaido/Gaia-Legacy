@@ -1,5 +1,6 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 
 android {
@@ -12,12 +13,18 @@ android {
     versionCode versions.app.versionCode
     versionName versions.app.versionName
   }
+  androidExtensions {
+    experimental = true
+  }
   dataBinding {
     enabled = true
   }
 }
 
 dependencies {
+  // Modules - Core
+  implementation project(':cores:gateway')
+
   // Modules - Feature
   implementation project(':features:article')
   implementation project(':features:article-list')
