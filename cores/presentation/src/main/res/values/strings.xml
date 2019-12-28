@@ -22,9 +22,11 @@
   <string name="community_moderators">Moderators</string>
   <string name="community_contributors">Contributors</string>
 
-  <!-- Profile -->
-  <string name="identity">u/%1$s</string>
-  <string name="karma">%1$d karmas</string>
-  <string name="follower">%1$d followers</string>
+  <!-- UserDetail -->
+  <string name="user_detail_identity">u/%1$s</string>
+  <string name="user_detail_karma">%1$d karmas</string>
+  <string name="user_detail_submitted_articles">Submitted</string>
+  <string name="user_detail_upvoted_articles">Upvoted</string>
+  <string name="user_detail_downvoted_articles">Downvoted</string>
 
 </resources>

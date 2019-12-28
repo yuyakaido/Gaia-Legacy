@@ -14,13 +14,30 @@ sealed class User : Parcelable {
     override val name: String
   ) : User()
 
-  @Parcelize
-  data class Detail(
-    override val id: String,
-    override val name: String,
-    val icon: String,
-    val birthday: Float,
-    val karma: Int
-  ) : User()
+  sealed class Detail : User() {
+
+    abstract val icon: String
+    abstract val birthday: Float
+    abstract val karma: Int
+
+    @Parcelize
+    data class Me(
+      override val id: String,
+      override val name: String,
+      override val icon: String,
+      override val birthday: Float,
+      override val karma: Int
+    ) : User.Detail()
+
+    @Parcelize
+    data class Other(
+      override val id: String,
+      override val name: String,
+      override val icon: String,
+      override val birthday: Float,
+      override val karma: Int
+    ) : User.Detail()
+
+  }
 
 }

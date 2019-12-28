@@ -51,21 +51,18 @@ class ArticleRepository(
       .toArticlePaginationItem()
   }
 
-  override suspend fun votedArticles(
+  override suspend fun articlesOfUser(
     user: User,
-    path: String
+    path: String,
+    after: String?
   ): EntityPaginationItem<Article> {
-    return EntityPaginationItem(
-      entities = emptyList(),
-      before = null,
-      after = null
-    )
-//    return privateApi
-//      .voted(
-//        user = user.name,
-//        type = path
-//      )
-//      .toArticlePaginationItem()
+    return privateApi
+      .voted(
+        user = user.name,
+        type = path,
+        after = after
+      )
+      .toArticlePaginationItem()
   }
 
   override suspend fun vote(target: VoteTarget) {

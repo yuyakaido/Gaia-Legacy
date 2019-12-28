@@ -78,18 +78,20 @@ class UserDetailFragment : DaggerFragment() {
           .load(detail.icon)
           .transform(RoundedCorners(16.dpTpPx(requireContext())))
           .into(binding.icon)
-        binding.identity.text = getString(R.string.identity, detail.name)
+        binding.identity.text = getString(R.string.user_detail_identity, detail.name)
         binding.birthday.text = detail.birthday.toString()
-        binding.karma.text = getString(R.string.karma, detail.karma)
+        binding.karma.text = getString(R.string.user_detail_karma, detail.karma)
         setupViewPager(detail)
       }
   }
 
-  private fun setupViewPager(detail: User.Detail) {
+  private fun setupViewPager(user: User.Detail) {
     val adapter = UserArticleListFragmentPagerAdapter(
       manager = childFragmentManager,
+      context = requireContext(),
+      page = getUserDetailSource().page(),
       router = appRouter,
-      detail = detail
+      user = user
     )
     binding.viewPager.adapter = adapter
     binding.tabLayout.setupWithViewPager(binding.viewPager)

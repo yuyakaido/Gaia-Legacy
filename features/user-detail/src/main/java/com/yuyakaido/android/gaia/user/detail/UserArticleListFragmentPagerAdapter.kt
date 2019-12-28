@@ -1,5 +1,6 @@
 package com.yuyakaido.android.gaia.user.detail
 
+import android.content.Context
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
@@ -8,20 +9,22 @@ import com.yuyakaido.android.gaia.core.domain.entity.User
 
 class UserArticleListFragmentPagerAdapter(
   manager: FragmentManager,
+  private val context: Context,
+  private val page: UserArticleListPage,
   private val router: AppRouterType,
-  private val detail: User.Detail
+  private val user: User.Detail
 ) : FragmentPagerAdapter(manager, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
 
   override fun getPageTitle(position: Int): CharSequence? {
-    return UserArticleListPage.values()[position].name
+    return context.getString(page.title(index = position))
   }
 
   override fun getCount(): Int {
-    return UserArticleListPage.values().size
+    return page.size()
   }
 
   override fun getItem(position: Int): Fragment {
-    return UserArticleListPage.values()[position].fragment.invoke(router, detail)
+    return page.fragment(router = router, user = user, index = position)
   }
 
 }

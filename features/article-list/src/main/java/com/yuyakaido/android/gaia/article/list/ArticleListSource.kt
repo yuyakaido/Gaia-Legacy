@@ -70,9 +70,10 @@ sealed class ArticleListSource : Parcelable {
       after: String?
     ): EntityPaginationItem<Article> {
       return repository
-        .votedArticles(
+        .articlesOfUser(
           user = user,
-          path = "upvoted"
+          path = "upvoted",
+          after = after
         )
     }
   }
@@ -86,9 +87,10 @@ sealed class ArticleListSource : Parcelable {
       after: String?
     ): EntityPaginationItem<Article> {
       return repository
-        .votedArticles(
+        .articlesOfUser(
           user = user,
-          path = "downvoted"
+          path = "downvoted",
+          after = after
         )
     }
   }

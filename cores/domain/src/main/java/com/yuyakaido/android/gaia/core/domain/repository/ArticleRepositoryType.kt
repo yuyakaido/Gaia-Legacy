@@ -24,9 +24,10 @@ interface ArticleRepositoryType {
     after: String?
   ): EntityPaginationItem<Article>
 
-  suspend fun votedArticles(
+  suspend fun articlesOfUser(
     user: User,
-    path: String
+    path: String,
+    after: String?
   ): EntityPaginationItem<Article>
 
   suspend fun vote(target: VoteTarget)

@@ -69,7 +69,8 @@ interface PrivateApi {
   @GET("user/{user}/{type}")
   suspend fun voted(
     @Path("user") user: String,
-    @Path("type") type: String
+    @Path("type") type: String,
+    @Query("after") after: String?
   ): ListingDataResponse
 
 }

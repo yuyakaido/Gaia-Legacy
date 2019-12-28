@@ -11,7 +11,7 @@ data class MeResponse(
   @Json(name = "link_karma") val karma: Int
 ) {
   fun toEntity(): User.Detail {
-    return User.Detail(
+    return User.Detail.Me(
       id = id,
       name = name,
       icon = icon,
