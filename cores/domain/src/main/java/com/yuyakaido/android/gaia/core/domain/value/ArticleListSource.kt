@@ -7,7 +7,7 @@ import com.yuyakaido.android.gaia.core.domain.entity.User
 import com.yuyakaido.android.gaia.core.domain.repository.ArticleRepositoryType
 import kotlinx.android.parcel.Parcelize
 
-sealed class ArticleListPage : Parcelable {
+sealed class ArticleListSource : Parcelable {
 
   abstract suspend fun articles(
     repository: ArticleRepositoryType,
@@ -15,7 +15,7 @@ sealed class ArticleListPage : Parcelable {
   ): EntityPaginationItem<Article>
 
   @Parcelize
-  object Popular : ArticleListPage() {
+  object Popular : ArticleListSource() {
     override suspend fun articles(
       repository: ArticleRepositoryType,
       after: String?
@@ -31,7 +31,7 @@ sealed class ArticleListPage : Parcelable {
   @Parcelize
   data class CommunityDetail(
     val community: Community.Summary
-  ) : ArticleListPage() {
+  ) : ArticleListSource() {
     override suspend fun articles(
       repository: ArticleRepositoryType,
       after: String?
@@ -47,7 +47,7 @@ sealed class ArticleListPage : Parcelable {
   @Parcelize
   data class Submit(
     val user: User
-  ) : ArticleListPage() {
+  ) : ArticleListSource() {
     override suspend fun articles(
       repository: ArticleRepositoryType,
       after: String?
@@ -63,7 +63,7 @@ sealed class ArticleListPage : Parcelable {
   @Parcelize
   data class Upvote(
     val user: User
-  ) : ArticleListPage() {
+  ) : ArticleListSource() {
     override suspend fun articles(
       repository: ArticleRepositoryType,
       after: String?
@@ -79,7 +79,7 @@ sealed class ArticleListPage : Parcelable {
   @Parcelize
   data class Downvote(
     val user: User
-  ) : ArticleListPage() {
+  ) : ArticleListSource() {
     override suspend fun articles(
       repository: ArticleRepositoryType,
       after: String?

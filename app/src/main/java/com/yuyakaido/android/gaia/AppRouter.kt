@@ -11,7 +11,7 @@ import com.yuyakaido.android.gaia.core.domain.app.AppRouterType
 import com.yuyakaido.android.gaia.core.domain.entity.Article
 import com.yuyakaido.android.gaia.core.domain.entity.Community
 import com.yuyakaido.android.gaia.core.domain.entity.User
-import com.yuyakaido.android.gaia.core.domain.value.ArticleListPage
+import com.yuyakaido.android.gaia.core.domain.value.ArticleListSource
 import com.yuyakaido.android.gaia.core.domain.value.UserDetailPage
 import com.yuyakaido.android.gaia.core.domain.value.UserListPage
 import com.yuyakaido.android.gaia.home.HomeActivity
@@ -34,27 +34,27 @@ class AppRouter @Inject constructor(
   }
 
   override fun newPopularArticleListFragment(): Fragment {
-    return ArticleListFragment.newInstance(page = ArticleListPage.Popular)
+    return ArticleListFragment.newInstance(source = ArticleListSource.Popular)
   }
 
   override fun newCommunityDetailArticleListFragment(community: Community.Summary): Fragment {
-    val page = ArticleListPage.CommunityDetail(community = community)
-    return ArticleListFragment.newInstance(page = page)
+    val page = ArticleListSource.CommunityDetail(community = community)
+    return ArticleListFragment.newInstance(source = page)
   }
 
   override fun newSubmittedArticleListFragment(user: User): Fragment {
-    val page = ArticleListPage.Submit(user = user)
-    return ArticleListFragment.newInstance(page = page)
+    val page = ArticleListSource.Submit(user = user)
+    return ArticleListFragment.newInstance(source = page)
   }
 
   override fun newUpvotedArticleListFragment(user: User): Fragment {
-    val page = ArticleListPage.Upvote(user = user)
-    return ArticleListFragment.newInstance(page = page)
+    val page = ArticleListSource.Upvote(user = user)
+    return ArticleListFragment.newInstance(source = page)
   }
 
   override fun newDownvotedArticleListFragment(user: User): Fragment {
-    val page = ArticleListPage.Downvote(user = user)
-    return ArticleListFragment.newInstance(page = page)
+    val page = ArticleListSource.Downvote(user = user)
+    return ArticleListFragment.newInstance(source = page)
   }
 
   override fun newArticleDetailActivity(article: Article): Intent {

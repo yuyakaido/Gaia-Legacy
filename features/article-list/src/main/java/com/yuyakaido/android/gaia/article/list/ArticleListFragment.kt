@@ -19,7 +19,7 @@ import com.yuyakaido.android.gaia.article.list.databinding.FragmentArticleListBi
 import com.yuyakaido.android.gaia.core.domain.app.AppRouterType
 import com.yuyakaido.android.gaia.core.domain.entity.Article
 import com.yuyakaido.android.gaia.core.domain.extension.dpTpPx
-import com.yuyakaido.android.gaia.core.domain.value.ArticleListPage
+import com.yuyakaido.android.gaia.core.domain.value.ArticleListSource
 import com.yuyakaido.android.gaia.core.presentation.ArticleItem
 import com.yuyakaido.android.gaia.core.presentation.ViewModelFactory
 import dagger.android.support.DaggerFragment
@@ -29,11 +29,11 @@ import javax.inject.Inject
 class ArticleListFragment : DaggerFragment() {
 
   companion object {
-    private val PAGE = ArticleListPage::class.java.simpleName
+    private val SOURCE = ArticleListSource::class.java.simpleName
 
-    fun newInstance(page: ArticleListPage): Fragment {
+    fun newInstance(source: ArticleListSource): Fragment {
       return ArticleListFragment()
-        .apply { arguments = bundleOf(PAGE to page) }
+        .apply { arguments = bundleOf(SOURCE to source) }
     }
   }
 
@@ -47,8 +47,8 @@ class ArticleListFragment : DaggerFragment() {
 
   private lateinit var binding: FragmentArticleListBinding
 
-  fun getArticleListPage(): ArticleListPage {
-    return requireNotNull(requireArguments().getParcelable(PAGE))
+  fun getArticleListSource(): ArticleListSource {
+    return requireNotNull(requireArguments().getParcelable(SOURCE))
   }
 
   override fun onCreateView(
@@ -91,7 +91,7 @@ class ArticleListFragment : DaggerFragment() {
         val itemCount = manager.itemCount
         val lastPosition = manager.findLastCompletelyVisibleItemPosition()
         if (itemCount != 0 && lastPosition == itemCount - 1) {
-          viewModel.onPaginate(getArticleListPage())
+          viewModel.onPaginate()
         }
       }
     })

@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import com.yuyakaido.android.gaia.article.list.ArticleListViewModelType
 import com.yuyakaido.android.gaia.core.domain.entity.Article
 import com.yuyakaido.android.gaia.core.domain.repository.ArticleRepositoryType
-import com.yuyakaido.android.gaia.core.domain.value.ArticleListPage
+import com.yuyakaido.android.gaia.core.domain.value.ArticleListSource
 import com.yuyakaido.android.gaia.core.domain.value.EntityPaginationItem
 import com.yuyakaido.android.gaia.core.domain.value.VoteTarget
 import javax.inject.Inject
@@ -13,7 +13,7 @@ import kotlin.random.Random
 
 class ArticleListStorybookViewModel @Inject constructor(
   application: Application,
-  override val page: ArticleListPage,
+  override val source: ArticleListSource,
   override val repository: ArticleRepositoryType
   ) : ArticleListViewModelType(application) {
 
@@ -29,11 +29,11 @@ class ArticleListStorybookViewModel @Inject constructor(
 
   override fun onBind() {
     if (items.value == null) {
-      onPaginate(page)
+      onPaginate()
     }
   }
 
-  override fun onPaginate(page: ArticleListPage) {
+  override fun onPaginate() {
     val oldItems = items.value ?: emptyList()
     val newItems = oldItems.plus(createDummyItem())
     items.value = newItems

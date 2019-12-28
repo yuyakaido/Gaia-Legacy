@@ -19,7 +19,7 @@ class ArticleListStorybookModule : ArticleListModuleType {
   ): ArticleListViewModelType {
     return ArticleListStorybookViewModel(
       application = application,
-      page = fragment.getArticleListPage(),
+      source = fragment.getArticleListSource(),
       repository = repository
     )
   }

@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.yuyakaido.android.gaia.core.domain.entity.Article
 import com.yuyakaido.android.gaia.core.domain.repository.ArticleRepositoryType
-import com.yuyakaido.android.gaia.core.domain.value.ArticleListPage
+import com.yuyakaido.android.gaia.core.domain.value.ArticleListSource
 import com.yuyakaido.android.gaia.core.domain.value.EntityPaginationItem
 import com.yuyakaido.android.gaia.core.domain.value.VoteTarget
 import kotlinx.coroutines.launch
@@ -14,29 +14,29 @@ import javax.inject.Inject
 
 class ArticleListViewModel @Inject constructor(
   application: Application,
-  override val page: ArticleListPage,
+  override val source: ArticleListSource,
   override val repository: ArticleRepositoryType
 ) : ArticleListViewModelType(application) {
 
   override val items = MutableLiveData<List<EntityPaginationItem<Article>>>()
 
-  var after: String? = null
-  var isLoading: Boolean = false
+  private var after: String? = null
+  private var isLoading: Boolean = false
 
   override fun onBind() {
     Timber.d("repository = ${repository.hashCode()}")
     if (items.value == null) {
-      onPaginate(page)
+      onPaginate()
     }
   }
 
-  override fun onPaginate(page: ArticleListPage) {
+  override fun onPaginate() {
     if (isLoading) {
       return
     }
     viewModelScope.launch {
       isLoading = true
-      val result = page.articles(repository = repository, after = after)
+      val result = source.articles(repository = repository, after = after)
       val oldItems = items.value ?: emptyList()
       val newItems = oldItems.plus(result)
       items.value = newItems

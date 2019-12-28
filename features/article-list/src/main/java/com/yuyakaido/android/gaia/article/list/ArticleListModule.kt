@@ -16,7 +16,7 @@ class ArticleListModule : ArticleListModuleType {
   ): ArticleListViewModelType {
     return ArticleListViewModel(
       application = application,
-      page = fragment.getArticleListPage(),
+      source = fragment.getArticleListSource(),
       repository = repository
     )
   }
