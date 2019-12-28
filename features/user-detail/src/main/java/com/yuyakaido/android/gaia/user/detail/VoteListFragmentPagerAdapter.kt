@@ -5,7 +5,7 @@ import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 import com.yuyakaido.android.gaia.core.domain.app.AppRouterType
 import com.yuyakaido.android.gaia.core.domain.entity.User
-import com.yuyakaido.android.gaia.core.domain.value.VoteListPage
+import com.yuyakaido.android.gaia.core.domain.value.UserArticleListPage
 
 class VoteListFragmentPagerAdapter(
   manager: FragmentManager,
@@ -14,15 +14,15 @@ class VoteListFragmentPagerAdapter(
 ) : FragmentPagerAdapter(manager, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
 
   override fun getPageTitle(position: Int): CharSequence? {
-    return VoteListPage.values()[position].name
+    return UserArticleListPage.values()[position].name
   }
 
   override fun getCount(): Int {
-    return VoteListPage.values().size
+    return UserArticleListPage.values().size
   }
 
   override fun getItem(position: Int): Fragment {
-    return VoteListPage.values()[position].fragment.invoke(router, detail)
+    return UserArticleListPage.values()[position].fragment.invoke(router, detail)
   }
 
 }

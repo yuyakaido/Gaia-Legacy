@@ -4,7 +4,7 @@ import androidx.fragment.app.Fragment
 import com.yuyakaido.android.gaia.core.domain.app.AppRouterType
 import com.yuyakaido.android.gaia.core.domain.entity.User
 
-enum class VoteListPage(
+enum class UserArticleListPage(
   val path: String,
   val fragment: (AppRouterType, User.Detail) -> Fragment
 ) {
