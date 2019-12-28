@@ -32,6 +32,7 @@ dependencies {
   implementation project(':features:article-list')
   implementation project(':features:article-detail')
   implementation project(':features:comment')
+  implementation project(':features:comment-list')
   implementation project(':features:community')
   implementation project(':features:community-detail')
   implementation project(':features:user')
