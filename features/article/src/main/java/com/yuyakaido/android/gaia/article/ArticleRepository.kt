@@ -9,9 +9,8 @@ import com.yuyakaido.android.gaia.core.domain.value.TrendingArticle
 import com.yuyakaido.android.gaia.core.domain.value.VoteTarget
 import com.yuyakaido.android.gaia.core.infrastructure.PrivateApi
 import com.yuyakaido.android.gaia.core.infrastructure.PublicApi
-import javax.inject.Inject
 
-class ArticleRepository @Inject constructor(
+class ArticleRepository(
   private val privateApi: PrivateApi,
   private val publicApi: PublicApi
 ) : ArticleRepositoryType {

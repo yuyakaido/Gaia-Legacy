@@ -4,9 +4,8 @@ import com.yuyakaido.android.gaia.core.domain.entity.Community
 import com.yuyakaido.android.gaia.core.domain.entity.User
 import com.yuyakaido.android.gaia.core.domain.repository.UserRepositoryType
 import com.yuyakaido.android.gaia.core.infrastructure.PrivateApi
-import javax.inject.Inject
 
-class UserRepository @Inject constructor(
+class UserRepository(
   private val api: PrivateApi
 ) : UserRepositoryType {
 

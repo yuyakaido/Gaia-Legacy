@@ -1,7 +1,7 @@
 package com.yuyakaido.android.gaia.article.list
 
 import android.app.Application
-import com.yuyakaido.android.gaia.article.ArticleRepository
+import com.yuyakaido.android.gaia.core.domain.repository.ArticleRepositoryType
 import dagger.Module
 import dagger.Provides
 
@@ -12,7 +12,7 @@ class ArticleListModule : ArticleListModuleType {
   override fun provideArticleListViewModel(
     application: Application,
     fragment: ArticleListFragment,
-    repository: ArticleRepository
+    repository: ArticleRepositoryType
   ): ArticleListViewModelType {
     return ArticleListViewModel(
       application = application,
