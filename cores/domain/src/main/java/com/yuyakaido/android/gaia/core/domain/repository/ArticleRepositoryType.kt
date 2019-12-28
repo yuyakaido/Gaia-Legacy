@@ -9,13 +9,18 @@ import com.yuyakaido.android.gaia.core.domain.value.VoteTarget
 
 interface ArticleRepositoryType {
 
-  suspend fun articles(
+  suspend fun articlesOfCommunity(
     path: String,
     after: String?
   ): EntityPaginationItem<Article>
 
-  suspend fun articles(
+  suspend fun articlesOfCommunity(
     community: Community.Summary,
+    after: String?
+  ): EntityPaginationItem<Article>
+
+  suspend fun articlesOfUser(
+    user: User,
     after: String?
   ): EntityPaginationItem<Article>
 

@@ -42,12 +42,19 @@ class AppRouter @Inject constructor(
     return ArticleListFragment.newInstance(page = page)
   }
 
+  override fun newSubmittedArticleListFragment(user: User): Fragment {
+    val page = ArticleListPage.Submit(user = user)
+    return ArticleListFragment.newInstance(page = page)
+  }
+
   override fun newUpvotedArticleListFragment(user: User): Fragment {
-    return ArticleListFragment.newInstance(page = ArticleListPage.Upvote(user = user))
+    val page = ArticleListPage.Upvote(user = user)
+    return ArticleListFragment.newInstance(page = page)
   }
 
   override fun newDownvotedArticleListFragment(user: User): Fragment {
-    return ArticleListFragment.newInstance(page = ArticleListPage.Downvote(user = user))
+    val page = ArticleListPage.Downvote(user = user)
+    return ArticleListFragment.newInstance(page = page)
   }
 
   override fun newArticleDetailActivity(article: Article): Intent {

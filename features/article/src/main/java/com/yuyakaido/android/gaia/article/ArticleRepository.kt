@@ -15,25 +15,37 @@ class ArticleRepository(
   private val publicApi: PublicApi
 ) : ArticleRepositoryType {
 
-  override suspend fun articles(
+  override suspend fun articlesOfCommunity(
     path: String,
     after: String?
   ): EntityPaginationItem<Article> {
     return privateApi
-      .articles(
+      .articlesOfCommunity(
         community = path,
         after = after
       )
       .toArticlePaginationItem()
   }
 
-  override suspend fun articles(
+  override suspend fun articlesOfCommunity(
     community: Community.Summary,
     after: String?
   ): EntityPaginationItem<Article> {
     return privateApi
-      .articles(
+      .articlesOfCommunity(
         community = community.name,
+        after = after
+      )
+      .toArticlePaginationItem()
+  }
+
+  override suspend fun articlesOfUser(
+    user: User,
+    after: String?
+  ): EntityPaginationItem<Article> {
+    return privateApi
+      .articlesOfUser(
+        user = user.name,
         after = after
       )
       .toArticlePaginationItem()

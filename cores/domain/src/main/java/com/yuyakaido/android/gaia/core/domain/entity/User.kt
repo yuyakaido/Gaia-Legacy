@@ -23,13 +23,4 @@ sealed class User : Parcelable {
     val karma: Int
   ) : User()
 
-  @Parcelize
-  data class Me(
-    override val id: String,
-    override val name: String,
-    val icon: String,
-    val birthday: Float,
-    val karma: Int
-  ) : User()
-
 }

@@ -15,13 +15,13 @@ sealed class ArticleListPage : Parcelable {
   ): EntityPaginationItem<Article>
 
   @Parcelize
-  object Popular : ArticleListPage(), Parcelable {
+  object Popular : ArticleListPage() {
     override suspend fun articles(
       repository: ArticleRepositoryType,
       after: String?
     ): EntityPaginationItem<Article> {
       return repository
-        .articles(
+        .articlesOfCommunity(
           path = "popular",
           after = after
         )
@@ -31,14 +31,30 @@ sealed class ArticleListPage : Parcelable {
   @Parcelize
   data class CommunityDetail(
     val community: Community.Summary
-  ) : ArticleListPage(), Parcelable {
+  ) : ArticleListPage() {
     override suspend fun articles(
       repository: ArticleRepositoryType,
       after: String?
     ): EntityPaginationItem<Article> {
       return repository
-        .articles(
+        .articlesOfCommunity(
           community = community,
+          after = after
+        )
+    }
+  }
+
+  @Parcelize
+  data class Submit(
+    val user: User
+  ) : ArticleListPage() {
+    override suspend fun articles(
+      repository: ArticleRepositoryType,
+      after: String?
+    ): EntityPaginationItem<Article> {
+      return repository
+        .articlesOfUser(
+          user = user,
           after = after
         )
     }
@@ -47,7 +63,7 @@ sealed class ArticleListPage : Parcelable {
   @Parcelize
   data class Upvote(
     val user: User
-  ) : ArticleListPage(), Parcelable {
+  ) : ArticleListPage() {
     override suspend fun articles(
       repository: ArticleRepositoryType,
       after: String?
@@ -63,7 +79,7 @@ sealed class ArticleListPage : Parcelable {
   @Parcelize
   data class Downvote(
     val user: User
-  ) : ArticleListPage(), Parcelable {
+  ) : ArticleListPage() {
     override suspend fun articles(
       repository: ArticleRepositoryType,
       after: String?

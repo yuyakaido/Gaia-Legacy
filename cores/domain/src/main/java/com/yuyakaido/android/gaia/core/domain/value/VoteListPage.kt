@@ -8,6 +8,12 @@ enum class VoteListPage(
   val path: String,
   val fragment: (AppRouterType, User.Detail) -> Fragment
 ) {
+  Submitted(
+    path = "submitted",
+    fragment = fun (router: AppRouterType, user: User): Fragment {
+      return router.newSubmittedArticleListFragment(user = user)
+    }
+  ),
   Upvoted(
     path = "upvoted",
     fragment = fun (router: AppRouterType, user: User): Fragment {

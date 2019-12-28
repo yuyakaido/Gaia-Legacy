@@ -21,6 +21,7 @@ interface AppRouterType {
   // Article
   fun newPopularArticleListFragment(): Fragment
   fun newCommunityDetailArticleListFragment(community: Community.Summary): Fragment
+  fun newSubmittedArticleListFragment(user: User): Fragment
   fun newUpvotedArticleListFragment(user: User): Fragment
   fun newDownvotedArticleListFragment(user: User): Fragment
   fun newArticleDetailActivity(article: Article): Intent
