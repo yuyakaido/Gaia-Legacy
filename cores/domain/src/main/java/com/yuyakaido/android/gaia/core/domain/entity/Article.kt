@@ -17,7 +17,7 @@ data class Article(
   val ups: Int,
   val downs: Int,
   val comments: Int
-) : EntityType, Parcelable {
+) : PaginationEntityType, Parcelable {
 
   @Parcelize
   data class ID(val value: String) : Parcelable
