@@ -2,6 +2,7 @@ package com.yuyakaido.android.gaia.comment
 
 import com.yuyakaido.android.gaia.core.domain.entity.Article
 import com.yuyakaido.android.gaia.core.domain.entity.Comment
+import com.yuyakaido.android.gaia.core.domain.entity.User
 import com.yuyakaido.android.gaia.core.domain.repository.CommentRepositoryType
 import com.yuyakaido.android.gaia.core.infrastructure.Kind
 import com.yuyakaido.android.gaia.core.infrastructure.PrivateApi
@@ -12,7 +13,7 @@ class CommentRepository(
 
   override suspend fun comments(article: Article): List<Comment> {
     val response = api
-      .comments(
+      .commentsOfArticle(
         community = article.community.name,
         article = article.id.value
       )
@@ -20,6 +21,12 @@ class CommentRepository(
       it.data.children.any { child -> child.kind == Kind.Comment }
     }
     return responseOfComment?.toComments() ?: emptyList()
+  }
+
+  override suspend fun comments(user: User): List<Comment> {
+    return api
+      .commentsOfUser(user = user.name)
+      .toComments()
   }
 
 }

@@ -11,7 +11,7 @@ interface PrivateApi {
   ): ListingDataResponse
 
   @GET("r/{community}/comments/{article}")
-  suspend fun comments(
+  suspend fun commentsOfArticle(
     @Path("community") community: String,
     @Path("article") article: String
   ): List<ListingDataResponse>
@@ -64,6 +64,11 @@ interface PrivateApi {
   suspend fun articlesOfUser(
     @Path("user") user: String,
     @Query("after") after: String?
+  ): ListingDataResponse
+
+  @GET("user/{user}/comments")
+  suspend fun commentsOfUser(
+    @Path("user") user: String
   ): ListingDataResponse
 
   @GET("user/{user}/{type}")
