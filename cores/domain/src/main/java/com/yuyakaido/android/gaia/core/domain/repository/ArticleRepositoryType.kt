@@ -2,7 +2,7 @@ package com.yuyakaido.android.gaia.core.domain.repository
 
 import com.yuyakaido.android.gaia.core.domain.entity.Article
 import com.yuyakaido.android.gaia.core.domain.entity.Community
-import com.yuyakaido.android.gaia.core.domain.entity.Me
+import com.yuyakaido.android.gaia.core.domain.entity.User
 import com.yuyakaido.android.gaia.core.domain.value.EntityPaginationItem
 import com.yuyakaido.android.gaia.core.domain.value.TrendingArticle
 import com.yuyakaido.android.gaia.core.domain.value.VoteTarget
@@ -20,7 +20,7 @@ interface ArticleRepositoryType {
   ): EntityPaginationItem<Article>
 
   suspend fun votedArticles(
-    me: Me,
+    user: User,
     path: String
   ): EntityPaginationItem<Article>
 

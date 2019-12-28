@@ -31,6 +31,11 @@ interface PrivateApi {
     @Path("article") article: String
   ): List<ListingDataResponse>
 
+  @GET("user/{user}/about")
+  suspend fun user(
+    @Path("user") user: String
+  ): UserResponse
+
   @GET("api/v1/me")
   suspend fun me(): MeResponse
 

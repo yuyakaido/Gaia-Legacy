@@ -18,7 +18,7 @@ data class UserListResponse(
     return data
       .children
       .map { child ->
-        User(
+        User.Summary(
           id = child.id,
           name = child.name
         )

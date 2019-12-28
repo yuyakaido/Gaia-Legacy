@@ -2,6 +2,7 @@ package com.yuyakaido.android.gaia.home
 
 import androidx.fragment.app.Fragment
 import com.yuyakaido.android.gaia.core.domain.app.AppRouterType
+import com.yuyakaido.android.gaia.core.domain.value.UserDetailPage
 
 enum class HomePage(
   val id: Int,
@@ -9,15 +10,21 @@ enum class HomePage(
   ) {
   Popular(
     id = R.id.navigation_popular,
-    fragment = fun (router: AppRouterType) = router.newPopularArticleListFragment()
+    fragment = fun (router: AppRouterType): Fragment {
+      return router.newPopularArticleListFragment()
+    }
   ),
   Search(
     id = R.id.navigation_search,
-    fragment = fun (router: AppRouterType) = router.newSearchFragment()
+    fragment = fun (router: AppRouterType): Fragment {
+      return router.newSearchFragment()
+    }
   ),
   Profile(
     id = R.id.navigation_profile,
-    fragment = fun (router: AppRouterType) = router.newUserDetailFragment()
+    fragment = fun (router: AppRouterType): Fragment {
+      return router.newUserDetailFragment(page = UserDetailPage.Me)
+    }
   );
 
   companion object {

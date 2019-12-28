@@ -2,7 +2,7 @@ package com.yuyakaido.android.gaia.article
 
 import com.yuyakaido.android.gaia.core.domain.entity.Article
 import com.yuyakaido.android.gaia.core.domain.entity.Community
-import com.yuyakaido.android.gaia.core.domain.entity.Me
+import com.yuyakaido.android.gaia.core.domain.entity.User
 import com.yuyakaido.android.gaia.core.domain.repository.ArticleRepositoryType
 import com.yuyakaido.android.gaia.core.domain.value.EntityPaginationItem
 import com.yuyakaido.android.gaia.core.domain.value.TrendingArticle
@@ -41,15 +41,20 @@ class ArticleRepository @Inject constructor(
   }
 
   override suspend fun votedArticles(
-    me: Me,
+    user: User,
     path: String
   ): EntityPaginationItem<Article> {
-    return privateApi
-      .voted(
-        user = me.name,
-        type = path
-      )
-      .toArticlePaginationItem()
+    return EntityPaginationItem(
+      entities = emptyList(),
+      before = null,
+      after = null
+    )
+//    return privateApi
+//      .voted(
+//        user = user.name,
+//        type = path
+//      )
+//      .toArticlePaginationItem()
   }
 
   override suspend fun vote(target: VoteTarget) {

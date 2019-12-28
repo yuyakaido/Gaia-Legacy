@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import com.yuyakaido.android.gaia.core.domain.entity.User
+import com.yuyakaido.android.gaia.core.domain.value.UserDetailPage
 import com.yuyakaido.android.gaia.core.presentation.BaseActivity
 import com.yuyakaido.android.gaia.user.detail.databinding.ActivityUserDetailBinding
 
@@ -20,18 +21,20 @@ class UserDetailActivity : BaseActivity() {
 
   private val binding by lazy { ActivityUserDetailBinding.inflate(layoutInflater) }
 
-  private fun getUser(): User {
-    return requireNotNull(intent.getParcelableExtra(USER))
-  }
-
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     setContentView(binding.root)
-    setupDetail()
+    setupFragment()
   }
 
-  private fun setupDetail() {
-    binding.name.text = getUser().name
+  private fun setupFragment() {
+    val user = requireNotNull(intent.getParcelableExtra<User>(USER))
+    val page = UserDetailPage.Other(user = user)
+    val fragment = UserDetailFragment.newInstance(page = page)
+    supportFragmentManager
+      .beginTransaction()
+      .replace(R.id.fragment_container, fragment)
+      .commitNow()
   }
 
 }

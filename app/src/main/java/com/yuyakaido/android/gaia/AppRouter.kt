@@ -10,14 +10,14 @@ import com.yuyakaido.android.gaia.community.detail.CommunityDetailActivity
 import com.yuyakaido.android.gaia.core.domain.app.AppRouterType
 import com.yuyakaido.android.gaia.core.domain.entity.Article
 import com.yuyakaido.android.gaia.core.domain.entity.Community
-import com.yuyakaido.android.gaia.core.domain.entity.Me
 import com.yuyakaido.android.gaia.core.domain.entity.User
 import com.yuyakaido.android.gaia.core.domain.value.ArticleListPage
+import com.yuyakaido.android.gaia.core.domain.value.UserDetailPage
 import com.yuyakaido.android.gaia.core.domain.value.UserListPage
 import com.yuyakaido.android.gaia.home.HomeActivity
-import com.yuyakaido.android.gaia.user.detail.UserDetailFragment
-import com.yuyakaido.android.gaia.user.detail.UserDetailActivity
 import com.yuyakaido.android.gaia.search.SearchFragment
+import com.yuyakaido.android.gaia.user.detail.UserDetailActivity
+import com.yuyakaido.android.gaia.user.detail.UserDetailFragment
 import com.yuyakaido.android.gaia.user.list.UserListFragment
 import javax.inject.Inject
 
@@ -42,12 +42,12 @@ class AppRouter @Inject constructor(
     return ArticleListFragment.newInstance(page = page)
   }
 
-  override fun newUpvotedArticleListFragment(me: Me): Fragment {
-    return ArticleListFragment.newInstance(page = ArticleListPage.Upvote(me = me))
+  override fun newUpvotedArticleListFragment(user: User): Fragment {
+    return ArticleListFragment.newInstance(page = ArticleListPage.Upvote(user = user))
   }
 
-  override fun newDownvotedArticleListFragment(me: Me): Fragment {
-    return ArticleListFragment.newInstance(page = ArticleListPage.Downvote(me = me))
+  override fun newDownvotedArticleListFragment(user: User): Fragment {
+    return ArticleListFragment.newInstance(page = ArticleListPage.Downvote(user = user))
   }
 
   override fun newArticleDetailActivity(article: Article): Intent {
@@ -72,8 +72,8 @@ class AppRouter @Inject constructor(
     return UserDetailActivity.createIntent(context = application, user = user)
   }
 
-  override fun newUserDetailFragment(): Fragment {
-    return UserDetailFragment.newInstance()
+  override fun newUserDetailFragment(page: UserDetailPage): Fragment {
+    return UserDetailFragment.newInstance(page = page)
   }
 
   override fun newSearchFragment(): Fragment {

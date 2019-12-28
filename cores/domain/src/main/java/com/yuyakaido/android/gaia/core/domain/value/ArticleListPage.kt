@@ -3,7 +3,7 @@ package com.yuyakaido.android.gaia.core.domain.value
 import android.os.Parcelable
 import com.yuyakaido.android.gaia.core.domain.entity.Article
 import com.yuyakaido.android.gaia.core.domain.entity.Community
-import com.yuyakaido.android.gaia.core.domain.entity.Me
+import com.yuyakaido.android.gaia.core.domain.entity.User
 import com.yuyakaido.android.gaia.core.domain.repository.ArticleRepositoryType
 import kotlinx.android.parcel.Parcelize
 
@@ -46,7 +46,7 @@ sealed class ArticleListPage : Parcelable {
 
   @Parcelize
   data class Upvote(
-    val me: Me
+    val user: User
   ) : ArticleListPage(), Parcelable {
     override suspend fun articles(
       repository: ArticleRepositoryType,
@@ -54,7 +54,7 @@ sealed class ArticleListPage : Parcelable {
     ): EntityPaginationItem<Article> {
       return repository
         .votedArticles(
-          me = me,
+          user = user,
           path = "upvoted"
         )
     }
@@ -62,7 +62,7 @@ sealed class ArticleListPage : Parcelable {
 
   @Parcelize
   data class Downvote(
-    val me: Me
+    val user: User
   ) : ArticleListPage(), Parcelable {
     override suspend fun articles(
       repository: ArticleRepositoryType,
@@ -70,7 +70,7 @@ sealed class ArticleListPage : Parcelable {
     ): EntityPaginationItem<Article> {
       return repository
         .votedArticles(
-          me = me,
+          user = user,
           path = "downvoted"
         )
     }

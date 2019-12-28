@@ -5,8 +5,8 @@ import android.content.Intent
 import androidx.fragment.app.Fragment
 import com.yuyakaido.android.gaia.core.domain.entity.Article
 import com.yuyakaido.android.gaia.core.domain.entity.Community
-import com.yuyakaido.android.gaia.core.domain.entity.Me
 import com.yuyakaido.android.gaia.core.domain.entity.User
+import com.yuyakaido.android.gaia.core.domain.value.UserDetailPage
 
 interface AppRouterType {
 
@@ -21,8 +21,8 @@ interface AppRouterType {
   // Article
   fun newPopularArticleListFragment(): Fragment
   fun newCommunityDetailArticleListFragment(community: Community.Summary): Fragment
-  fun newUpvotedArticleListFragment(me: Me): Fragment
-  fun newDownvotedArticleListFragment(me: Me): Fragment
+  fun newUpvotedArticleListFragment(user: User): Fragment
+  fun newDownvotedArticleListFragment(user: User): Fragment
   fun newArticleDetailActivity(article: Article): Intent
 
   // Community
@@ -32,7 +32,7 @@ interface AppRouterType {
 
   // User
   fun newUserDetailActivity(user: User): Intent
-  fun newUserDetailFragment(): Fragment
+  fun newUserDetailFragment(page: UserDetailPage): Fragment
 
   // Search
   fun newSearchFragment(): Fragment

@@ -7,8 +7,10 @@ import com.yuyakaido.android.gaia.core.domain.app.AppRouterType
 import com.yuyakaido.android.gaia.core.domain.app.AppScope
 import com.yuyakaido.android.gaia.core.domain.app.AuthTokenServiceType
 import com.yuyakaido.android.gaia.core.domain.repository.ArticleRepositoryType
+import com.yuyakaido.android.gaia.core.domain.repository.UserRepositoryType
 import com.yuyakaido.android.gaia.core.infrastructure.PrivateApi
 import com.yuyakaido.android.gaia.core.infrastructure.PublicApi
+import com.yuyakaido.android.gaia.user.UserRepository
 import dagger.Module
 import dagger.Provides
 
@@ -40,6 +42,16 @@ class AppModule {
     return ArticleRepository(
       privateApi = privateApi,
       publicApi = publicApi
+    )
+  }
+
+  @AppScope
+  @Provides
+  fun provideUserRepositoryType(
+    api: PrivateApi
+  ): UserRepositoryType {
+    return UserRepository(
+      api = api
     )
   }
 

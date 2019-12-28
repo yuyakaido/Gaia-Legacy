@@ -10,6 +10,14 @@ class UserRepository @Inject constructor(
   private val api: PrivateApi
 ) : UserRepositoryType {
 
+  override suspend fun detail(user: User): User.Detail {
+    return api.user(user = user.name).toEntity()
+  }
+
+  override suspend fun me(): User.Detail {
+    return detail(user = api.me().toEntity())
+  }
+
   override suspend fun moderators(
     community: Community.Summary
   ): List<User> {

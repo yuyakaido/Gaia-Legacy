@@ -4,13 +4,15 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.activityViewModels
+import androidx.core.os.bundleOf
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.observe
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.yuyakaido.android.gaia.core.domain.app.AppRouterType
-import com.yuyakaido.android.gaia.core.domain.entity.Me
+import com.yuyakaido.android.gaia.core.domain.entity.User
 import com.yuyakaido.android.gaia.core.domain.extension.dpTpPx
+import com.yuyakaido.android.gaia.core.domain.value.UserDetailPage
 import com.yuyakaido.android.gaia.core.presentation.BaseFragment
 import com.yuyakaido.android.gaia.core.presentation.ViewModelFactory
 import com.yuyakaido.android.gaia.user.detail.databinding.FragmentUserDetailBinding
@@ -20,8 +22,11 @@ import javax.inject.Inject
 class UserDetailFragment : BaseFragment() {
 
   companion object {
-    fun newInstance(): UserDetailFragment {
+    private val PAGE = UserDetailPage::class.java.simpleName
+
+    fun newInstance(page: UserDetailPage): UserDetailFragment {
       return UserDetailFragment()
+        .apply { arguments = bundleOf(PAGE to page) }
     }
   }
 
@@ -31,9 +36,13 @@ class UserDetailFragment : BaseFragment() {
   @Inject
   internal lateinit var factory: ViewModelFactory<UserDetailViewModel>
 
-  private val viewModel: UserDetailViewModel by activityViewModels { factory }
+  private val viewModel: UserDetailViewModel by viewModels { factory }
 
   private lateinit var binding: FragmentUserDetailBinding
+
+  internal fun getPage(): UserDetailPage {
+    return requireNotNull(requireArguments().getParcelable(PAGE))
+  }
 
   override fun onCreateView(
     inflater: LayoutInflater,
@@ -44,8 +53,8 @@ class UserDetailFragment : BaseFragment() {
     return binding.root
   }
 
-  override fun onActivityCreated(savedInstanceState: Bundle?) {
-    super.onActivityCreated(savedInstanceState)
+  override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    super.onViewCreated(view, savedInstanceState)
     setupProfile()
     Timber.d("fragment = ${hashCode()}")
     Timber.d("viewmodel = ${viewModel.hashCode()}")
@@ -53,25 +62,24 @@ class UserDetailFragment : BaseFragment() {
   }
 
   private fun setupProfile() {
-    viewModel.me
-      .observe(viewLifecycleOwner) { me ->
+    viewModel.detail
+      .observe(viewLifecycleOwner) { detail ->
         Glide.with(requireContext())
-          .load(me.icon)
+          .load(detail.icon)
           .transform(RoundedCorners(16.dpTpPx(requireContext())))
           .into(binding.icon)
-        binding.identity.text = getString(R.string.identity, me.name)
-        binding.birthday.text = me.birthday.toString()
-        binding.karma.text = getString(R.string.karma, me.karma)
-        binding.follower.text = getString(R.string.follower, me.follower)
-        setupViewPager(me)
+        binding.identity.text = getString(R.string.identity, detail.name)
+        binding.birthday.text = detail.birthday.toString()
+        binding.karma.text = getString(R.string.karma, detail.karma)
+        setupViewPager(detail)
       }
   }
 
-  private fun setupViewPager(me: Me) {
+  private fun setupViewPager(detail: User.Detail) {
     val adapter = VoteListFragmentPagerAdapter(
       manager = childFragmentManager,
       router = appRouter,
-      me = me
+      detail = detail
     )
     binding.viewPager.adapter = adapter
     binding.tabLayout.setupWithViewPager(binding.viewPager)
