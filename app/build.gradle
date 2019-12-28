@@ -32,7 +32,6 @@ dependencies {
   implementation project(':features:user')
   implementation project(':features:user-list')
   implementation project(':features:user-detail')
-  implementation project(':features:profile')
   implementation project(':features:search')
 
   // Dependency Injection

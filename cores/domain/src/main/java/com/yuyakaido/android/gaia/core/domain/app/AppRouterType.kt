@@ -9,19 +9,32 @@ import com.yuyakaido.android.gaia.core.domain.entity.Me
 import com.yuyakaido.android.gaia.core.domain.entity.User
 
 interface AppRouterType {
+
   val application: Application
 
+  // Auth
   fun newLaunchAuthorizationActivity(): Intent
+
+  // Home
   fun newHomeActivity(): Intent
+
+  // Article
   fun newPopularArticleListFragment(): Fragment
   fun newCommunityDetailArticleListFragment(community: Community.Summary): Fragment
   fun newUpvotedArticleListFragment(me: Me): Fragment
   fun newDownvotedArticleListFragment(me: Me): Fragment
   fun newArticleDetailActivity(article: Article): Intent
+
+  // Community
   fun newCommunityDetailActivity(community: Community.Summary): Intent
   fun newModeratorListFragment(community: Community.Summary): Fragment
   fun newContributorListFragment(community: Community.Summary): Fragment
+
+  // User
   fun newUserDetailActivity(user: User): Intent
-  fun newProfileFragment(): Fragment
+  fun newUserDetailFragment(): Fragment
+
+  // Search
   fun newSearchFragment(): Fragment
+
 }

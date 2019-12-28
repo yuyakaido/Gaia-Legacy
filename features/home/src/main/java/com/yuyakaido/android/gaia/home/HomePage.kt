@@ -17,7 +17,7 @@ enum class HomePage(
   ),
   Profile(
     id = R.id.navigation_profile,
-    fragment = fun (router: AppRouterType) = router.newProfileFragment()
+    fragment = fun (router: AppRouterType) = router.newUserDetailFragment()
   );
 
   companion object {

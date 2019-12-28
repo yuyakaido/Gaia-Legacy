@@ -1,4 +1,4 @@
-package com.yuyakaido.android.gaia.profile
+package com.yuyakaido.android.gaia.user.detail
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager

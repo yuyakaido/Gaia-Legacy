@@ -57,7 +57,7 @@ class NoopAppRouter @Inject constructor(
     throw UnsupportedOperationException()
   }
 
-  override fun newProfileFragment(): Fragment {
+  override fun newUserDetailFragment(): Fragment {
     throw UnsupportedOperationException()
   }
 

@@ -1,4 +1,4 @@
-package com.yuyakaido.android.gaia.profile
+package com.yuyakaido.android.gaia.user.detail
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -13,15 +13,15 @@ import com.yuyakaido.android.gaia.core.domain.entity.Me
 import com.yuyakaido.android.gaia.core.domain.extension.dpTpPx
 import com.yuyakaido.android.gaia.core.presentation.BaseFragment
 import com.yuyakaido.android.gaia.core.presentation.ViewModelFactory
-import com.yuyakaido.android.gaia.profile.databinding.FragmentProfileBinding
+import com.yuyakaido.android.gaia.user.detail.databinding.FragmentUserDetailBinding
 import timber.log.Timber
 import javax.inject.Inject
 
-class ProfileFragment : BaseFragment() {
+class UserDetailFragment : BaseFragment() {
 
   companion object {
-    fun newInstance(): ProfileFragment {
-      return ProfileFragment()
+    fun newInstance(): UserDetailFragment {
+      return UserDetailFragment()
     }
   }
 
@@ -29,18 +29,18 @@ class ProfileFragment : BaseFragment() {
   internal lateinit var appRouter: AppRouterType
 
   @Inject
-  internal lateinit var factory: ViewModelFactory<ProfileViewModel>
+  internal lateinit var factory: ViewModelFactory<UserDetailViewModel>
 
-  private val viewModel: ProfileViewModel by activityViewModels { factory }
+  private val viewModel: UserDetailViewModel by activityViewModels { factory }
 
-  private lateinit var binding: FragmentProfileBinding
+  private lateinit var binding: FragmentUserDetailBinding
 
   override fun onCreateView(
     inflater: LayoutInflater,
     container: ViewGroup?,
     savedInstanceState: Bundle?
   ): View? {
-    binding = FragmentProfileBinding.inflate(inflater)
+    binding = FragmentUserDetailBinding.inflate(inflater)
     return binding.root
   }
 

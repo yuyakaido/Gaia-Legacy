@@ -1,4 +1,4 @@
-package com.yuyakaido.android.gaia.profile
+package com.yuyakaido.android.gaia.user.detail
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
@@ -10,7 +10,7 @@ import kotlinx.coroutines.launch
 import timber.log.Timber
 import javax.inject.Inject
 
-class ProfileViewModel @Inject constructor(
+class UserDetailViewModel @Inject constructor(
   application: Application,
   private val repository: MeRepository
 ) : AndroidViewModel(application) {

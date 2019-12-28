@@ -15,9 +15,9 @@ import com.yuyakaido.android.gaia.core.domain.entity.User
 import com.yuyakaido.android.gaia.core.domain.value.ArticleListPage
 import com.yuyakaido.android.gaia.core.domain.value.UserListPage
 import com.yuyakaido.android.gaia.home.HomeActivity
-import com.yuyakaido.android.gaia.profile.ProfileFragment
-import com.yuyakaido.android.gaia.search.SearchFragment
+import com.yuyakaido.android.gaia.user.detail.UserDetailFragment
 import com.yuyakaido.android.gaia.user.detail.UserDetailActivity
+import com.yuyakaido.android.gaia.search.SearchFragment
 import com.yuyakaido.android.gaia.user.list.UserListFragment
 import javax.inject.Inject
 
@@ -72,8 +72,8 @@ class AppRouter @Inject constructor(
     return UserDetailActivity.createIntent(context = application, user = user)
   }
 
-  override fun newProfileFragment(): Fragment {
-    return ProfileFragment.newInstance()
+  override fun newUserDetailFragment(): Fragment {
+    return UserDetailFragment.newInstance()
   }
 
   override fun newSearchFragment(): Fragment {
