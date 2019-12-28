@@ -1,4 +1,4 @@
-package com.yuyakaido.android.gaia.core.domain.value
+package com.yuyakaido.android.gaia.user.list
 
 import android.os.Parcelable
 import com.yuyakaido.android.gaia.core.domain.entity.Community

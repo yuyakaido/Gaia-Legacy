@@ -1,6 +1,5 @@
 package com.yuyakaido.android.gaia.user.list
 
-import com.yuyakaido.android.gaia.core.domain.value.UserListSource
 import dagger.Module
 import dagger.Provides
 

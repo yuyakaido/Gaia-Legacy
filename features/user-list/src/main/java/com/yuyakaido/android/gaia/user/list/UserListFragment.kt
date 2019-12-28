@@ -12,7 +12,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
 import com.yuyakaido.android.gaia.core.domain.app.AppRouterType
-import com.yuyakaido.android.gaia.core.domain.value.UserListSource
 import com.yuyakaido.android.gaia.core.presentation.ViewModelFactory
 import com.yuyakaido.android.gaia.user.list.databinding.FragmentUserListBinding
 import dagger.android.support.DaggerFragment
