@@ -1,2 +1,1 @@
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-  package="com.yuyakaido.android.gaia.home" />
+<manifest package="com.yuyakaido.android.gaia.home" />
