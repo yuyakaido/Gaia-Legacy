@@ -3,10 +3,12 @@ package com.yuyakaido.android.gaia
 import android.app.Application
 import com.yuyakaido.android.gaia.article.ArticleRepository
 import com.yuyakaido.android.gaia.auth.AuthTokenService
+import com.yuyakaido.android.gaia.community.CommunityRepository
 import com.yuyakaido.android.gaia.core.domain.app.AppRouterType
 import com.yuyakaido.android.gaia.core.domain.app.AppScope
 import com.yuyakaido.android.gaia.core.domain.app.AuthTokenServiceType
 import com.yuyakaido.android.gaia.core.domain.repository.ArticleRepositoryType
+import com.yuyakaido.android.gaia.core.domain.repository.CommunityRepositoryType
 import com.yuyakaido.android.gaia.core.domain.repository.UserRepositoryType
 import com.yuyakaido.android.gaia.core.infrastructure.PrivateApi
 import com.yuyakaido.android.gaia.core.infrastructure.PublicApi
@@ -22,7 +24,9 @@ class AppModule {
   fun provideAppRouterType(
     application: Application
   ): AppRouterType {
-    return AppRouter(application = application)
+    return AppRouter(
+      application = application
+    )
   }
 
   @AppScope
@@ -30,7 +34,9 @@ class AppModule {
   fun provideAuthTokenServiceType(
     application: Application
   ): AuthTokenServiceType {
-    return AuthTokenService(application = application)
+    return AuthTokenService(
+      application = application
+    )
   }
 
   @AppScope
@@ -42,6 +48,16 @@ class AppModule {
     return ArticleRepository(
       privateApi = privateApi,
       publicApi = publicApi
+    )
+  }
+
+  @AppScope
+  @Provides
+  fun provideCommunityRepositoryType(
+    api: PrivateApi
+  ): CommunityRepositoryType {
+    return CommunityRepository(
+      api = api
     )
   }
 

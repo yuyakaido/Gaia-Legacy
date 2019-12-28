@@ -2,8 +2,10 @@ package com.yuyakaido.android.gaia.storybook.article.list
 
 import android.app.Application
 import com.yuyakaido.android.gaia.article.ArticleRepository
+import com.yuyakaido.android.gaia.community.CommunityRepository
 import com.yuyakaido.android.gaia.core.domain.app.*
 import com.yuyakaido.android.gaia.core.domain.repository.ArticleRepositoryType
+import com.yuyakaido.android.gaia.core.domain.repository.CommunityRepositoryType
 import com.yuyakaido.android.gaia.core.domain.repository.UserRepositoryType
 import com.yuyakaido.android.gaia.core.infrastructure.PrivateApi
 import com.yuyakaido.android.gaia.core.infrastructure.PublicApi
@@ -19,7 +21,9 @@ class AppModule {
   fun provideAppRouterType(
     application: Application
   ): AppRouterType {
-    return NoopAppRouter(application = application)
+    return NoopAppRouter(
+      application = application
+    )
   }
 
   @AppScope
@@ -27,7 +31,9 @@ class AppModule {
   fun provideAuthTokenServiceType(
     application: Application
   ): AuthTokenServiceType {
-    return NoopAuthTokenService(application = application)
+    return NoopAuthTokenService(
+      application = application
+    )
   }
 
   @AppScope
@@ -39,6 +45,16 @@ class AppModule {
     return ArticleRepository(
       privateApi = privateApi,
       publicApi = publicApi
+    )
+  }
+
+  @AppScope
+  @Provides
+  fun provideCommunityRepositoryType(
+    api: PrivateApi
+  ): CommunityRepositoryType {
+    return CommunityRepository(
+      api = api
     )
   }
 
