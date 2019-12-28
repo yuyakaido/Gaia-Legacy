@@ -5,9 +5,8 @@ import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 import com.yuyakaido.android.gaia.core.domain.app.AppRouterType
 import com.yuyakaido.android.gaia.core.domain.entity.User
-import com.yuyakaido.android.gaia.core.domain.value.UserArticleListPage
 
-class VoteListFragmentPagerAdapter(
+class UserArticleListFragmentPagerAdapter(
   manager: FragmentManager,
   private val router: AppRouterType,
   private val detail: User.Detail

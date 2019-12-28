@@ -1,4 +1,4 @@
-package com.yuyakaido.android.gaia.core.domain.value
+package com.yuyakaido.android.gaia.user.detail
 
 import androidx.fragment.app.Fragment
 import com.yuyakaido.android.gaia.core.domain.app.AppRouterType

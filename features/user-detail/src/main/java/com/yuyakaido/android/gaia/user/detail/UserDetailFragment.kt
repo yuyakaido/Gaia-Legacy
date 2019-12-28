@@ -86,7 +86,7 @@ class UserDetailFragment : DaggerFragment() {
   }
 
   private fun setupViewPager(detail: User.Detail) {
-    val adapter = VoteListFragmentPagerAdapter(
+    val adapter = UserArticleListFragmentPagerAdapter(
       manager = childFragmentManager,
       router = appRouter,
       detail = detail
