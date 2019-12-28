@@ -2,7 +2,6 @@ package com.yuyakaido.android.gaia.home
 
 import androidx.fragment.app.Fragment
 import com.yuyakaido.android.gaia.core.domain.app.AppRouterType
-import com.yuyakaido.android.gaia.core.domain.value.UserDetailSource
 
 enum class HomePage(
   val id: Int,
@@ -23,7 +22,7 @@ enum class HomePage(
   Profile(
     id = R.id.navigation_profile,
     fragment = fun (router: AppRouterType): Fragment {
-      return router.newUserDetailFragment(source = UserDetailSource.Me)
+      return router.newUserDetailFragmentForMe()
     }
   );
 

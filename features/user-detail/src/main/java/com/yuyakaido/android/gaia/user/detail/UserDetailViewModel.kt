@@ -6,7 +6,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.yuyakaido.android.gaia.core.domain.entity.User
 import com.yuyakaido.android.gaia.core.domain.repository.UserRepositoryType
-import com.yuyakaido.android.gaia.core.domain.value.UserDetailSource
 import kotlinx.coroutines.launch
 import timber.log.Timber
 import javax.inject.Inject

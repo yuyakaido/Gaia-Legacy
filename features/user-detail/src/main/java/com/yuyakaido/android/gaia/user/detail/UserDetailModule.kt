@@ -1,6 +1,5 @@
 package com.yuyakaido.android.gaia.user.detail
 
-import com.yuyakaido.android.gaia.core.domain.value.UserDetailSource
 import dagger.Module
 import dagger.Provides
 

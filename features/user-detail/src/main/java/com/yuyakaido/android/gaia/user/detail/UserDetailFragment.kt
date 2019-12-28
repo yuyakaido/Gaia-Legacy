@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.observe
 import com.bumptech.glide.Glide
@@ -12,7 +13,6 @@ import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.yuyakaido.android.gaia.core.domain.app.AppRouterType
 import com.yuyakaido.android.gaia.core.domain.entity.User
 import com.yuyakaido.android.gaia.core.domain.extension.dpTpPx
-import com.yuyakaido.android.gaia.core.domain.value.UserDetailSource
 import com.yuyakaido.android.gaia.core.presentation.ViewModelFactory
 import com.yuyakaido.android.gaia.user.detail.databinding.FragmentUserDetailBinding
 import dagger.android.support.DaggerFragment
@@ -24,7 +24,17 @@ class UserDetailFragment : DaggerFragment() {
   companion object {
     private val SOURCE = UserDetailSource::class.java.simpleName
 
-    fun newInstance(source: UserDetailSource): UserDetailFragment {
+    fun newInstanceForMe(): Fragment {
+      val source = UserDetailSource.Me
+      return newInstance(source = source)
+    }
+
+    fun newInstanceForUser(user: User): Fragment {
+      val source = UserDetailSource.Other(user = user)
+      return newInstance(source = source)
+    }
+
+    private fun newInstance(source: UserDetailSource): Fragment {
       return UserDetailFragment()
         .apply { arguments = bundleOf(SOURCE to source) }
     }

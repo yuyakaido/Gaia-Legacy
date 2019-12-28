@@ -4,7 +4,6 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import com.yuyakaido.android.gaia.core.domain.entity.User
-import com.yuyakaido.android.gaia.core.domain.value.UserDetailSource
 import com.yuyakaido.android.gaia.user.detail.databinding.ActivityUserDetailBinding
 import dagger.android.support.DaggerAppCompatActivity
 
@@ -29,8 +28,7 @@ class UserDetailActivity : DaggerAppCompatActivity() {
 
   private fun setupFragment() {
     val user = requireNotNull(intent.getParcelableExtra<User>(USER))
-    val page = UserDetailSource.Other(user = user)
-    val fragment = UserDetailFragment.newInstance(source = page)
+    val fragment = UserDetailFragment.newInstanceForUser(user = user)
     supportFragmentManager
       .beginTransaction()
       .replace(R.id.fragment_container, fragment)

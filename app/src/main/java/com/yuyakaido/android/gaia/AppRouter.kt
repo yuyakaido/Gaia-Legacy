@@ -12,7 +12,6 @@ import com.yuyakaido.android.gaia.core.domain.entity.Article
 import com.yuyakaido.android.gaia.core.domain.entity.Community
 import com.yuyakaido.android.gaia.core.domain.entity.User
 import com.yuyakaido.android.gaia.core.domain.value.ArticleListSource
-import com.yuyakaido.android.gaia.core.domain.value.UserDetailSource
 import com.yuyakaido.android.gaia.core.domain.value.UserListSource
 import com.yuyakaido.android.gaia.home.HomeActivity
 import com.yuyakaido.android.gaia.search.SearchFragment
@@ -79,8 +78,12 @@ class AppRouter @Inject constructor(
     return UserDetailActivity.createIntent(context = application, user = user)
   }
 
-  override fun newUserDetailFragment(source: UserDetailSource): Fragment {
-    return UserDetailFragment.newInstance(source = source)
+  override fun newUserDetailFragmentForUser(user: User): Fragment {
+    return UserDetailFragment.newInstanceForUser(user = user)
+  }
+
+  override fun newUserDetailFragmentForMe(): Fragment {
+    return UserDetailFragment.newInstanceForMe()
   }
 
   override fun newSearchFragment(): Fragment {
