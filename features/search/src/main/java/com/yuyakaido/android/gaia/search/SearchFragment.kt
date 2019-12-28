@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.widget.doOnTextChanged
-import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.observe
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.xwray.groupie.GroupAdapter
@@ -28,7 +28,7 @@ class SearchFragment : BaseFragment() {
   @Inject
   internal lateinit var factory: ViewModelFactory<SearchViewModel>
 
-  private val viewModel: SearchViewModel by activityViewModels { factory }
+  private val viewModel: SearchViewModel by viewModels { factory }
 
   private lateinit var binding: FragmentSearchBinding
 
