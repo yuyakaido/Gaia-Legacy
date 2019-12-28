@@ -6,7 +6,6 @@ import androidx.fragment.app.Fragment
 import com.yuyakaido.android.gaia.article.detail.ArticleDetailActivity
 import com.yuyakaido.android.gaia.article.list.ArticleListFragment
 import com.yuyakaido.android.gaia.article.list.ArticleListSource
-import com.yuyakaido.android.gaia.auth.LaunchAuthorizationActivity
 import com.yuyakaido.android.gaia.comment.list.CommentListFragment
 import com.yuyakaido.android.gaia.community.detail.CommunityDetailActivity
 import com.yuyakaido.android.gaia.core.domain.app.AppRouterType
@@ -24,10 +23,6 @@ import javax.inject.Inject
 class AppRouter @Inject constructor(
   override val application: Application
 ) : AppRouterType {
-
-  override fun newLaunchAuthorizationActivity(): Intent {
-    return LaunchAuthorizationActivity.createIntent(context = application)
-  }
 
   override fun newHomeActivity(): Intent {
     return HomeActivity.createIntent(context = application)

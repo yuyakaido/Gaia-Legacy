@@ -13,19 +13,16 @@
     android:roundIcon="@mipmap/ic_launcher_round"
     android:theme="@style/AppTheme">
 
-    <activity android:name=".auth.LaunchAuthorizationActivity">
+    <activity android:name=".auth.AuthorizationActivity">
       <intent-filter>
         <action android:name="android.intent.action.MAIN" />
         <category android:name="android.intent.category.LAUNCHER" />
       </intent-filter>
-    </activity>
-
-    <activity android:name=".auth.CompleteAuthorizationActivity">
       <intent-filter>
         <action android:name="android.intent.action.VIEW" />
         <category android:name="android.intent.category.DEFAULT" />
         <category android:name="android.intent.category.BROWSABLE" />
-        <data android:scheme="com.yuyakaido.android.gaia" android:host="complete_authorization" />
+        <data android:scheme="com.yuyakaido.android.gaia" android:host="authorization" />
       </intent-filter>
     </activity>
 

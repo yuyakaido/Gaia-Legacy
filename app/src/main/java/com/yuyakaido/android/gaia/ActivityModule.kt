@@ -2,8 +2,7 @@ package com.yuyakaido.android.gaia
 
 import com.yuyakaido.android.gaia.article.detail.ArticleDetailActivity
 import com.yuyakaido.android.gaia.article.detail.ArticleDetailModule
-import com.yuyakaido.android.gaia.auth.CompleteAuthorizationActivity
-import com.yuyakaido.android.gaia.auth.LaunchAuthorizationActivity
+import com.yuyakaido.android.gaia.auth.AuthorizationActivity
 import com.yuyakaido.android.gaia.community.detail.CommunityDetailActivity
 import com.yuyakaido.android.gaia.community.detail.CommunityDetailModule
 import com.yuyakaido.android.gaia.home.HomeActivity
@@ -15,10 +14,7 @@ import dagger.android.ContributesAndroidInjector
 abstract class ActivityModule {
 
   @ContributesAndroidInjector
-  abstract fun contributeLaunchAuthorizationActivity(): LaunchAuthorizationActivity
-
-  @ContributesAndroidInjector
-  abstract fun contributeCompleteAuthorizationActivity(): CompleteAuthorizationActivity
+  abstract fun contributeAuthorizationActivity(): AuthorizationActivity
 
   @ContributesAndroidInjector
   abstract fun contributeHomeActivity(): HomeActivity

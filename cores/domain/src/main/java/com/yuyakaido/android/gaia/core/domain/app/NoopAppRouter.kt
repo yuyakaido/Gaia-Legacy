@@ -12,10 +12,6 @@ class NoopAppRouter @Inject constructor(
   override val application: Application
 ) : AppRouterType {
 
-  override fun newLaunchAuthorizationActivity(): Intent {
-    throw UnsupportedOperationException()
-  }
-
   override fun newHomeActivity(): Intent {
     throw UnsupportedOperationException()
   }

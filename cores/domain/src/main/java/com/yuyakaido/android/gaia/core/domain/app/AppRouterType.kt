@@ -11,9 +11,6 @@ interface AppRouterType {
 
   val application: Application
 
-  // Auth
-  fun newLaunchAuthorizationActivity(): Intent
-
   // Home
   fun newHomeActivity(): Intent
 

@@ -9,7 +9,7 @@ object Constant {
   const val OAUTH_GRANT_TYPE_FOR_ACCESS_TOKEN = "authorization_code"
   const val OAUTH_GRANT_TYPE_FOR_REFRESH_TOKEN = "refresh_token"
   const val OAUTH_RESPONSE_TYPE = "code"
-  const val OAUTH_REDIRECT_URI = "com.yuyakaido.android.gaia://complete_authorization"
+  const val OAUTH_REDIRECT_URI = "com.yuyakaido.android.gaia://authorization"
   const val OAUTH_DURATION = "permanent"
   val OAUTH_SCOPES = listOf(
     "creddits",
