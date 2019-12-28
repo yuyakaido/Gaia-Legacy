@@ -11,7 +11,7 @@ import com.yuyakaido.android.gaia.core.domain.app.AppRouterType
 import com.yuyakaido.android.gaia.core.domain.entity.Article
 import com.yuyakaido.android.gaia.core.domain.entity.Community
 import com.yuyakaido.android.gaia.core.domain.entity.User
-import com.yuyakaido.android.gaia.core.domain.value.ArticleListSource
+import com.yuyakaido.android.gaia.article.list.ArticleListSource
 import com.yuyakaido.android.gaia.user.list.UserListSource
 import com.yuyakaido.android.gaia.home.HomeActivity
 import com.yuyakaido.android.gaia.search.SearchFragment

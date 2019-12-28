@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import com.yuyakaido.android.gaia.article.list.ArticleListViewModelType
 import com.yuyakaido.android.gaia.core.domain.entity.Article
 import com.yuyakaido.android.gaia.core.domain.repository.ArticleRepositoryType
-import com.yuyakaido.android.gaia.core.domain.value.ArticleListSource
+import com.yuyakaido.android.gaia.article.list.ArticleListSource
 import com.yuyakaido.android.gaia.core.domain.value.EntityPaginationItem
 import com.yuyakaido.android.gaia.core.domain.value.VoteTarget
 import javax.inject.Inject

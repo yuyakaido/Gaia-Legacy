@@ -1,10 +1,11 @@
-package com.yuyakaido.android.gaia.core.domain.value
+package com.yuyakaido.android.gaia.article.list
 
 import android.os.Parcelable
 import com.yuyakaido.android.gaia.core.domain.entity.Article
 import com.yuyakaido.android.gaia.core.domain.entity.Community
 import com.yuyakaido.android.gaia.core.domain.entity.User
 import com.yuyakaido.android.gaia.core.domain.repository.ArticleRepositoryType
+import com.yuyakaido.android.gaia.core.domain.value.EntityPaginationItem
 import kotlinx.android.parcel.Parcelize
 
 sealed class ArticleListSource : Parcelable {
