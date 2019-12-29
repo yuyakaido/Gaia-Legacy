@@ -13,6 +13,8 @@ class CommentItem(
   }
 
   override fun bind(binding: ItemCommentBinding, position: Int) {
+    binding.author.text = comment.author
+    binding.time.text = comment.created.toString()
     binding.body.text = comment.body
   }
 

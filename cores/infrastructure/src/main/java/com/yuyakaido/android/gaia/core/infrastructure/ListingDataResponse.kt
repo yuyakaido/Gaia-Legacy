@@ -24,7 +24,9 @@ data class ListingDataResponse(
       sealed class Data {
         data class Comment(
           @Json(name = "id") val id: String,
-          @Json(name = "body") val body: String
+          @Json(name = "body") val body: String,
+          @Json(name = "author") val author: String,
+          @Json(name = "created") val created: Float
         ) : Data()
         data class Article(
           @Json(name = "id") val id: String,
@@ -50,7 +52,9 @@ data class ListingDataResponse(
         fun toEntity(): com.yuyakaido.android.gaia.core.domain.entity.Comment {
           return Comment(
             id = com.yuyakaido.android.gaia.core.domain.entity.Comment.ID(value = data.id),
-            body = data.body
+            body = data.body,
+            author = data.author,
+            created = data.created
           )
         }
       }
