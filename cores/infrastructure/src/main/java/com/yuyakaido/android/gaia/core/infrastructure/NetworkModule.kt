@@ -5,7 +5,7 @@ import com.squareup.moshi.Moshi
 import com.squareup.moshi.adapters.PolymorphicJsonAdapterFactory
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import com.yuyakaido.android.gaia.core.domain.app.AppScope
-import com.yuyakaido.android.gaia.core.domain.app.AuthTokenServiceType
+import com.yuyakaido.android.gaia.core.domain.app.TokenRepositoryType
 import dagger.Module
 import dagger.Provides
 import okhttp3.OkHttpClient
@@ -38,12 +38,11 @@ class NetworkModule {
   @OkHttpForPrivate
   @Provides
   fun provideOkHttpClientForPrivate(
-    service: AuthTokenServiceType,
-    api: PublicApi
+    repository: TokenRepositoryType
   ): OkHttpClient {
     return createBaseOkHttpClientBuilder()
-      .addInterceptor(AuthInterceptor(service = service))
-      .authenticator(TokenAuthenticator(service = service, api = api))
+      .addInterceptor(AuthInterceptor(repository = repository))
+      .authenticator(TokenAuthenticator(repository = repository))
       .build()
   }
 

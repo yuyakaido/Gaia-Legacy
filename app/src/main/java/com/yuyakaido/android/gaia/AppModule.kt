@@ -2,16 +2,16 @@ package com.yuyakaido.android.gaia
 
 import android.app.Application
 import com.yuyakaido.android.gaia.article.ArticleRepository
-import com.yuyakaido.android.gaia.auth.AuthTokenService
+import com.yuyakaido.android.gaia.auth.TokenRepository
+import com.yuyakaido.android.gaia.comment.CommentRepository
 import com.yuyakaido.android.gaia.community.CommunityRepository
 import com.yuyakaido.android.gaia.core.domain.app.AppRouterType
 import com.yuyakaido.android.gaia.core.domain.app.AppScope
-import com.yuyakaido.android.gaia.core.domain.app.AuthTokenServiceType
+import com.yuyakaido.android.gaia.core.domain.app.TokenRepositoryType
 import com.yuyakaido.android.gaia.core.domain.repository.ArticleRepositoryType
 import com.yuyakaido.android.gaia.core.domain.repository.CommentRepositoryType
 import com.yuyakaido.android.gaia.core.domain.repository.CommunityRepositoryType
 import com.yuyakaido.android.gaia.core.domain.repository.UserRepositoryType
-import com.yuyakaido.android.gaia.comment.CommentRepository
 import com.yuyakaido.android.gaia.core.infrastructure.PrivateApi
 import com.yuyakaido.android.gaia.core.infrastructure.PublicApi
 import com.yuyakaido.android.gaia.user.UserRepository
@@ -33,11 +33,13 @@ class AppModule {
 
   @AppScope
   @Provides
-  fun provideAuthTokenServiceType(
-    application: Application
-  ): AuthTokenServiceType {
-    return AuthTokenService(
-      application = application
+  fun provideTokenRepositoryType(
+    application: Application,
+    api: PublicApi
+  ): TokenRepositoryType {
+    return TokenRepository(
+      application = application,
+      api = api
     )
   }
 

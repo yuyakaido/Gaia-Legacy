@@ -3,14 +3,13 @@ package com.yuyakaido.android.gaia.auth
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import androidx.activity.viewModels
+import androidx.lifecycle.observe
 import com.yuyakaido.android.gaia.auth.databinding.ActivityAuthorizationBinding
 import com.yuyakaido.android.gaia.core.domain.app.AppRouterType
-import com.yuyakaido.android.gaia.core.domain.app.AuthTokenServiceType
 import com.yuyakaido.android.gaia.core.infrastructure.Constant
-import com.yuyakaido.android.gaia.core.infrastructure.PublicApi
+import com.yuyakaido.android.gaia.core.presentation.ViewModelFactory
 import dagger.android.support.DaggerAppCompatActivity
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class AuthorizationActivity : DaggerAppCompatActivity() {
@@ -19,37 +18,25 @@ class AuthorizationActivity : DaggerAppCompatActivity() {
   internal lateinit var appRouter: AppRouterType
 
   @Inject
-  internal lateinit var authTokenService: AuthTokenServiceType
+  internal lateinit var factory: ViewModelFactory<AuthorizationViewModel>
 
-  @Inject
-  internal lateinit var api: PublicApi
-
+  private val viewModel: AuthorizationViewModel by viewModels { factory }
   private val binding by lazy { ActivityAuthorizationBinding.inflate(layoutInflater) }
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     setContentView(binding.root)
-    dispatch()
+    setupNavigation()
+    viewModel.onBind(intent)
   }
 
-  private fun dispatch() {
-    val token = authTokenService.current()
-    when {
-      intent.data != null -> {
-        GlobalScope.launch {
-          intent.data?.let { uri ->
-            uri.getQueryParameter("code")?.let { code ->
-              val response = api.getInitialToken(code = code)
-              authTokenService.save(response.toAuthToken())
-              startActivity(appRouter.newHomeActivity())
-            }
-          }
-        }
-      }
-      token.isLoggedIn() -> {
+  private fun setupNavigation() {
+    viewModel.navigateToHome
+      .observe(this) {
         startActivity(appRouter.newHomeActivity())
       }
-      else -> {
+    viewModel.navigateToAuth
+      .observe(this) {
         val uri = Uri.Builder()
           .scheme(Constant.OAUTH_SCHEME)
           .encodedAuthority(Constant.OAUTH_AUTHORITY)
@@ -63,7 +50,6 @@ class AuthorizationActivity : DaggerAppCompatActivity() {
           .build()
         startActivity(Intent(Intent.ACTION_VIEW, uri))
       }
-    }
   }
 
 }

@@ -28,12 +28,8 @@ class AppModule {
 
   @AppScope
   @Provides
-  fun provideAuthTokenServiceType(
-    application: Application
-  ): AuthTokenServiceType {
-    return NoopAuthTokenService(
-      application = application
-    )
+  fun provideAuthTokenServiceType(): TokenRepositoryType {
+    return NoopTokenRepository()
   }
 
   @AppScope
