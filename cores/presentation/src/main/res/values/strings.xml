@@ -5,22 +5,22 @@
   <string name="app_name">Gaia</string>
 
   <!-- Home -->
-  <string name="popular">Popular</string>
-  <string name="search">Search</string>
-  <string name="profile">Profile</string>
+  <string name="home_popular">Popular</string>
+  <string name="home_search">Search</string>
+  <string name="home_profile">Profile</string>
 
   <!-- ArticleList -->
-  <string name="author">Posted by u/%1$s</string>
-  <string name="share">Share</string>
+  <string name="article_list_author">Posted by u/%1$s</string>
+  <string name="article_list_share">Share</string>
 
   <!-- CommunityDetail -->
-  <string name="community_name">r/%1$s</string>
-  <string name="community_subscribers">%1$d subscribers</string>
-  <string name="community_subscribe">Subscribe</string>
-  <string name="community_unsubscribe">Unsubscribe</string>
-  <string name="community_articles">Articles</string>
-  <string name="community_moderators">Moderators</string>
-  <string name="community_contributors">Contributors</string>
+  <string name="community_detail_name">r/%1$s</string>
+  <string name="community_detail_subscribers">%1$d subscribers</string>
+  <string name="community_detail_subscribe">Subscribe</string>
+  <string name="community_detail_unsubscribe">Unsubscribe</string>
+  <string name="community_detail_articles">Articles</string>
+  <string name="community_detail_moderators">Moderators</string>
+  <string name="community_detail_contributors">Contributors</string>
 
   <!-- UserDetail -->
   <string name="user_detail_identity">u/%1$s</string>

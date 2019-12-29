@@ -9,19 +9,19 @@ enum class CommunityDetailPage(
   val fragment: (AppRouterType, Community.Summary) -> Fragment
 ) {
   Article(
-    title = R.string.community_articles,
+    title = R.string.community_detail_articles,
     fragment = fun (router: AppRouterType, community: Community.Summary): Fragment {
       return router.newCommunityDetailArticleListFragment(community = community)
     }
   ),
   Moderator(
-    title = R.string.community_moderators,
+    title = R.string.community_detail_moderators,
     fragment = fun (router: AppRouterType, community: Community.Summary): Fragment {
       return router.newModeratorListFragment(community = community)
     }
   ),
   Contributor(
-    title = R.string.community_contributors,
+    title = R.string.community_detail_contributors,
     fragment = fun (router: AppRouterType, community: Community.Summary): Fragment {
       return router.newContributorListFragment(community = community)
     }

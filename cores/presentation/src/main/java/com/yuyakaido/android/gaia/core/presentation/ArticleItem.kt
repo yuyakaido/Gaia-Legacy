@@ -47,7 +47,7 @@ class ArticleItem(
     val context = binding.root.context
 
     binding.community.text = article.community.name
-    binding.author.text = binding.root.resources.getString(R.string.author, article.author)
+    binding.author.text = binding.root.resources.getString(R.string.article_list_author, article.author)
     binding.title.text = article.title
     binding.voteCount.text = article.voteCount.toString()
     binding.upvote.setOnClickListener { upvoteListener.invoke(article) }

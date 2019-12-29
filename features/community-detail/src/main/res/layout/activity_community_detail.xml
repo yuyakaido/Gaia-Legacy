@@ -58,7 +58,7 @@
       app:layout_constraintBottom_toBottomOf="@id/name"
       app:layout_constraintStart_toEndOf="@id/name"
       app:layout_constraintEnd_toEndOf="parent"
-      tools:text="@string/community_subscribe"
+      tools:text="@string/community_detail_subscribe"
       />
 
     <TextView

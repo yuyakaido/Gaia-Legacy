@@ -55,7 +55,7 @@ class CommunityDetailActivity : DaggerAppCompatActivity() {
   }
 
   private fun setupToolbar() {
-    supportActionBar?.title = getString(R.string.community_name, getCommunity().name)
+    supportActionBar?.title = getString(R.string.community_detail_name, getCommunity().name)
     supportActionBar?.setDisplayHomeAsUpEnabled(true)
   }
 
@@ -69,14 +69,14 @@ class CommunityDetailActivity : DaggerAppCompatActivity() {
           .load(community.icon)
           .circleCrop()
           .into(binding.icon)
-        binding.name.text = getString(R.string.community_name, community.name)
+        binding.name.text = getString(R.string.community_detail_name, community.name)
         binding.subscribe.setOnClickListener { viewModel.onSubscribe() }
         if (community.isSubscriber) {
-          binding.subscribe.text = getString(R.string.community_unsubscribe)
+          binding.subscribe.text = getString(R.string.community_detail_unsubscribe)
         } else {
-          binding.subscribe.text = getString(R.string.community_subscribe)
+          binding.subscribe.text = getString(R.string.community_detail_subscribe)
         }
-        binding.subscribers.text = getString(R.string.community_subscribers, community.subscribers)
+        binding.subscribers.text = getString(R.string.community_detail_subscribers, community.subscribers)
         binding.description.text = community.description
       }
   }

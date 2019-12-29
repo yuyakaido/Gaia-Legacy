@@ -5,19 +5,19 @@
   <item
     android:id="@+id/navigation_popular"
     android:icon="@drawable/ic_popular"
-    android:title="@string/popular"
+    android:title="@string/home_popular"
     />
 
   <item
     android:id="@+id/navigation_search"
     android:icon="@drawable/ic_search"
-    android:title="@string/search"
+    android:title="@string/home_search"
     />
 
   <item
     android:id="@+id/navigation_profile"
     android:icon="@drawable/ic_profile"
-    android:title="@string/profile"
+    android:title="@string/home_profile"
     />
 
 </menu>
