@@ -66,7 +66,7 @@ class ArticleRepository(
   }
 
   override suspend fun vote(target: VoteTarget) {
-    privateApi.vote(id = target.article.name, dir = target.dir)
+    privateApi.vote(id = target.entity.name, dir = target.dir)
   }
 
   override suspend fun trendingArticles(): List<TrendingArticle> {

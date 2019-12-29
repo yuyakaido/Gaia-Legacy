@@ -30,7 +30,7 @@ abstract class ArticleListViewModelType(
           entities = item
             .entities
             .map { entity ->
-              if (entity.id == target.article.id) {
+              if (entity.name == target.entity.name) {
                 entity.copy(likes = target.likes)
               } else {
                 entity

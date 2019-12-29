@@ -45,11 +45,11 @@ class ArticleListViewModel @Inject constructor(
   }
 
   override fun onUpvote(article: Article) {
-    vote(target = VoteTarget.forUpvote(article = article))
+    vote(target = VoteTarget.forUpvote(entity = article))
   }
 
   override fun onDownvote(article: Article) {
-    vote(target = VoteTarget.forDownvote(article = article))
+    vote(target = VoteTarget.forDownvote(entity = article))
   }
 
   private fun vote(target: VoteTarget) {

@@ -1,12 +1,35 @@
 package com.yuyakaido.android.gaia.comment.list
 
+import com.xwray.groupie.Item
 import com.xwray.groupie.databinding.BindableItem
 import com.yuyakaido.android.gaia.comment.list.databinding.ItemCommentBinding
 import com.yuyakaido.android.gaia.core.domain.entity.Comment
 
 class CommentItem(
-  private val comment: Comment
-) : BindableItem<ItemCommentBinding>() {
+  private val comment: Comment,
+  private val upvoteListener: (Comment) -> Unit,
+  private val downvoteListener: (Comment) -> Unit
+  ) : BindableItem<ItemCommentBinding>() {
+
+  override fun isSameAs(other: Item<*>?): Boolean {
+    return if (other is CommentItem) {
+      other.comment.id == comment.id
+    } else {
+      false
+    }
+  }
+
+  override fun equals(other: Any?): Boolean {
+    return if (other is CommentItem) {
+      other.comment == comment
+    } else {
+      false
+    }
+  }
+
+  override fun hashCode(): Int {
+    return comment.hashCode()
+  }
 
   override fun getLayout(): Int {
     return R.layout.item_comment
@@ -16,6 +39,23 @@ class CommentItem(
     binding.author.text = comment.author
     binding.time.text = comment.created.toString()
     binding.body.text = comment.body
+    binding.upvote.setOnClickListener { upvoteListener.invoke(comment) }
+    binding.downvote.setOnClickListener { downvoteListener.invoke(comment) }
+    when {
+      comment.likes == null -> {
+        binding.upvote.setImageResource(R.drawable.ic_upvote_inactive)
+        binding.downvote.setImageResource(R.drawable.ic_downvote_inactive)
+      }
+      comment.likes == true -> {
+        binding.upvote.setImageResource(R.drawable.ic_upvote_active)
+        binding.downvote.setImageResource(R.drawable.ic_downvote_inactive)
+      }
+      comment.likes == false -> {
+        binding.upvote.setImageResource(R.drawable.ic_upvote_inactive)
+        binding.downvote.setImageResource(R.drawable.ic_downvote_active)
+      }
+      else -> Unit
+    }
   }
 
 }

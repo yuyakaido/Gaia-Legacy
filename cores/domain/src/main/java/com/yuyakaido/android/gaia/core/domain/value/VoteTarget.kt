@@ -1,38 +1,38 @@
 package com.yuyakaido.android.gaia.core.domain.value
 
-import com.yuyakaido.android.gaia.core.domain.entity.Article
+import com.yuyakaido.android.gaia.core.domain.entity.VotableEntityType
 
 data class VoteTarget(
-  val article: Article,
+  val entity: VotableEntityType,
   val dir: Int,
   val likes: Boolean?
 ) {
 
   companion object {
 
-    fun forUpvote(article: Article): VoteTarget {
+    fun forUpvote(entity: VotableEntityType): VoteTarget {
       val pair: Pair<Int, Boolean?> = when {
-        article.likes == null -> 1 to true
-        article.likes == true -> 0 to null
-        article.likes == false -> 1 to true
+        entity.likes == null -> 1 to true
+        entity.likes == true -> 0 to null
+        entity.likes == false -> 1 to true
         else -> 0 to null
       }
       return VoteTarget(
-        article = article,
+        entity = entity,
         dir = pair.first,
         likes = pair.second
       )
     }
 
-    fun forDownvote(article: Article): VoteTarget {
+    fun forDownvote(entity: VotableEntityType): VoteTarget {
       val pair: Pair<Int, Boolean?> = when {
-        article.likes == null -> -1 to false
-        article.likes == true -> -1 to false
-        article.likes == false -> 0 to null
+        entity.likes == null -> -1 to false
+        entity.likes == true -> -1 to false
+        entity.likes == false -> 0 to null
         else -> 0 to null
       }
       return VoteTarget(
-        article = article,
+        entity = entity,
         dir = pair.first,
         likes = pair.second
       )

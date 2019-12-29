@@ -2,10 +2,10 @@ package com.yuyakaido.android.gaia.storybook.article.list
 
 import android.app.Application
 import androidx.lifecycle.MutableLiveData
+import com.yuyakaido.android.gaia.article.list.ArticleListSource
 import com.yuyakaido.android.gaia.article.list.ArticleListViewModelType
 import com.yuyakaido.android.gaia.core.domain.entity.Article
 import com.yuyakaido.android.gaia.core.domain.repository.ArticleRepositoryType
-import com.yuyakaido.android.gaia.article.list.ArticleListSource
 import com.yuyakaido.android.gaia.core.domain.value.EntityPaginationItem
 import com.yuyakaido.android.gaia.core.domain.value.VoteTarget
 import javax.inject.Inject
@@ -40,11 +40,11 @@ class ArticleListStorybookViewModel @Inject constructor(
   }
 
   override fun onUpvote(article: Article) {
-    refresh(target = VoteTarget.forUpvote(article = article))
+    refresh(target = VoteTarget.forUpvote(entity = article))
   }
 
   override fun onDownvote(article: Article) {
-    refresh(target = VoteTarget.forDownvote(article = article))
+    refresh(target = VoteTarget.forDownvote(entity = article))
   }
 
 }

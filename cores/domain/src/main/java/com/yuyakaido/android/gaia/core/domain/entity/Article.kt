@@ -8,16 +8,16 @@ import kotlinx.android.parcel.Parcelize
 @Parcelize
 data class Article(
   val id: ID,
-  val name: String,
+  override val name: String,
   val community: Community.Summary,
   val title: String,
   val thumbnail: Uri,
   val author: String,
-  val likes: Boolean?,
+  override val likes: Boolean?,
   val ups: Int,
   val downs: Int,
   val comments: Int
-) : PaginationEntityType, Parcelable {
+) : PaginationEntityType, VotableEntityType, Parcelable {
 
   @Parcelize
   data class ID(val value: String) : Parcelable

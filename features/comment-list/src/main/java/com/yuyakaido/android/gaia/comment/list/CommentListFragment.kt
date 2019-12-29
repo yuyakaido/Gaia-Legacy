@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
 import com.yuyakaido.android.gaia.comment.list.databinding.FragmentCommentListBinding
+import com.yuyakaido.android.gaia.core.domain.entity.Comment
 import com.yuyakaido.android.gaia.core.domain.entity.User
 import com.yuyakaido.android.gaia.core.presentation.ViewModelFactory
 import dagger.android.support.DaggerFragment
@@ -60,11 +61,21 @@ class CommentListFragment : DaggerFragment() {
     binding.recyclerView.layoutManager = manager
     binding.recyclerView.adapter = adapter
 
+    val upvoteListener = { comment: Comment -> viewModel.onUpvote(comment = comment) }
+    val downvoteListener = { comment: Comment -> viewModel.onDownvote(comment = comment) }
+
     viewModel
       .comments
       .observe(viewLifecycleOwner) { comments ->
-        val items = comments.map { comment -> CommentItem(comment = comment) }
-        adapter.updateAsync(items)
+        adapter.updateAsync(
+          comments.map { comment ->
+              CommentItem(
+                comment = comment,
+                upvoteListener = upvoteListener,
+                downvoteListener = downvoteListener
+              )
+            }
+        )
       }
   }
 

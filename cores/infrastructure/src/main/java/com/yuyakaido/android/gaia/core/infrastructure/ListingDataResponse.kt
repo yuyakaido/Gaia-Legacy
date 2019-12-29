@@ -24,9 +24,13 @@ data class ListingDataResponse(
       sealed class Data {
         data class Comment(
           @Json(name = "id") val id: String,
+          @Json(name = "name") val name: String,
           @Json(name = "body") val body: String,
           @Json(name = "author") val author: String,
-          @Json(name = "created") val created: Float
+          @Json(name = "created") val created: Float,
+          @Json(name = "likes") val likes: Boolean?,
+          @Json(name = "ups") val ups: Int,
+          @Json(name = "downs") val downs: Int
         ) : Data()
         data class Article(
           @Json(name = "id") val id: String,
@@ -52,9 +56,13 @@ data class ListingDataResponse(
         fun toEntity(): com.yuyakaido.android.gaia.core.domain.entity.Comment {
           return Comment(
             id = com.yuyakaido.android.gaia.core.domain.entity.Comment.ID(value = data.id),
+            name = data.name,
             body = data.body,
             author = data.author,
-            created = data.created
+            created = data.created,
+            likes = data.likes,
+            ups = data.ups,
+            downs = data.downs
           )
         }
       }
