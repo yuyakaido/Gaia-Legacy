@@ -24,6 +24,7 @@ interface AppRouterType {
 
   // Comment
   fun newCommentListFragment(user: User): Fragment
+  fun newCommentListFragment(article: Article): Fragment
 
   // Community
   fun newCommunityDetailActivity(community: Community.Summary): Intent

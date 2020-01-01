@@ -44,6 +44,10 @@ class NoopAppRouter @Inject constructor(
     throw UnsupportedOperationException()
   }
 
+  override fun newCommentListFragment(article: Article): Fragment {
+    throw UnsupportedOperationException()
+  }
+
   override fun newCommunityDetailActivity(community: Community.Summary): Intent {
     throw UnsupportedOperationException()
   }

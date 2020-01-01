@@ -9,6 +9,7 @@ import androidx.activity.viewModels
 import androidx.lifecycle.observe
 import com.bumptech.glide.Glide
 import com.yuyakaido.android.gaia.article.detail.databinding.ActivityArticleDetailBinding
+import com.yuyakaido.android.gaia.core.domain.app.AppRouterType
 import com.yuyakaido.android.gaia.core.domain.entity.Article
 import com.yuyakaido.android.gaia.core.presentation.ViewModelFactory
 import dagger.android.support.DaggerAppCompatActivity
@@ -26,6 +27,9 @@ class ArticleDetailActivity : DaggerAppCompatActivity() {
   }
 
   @Inject
+  internal lateinit var appRouter: AppRouterType
+
+  @Inject
   internal lateinit var factory: ViewModelFactory<ArticleDetailViewModel>
 
   private val viewModel: ArticleDetailViewModel by viewModels { factory }
@@ -39,6 +43,7 @@ class ArticleDetailActivity : DaggerAppCompatActivity() {
     super.onCreate(savedInstanceState)
     setContentView(binding.root)
     setupDetail()
+    setupFragment()
     viewModel.onBind()
   }
 
@@ -54,6 +59,16 @@ class ArticleDetailActivity : DaggerAppCompatActivity() {
           .placeholder(ColorDrawable(Color.LTGRAY))
           .into(binding.thumbnail)
       }
+  }
+
+  private fun setupFragment() {
+    supportFragmentManager
+      .beginTransaction()
+      .replace(
+        R.id.fragment_container,
+        appRouter.newCommentListFragment(article = getArticle())
+      )
+      .commitNow()
   }
 
 }

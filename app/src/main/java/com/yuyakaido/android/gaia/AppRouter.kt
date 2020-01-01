@@ -60,6 +60,10 @@ class AppRouter @Inject constructor(
     return CommentListFragment.createIntent(user = user)
   }
 
+  override fun newCommentListFragment(article: Article): Fragment {
+    return CommentListFragment.createIntent(article = article)
+  }
+
   override fun newCommunityDetailActivity(community: Community.Summary): Intent {
     return CommunityDetailActivity.createIntent(context = application, community = community)
   }

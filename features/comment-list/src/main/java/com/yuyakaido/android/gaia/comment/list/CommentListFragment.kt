@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
 import com.yuyakaido.android.gaia.comment.list.databinding.FragmentCommentListBinding
+import com.yuyakaido.android.gaia.core.domain.entity.Article
 import com.yuyakaido.android.gaia.core.domain.entity.Comment
 import com.yuyakaido.android.gaia.core.domain.entity.User
 import com.yuyakaido.android.gaia.core.presentation.ViewModelFactory
@@ -21,11 +22,16 @@ import javax.inject.Inject
 class CommentListFragment : DaggerFragment() {
 
   companion object {
-    private val USER = User::class.java.simpleName
+    private val SOURCE = CommentListSource::class.java.simpleName
+
+    fun createIntent(article: Article): Fragment {
+      return CommentListFragment()
+        .apply { arguments = bundleOf(SOURCE to CommentListSource.Article(value = article)) }
+    }
 
     fun createIntent(user: User): Fragment {
       return CommentListFragment()
-        .apply { arguments = bundleOf(USER to user) }
+        .apply { arguments = bundleOf(SOURCE to CommentListSource.User(value = user)) }
     }
   }
 
@@ -36,8 +42,8 @@ class CommentListFragment : DaggerFragment() {
 
   private lateinit var binding: FragmentCommentListBinding
 
-  internal fun getUser(): User {
-    return requireNotNull(requireArguments().getParcelable(USER))
+  internal fun getCommentListSource(): CommentListSource {
+    return requireNotNull(requireArguments().getParcelable(SOURCE))
   }
 
   override fun onCreateView(

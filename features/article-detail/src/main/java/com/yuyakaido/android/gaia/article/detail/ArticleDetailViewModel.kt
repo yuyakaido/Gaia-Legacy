@@ -5,7 +5,6 @@ import android.net.Uri
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import com.yuyakaido.android.gaia.core.domain.entity.Article
-import com.yuyakaido.android.gaia.core.domain.entity.Comment
 import javax.inject.Inject
 
 class ArticleDetailViewModel @Inject constructor(
@@ -15,7 +14,6 @@ class ArticleDetailViewModel @Inject constructor(
 
   val title = MutableLiveData<String>()
   val thumbnail = MutableLiveData<Uri>()
-  val comments = MutableLiveData<List<Comment>>()
 
   fun onBind() {
     title.value = article.title
