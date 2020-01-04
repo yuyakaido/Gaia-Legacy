@@ -46,43 +46,43 @@ class ArticleItem(
   override fun bind(binding: ItemArticleBinding, position: Int) {
     val context = binding.root.context
 
-    binding.community.text = article.community.name
-    binding.author.text = binding.root.resources.getString(R.string.article_list_author, article.author)
-    binding.title.text = article.title
-    binding.voteCount.text = article.voteCount.toString()
-    binding.upvote.setOnClickListener { upvoteListener.invoke(article) }
-    binding.downvote.setOnClickListener { downvoteListener.invoke(article) }
-    binding.community.setOnClickListener { communityListener.invoke(article) }
+    binding.article.community.text = context.resources.getString(R.string.article_list_community, article.community.name)
+    binding.article.author.text = context.resources.getString(R.string.article_list_author, article.author)
+    binding.article.title.text = article.title
+    binding.article.voteCount.text = article.voteCount.toString()
+    binding.article.upvote.setOnClickListener { upvoteListener.invoke(article) }
+    binding.article.downvote.setOnClickListener { downvoteListener.invoke(article) }
+    binding.article.community.setOnClickListener { communityListener.invoke(article) }
     when {
       article.likes == null -> {
-        binding.upvote.setImageResource(R.drawable.ic_upvote_inactive)
-        binding.downvote.setImageResource(R.drawable.ic_downvote_inactive)
+        binding.article.upvote.setImageResource(R.drawable.ic_upvote_inactive)
+        binding.article.downvote.setImageResource(R.drawable.ic_downvote_inactive)
       }
       article.likes == true -> {
-        binding.upvote.setImageResource(R.drawable.ic_upvote_active)
-        binding.downvote.setImageResource(R.drawable.ic_downvote_inactive)
-        binding.voteCount.setTextColor(
+        binding.article.upvote.setImageResource(R.drawable.ic_upvote_active)
+        binding.article.downvote.setImageResource(R.drawable.ic_downvote_inactive)
+        binding.article.voteCount.setTextColor(
           ContextCompat.getColor(context, R.color.upvpte)
         )
       }
       article.likes == false -> {
-        binding.upvote.setImageResource(R.drawable.ic_upvote_inactive)
-        binding.downvote.setImageResource(R.drawable.ic_downvote_active)
-        binding.voteCount.setTextColor(
+        binding.article.upvote.setImageResource(R.drawable.ic_upvote_inactive)
+        binding.article.downvote.setImageResource(R.drawable.ic_downvote_active)
+        binding.article.voteCount.setTextColor(
           ContextCompat.getColor(context, R.color.downvote)
         )
       }
       else -> Unit
     }
-    binding.commentCount.text = article.comments.toString()
+    binding.article.commentCount.text = article.comments.toString()
     if (article.thumbnail == Uri.EMPTY) {
-      binding.thumbnail.setImageDrawable(placeholder)
+      binding.article.thumbnail.setImageDrawable(placeholder)
     } else {
       Glide
         .with(binding.root.context)
         .load(article.thumbnail)
         .placeholder(placeholder)
-        .into(binding.thumbnail)
+        .into(binding.article.thumbnail)
     }
   }
 

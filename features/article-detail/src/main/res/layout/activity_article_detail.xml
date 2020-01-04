@@ -8,41 +8,22 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <FrameLayout
       android:id="@+id/article_container"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:padding="16dp"
+      android:padding="12dp"
       app:layout_constraintTop_toTopOf="parent"
       app:layout_constraintBottom_toTopOf="@id/fragment_container"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintEnd_toEndOf="parent">
 
-      <ImageView
-        android:id="@+id/thumbnail"
-        android:layout_width="100dp"
-        android:layout_height="80dp"
-        android:scaleType="centerCrop"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/title"
+      <include
+        android:id="@+id/article"
+        layout="@layout/article"
         />
 
-      <TextView
-        android:id="@+id/title"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="16dp"
-        android:maxLines="3"
-        android:ellipsize="end"
-        app:layout_constraintTop_toTopOf="@id/thumbnail"
-        app:layout_constraintBottom_toBottomOf="@id/thumbnail"
-        app:layout_constraintStart_toEndOf="@id/thumbnail"
-        app:layout_constraintEnd_toEndOf="parent"
-        />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </FrameLayout>
 
     <FrameLayout
       android:id="@+id/fragment_container"

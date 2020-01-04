@@ -6,7 +6,7 @@ import com.yuyakaido.android.gaia.comment.list.databinding.ItemCommentBinding
 import com.yuyakaido.android.gaia.core.domain.entity.Comment
 
 class CommentItem(
-  private val comment: Comment,
+  val comment: Comment,
   private val upvoteListener: (Comment) -> Unit,
   private val downvoteListener: (Comment) -> Unit
   ) : BindableItem<ItemCommentBinding>() {

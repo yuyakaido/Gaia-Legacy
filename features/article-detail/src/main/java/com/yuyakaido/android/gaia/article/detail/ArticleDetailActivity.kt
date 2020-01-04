@@ -4,8 +4,11 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
+import android.net.Uri
 import android.os.Bundle
+import android.view.MenuItem
 import androidx.activity.viewModels
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.observe
 import com.bumptech.glide.Glide
 import com.yuyakaido.android.gaia.article.detail.databinding.ActivityArticleDetailBinding
@@ -42,22 +45,65 @@ class ArticleDetailActivity : DaggerAppCompatActivity() {
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     setContentView(binding.root)
+    setupActionBar()
     setupDetail()
     setupFragment()
-    viewModel.onBind()
+  }
+
+  override fun onOptionsItemSelected(item: MenuItem): Boolean {
+    when (item.itemId) {
+      android.R.id.home -> finish()
+    }
+    return super.onOptionsItemSelected(item)
+  }
+
+  private fun setupActionBar() {
+    supportActionBar?.setDisplayHomeAsUpEnabled(true)
   }
 
   private fun setupDetail() {
-    viewModel.title
-      .observe(this) { title ->
-        binding.title.text = title
-      }
-    viewModel.thumbnail
-      .observe(this) { thumbnail ->
-        Glide.with(binding.root.context)
-          .load(thumbnail)
-          .placeholder(ColorDrawable(Color.LTGRAY))
-          .into(binding.thumbnail)
+    viewModel
+      .article
+      .observe(this) { article ->
+        val b = binding.article
+        b.community.text = getString(R.string.article_list_community, article.community.name)
+        b.author.text = getString(R.string.article_list_author, article.author)
+        b.title.text = article.title
+        b.voteCount.text = article.voteCount.toString()
+        b.upvote.setOnClickListener { viewModel.onUpvote(article = article) }
+        b.downvote.setOnClickListener { viewModel.onDownvote(article = article) }
+        b.community.setOnClickListener { Unit }
+        when {
+          article.likes == null -> {
+            b.upvote.setImageResource(R.drawable.ic_upvote_inactive)
+            b.downvote.setImageResource(R.drawable.ic_downvote_inactive)
+          }
+          article.likes == true -> {
+            b.upvote.setImageResource(R.drawable.ic_upvote_active)
+            b.downvote.setImageResource(R.drawable.ic_downvote_inactive)
+            b.voteCount.setTextColor(
+              ContextCompat.getColor(this, R.color.upvpte)
+            )
+          }
+          article.likes == false -> {
+            b.upvote.setImageResource(R.drawable.ic_upvote_inactive)
+            b.downvote.setImageResource(R.drawable.ic_downvote_active)
+            b.voteCount.setTextColor(
+              ContextCompat.getColor(this, R.color.downvote)
+            )
+          }
+          else -> Unit
+        }
+        b.commentCount.text = article.comments.toString()
+        if (article.thumbnail == Uri.EMPTY) {
+          b.thumbnail.setImageDrawable(ColorDrawable(Color.LTGRAY))
+        } else {
+          Glide
+            .with(binding.root.context)
+            .load(article.thumbnail)
+            .placeholder(ColorDrawable(Color.LTGRAY))
+            .into(b.thumbnail)
+        }
       }
   }
 

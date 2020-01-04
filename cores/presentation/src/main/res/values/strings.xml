@@ -10,6 +10,7 @@
   <string name="home_profile">Profile</string>
 
   <!-- ArticleList -->
+  <string name="article_list_community">r/%1$s</string>
   <string name="article_list_author">Posted by u/%1$s</string>
   <string name="article_list_share">Share</string>
 

@@ -1,5 +1,6 @@
 package com.yuyakaido.android.gaia.core.domain.value
 
+import com.yuyakaido.android.gaia.core.domain.entity.Article
 import com.yuyakaido.android.gaia.core.domain.entity.VotableEntityType
 
 data class VoteTarget(
@@ -38,6 +39,10 @@ data class VoteTarget(
       )
     }
 
+  }
+
+  fun article(): Article {
+    return (entity as Article).copy(likes = likes)
   }
 
 }
