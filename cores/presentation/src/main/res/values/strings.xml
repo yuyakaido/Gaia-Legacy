@@ -7,6 +7,7 @@
   <!-- Home -->
   <string name="home_popular">Popular</string>
   <string name="home_search">Search</string>
+  <string name="home_community">Community</string>
   <string name="home_profile">Profile</string>
 
   <!-- ArticleList -->

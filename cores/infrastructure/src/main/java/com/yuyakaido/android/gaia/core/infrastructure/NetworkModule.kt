@@ -63,6 +63,10 @@ class NetworkModule {
             Kind.Article.id
           )
           .withSubtype(
+            ListingDataResponse.Children.Child.Community::class.java,
+            Kind.Community.id
+          )
+          .withSubtype(
             ListingDataResponse.Children.Child.More::class.java,
             Kind.More.id
           )

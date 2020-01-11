@@ -5,13 +5,14 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.activity.viewModels
 import com.yuyakaido.android.gaia.core.domain.app.AppRouterType
+import com.yuyakaido.android.gaia.core.presentation.OptionMenuType
 import com.yuyakaido.android.gaia.core.presentation.ViewModelFactory
 import com.yuyakaido.android.gaia.home.databinding.ActivityHomeBinding
 import dagger.android.support.DaggerAppCompatActivity
 import timber.log.Timber
 import javax.inject.Inject
 
-class HomeActivity : DaggerAppCompatActivity() {
+class HomeActivity : DaggerAppCompatActivity(), OptionMenuType {
 
   companion object {
     fun createIntent(context: Context): Intent {
@@ -39,6 +40,11 @@ class HomeActivity : DaggerAppCompatActivity() {
     setContentView(binding.root)
     setupViewPager()
     replaceFragment(HomePage.Popular)
+  }
+
+  override fun shouldShowOptionMenu(): Boolean {
+    val id = binding.bottomNavigationView.selectedItemId
+    return HomePage.from(id = id).shouldShowOptionMenu
   }
 
   private fun setupViewPager() {

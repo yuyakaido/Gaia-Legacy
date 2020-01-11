@@ -15,6 +15,12 @@
     />
 
   <item
+    android:id="@+id/navigation_community"
+    android:icon="@drawable/ic_community"
+    android:title="@string/home_community"
+    />
+
+  <item
     android:id="@+id/navigation_profile"
     android:icon="@drawable/ic_profile"
     android:title="@string/home_profile"

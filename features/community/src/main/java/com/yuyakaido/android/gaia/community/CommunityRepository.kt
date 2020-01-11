@@ -2,11 +2,16 @@ package com.yuyakaido.android.gaia.community
 
 import com.yuyakaido.android.gaia.core.domain.entity.Community
 import com.yuyakaido.android.gaia.core.domain.repository.CommunityRepositoryType
+import com.yuyakaido.android.gaia.core.domain.value.EntityPaginationItem
 import com.yuyakaido.android.gaia.core.infrastructure.PrivateApi
 
 class CommunityRepository(
   private val api: PrivateApi
 ) : CommunityRepositoryType {
+
+  override suspend fun mine(): EntityPaginationItem<Community.Detail> {
+    return api.communitiesOfMine().toCommunityPaginationItem()
+  }
 
   override suspend fun detail(community: Community.Summary): Community.Detail {
     return api.detail(community = community.name).toEntity()

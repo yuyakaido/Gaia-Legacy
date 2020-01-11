@@ -7,6 +7,7 @@ import com.yuyakaido.android.gaia.article.detail.ArticleDetailActivity
 import com.yuyakaido.android.gaia.article.list.ArticleListFragment
 import com.yuyakaido.android.gaia.article.list.ArticleListSource
 import com.yuyakaido.android.gaia.comment.list.CommentListFragment
+import com.yuyakaido.android.gaia.community.CommunityFragment
 import com.yuyakaido.android.gaia.community.detail.CommunityDetailActivity
 import com.yuyakaido.android.gaia.core.domain.app.AppRouterType
 import com.yuyakaido.android.gaia.core.domain.entity.Article
@@ -62,6 +63,10 @@ class AppRouter @Inject constructor(
 
   override fun newCommentListFragment(article: Article): Fragment {
     return CommentListFragment.createIntent(article = article)
+  }
+
+  override fun newCommunityFragment(): Fragment {
+    return CommunityFragment.newInstance()
   }
 
   override fun newCommunityDetailActivity(community: Community.Summary): Intent {

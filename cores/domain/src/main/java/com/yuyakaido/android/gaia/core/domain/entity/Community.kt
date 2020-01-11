@@ -4,7 +4,7 @@ import android.net.Uri
 import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
 
-sealed class Community {
+sealed class Community : PaginationEntityType {
   @Parcelize
   data class Summary(
     val name: String

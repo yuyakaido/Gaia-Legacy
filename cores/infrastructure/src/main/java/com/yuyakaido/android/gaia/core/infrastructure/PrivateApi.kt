@@ -29,6 +29,9 @@ interface PrivateApi {
     @Field("dir") dir: Int
   )
 
+  @GET("subreddits/mine")
+  suspend fun communitiesOfMine(): ListingDataResponse
+
   @GET("r/{community}/about")
   suspend fun detail(
     @Path("community") community: String

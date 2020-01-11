@@ -44,6 +44,15 @@ data class ListingDataResponse(
           @Json(name = "downs") val downs: Int,
           @Json(name = "num_comments") val comments: Int
         ) : Data()
+        data class Community(
+          @Json(name = "id") val id: String,
+          @Json(name = "display_name") val name: String,
+          @Json(name = "icon_img") val icon: String,
+          @Json(name = "banner_background_image") val banner: String,
+          @Json(name = "subscribers") val subscribers: Int,
+          @Json(name = "user_is_subscriber") val isSubscriber: Boolean,
+          @Json(name = "public_description") val description: String
+        ) : Data()
         data class More(
           @Json(name = "id") val id: String,
           @Json(name = "name") val name: String,
@@ -73,7 +82,7 @@ data class ListingDataResponse(
           return Article(
             id = com.yuyakaido.android.gaia.core.domain.entity.Article.ID(value = data.id),
             name = data.name,
-            community = Community.Summary(name = data.community),
+            community = com.yuyakaido.android.gaia.core.domain.entity.Community.Summary(name = data.community),
             title = data.title,
             thumbnail = toUri(),
             author = data.author,
@@ -91,6 +100,21 @@ data class ListingDataResponse(
           }
         }
       }
+      data class Community(
+        @Json(name = "data") override val data: Data.Community
+      ) : Child(Kind.Community) {
+        fun toEntity(): com.yuyakaido.android.gaia.core.domain.entity.Community.Detail {
+          return com.yuyakaido.android.gaia.core.domain.entity.Community.Detail(
+            id = data.id,
+            name = data.name,
+            icon = Uri.parse(data.icon),
+            banner = Uri.parse(data.banner),
+            subscribers = data.subscribers,
+            isSubscriber = data.isSubscriber,
+            description = data.description
+          )
+        }
+      }
       data class More(
         @Json(name = "data") override val data: Data.More
       ) : Child(Kind.More)
@@ -103,6 +127,16 @@ data class ListingDataResponse(
         .children
         .filterIsInstance<Children.Child.Article>()
         .map { article -> article.toEntity() },
+      before = data.before,
+      after = data.after
+    )
+  }
+  fun toCommunityPaginationItem(): EntityPaginationItem<Community.Detail> {
+    return EntityPaginationItem(
+      entities = data
+        .children
+        .filterIsInstance<Children.Child.Community>()
+        .map { community -> community.toEntity() },
       before = data.before,
       after = data.after
     )

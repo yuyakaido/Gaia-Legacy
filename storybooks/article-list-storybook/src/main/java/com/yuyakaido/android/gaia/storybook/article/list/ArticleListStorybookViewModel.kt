@@ -13,10 +13,11 @@ import kotlin.random.Random
 
 class ArticleListStorybookViewModel @Inject constructor(
   application: Application,
-  override val source: ArticleListSource,
+  source: ArticleListSource,
   override val repository: ArticleRepositoryType
   ) : ArticleListViewModelType(application) {
 
+  override val source = MutableLiveData<ArticleListSource>(source)
   override val items = MutableLiveData<List<EntityPaginationItem<Article>>>()
 
   private fun createDummyItem(): EntityPaginationItem<Article> {
@@ -31,6 +32,12 @@ class ArticleListStorybookViewModel @Inject constructor(
     if (items.value == null) {
       onPaginate()
     }
+  }
+
+  override fun onRefresh(source: ArticleListSource) {
+    this.source.value = source
+    this.items.value = emptyList()
+    onPaginate()
   }
 
   override fun onPaginate() {
