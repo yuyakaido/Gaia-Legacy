@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+  <item
+    android:id="@+id/sort_popular"
+    android:title="@string/article_list_popular"
+    />
+
+  <item
+    android:id="@+id/sort_best"
+    android:title="@string/article_list_best"
+    />
+
+  <item
+    android:id="@+id/sort_hot"
+    android:title="@string/article_list_hot"
+    />
+
+  <item
+    android:id="@+id/sort_new"
+    android:title="@string/article_list_new"
+    />
+
+  <item
+    android:id="@+id/sort_top"
+    android:title="@string/article_list_top"
+    />
+
+  <item
+    android:id="@+id/sort_controversial"
+    android:title="@string/article_list_controversial"
+    />
+
+  <item
+    android:id="@+id/sort_rising"
+    android:title="@string/article_list_rising"
+    />
+
+</menu>

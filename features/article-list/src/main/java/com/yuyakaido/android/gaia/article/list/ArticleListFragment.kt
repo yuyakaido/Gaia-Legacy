@@ -2,9 +2,7 @@ package com.yuyakaido.android.gaia.article.list
 
 import android.graphics.Color
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -50,6 +48,11 @@ class ArticleListFragment : DaggerFragment() {
     return requireNotNull(requireArguments().getParcelable(SOURCE))
   }
 
+  override fun onCreate(savedInstanceState: Bundle?) {
+    super.onCreate(savedInstanceState)
+    setHasOptionsMenu(true)
+  }
+
   override fun onCreateView(
     inflater: LayoutInflater,
     container: ViewGroup?,
@@ -65,6 +68,16 @@ class ArticleListFragment : DaggerFragment() {
     Timber.d("fragment = ${hashCode()}")
     Timber.d("viewmodel = ${viewModel.hashCode()}")
     viewModel.onBind()
+  }
+
+  override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+    inflater.inflate(R.menu.menu_article_list, menu)
+  }
+
+  override fun onOptionsItemSelected(item: MenuItem): Boolean {
+    val page = ArticleListPage.from(item.itemId)
+    refreshByPage(page = page)
+    return super.onOptionsItemSelected(item)
   }
 
   private fun setupRecyclerView() {
@@ -116,6 +129,10 @@ class ArticleListFragment : DaggerFragment() {
           )
         })
       }
+  }
+
+  private fun refreshByPage(page: ArticleListPage) {
+    viewModel.onRefresh(page.source)
   }
 
 }

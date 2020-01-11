@@ -9,6 +9,11 @@ import com.yuyakaido.android.gaia.core.domain.value.VoteTarget
 
 interface ArticleRepositoryType {
 
+  suspend fun articlesOfSort(
+    sort: String,
+    after: String?
+  ): EntityPaginationItem<Article>
+
   suspend fun articlesOfCommunity(
     path: String,
     after: String?

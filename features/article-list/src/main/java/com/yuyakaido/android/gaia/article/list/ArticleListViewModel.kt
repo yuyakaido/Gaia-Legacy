@@ -13,10 +13,11 @@ import javax.inject.Inject
 
 class ArticleListViewModel @Inject constructor(
   application: Application,
-  override val source: ArticleListSource,
+  source: ArticleListSource,
   override val repository: ArticleRepositoryType
 ) : ArticleListViewModelType(application) {
 
+  override val source = MutableLiveData<ArticleListSource>(source)
   override val items = MutableLiveData<List<EntityPaginationItem<Article>>>()
 
   private var after: String? = null
@@ -29,18 +30,27 @@ class ArticleListViewModel @Inject constructor(
     }
   }
 
+  override fun onRefresh(source: ArticleListSource) {
+    this.source.value = source
+    this.items.value = emptyList()
+    this.after = null
+    onPaginate()
+  }
+
   override fun onPaginate() {
     if (isLoading) {
       return
     }
-    viewModelScope.launch {
-      isLoading = true
-      val result = source.articles(repository = repository, after = after)
-      val oldItems = items.value ?: emptyList()
-      val newItems = oldItems.plus(result)
-      items.value = newItems
-      after = result.after
-      isLoading = false
+    source.value?.let { s ->
+      viewModelScope.launch {
+        isLoading = true
+        val result = s.articles(repository = repository, after = after)
+        val oldItems = items.value ?: emptyList()
+        val newItems = oldItems.plus(result)
+        items.value = newItems
+        after = result.after
+        isLoading = false
+      }
     }
   }
 

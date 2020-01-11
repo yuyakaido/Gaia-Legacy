@@ -10,6 +10,13 @@
   <string name="home_profile">Profile</string>
 
   <!-- ArticleList -->
+  <string name="article_list_popular">Popular</string>
+  <string name="article_list_best">Best</string>
+  <string name="article_list_hot">Hot</string>
+  <string name="article_list_new">New</string>
+  <string name="article_list_top">Top</string>
+  <string name="article_list_controversial">Controversial</string>
+  <string name="article_list_rising">Rising</string>
   <string name="article_list_community">r/%1$s</string>
   <string name="article_list_author">Posted by u/%1$s</string>
   <string name="article_list_share">Share</string>

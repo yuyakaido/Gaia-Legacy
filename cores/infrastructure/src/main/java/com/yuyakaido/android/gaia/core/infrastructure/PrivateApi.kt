@@ -4,6 +4,12 @@ import retrofit2.http.*
 
 interface PrivateApi {
 
+  @GET("{sort}")
+  suspend fun articlesOfSort(
+    @Path("sort") sort: String,
+    @Query("after") after: String?
+  ): ListingDataResponse
+
   @GET("r/{community}")
   suspend fun articlesOfCommunity(
     @Path("community") community: String,

@@ -15,6 +15,18 @@ class ArticleRepository(
   private val publicApi: PublicApi
 ) : ArticleRepositoryType {
 
+  override suspend fun articlesOfSort(
+    sort: String,
+    after: String?
+  ): EntityPaginationItem<Article> {
+    return privateApi
+      .articlesOfSort(
+        sort = sort,
+        after = after
+      )
+      .toArticlePaginationItem()
+  }
+
   override suspend fun articlesOfCommunity(
     path: String,
     after: String?

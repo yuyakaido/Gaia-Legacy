@@ -12,12 +12,13 @@ abstract class ArticleListViewModelType(
   application: Application
 ) : AndroidViewModel(application) {
 
-  abstract val source: ArticleListSource
+  abstract val source: MutableLiveData<ArticleListSource>
   abstract val repository: ArticleRepositoryType
 
   abstract val items: MutableLiveData<List<EntityPaginationItem<Article>>>
 
   abstract fun onBind()
+  abstract fun onRefresh(source: ArticleListSource)
   abstract fun onPaginate()
   abstract fun onUpvote(article: Article)
   abstract fun onDownvote(article: Article)
