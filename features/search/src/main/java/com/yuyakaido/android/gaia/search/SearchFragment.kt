@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.widget.doOnTextChanged
+import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.observe
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -43,17 +43,24 @@ class SearchFragment : DaggerFragment() {
 
   override fun onActivityCreated(savedInstanceState: Bundle?) {
     super.onActivityCreated(savedInstanceState)
-    setupEditText()
+    setupSearchView()
     setupTrendingRecyclerView()
     setupSearchedRecyclerView()
     viewModel.onBind()
   }
 
-  private fun setupEditText() {
-    binding.editText
-      .doOnTextChanged { text, _, _, _ ->
-        viewModel.onTextChange(text = text.toString())
-      }
+  private fun setupSearchView() {
+    binding.searchView
+      .setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+        override fun onQueryTextChange(newText: String?): Boolean = true
+        override fun onQueryTextSubmit(query: String?): Boolean {
+          query?.let {
+            viewModel.onSubmit(query = query)
+          }
+          return true
+        }
+      })
+    binding.searchView.onActionViewExpanded()
   }
 
   private fun setupTrendingRecyclerView() {
@@ -61,8 +68,7 @@ class SearchFragment : DaggerFragment() {
     binding.trendingRecyclerView.layoutManager = LinearLayoutManager(requireContext())
     binding.trendingRecyclerView.adapter = adapter
 
-    viewModel
-      .trendingArticles
+    viewModel.trendingArticles
       .observe(viewLifecycleOwner) { articles ->
         adapter.updateAsync(articles.map { article ->
           TrendingArticleItem(
@@ -81,8 +87,7 @@ class SearchFragment : DaggerFragment() {
     val downvoteListener = { _: Article -> Unit }
     val communityListener = { _: Article -> Unit }
 
-    viewModel
-      .searchedArticles
+    viewModel.searchedArticles
       .observe(viewLifecycleOwner) { articles ->
         adapter.updateAsync(articles.map { article ->
           ArticleItem(

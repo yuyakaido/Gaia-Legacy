@@ -25,9 +25,9 @@ class SearchViewModel @Inject constructor(
     }
   }
 
-  fun onTextChange(text: String) {
+  fun onSubmit(query: String) {
     viewModelScope.launch {
-      val result = repository.search(query = text)
+      val result = repository.search(query = query)
       searchedArticles.value = result.entities
     }
   }
