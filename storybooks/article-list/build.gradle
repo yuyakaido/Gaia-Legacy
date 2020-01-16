@@ -16,14 +16,24 @@ android {
   androidExtensions {
     experimental = true
   }
+  dataBinding {
+    enabled = true
+  }
 }
 
 dependencies {
+
+  // Modules - Cores
+  implementation project(':cores:presentation')
 
   // Modules - Feature
   implementation project(':features:article')
   implementation project(':features:article-list')
 
-  // Dependency Injectionkapt libs.dagger.java.compiler
+  // Dependency Injection
   kapt libs.dagger.android.compiler
+  kapt libs.dagger.java.compiler
+
+  implementation 'androidx.appcompat:appcompat:1.0.2'
+  implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
 }
