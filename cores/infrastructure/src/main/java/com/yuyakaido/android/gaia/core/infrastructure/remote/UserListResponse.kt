@@ -1,4 +1,4 @@
-package com.yuyakaido.android.gaia.core.infrastructure
+package com.yuyakaido.android.gaia.core.infrastructure.remote
 
 import com.squareup.moshi.Json
 import com.yuyakaido.android.gaia.core.domain.entity.User

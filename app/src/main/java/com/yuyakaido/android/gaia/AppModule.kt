@@ -1,6 +1,7 @@
 package com.yuyakaido.android.gaia
 
 import android.app.Application
+import androidx.room.Room
 import com.yuyakaido.android.gaia.article.ArticleRepository
 import com.yuyakaido.android.gaia.auth.TokenRepository
 import com.yuyakaido.android.gaia.comment.CommentRepository
@@ -12,8 +13,9 @@ import com.yuyakaido.android.gaia.core.domain.repository.ArticleRepositoryType
 import com.yuyakaido.android.gaia.core.domain.repository.CommentRepositoryType
 import com.yuyakaido.android.gaia.core.domain.repository.CommunityRepositoryType
 import com.yuyakaido.android.gaia.core.domain.repository.UserRepositoryType
-import com.yuyakaido.android.gaia.core.infrastructure.PrivateApi
-import com.yuyakaido.android.gaia.core.infrastructure.PublicApi
+import com.yuyakaido.android.gaia.core.infrastructure.local.AppDatabase
+import com.yuyakaido.android.gaia.core.infrastructure.remote.PrivateApi
+import com.yuyakaido.android.gaia.core.infrastructure.remote.PublicApi
 import com.yuyakaido.android.gaia.user.UserRepository
 import dagger.Module
 import dagger.Provides
@@ -29,6 +31,20 @@ class AppModule {
     return AppRouter(
       application = application
     )
+  }
+
+  @AppScope
+  @Provides
+  fun provideAppDatabase(
+    application: Application
+  ): AppDatabase {
+    return Room
+      .databaseBuilder(
+        application,
+        AppDatabase::class.java,
+        AppDatabase::class.java.simpleName
+      )
+      .build()
   }
 
   @AppScope
@@ -78,10 +94,12 @@ class AppModule {
   @AppScope
   @Provides
   fun provideUserRepositoryType(
-    api: PrivateApi
+    api: PrivateApi,
+    database: AppDatabase
   ): UserRepositoryType {
     return UserRepository(
-      api = api
+      api = api,
+      database = database
     )
   }
 

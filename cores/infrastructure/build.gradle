@@ -16,6 +16,13 @@ android {
   dataBinding {
     enabled = true
   }
+  compileOptions {
+    sourceCompatibility JavaVersion.VERSION_1_8
+    targetCompatibility JavaVersion.VERSION_1_8
+  }
+  kotlinOptions {
+    jvmTarget = JavaVersion.VERSION_1_8.toString()
+  }
 }
 
 dependencies {
@@ -25,4 +32,9 @@ dependencies {
   // Dependency Injection
   kapt libs.dagger.java.compiler
   kapt libs.dagger.android.compiler
+
+  // Storage
+  api libs.storage.room.core
+  api libs.storage.room.ktx
+  kapt libs.storage.room.compiler
 }

@@ -7,8 +7,8 @@ import com.yuyakaido.android.gaia.core.domain.repository.ArticleRepositoryType
 import com.yuyakaido.android.gaia.core.domain.value.EntityPaginationItem
 import com.yuyakaido.android.gaia.core.domain.value.TrendingArticle
 import com.yuyakaido.android.gaia.core.domain.value.VoteTarget
-import com.yuyakaido.android.gaia.core.infrastructure.PrivateApi
-import com.yuyakaido.android.gaia.core.infrastructure.PublicApi
+import com.yuyakaido.android.gaia.core.infrastructure.remote.PrivateApi
+import com.yuyakaido.android.gaia.core.infrastructure.remote.PublicApi
 
 class ArticleRepository(
   private val privateApi: PrivateApi,
