@@ -1,6 +1,5 @@
 package com.yuyakaido.android.gaia.article.list
 
-import android.content.Context
 import android.graphics.Color
 import android.os.Bundle
 import android.os.Handler
@@ -51,10 +50,11 @@ class ArticleListFragment : DaggerFragment() {
     return requireNotNull(requireArguments().getParcelable(SOURCE))
   }
 
-  override fun onAttach(context: Context) {
-    super.onAttach(context)
-    if (context is OptionMenuType) {
-      Handler().post { setHasOptionsMenu(context.shouldShowOptionMenu()) }
+  override fun onCreate(savedInstanceState: Bundle?) {
+    super.onCreate(savedInstanceState)
+    val parent = requireParentFragment()
+    if (parent is OptionMenuType) {
+      Handler().post { setHasOptionsMenu(parent.shouldShowOptionMenu()) }
     }
   }
 
