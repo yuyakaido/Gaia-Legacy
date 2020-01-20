@@ -13,7 +13,6 @@ import dagger.android.AndroidInjector
 @Component(
   modules = [
     AndroidInjectionModule::class,
-    ArticleListModule::class,
     ArticleListFragmentModule::class,
     StorybookModule::class
   ]
