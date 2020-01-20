@@ -24,3 +24,4 @@ include ':features:search'
 // Modules - Storybook
 include ':storybooks:article-list-storybook'
 include ':storybooks:article-list'
+include ':storybook'

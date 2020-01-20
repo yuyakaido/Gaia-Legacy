@@ -1,0 +1,51 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+
+android {
+  buildToolsVersion versions.android.buildTools
+  compileSdkVersion versions.android.compileSdk
+  defaultConfig {
+    targetSdkVersion versions.android.targetSdk
+    minSdkVersion versions.android.minSdk
+    applicationId versions.app.applicationId
+    versionCode versions.app.versionCode
+    versionName versions.app.versionName
+  }
+  androidExtensions {
+    experimental = true
+  }
+  dataBinding {
+    enabled = true
+  }
+
+  flavorDimensions "storybook"
+
+  productFlavors {
+    articleList {
+      dimension "storybook"
+      applicationIdSuffix = '.article.list'
+    }
+  }
+
+}
+
+dependencies {
+  // ----- Common -----
+  implementation project(':cores:presentation')
+
+  // Dependency Injection
+  kapt libs.dagger.android.compiler
+  kapt libs.dagger.java.compiler
+
+  // androidX
+  implementation 'androidx.appcompat:appcompat:1.0.2'
+  implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
+
+  // ----- Article List -----
+  articleListImplementation project(':features:article')
+  articleListImplementation project(':features:article-list')
+
+
+}
