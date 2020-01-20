@@ -40,7 +40,6 @@ dependencies {
   implementation project(':cores:presentation')
 
   // Dependency Injection
-  implementation 'androidx.legacy:legacy-support-v4:1.0.0'
   kapt libs.dagger.android.compiler
   kapt libs.dagger.java.compiler
 

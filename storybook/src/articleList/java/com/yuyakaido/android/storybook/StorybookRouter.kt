@@ -13,7 +13,7 @@ class StorybookRouter(override val application: Application) : StorybookRouterTy
     return ArticleListFragment.newInstance(source = ArticleListSource.Popular)
   }
 
-  override fun createIntent(context: Context): Intent = {
+  override fun createIntent(context: Context): Intent {
     throw UnsupportedOperationException()
   }
 }
