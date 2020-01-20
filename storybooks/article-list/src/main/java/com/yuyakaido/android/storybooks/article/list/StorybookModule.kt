@@ -3,7 +3,7 @@ package com.yuyakaido.android.storybooks.article.list
 import android.app.Application
 import com.yuyakaido.android.gaia.core.domain.app.AppRouterType
 import com.yuyakaido.android.gaia.core.domain.app.AppScope
-import com.yuyakaido.android.gaia.core.domain.app.NoopAppRouter
+import com.yuyakaido.android.storybook.NoopAppRouter
 import com.yuyakaido.android.gaia.core.domain.repository.ArticleRepositoryType
 import dagger.Module
 import dagger.Provides
@@ -17,7 +17,7 @@ class StorybookModule {
   fun provideAppRouter(
     application: Application
   ): AppRouterType {
-    return NoopAppRouter(
+    return com.yuyakaido.android.storybook.NoopAppRouter(
       application = application
     )
   }

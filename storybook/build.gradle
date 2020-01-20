@@ -27,6 +27,10 @@ android {
       dimension "storybook"
       applicationIdSuffix = '.article.list'
     }
+    articleDetail {
+      dimension "storybook"
+      applicationIdSuffix = '.article.detail'
+    }
   }
 
 }
@@ -48,5 +52,8 @@ dependencies {
   articleListImplementation project(':features:article')
   articleListImplementation project(':features:article-list')
 
-
+  // ----- Article Detail -----
+  articleDetailImplementation project(':features:article')
+  articleDetailImplementation project(':features:article-detail')
+  articleDetailImplementation project(':features:comment-list')
 }

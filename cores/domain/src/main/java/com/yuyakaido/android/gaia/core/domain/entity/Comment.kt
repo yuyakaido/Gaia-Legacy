@@ -11,4 +11,19 @@ data class Comment(
   val downs: Int
 ) : PaginationEntityType, VotableEntityType {
   data class ID(val value: String)
+
+  companion object {
+    fun create(id: String): Comment {
+      return Comment(
+        id = ID(id),
+        name = "name",
+        body = "This is comment.",
+        author = "yuyakaido",
+        created = 0f,
+        likes = null,
+        ups = 0,
+        downs = 0
+      )
+    }
+  }
 }
