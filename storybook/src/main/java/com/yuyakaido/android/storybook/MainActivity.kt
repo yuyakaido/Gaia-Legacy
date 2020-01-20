@@ -5,7 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.yuyakaido.android.gaia.article.list.ArticleListFragment
 import com.yuyakaido.android.gaia.article.list.ArticleListSource
-import com.yuyakaido.android.storybook.article.list.StorybookFragment
+import com.yuyakaido.android.storybook.article.list.StorybookFragmentRouter
 import com.yuyakaido.android.storybook.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -18,7 +18,7 @@ class MainActivity : AppCompatActivity() {
       .apply {
         replace(
           binding.container.id,
-          ArticleListFragment.newInstance(source = ArticleListSource.Popular)
+          StorybookFragmentRouter.newInstance()
         )
         commitNow()
       }
