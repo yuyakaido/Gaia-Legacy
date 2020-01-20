@@ -24,7 +24,7 @@ class ArticleListViewModel @Inject constructor(
   private var isLoading: Boolean = false
 
   override fun onBind() {
-    Timber.d("repository = ${repository.hashCode()}")
+    Timber.d("com.yuyakaido.android.storybook.repository = ${repository.hashCode()}")
     if (items.value == null) {
       onPaginate()
     }

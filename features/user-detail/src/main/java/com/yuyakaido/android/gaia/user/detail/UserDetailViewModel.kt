@@ -19,7 +19,7 @@ class UserDetailViewModel @Inject constructor(
   val detail = MutableLiveData<User.Detail>()
 
   fun onBind() {
-    Timber.d("repository = ${repository.hashCode()}")
+    Timber.d("com.yuyakaido.android.storybook.repository = ${repository.hashCode()}")
     viewModelScope.launch {
       val user = source.detail(repository = repository)
       detail.value = user
