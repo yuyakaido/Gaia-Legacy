@@ -1,9 +1,9 @@
-package com.yuyakaido.android.gaia.home
+package com.yuyakaido.android.gaia
 
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import com.yuyakaido.android.gaia.home.databinding.ActivityHomeBinding
+import com.yuyakaido.android.gaia.databinding.ActivityHomeBinding
 import dagger.android.support.DaggerAppCompatActivity
 
 class HomeActivity : DaggerAppCompatActivity() {

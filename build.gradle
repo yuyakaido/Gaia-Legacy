@@ -67,6 +67,7 @@ buildscript {
         livedata: "androidx.lifecycle:lifecycle-livedata-ktx:$versions.androidx.lifecycle"
       ],
       navigation: [
+        gradle: "androidx.navigation:navigation-safe-args-gradle-plugin:$versions.androidx.navigation",
         fragment: "androidx.navigation:navigation-fragment-ktx:$versions.androidx.navigation",
         ui: "androidx.navigation:navigation-ui-ktx:$versions.androidx.navigation"
       ],
@@ -133,6 +134,7 @@ buildscript {
   dependencies {
     classpath libs.android.gradle
     classpath libs.kotlin.gradle
+    classpath libs.androidx.navigation.gradle
     // NOTE: Do not place your application dependencies here; they belong
     // in the individual module build.gradle files
   }

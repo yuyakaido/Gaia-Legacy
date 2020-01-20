@@ -3,14 +3,12 @@
 <navigation
   xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:app="http://schemas.android.com/apk/res-auto"
-  xmlns:tools="http://schemas.android.com/tools"
-  android:id="@+id/navigation_home"
-  app:startDestination="@id/home_fragment">
+  android:id="@+id/navigation"
+  app:startDestination="@id/fragment_home">
 
   <fragment
-    android:id="@+id/home_fragment"
+    android:id="@+id/fragment_home"
     android:name="com.yuyakaido.android.gaia.home.HomeFragment"
-    tools:layout="@layout/fragment_home"
     />
 
 </navigation>
