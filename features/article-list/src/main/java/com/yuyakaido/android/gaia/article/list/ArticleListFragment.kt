@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.map
 import androidx.lifecycle.observe
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.xwray.groupie.GroupAdapter
@@ -21,6 +22,7 @@ import com.yuyakaido.android.gaia.core.domain.extension.dpTpPx
 import com.yuyakaido.android.gaia.core.presentation.ArticleItem
 import com.yuyakaido.android.gaia.core.presentation.OptionMenuType
 import com.yuyakaido.android.gaia.core.presentation.ViewModelFactory
+import com.yuyakaido.android.gaia.home.HomeFragmentDirections
 import dagger.android.support.DaggerFragment
 import timber.log.Timber
 import javax.inject.Inject
@@ -90,7 +92,8 @@ class ArticleListFragment : DaggerFragment() {
     val adapter = GroupAdapter<GroupieViewHolder>()
     adapter.setOnItemClickListener { item, _ ->
       if (item is ArticleItem) {
-        startActivity(appRouter.newArticleDetailActivity(item.article))
+        val direction = HomeFragmentDirections.actionArticleDetail(article = item.article)
+        findNavController().navigate(direction)
       }
     }
 

@@ -3,7 +3,6 @@ package com.yuyakaido.android.gaia
 import android.app.Application
 import android.content.Intent
 import androidx.fragment.app.Fragment
-import com.yuyakaido.android.gaia.article.detail.ArticleDetailActivity
 import com.yuyakaido.android.gaia.article.list.ArticleListFragment
 import com.yuyakaido.android.gaia.article.list.ArticleListSource
 import com.yuyakaido.android.gaia.comment.list.CommentListFragment
@@ -50,10 +49,6 @@ class AppRouter @Inject constructor(
   override fun newDownvotedArticleListFragment(user: User): Fragment {
     val page = ArticleListSource.Downvote(user = user)
     return ArticleListFragment.newInstance(source = page)
-  }
-
-  override fun newArticleDetailActivity(article: Article): Intent {
-    return ArticleDetailActivity.createIntent(context = application, article = article)
   }
 
   override fun newCommentListFragment(user: User): Fragment {
