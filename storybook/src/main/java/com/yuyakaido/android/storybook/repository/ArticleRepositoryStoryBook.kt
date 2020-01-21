@@ -7,7 +7,7 @@ import com.yuyakaido.android.gaia.core.domain.repository.ArticleRepositoryType
 import com.yuyakaido.android.gaia.core.domain.value.EntityPaginationItem
 import com.yuyakaido.android.gaia.core.domain.value.TrendingArticle
 import com.yuyakaido.android.gaia.core.domain.value.VoteTarget
-import com.yuyakaido.android.storybook.DummyEntityPaginationItem.createDummyEntityPaginationItem
+import dummy.DummyEntityPaginationItem.createDummyEntityPaginationItem
 import dummy.DummyTrendingArticle
 import javax.inject.Inject
 

@@ -1,4 +1,4 @@
-package com.yuyakaido.android.storybook
+package dummy
 
 import android.net.Uri
 import com.yuyakaido.android.gaia.core.domain.entity.Article
