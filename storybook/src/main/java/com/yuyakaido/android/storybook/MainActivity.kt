@@ -3,9 +3,10 @@ package com.yuyakaido.android.storybook
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+import com.yuyakaido.android.gaia.core.presentation.OptionMenuType
 import com.yuyakaido.android.storybook.databinding.ActivityMainBinding
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), OptionMenuType {
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
@@ -29,5 +30,11 @@ class MainActivity : AppCompatActivity() {
         )
       }
     }
+  }
+
+
+  // TODO: 実装考える
+  override fun shouldShowOptionMenu(): Boolean {
+    return true
   }
 }

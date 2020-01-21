@@ -7,38 +7,37 @@ import com.yuyakaido.android.gaia.core.domain.repository.ArticleRepositoryType
 import com.yuyakaido.android.gaia.core.domain.value.EntityPaginationItem
 import com.yuyakaido.android.gaia.core.domain.value.TrendingArticle
 import com.yuyakaido.android.gaia.core.domain.value.VoteTarget
-import timber.log.Timber
+import com.yuyakaido.android.storybook.DummyEntityPaginationItem.createDummyEntityPaginationItem
+import dummy.DummyTrendingArticle
 import javax.inject.Inject
 
 class ArticleRepositoryStoryBook @Inject constructor() : ArticleRepositoryType {
 
-  private val dummyEntityPaginationItem =
-    EntityPaginationItem((0 until 20).map { id -> Article.create(id = id.toString()) }, "", "").apply {
-      entities.forEach{ Timber.d("${it.id}")}
-    }
+  companion object {
+    private const val SIZE = 10
 
-  private val trendingArticles = List(10) { TrendingArticle(name = "trend") }
+  }
 
   override suspend fun articlesOfSort(sort: String, after: String?): EntityPaginationItem<Article> {
-    return dummyEntityPaginationItem
+    return createDummyEntityPaginationItem(size = SIZE, category = sort)
   }
 
   override suspend fun articlesOfCommunity(
     path: String,
     after: String?
   ): EntityPaginationItem<Article> {
-    return dummyEntityPaginationItem
+    return createDummyEntityPaginationItem(size = SIZE, category = path)
   }
 
   override suspend fun articlesOfCommunity(
     community: Community.Summary,
     after: String?
   ): EntityPaginationItem<Article> {
-    return dummyEntityPaginationItem
+    return createDummyEntityPaginationItem(size = SIZE, category = community.name)
   }
 
   override suspend fun articlesOfUser(user: User, after: String?): EntityPaginationItem<Article> {
-    return dummyEntityPaginationItem
+    return createDummyEntityPaginationItem(size = SIZE, username = user.name)
   }
 
   override suspend fun articlesOfUser(
@@ -46,16 +45,16 @@ class ArticleRepositoryStoryBook @Inject constructor() : ArticleRepositoryType {
     path: String,
     after: String?
   ): EntityPaginationItem<Article> {
-    return dummyEntityPaginationItem
+    return createDummyEntityPaginationItem(category = path, username = user.name)
   }
 
   override suspend fun vote(target: VoteTarget) = Unit
 
   override suspend fun trendingArticles(): List<TrendingArticle> {
-    return trendingArticles
+    return DummyTrendingArticle.createList(10)
   }
 
   override suspend fun search(query: String): EntityPaginationItem<Article> {
-    return dummyEntityPaginationItem
+    return createDummyEntityPaginationItem(size = SIZE)
   }
 }
