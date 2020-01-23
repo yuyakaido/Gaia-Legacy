@@ -5,7 +5,7 @@ import androidx.core.content.edit
 import androidx.preference.PreferenceManager
 import com.yuyakaido.android.gaia.core.domain.app.TokenRepositoryType
 import com.yuyakaido.android.gaia.core.domain.value.AuthToken
-import com.yuyakaido.android.gaia.core.infrastructure.PublicApi
+import com.yuyakaido.android.gaia.core.infrastructure.remote.PublicApi
 
 class TokenRepository(
   private val application: Application,

@@ -5,7 +5,6 @@ import com.yuyakaido.android.gaia.article.detail.ArticleDetailModule
 import com.yuyakaido.android.gaia.auth.AuthorizationActivity
 import com.yuyakaido.android.gaia.community.detail.CommunityDetailActivity
 import com.yuyakaido.android.gaia.community.detail.CommunityDetailModule
-import com.yuyakaido.android.gaia.home.HomeActivity
 import com.yuyakaido.android.gaia.user.detail.UserDetailActivity
 import dagger.Module
 import dagger.android.ContributesAndroidInjector

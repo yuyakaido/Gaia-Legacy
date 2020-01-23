@@ -1,4 +1,4 @@
-package com.yuyakaido.android.gaia.core.infrastructure
+package com.yuyakaido.android.gaia.core.infrastructure.remote
 
 import com.facebook.stetho.okhttp3.StethoInterceptor
 import com.squareup.moshi.Moshi

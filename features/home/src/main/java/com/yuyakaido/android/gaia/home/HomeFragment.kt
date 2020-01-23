@@ -1,28 +1,18 @@
 package com.yuyakaido.android.gaia.home
 
-import android.content.Context
-import android.content.Intent
 import android.os.Bundle
-import androidx.activity.viewModels
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.fragment.app.viewModels
 import com.yuyakaido.android.gaia.core.domain.app.AppRouterType
 import com.yuyakaido.android.gaia.core.presentation.OptionMenuType
 import com.yuyakaido.android.gaia.core.presentation.ViewModelFactory
-import com.yuyakaido.android.gaia.home.databinding.ActivityHomeBinding
-import dagger.android.support.DaggerAppCompatActivity
-import timber.log.Timber
+import com.yuyakaido.android.gaia.home.databinding.FragmentHomeBinding
+import dagger.android.support.DaggerFragment
 import javax.inject.Inject
 
-class HomeActivity : DaggerAppCompatActivity(), OptionMenuType {
-
-  companion object {
-    fun createIntent(context: Context): Intent {
-      return Intent(context, HomeActivity::class.java)
-        .apply {
-          addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
-          addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-        }
-    }
-  }
+class HomeFragment : DaggerFragment(), OptionMenuType {
 
   @Inject
   internal lateinit var appRouter: AppRouterType
@@ -31,13 +21,20 @@ class HomeActivity : DaggerAppCompatActivity(), OptionMenuType {
   internal lateinit var factory: ViewModelFactory<HomeViewModel>
 
   private val viewModel: HomeViewModel by viewModels { factory }
-  private val binding by lazy { ActivityHomeBinding.inflate(layoutInflater) }
 
-  override fun onCreate(savedInstanceState: Bundle?) {
-    super.onCreate(savedInstanceState)
-    Timber.d("activity = ${hashCode()}")
-    Timber.d("viewmodel = ${viewModel.hashCode()}")
-    setContentView(binding.root)
+  private lateinit var binding: FragmentHomeBinding
+
+  override fun onCreateView(
+    inflater: LayoutInflater,
+    container: ViewGroup?,
+    savedInstanceState: Bundle?
+  ): View? {
+    binding = FragmentHomeBinding.inflate(inflater)
+    return binding.root
+  }
+
+  override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    super.onViewCreated(view, savedInstanceState)
     setupViewPager()
     replaceFragment(HomePage.Popular)
   }
@@ -55,7 +52,7 @@ class HomeActivity : DaggerAppCompatActivity(), OptionMenuType {
   }
 
   private fun replaceFragment(page: HomePage) {
-    supportFragmentManager
+    childFragmentManager
       .beginTransaction()
       .replace(R.id.fragment_container, page.fragment.invoke(appRouter))
       .commitNow()

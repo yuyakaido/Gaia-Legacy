@@ -16,6 +16,13 @@ android {
   dataBinding {
     enabled = true
   }
+  compileOptions {
+    sourceCompatibility JavaVersion.VERSION_1_8
+    targetCompatibility JavaVersion.VERSION_1_8
+  }
+  kotlinOptions {
+    jvmTarget = JavaVersion.VERSION_1_8.toString()
+  }
 }
 
 dependencies {
@@ -24,12 +31,14 @@ dependencies {
   api libs.kotlin.coroutines
 
   // AndroidX
+  api libs.androidx.core
   api libs.androidx.appcompat
-  api libs.androidx.ktx.core
-  api libs.androidx.ktx.fragment
+  api libs.androidx.fragment
   api libs.androidx.lifecycle.extensions
   api libs.androidx.lifecycle.viewmodel
   api libs.androidx.lifecycle.livedata
+  api libs.androidx.navigation.fragment
+  api libs.androidx.navigation.ui
   api libs.androidx.constraintlayout
   api libs.androidx.recyclerview
   api libs.androidx.preference

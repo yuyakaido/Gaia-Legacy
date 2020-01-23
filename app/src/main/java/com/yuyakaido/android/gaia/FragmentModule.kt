@@ -5,6 +5,7 @@ import com.yuyakaido.android.gaia.article.list.ArticleListModule
 import com.yuyakaido.android.gaia.comment.list.CommentListFragment
 import com.yuyakaido.android.gaia.comment.list.CommentListModule
 import com.yuyakaido.android.gaia.community.CommunityFragment
+import com.yuyakaido.android.gaia.home.HomeFragment
 import com.yuyakaido.android.gaia.search.SearchFragment
 import com.yuyakaido.android.gaia.user.detail.UserDetailFragment
 import com.yuyakaido.android.gaia.user.detail.UserDetailModule
@@ -15,6 +16,9 @@ import dagger.android.ContributesAndroidInjector
 
 @Module
 abstract class FragmentModule {
+
+  @ContributesAndroidInjector
+  abstract fun contributeHomeFragment(): HomeFragment
 
   @ContributesAndroidInjector(
     modules = [ArticleListModule::class]

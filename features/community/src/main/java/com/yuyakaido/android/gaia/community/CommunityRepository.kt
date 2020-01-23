@@ -3,7 +3,7 @@ package com.yuyakaido.android.gaia.community
 import com.yuyakaido.android.gaia.core.domain.entity.Community
 import com.yuyakaido.android.gaia.core.domain.repository.CommunityRepositoryType
 import com.yuyakaido.android.gaia.core.domain.value.EntityPaginationItem
-import com.yuyakaido.android.gaia.core.infrastructure.PrivateApi
+import com.yuyakaido.android.gaia.core.infrastructure.remote.PrivateApi
 
 class CommunityRepository(
   private val api: PrivateApi

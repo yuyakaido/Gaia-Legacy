@@ -20,7 +20,6 @@ interface AppRouterType {
   fun newSubmittedArticleListFragment(user: User): Fragment
   fun newUpvotedArticleListFragment(user: User): Fragment
   fun newDownvotedArticleListFragment(user: User): Fragment
-  fun newArticleDetailActivity(article: Article): Intent
 
   // Comment
   fun newCommentListFragment(user: User): Fragment

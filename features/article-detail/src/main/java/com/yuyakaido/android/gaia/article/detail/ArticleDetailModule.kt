@@ -11,7 +11,7 @@ class ArticleDetailModule {
   fun provideArticle(
     activity: ArticleDetailActivity
   ): Article {
-    return activity.getArticle()
+    return activity.args.article
   }
 
 }

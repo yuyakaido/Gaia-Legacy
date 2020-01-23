@@ -19,12 +19,11 @@ buildscript {
       coroutines: '1.3.2'
     ],
     androidx: [
+      core: '1.1.0',
       appcompat: '1.1.0',
-      ktx: [
-        core: '1.1.0',
-        fragment: '1.1.0'
-      ],
-      lifecycle: '2.1.0',
+      fragment: '1.1.0',
+      lifecycle: '2.2.0-rc03',
+      navigation: '2.1.0',
       constraintlayout: '1.1.3',
       recyclerview: '1.0.0',
       preference: '1.1.0'
@@ -35,6 +34,9 @@ buildscript {
       retrofit: '2.6.2',
       moshi: '1.9.1',
       glide: '4.10.0'
+    ],
+    storage: [
+      room: '2.2.3'
     ],
     widget: [
       groupie: '2.7.1',
@@ -56,15 +58,18 @@ buildscript {
       coroutines: "org.jetbrains.kotlinx:kotlinx-coroutines-android:$versions.kotlin.coroutines"
     ],
     androidx: [
+      core: "androidx.core:core-ktx:$versions.androidx.core",
       appcompat: "androidx.appcompat:appcompat:$versions.androidx.appcompat",
-      ktx: [
-        core: "androidx.core:core-ktx:$versions.androidx.ktx.core",
-        fragment: "androidx.fragment:fragment-ktx:$versions.androidx.ktx.fragment"
-      ],
+      fragment: "androidx.fragment:fragment-ktx:$versions.androidx.fragment",
       lifecycle: [
         extensions: "androidx.lifecycle:lifecycle-extensions:$versions.androidx.lifecycle",
         viewmodel: "androidx.lifecycle:lifecycle-viewmodel-ktx:$versions.androidx.lifecycle",
         livedata: "androidx.lifecycle:lifecycle-livedata-ktx:$versions.androidx.lifecycle"
+      ],
+      navigation: [
+        gradle: "androidx.navigation:navigation-safe-args-gradle-plugin:$versions.androidx.navigation",
+        fragment: "androidx.navigation:navigation-fragment-ktx:$versions.androidx.navigation",
+        ui: "androidx.navigation:navigation-ui-ktx:$versions.androidx.navigation"
       ],
       constraintlayout: "androidx.constraintlayout:constraintlayout:$versions.androidx.constraintlayout",
       recyclerview: "androidx.recyclerview:recyclerview:$versions.androidx.recyclerview",
@@ -99,6 +104,13 @@ buildscript {
         compiler: "com.github.bumptech.glide:compiler:$versions.networking.glide"
       ]
     ],
+    storage: [
+      room: [
+        core: "androidx.room:room-runtime:$versions.storage.room",
+        ktx: "androidx.room:room-ktx:$versions.storage.room",
+        compiler: "androidx.room:room-compiler:$versions.storage.room"
+      ]
+    ],
     widget: [
       groupie: [
         core: "com.xwray:groupie:$versions.widget.groupie",
@@ -122,6 +134,7 @@ buildscript {
   dependencies {
     classpath libs.android.gradle
     classpath libs.kotlin.gradle
+    classpath libs.androidx.navigation.gradle
     // NOTE: Do not place your application dependencies here; they belong
     // in the individual module build.gradle files
   }

@@ -1,7 +1,7 @@
-package com.yuyakaido.android.gaia.core.infrastructure
+package com.yuyakaido.android.gaia.core.infrastructure.remote
 
 import com.squareup.moshi.Json
-import com.yuyakaido.android.gaia.core.domain.entity.User
+import com.yuyakaido.android.gaia.core.infrastructure.local.MeSchema
 
 data class MeResponse(
   @Json(name = "id") val id: String,
@@ -10,8 +10,8 @@ data class MeResponse(
   @Json(name = "created") val birthday: Float,
   @Json(name = "link_karma") val karma: Int
 ) {
-  fun toEntity(): User.Detail {
-    return User.Detail.Me(
+  fun toSchema(): MeSchema {
+    return MeSchema(
       id = id,
       name = name,
       icon = icon,
