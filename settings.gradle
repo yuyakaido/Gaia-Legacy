@@ -1,4 +1,4 @@
-include ':app'
+include ':app', ':storybook'
 
 // Modules - Core
 include ':cores:domain'
@@ -20,6 +20,3 @@ include ':features:user'
 include ':features:user-list'
 include ':features:user-detail'
 include ':features:search'
-
-// Modules - Storybook
-include ':storybook'
