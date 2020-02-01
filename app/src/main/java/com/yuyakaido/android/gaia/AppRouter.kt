@@ -9,6 +9,7 @@ import com.yuyakaido.android.gaia.article.list.ArticleListFragmentArgs
 import com.yuyakaido.android.gaia.article.list.ArticleListFragmentDirections
 import com.yuyakaido.android.gaia.article.list.ArticleListSource
 import com.yuyakaido.android.gaia.comment.CommentListFragment
+import com.yuyakaido.android.gaia.community.detail.CommunityDetailFragmentDirections
 import com.yuyakaido.android.gaia.community.list.CommunityListFragment
 import com.yuyakaido.android.gaia.core.domain.app.AppRouterType
 import com.yuyakaido.android.gaia.core.domain.entity.Article
@@ -19,6 +20,7 @@ import com.yuyakaido.android.gaia.user.detail.UserDetailFragment
 import com.yuyakaido.android.gaia.user.detail.UserDetailFragmentArgs
 import com.yuyakaido.android.gaia.user.detail.UserDetailSource
 import com.yuyakaido.android.gaia.user.list.UserListFragment
+import com.yuyakaido.android.gaia.user.list.UserListFragmentDirections
 import com.yuyakaido.android.gaia.user.list.UserListSource
 import javax.inject.Inject
 
@@ -82,7 +84,7 @@ class AppRouter @Inject constructor(
     community: Community.Summary
   ) {
     controller.navigate(
-      NavigationHomeDirections.actionCommunityDetail(
+      CommunityDetailFragmentDirections.actionCommunityDetail(
         community = community
       )
     )
@@ -103,7 +105,7 @@ class AppRouter @Inject constructor(
     user: User
   ) {
     controller.navigate(
-      NavigationHomeDirections.actionUserDetail(
+      UserListFragmentDirections.actionUserDetail(
         source = UserDetailSource.Other(user = user)
       )
     )

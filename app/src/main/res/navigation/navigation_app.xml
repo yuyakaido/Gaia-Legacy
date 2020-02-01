@@ -10,8 +10,33 @@
   <fragment
     android:id="@+id/fragment_article_list"
     android:name="com.yuyakaido.android.gaia.article.list.ArticleListFragment"
-    tools:layout="@layout/fragment_article_list"
-    />
+    tools:layout="@layout/fragment_article_list">
+
+    <action
+      android:id="@+id/action_article_detail"
+      app:destination="@id/fragment_article_detail">
+
+      <argument
+        android:name="article"
+        app:argType="com.yuyakaido.android.gaia.core.domain.entity.Article"
+        app:nullable="false"
+        />
+
+    </action>
+
+    <action
+      android:id="@+id/action_community_detail"
+      app:destination="@id/fragment_community_detail">
+
+      <argument
+        android:name="community"
+        app:argType="com.yuyakaido.android.gaia.core.domain.entity.Community"
+        app:nullable="false"
+        />
+
+    </action>
+
+  </fragment>
 
   <fragment
     android:id="@+id/fragment_search"
@@ -22,14 +47,71 @@
   <fragment
     android:id="@+id/fragment_community_list"
     android:name="com.yuyakaido.android.gaia.community.list.CommunityListFragment"
-    tools:layout="@layout/fragment_community_list"
-    />
+    tools:layout="@layout/fragment_community_list">
+
+    <action
+      android:id="@+id/action_community_detail"
+      app:destination="@id/fragment_community_detail">
+
+      <argument
+        android:name="community"
+        app:argType="com.yuyakaido.android.gaia.core.domain.entity.Community"
+        app:nullable="false"
+        />
+
+    </action>
+
+  </fragment>
+
+  <fragment
+    android:id="@+id/fragment_user_list"
+    android:name="com.yuyakaido.android.gaia.user.list.UserListFragment"
+    tools:layout="@layout/fragment_user_list">
+
+    <action
+      android:id="@+id/action_user_detail"
+      app:destination="@id/fragment_user_detail">
+
+      <argument
+        android:name="source"
+        app:argType="com.yuyakaido.android.gaia.user.detail.UserDetailSource"
+        app:nullable="false"
+        />
+
+    </action>
+
+  </fragment>
 
   <fragment
     android:id="@+id/fragment_user_detail"
     android:name="com.yuyakaido.android.gaia.user.detail.UserDetailFragment"
-    tools:layout="@layout/fragment_user_detail"
-    />
+    tools:layout="@layout/fragment_user_detail">
+
+    <action
+      android:id="@+id/action_article_detail"
+      app:destination="@id/fragment_article_detail">
+
+      <argument
+        android:name="article"
+        app:argType="com.yuyakaido.android.gaia.core.domain.entity.Article"
+        app:nullable="false"
+        />
+
+    </action>
+
+    <action
+      android:id="@+id/action_community_detail"
+      app:destination="@id/fragment_community_detail">
+
+      <argument
+        android:name="community"
+        app:argType="com.yuyakaido.android.gaia.core.domain.entity.Community"
+        app:nullable="false"
+        />
+
+    </action>
+
+  </fragment>
 
   <fragment
     android:id="@+id/fragment_article_detail"
@@ -40,28 +122,53 @@
   <fragment
     android:id="@+id/fragment_community_detail"
     android:name="com.yuyakaido.android.gaia.community.detail.CommunityDetailFragment"
-    tools:layout="@layout/fragment_community_detail"
-    />
+    tools:layout="@layout/fragment_community_detail">
+
+    <action
+      android:id="@+id/action_article_detail"
+      app:destination="@id/fragment_article_detail">
+
+      <argument
+        android:name="article"
+        app:argType="com.yuyakaido.android.gaia.core.domain.entity.Article"
+        app:nullable="false"
+        />
+
+    </action>
+
+    <action
+      android:id="@+id/action_community_detail"
+      app:destination="@id/fragment_community_detail">
+
+      <argument
+        android:name="community"
+        app:argType="com.yuyakaido.android.gaia.core.domain.entity.Community"
+        app:nullable="false"
+        />
+
+    </action>
+
+    <action
+      android:id="@+id/action_user_detail"
+      app:destination="@id/fragment_user_detail">
+
+      <argument
+        android:name="source"
+        app:argType="com.yuyakaido.android.gaia.user.detail.UserDetailSource"
+        app:nullable="false"
+        />
+
+    </action>
+
+  </fragment>
 
   <action
     android:id="@+id/action_article_list"
-    app:destination="@+id/fragment_article_list">
+    app:destination="@id/fragment_article_list">
 
     <argument
       android:name="source"
       app:argType="com.yuyakaido.android.gaia.article.list.ArticleListSource"
-      app:nullable="false"
-      />
-
-  </action>
-
-  <action
-    android:id="@+id/action_article_detail"
-    app:destination="@id/fragment_article_detail">
-
-    <argument
-      android:name="article"
-      app:argType="com.yuyakaido.android.gaia.core.domain.entity.Article"
       app:nullable="false"
       />
 
@@ -76,18 +183,6 @@
     android:id="@+id/action_community_list"
     app:destination="@id/fragment_community_list"
     />
-
-  <action
-    android:id="@+id/action_community_detail"
-    app:destination="@id/fragment_community_detail">
-
-    <argument
-      android:name="community"
-      app:argType="com.yuyakaido.android.gaia.core.domain.entity.Community"
-      app:nullable="false"
-      />
-
-  </action>
 
   <action
     android:id="@+id/action_user_detail"
