@@ -9,9 +9,9 @@ class CommunityDetailModule {
 
   @Provides
   fun provideCommunity(
-    activity: CommunityDetailActivity
+    fragment: CommunityDetailFragment
   ): Community.Summary {
-    return activity.args.community.toSummary()
+    return fragment.args.community.toSummary()
   }
 
 }

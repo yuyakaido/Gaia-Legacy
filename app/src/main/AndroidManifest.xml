@@ -28,12 +28,6 @@
 
     <activity android:name=".AppActivity" />
 
-    <activity android:name=".article.detail.ArticleDetailActivity" />
-
-    <activity android:name=".community.detail.CommunityDetailActivity" />
-
-    <activity android:name=".user.detail.UserDetailActivity" />
-
   </application>
 
 </manifest>

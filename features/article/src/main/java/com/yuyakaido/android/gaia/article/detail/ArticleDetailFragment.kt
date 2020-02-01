@@ -4,20 +4,22 @@ import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.net.Uri
 import android.os.Bundle
-import android.view.MenuItem
-import androidx.activity.viewModels
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.observe
-import androidx.navigation.navArgs
+import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
 import com.yuyakaido.android.gaia.article.R
-import com.yuyakaido.android.gaia.article.databinding.ActivityArticleDetailBinding
+import com.yuyakaido.android.gaia.article.databinding.FragmentArticleDetailBinding
 import com.yuyakaido.android.gaia.core.domain.app.AppRouterType
 import com.yuyakaido.android.gaia.core.presentation.ViewModelFactory
-import dagger.android.support.DaggerAppCompatActivity
+import dagger.android.support.DaggerFragment
 import javax.inject.Inject
 
-class ArticleDetailActivity : DaggerAppCompatActivity() {
+class ArticleDetailFragment : DaggerFragment() {
 
   @Inject
   internal lateinit var appRouter: AppRouterType
@@ -25,28 +27,25 @@ class ArticleDetailActivity : DaggerAppCompatActivity() {
   @Inject
   internal lateinit var factory: ViewModelFactory<ArticleDetailViewModel>
 
-  internal val args: ArticleDetailActivityArgs by navArgs()
+  internal val args: ArticleDetailFragmentArgs by navArgs()
 
   private val viewModel: ArticleDetailViewModel by viewModels { factory }
-  private val binding by lazy { ActivityArticleDetailBinding.inflate(layoutInflater) }
 
-  override fun onCreate(savedInstanceState: Bundle?) {
-    super.onCreate(savedInstanceState)
-    setContentView(binding.root)
-    setupActionBar()
+  private lateinit var binding: FragmentArticleDetailBinding
+
+  override fun onCreateView(
+    inflater: LayoutInflater,
+    container: ViewGroup?,
+    savedInstanceState: Bundle?
+  ): View? {
+    binding = FragmentArticleDetailBinding.inflate(inflater)
+    return binding.root
+  }
+
+  override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    super.onViewCreated(view, savedInstanceState)
     setupDetail()
-    setupFragment()
-  }
-
-  override fun onOptionsItemSelected(item: MenuItem): Boolean {
-    when (item.itemId) {
-      android.R.id.home -> finish()
-    }
-    return super.onOptionsItemSelected(item)
-  }
-
-  private fun setupActionBar() {
-    supportActionBar?.setDisplayHomeAsUpEnabled(true)
+    setupComment()
   }
 
   private fun setupDetail() {
@@ -70,14 +69,14 @@ class ArticleDetailActivity : DaggerAppCompatActivity() {
             b.upvote.setImageResource(R.drawable.ic_upvote_active)
             b.downvote.setImageResource(R.drawable.ic_downvote_inactive)
             b.voteCount.setTextColor(
-              ContextCompat.getColor(this, R.color.upvpte)
+              ContextCompat.getColor(requireContext(), R.color.upvpte)
             )
           }
           article.likes == false -> {
             b.upvote.setImageResource(R.drawable.ic_upvote_inactive)
             b.downvote.setImageResource(R.drawable.ic_downvote_active)
             b.voteCount.setTextColor(
-              ContextCompat.getColor(this, R.color.downvote)
+              ContextCompat.getColor(requireContext(), R.color.downvote)
             )
           }
           else -> Unit
@@ -95,8 +94,8 @@ class ArticleDetailActivity : DaggerAppCompatActivity() {
       }
   }
 
-  private fun setupFragment() {
-    supportFragmentManager
+  private fun setupComment() {
+    childFragmentManager
       .beginTransaction()
       .replace(
         R.id.fragment_container,

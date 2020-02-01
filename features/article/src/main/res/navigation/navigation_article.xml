@@ -3,8 +3,7 @@
 <navigation
   xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:app="http://schemas.android.com/apk/res-auto"
-  android:id="@+id/navigation_article"
-  app:startDestination="@id/activity_article_detail">
+  android:id="@+id/navigation_article">
 
   <fragment
     android:id="@+id/fragment_article_list"
@@ -18,9 +17,9 @@
 
   </fragment>
 
-  <activity
-    android:id="@+id/activity_article_detail"
-    android:name="com.yuyakaido.android.gaia.article.detail.ArticleDetailActivity">
+  <fragment
+    android:id="@+id/fragment_article_detail"
+    android:name="com.yuyakaido.android.gaia.article.detail.ArticleDetailFragment">
 
     <argument
       android:name="article"
@@ -28,6 +27,6 @@
       app:nullable="false"
       />
 
-  </activity>
+  </fragment>
 
 </navigation>

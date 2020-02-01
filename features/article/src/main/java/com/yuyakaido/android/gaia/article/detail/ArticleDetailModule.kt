@@ -9,9 +9,9 @@ class ArticleDetailModule {
 
   @Provides
   fun provideArticle(
-    activity: ArticleDetailActivity
+    fragment: ArticleDetailFragment
   ): Article {
-    return activity.args.article
+    return fragment.args.article
   }
 
 }

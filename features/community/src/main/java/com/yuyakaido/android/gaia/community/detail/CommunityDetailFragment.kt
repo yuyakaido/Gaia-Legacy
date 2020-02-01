@@ -1,19 +1,21 @@
 package com.yuyakaido.android.gaia.community.detail
 
 import android.os.Bundle
-import android.view.MenuItem
-import androidx.activity.viewModels
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.observe
-import androidx.navigation.navArgs
+import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
 import com.yuyakaido.android.gaia.community.R
-import com.yuyakaido.android.gaia.community.databinding.ActivityCommunityDetailBinding
+import com.yuyakaido.android.gaia.community.databinding.FragmentCommunityDetailBinding
 import com.yuyakaido.android.gaia.core.domain.app.AppRouterType
 import com.yuyakaido.android.gaia.core.presentation.ViewModelFactory
-import dagger.android.support.DaggerAppCompatActivity
+import dagger.android.support.DaggerFragment
 import javax.inject.Inject
 
-class CommunityDetailActivity : DaggerAppCompatActivity() {
+class CommunityDetailFragment : DaggerFragment() {
 
   @Inject
   internal lateinit var appRouter: AppRouterType
@@ -21,30 +23,26 @@ class CommunityDetailActivity : DaggerAppCompatActivity() {
   @Inject
   internal lateinit var factory: ViewModelFactory<CommunityDetailViewModel>
 
-  internal val args: CommunityDetailActivityArgs by navArgs()
+  internal val args: CommunityDetailFragmentArgs by navArgs()
+
+  private lateinit var binding: FragmentCommunityDetailBinding
 
   private val viewModel: CommunityDetailViewModel by viewModels { factory }
-  private val binding by lazy { ActivityCommunityDetailBinding.inflate(layoutInflater) }
 
-  override fun onCreate(savedInstanceState: Bundle?) {
-    super.onCreate(savedInstanceState)
-    setContentView(binding.root)
-    setupToolbar()
+  override fun onCreateView(
+    inflater: LayoutInflater,
+    container: ViewGroup?,
+    savedInstanceState: Bundle?
+  ): View? {
+    binding = FragmentCommunityDetailBinding.inflate(inflater)
+    return binding.root
+  }
+
+  override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    super.onViewCreated(view, savedInstanceState)
     setupDetail()
     setupViewPager()
     viewModel.onBind()
-  }
-
-  override fun onOptionsItemSelected(item: MenuItem): Boolean {
-    when (item.itemId) {
-      android.R.id.home -> finish()
-    }
-    return super.onOptionsItemSelected(item)
-  }
-
-  private fun setupToolbar() {
-    supportActionBar?.title = getString(R.string.community_detail_name, args.community.name())
-    supportActionBar?.setDisplayHomeAsUpEnabled(true)
   }
 
   private fun setupDetail() {
@@ -71,8 +69,8 @@ class CommunityDetailActivity : DaggerAppCompatActivity() {
 
   private fun setupViewPager() {
     val adapter = CommunityDetailFragmentPagerAdapter(
-      manager = supportFragmentManager,
-      context = this,
+      manager = childFragmentManager,
+      context = requireContext(),
       router = appRouter,
       community = args.community.toSummary()
     )

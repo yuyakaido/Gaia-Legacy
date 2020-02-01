@@ -31,14 +31,14 @@
     tools:layout="@layout/fragment_user_detail"
     />
 
-  <activity
-    android:id="@+id/activity_article_detail"
-    android:name="com.yuyakaido.android.gaia.article.detail.ArticleDetailActivity"
+  <fragment
+    android:id="@+id/fragment_article_detail"
+    android:name="com.yuyakaido.android.gaia.article.detail.ArticleDetailFragment"
     />
 
-  <activity
-    android:id="@+id/activity_community_detail"
-    android:name="com.yuyakaido.android.gaia.community.detail.CommunityDetailActivity"
+  <fragment
+    android:id="@+id/fragment_community_detail"
+    android:name="com.yuyakaido.android.gaia.community.detail.CommunityDetailFragment"
     />
 
   <action
@@ -55,7 +55,7 @@
 
   <action
     android:id="@+id/action_article_detail"
-    app:destination="@id/activity_article_detail">
+    app:destination="@id/fragment_article_detail">
 
     <argument
       android:name="article"
@@ -77,7 +77,7 @@
 
   <action
     android:id="@+id/action_community_detail"
-    app:destination="@id/activity_community_detail">
+    app:destination="@id/fragment_community_detail">
 
     <argument
       android:name="community"

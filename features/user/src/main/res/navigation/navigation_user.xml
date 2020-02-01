@@ -3,7 +3,7 @@
 <navigation
   xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:app="http://schemas.android.com/apk/res-auto"
-  android:id="@+id/navigation_user_detail">
+  android:id="@+id/navigation_user">
 
   <fragment
     android:id="@+id/fragment_user_detail"
@@ -16,17 +16,5 @@
       />
 
   </fragment>
-
-  <activity
-    android:id="@+id/activity_user_detail"
-    android:name="com.yuyakaido.android.gaia.user.detail.UserDetailActivity">
-
-    <argument
-      android:name="user"
-      app:argType="com.yuyakaido.android.gaia.core.domain.entity.User"
-      app:nullable="false"
-      />
-
-  </activity>
 
 </navigation>

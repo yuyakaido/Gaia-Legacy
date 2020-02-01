@@ -3,12 +3,11 @@
 <navigation
   xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:app="http://schemas.android.com/apk/res-auto"
-  android:id="@+id/navigation_community"
-  app:startDestination="@id/activity_community_detail">
+  android:id="@+id/navigation_community">
 
-  <activity
-    android:id="@+id/activity_community_detail"
-    android:name="com.yuyakaido.android.gaia.community.detail.CommunityDetailActivity">
+  <fragment
+    android:id="@+id/fragment_community_detail"
+    android:name="com.yuyakaido.android.gaia.community.detail.CommunityDetailFragment">
 
     <argument
       android:name="community"
@@ -16,6 +15,6 @@
       app:nullable="false"
       />
 
-  </activity>
+  </fragment>
 
 </navigation>
