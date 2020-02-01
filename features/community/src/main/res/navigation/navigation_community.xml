@@ -6,11 +6,6 @@
   android:id="@+id/navigation_community"
   app:startDestination="@id/activity_community_detail">
 
-  <fragment
-    android:id="@+id/fragment_community_list"
-    android:name="com.yuyakaido.android.gaia.community.list.CommunityListFragment"
-    />
-
   <activity
     android:id="@+id/activity_community_detail"
     android:name="com.yuyakaido.android.gaia.community.detail.CommunityDetailActivity">

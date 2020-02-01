@@ -1,14 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+<navigation
+  xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:app="http://schemas.android.com/apk/res-auto"
   xmlns:tools="http://schemas.android.com/tools"
   android:id="@+id/navigation_home"
   app:startDestination="@id/fragment_article_list">
-
-  <include app:graph="@navigation/navigation_article" />
-  <include app:graph="@navigation/navigation_community" />
-  <include app:graph="@navigation/navigation_user" />
 
   <fragment
     android:id="@+id/fragment_article_list"
@@ -34,6 +31,16 @@
     tools:layout="@layout/fragment_user_detail"
     />
 
+  <activity
+    android:id="@+id/activity_article_detail"
+    android:name="com.yuyakaido.android.gaia.article.detail.ArticleDetailActivity"
+    />
+
+  <activity
+    android:id="@+id/activity_community_detail"
+    android:name="com.yuyakaido.android.gaia.community.detail.CommunityDetailActivity"
+    />
+
   <action
     android:id="@+id/action_article_list"
     app:destination="@+id/fragment_article_list">
@@ -48,7 +55,7 @@
 
   <action
     android:id="@+id/action_article_detail"
-    app:destination="@id/navigation_article">
+    app:destination="@id/activity_article_detail">
 
     <argument
       android:name="article"
@@ -70,7 +77,7 @@
 
   <action
     android:id="@+id/action_community_detail"
-    app:destination="@id/navigation_community">
+    app:destination="@id/activity_community_detail">
 
     <argument
       android:name="community"
