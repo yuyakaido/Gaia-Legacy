@@ -8,18 +8,8 @@ include ':cores:gateway'
 
 // Modules - Feature
 include ':features:auth'
-include ':features:home'
 include ':features:article'
-include ':features:article-list'
-include ':features:article-detail'
 include ':features:comment'
-include ':features:comment-list'
 include ':features:community'
-include ':features:community-detail'
 include ':features:user'
-include ':features:user-list'
-include ':features:user-detail'
 include ':features:search'
-
-// Modules - Storybook
-include ':storybooks:article-list-storybook'

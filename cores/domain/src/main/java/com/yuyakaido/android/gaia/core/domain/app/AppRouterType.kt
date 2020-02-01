@@ -3,6 +3,7 @@ package com.yuyakaido.android.gaia.core.domain.app
 import android.app.Application
 import android.content.Intent
 import androidx.fragment.app.Fragment
+import androidx.navigation.NavController
 import com.yuyakaido.android.gaia.core.domain.entity.Article
 import com.yuyakaido.android.gaia.core.domain.entity.Community
 import com.yuyakaido.android.gaia.core.domain.entity.User
@@ -11,15 +12,15 @@ interface AppRouterType {
 
   val application: Application
 
-  // Home
-  fun newHomeActivity(): Intent
+  // App
+  fun newAppActivity(): Intent
 
   // Article
-  fun newPopularArticleListFragment(): Fragment
   fun newCommunityDetailArticleListFragment(community: Community.Summary): Fragment
   fun newSubmittedArticleListFragment(user: User): Fragment
   fun newUpvotedArticleListFragment(user: User): Fragment
   fun newDownvotedArticleListFragment(user: User): Fragment
+  fun navigateToArticleDetailActivity(controller: NavController, article: Article)
 
   // Comment
   fun newCommentListFragment(user: User): Fragment
@@ -27,12 +28,12 @@ interface AppRouterType {
 
   // Community
   fun newCommunityFragment(): Fragment
-  fun newCommunityDetailActivity(community: Community.Summary): Intent
+  fun navigateToCommunityDetail(controller: NavController, community: Community.Summary)
   fun newModeratorListFragment(community: Community.Summary): Fragment
   fun newContributorListFragment(community: Community.Summary): Fragment
 
   // User
-  fun newUserDetailActivity(user: User): Intent
+  fun navigateToUserDetail(controller: NavController, user: User)
   fun newUserDetailFragmentForMe(): Fragment
   fun newUserDetailFragmentForUser(user: User): Fragment
 

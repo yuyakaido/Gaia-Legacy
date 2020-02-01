@@ -16,7 +16,7 @@ abstract class ActivityModule {
   abstract fun contributeAuthorizationActivity(): AuthorizationActivity
 
   @ContributesAndroidInjector
-  abstract fun contributeHomeActivity(): HomeActivity
+  abstract fun contributeAppActivity(): AppActivity
 
   @ContributesAndroidInjector(
     modules = [ArticleDetailModule::class]

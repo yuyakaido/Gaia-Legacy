@@ -2,10 +2,9 @@ package com.yuyakaido.android.gaia
 
 import com.yuyakaido.android.gaia.article.list.ArticleListFragment
 import com.yuyakaido.android.gaia.article.list.ArticleListModule
-import com.yuyakaido.android.gaia.comment.list.CommentListFragment
-import com.yuyakaido.android.gaia.comment.list.CommentListModule
-import com.yuyakaido.android.gaia.community.CommunityFragment
-import com.yuyakaido.android.gaia.home.HomeFragment
+import com.yuyakaido.android.gaia.comment.CommentListFragment
+import com.yuyakaido.android.gaia.comment.CommentListModule
+import com.yuyakaido.android.gaia.community.list.CommunityListFragment
 import com.yuyakaido.android.gaia.search.SearchFragment
 import com.yuyakaido.android.gaia.user.detail.UserDetailFragment
 import com.yuyakaido.android.gaia.user.detail.UserDetailModule
@@ -16,9 +15,6 @@ import dagger.android.ContributesAndroidInjector
 
 @Module
 abstract class FragmentModule {
-
-  @ContributesAndroidInjector
-  abstract fun contributeHomeFragment(): HomeFragment
 
   @ContributesAndroidInjector(
     modules = [ArticleListModule::class]
@@ -31,7 +27,7 @@ abstract class FragmentModule {
   abstract fun contributeCommentListFragment(): CommentListFragment
 
   @ContributesAndroidInjector
-  abstract fun contributeCommunityFragment(): CommunityFragment
+  abstract fun contributeCommunityFragment(): CommunityListFragment
 
   @ContributesAndroidInjector(
     modules = [UserListModule::class]

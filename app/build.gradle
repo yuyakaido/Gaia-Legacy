@@ -2,6 +2,7 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
+apply plugin: 'androidx.navigation.safeargs.kotlin'
 
 android {
   buildToolsVersion versions.android.buildTools
@@ -34,17 +35,10 @@ dependencies {
 
   // Modules - Feature
   implementation project(':features:auth')
-  implementation project(':features:home')
   implementation project(':features:article')
-  implementation project(':features:article-list')
-  implementation project(':features:article-detail')
   implementation project(':features:comment')
-  implementation project(':features:comment-list')
   implementation project(':features:community')
-  implementation project(':features:community-detail')
   implementation project(':features:user')
-  implementation project(':features:user-list')
-  implementation project(':features:user-detail')
   implementation project(':features:search')
 
   // Dependency Injection

@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:id="@+id/navigation_home"
+  app:startDestination="@id/fragment_article_list">
+
+  <include app:graph="@navigation/navigation_article" />
+  <include app:graph="@navigation/navigation_community" />
+  <include app:graph="@navigation/navigation_user" />
+
+  <fragment
+    android:id="@+id/fragment_article_list"
+    android:name="com.yuyakaido.android.gaia.article.list.ArticleListFragment"
+    tools:layout="@layout/fragment_article_list"
+    />
+
+  <fragment
+    android:id="@+id/fragment_search"
+    android:name="com.yuyakaido.android.gaia.search.SearchFragment"
+    tools:layout="@layout/fragment_search"
+    />
+
+  <fragment
+    android:id="@+id/fragment_community_list"
+    android:name="com.yuyakaido.android.gaia.community.list.CommunityListFragment"
+    tools:layout="@layout/fragment_community_list"
+    />
+
+  <fragment
+    android:id="@+id/fragment_user_detail"
+    android:name="com.yuyakaido.android.gaia.user.detail.UserDetailFragment"
+    tools:layout="@layout/fragment_user_detail"
+    />
+
+  <action
+    android:id="@+id/action_article_list"
+    app:destination="@+id/fragment_article_list">
+
+    <argument
+      android:name="source"
+      app:argType="com.yuyakaido.android.gaia.article.list.ArticleListSource"
+      app:nullable="false"
+      />
+
+  </action>
+
+  <action
+    android:id="@+id/action_article_detail"
+    app:destination="@id/navigation_article">
+
+    <argument
+      android:name="article"
+      app:argType="com.yuyakaido.android.gaia.core.domain.entity.Article"
+      app:nullable="false"
+      />
+
+  </action>
+
+  <action
+    android:id="@+id/action_search"
+    app:destination="@id/fragment_search"
+    />
+
+  <action
+    android:id="@+id/action_community_list"
+    app:destination="@id/fragment_community_list"
+    />
+
+  <action
+    android:id="@+id/action_community_detail"
+    app:destination="@id/navigation_community">
+
+    <argument
+      android:name="community"
+      app:argType="com.yuyakaido.android.gaia.core.domain.entity.Community"
+      app:nullable="false"
+      />
+
+  </action>
+
+  <action
+    android:id="@+id/action_user_detail"
+    app:destination="@id/fragment_user_detail">
+
+    <argument
+      android:name="source"
+      app:argType="com.yuyakaido.android.gaia.user.detail.UserDetailSource"
+      app:nullable="false"
+      />
+
+  </action>
+
+</navigation>

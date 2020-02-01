@@ -33,7 +33,7 @@ class AuthorizationActivity : DaggerAppCompatActivity() {
   private fun setupNavigation() {
     viewModel.navigateToHome
       .observe(this) {
-        startActivity(appRouter.newHomeActivity())
+        startActivity(appRouter.newAppActivity())
       }
     viewModel.navigateToAuth
       .observe(this) {
