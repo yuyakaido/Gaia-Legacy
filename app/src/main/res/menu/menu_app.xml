@@ -15,7 +15,7 @@
     />
 
   <item
-    android:id="@+id/fragment_community"
+    android:id="@+id/fragment_community_list"
     android:icon="@drawable/ic_community"
     android:title="@string/home_community"
     />

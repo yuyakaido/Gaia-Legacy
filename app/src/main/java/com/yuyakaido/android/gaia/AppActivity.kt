@@ -57,7 +57,7 @@ class AppActivity : DaggerAppCompatActivity() {
         R.id.fragment_search -> {
           NavigationHomeDirections.actionSearch()
         }
-        R.id.fragment_community -> {
+        R.id.fragment_community_list -> {
           NavigationHomeDirections.actionCommunityList()
         }
         R.id.fragment_user_detail -> {
