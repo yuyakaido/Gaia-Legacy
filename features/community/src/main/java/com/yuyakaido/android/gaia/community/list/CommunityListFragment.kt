@@ -63,7 +63,6 @@ class CommunityListFragment : DaggerFragment() {
       HorizontalDividerItemDecoration.Builder(requireContext())
         .color(Color.TRANSPARENT)
         .size(8.dpTpPx(requireContext()))
-        .showLastDivider()
         .build()
     )
 
