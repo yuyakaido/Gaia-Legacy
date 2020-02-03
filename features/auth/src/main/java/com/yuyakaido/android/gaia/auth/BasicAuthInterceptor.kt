@@ -1,4 +1,4 @@
-package com.yuyakaido.android.gaia.core.infrastructure.remote.interceptor
+package com.yuyakaido.android.gaia.auth
 
 import com.yuyakaido.android.gaia.core.domain.app.Constant
 import okhttp3.Credentials

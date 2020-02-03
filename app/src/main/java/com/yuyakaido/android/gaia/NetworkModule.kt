@@ -13,9 +13,9 @@ import com.yuyakaido.android.gaia.core.domain.repository.TokenRepositoryType
 import com.yuyakaido.android.gaia.core.infrastructure.remote.api.PublicApi
 import com.yuyakaido.android.gaia.core.infrastructure.remote.di.OkHttpForPrivate
 import com.yuyakaido.android.gaia.core.infrastructure.remote.di.OkHttpForPublic
-import com.yuyakaido.android.gaia.core.infrastructure.remote.interceptor.AuthInterceptor
-import com.yuyakaido.android.gaia.core.infrastructure.remote.interceptor.BasicAuthInterceptor
-import com.yuyakaido.android.gaia.core.infrastructure.remote.interceptor.TokenAuthenticator
+import com.yuyakaido.android.gaia.auth.AuthInterceptor
+import com.yuyakaido.android.gaia.auth.BasicAuthInterceptor
+import com.yuyakaido.android.gaia.auth.TokenAuthenticator
 import com.yuyakaido.android.gaia.core.infrastructure.remote.response.Kind
 import com.yuyakaido.android.gaia.core.infrastructure.remote.response.ListingDataResponse
 import com.yuyakaido.android.gaia.user.UserApi
