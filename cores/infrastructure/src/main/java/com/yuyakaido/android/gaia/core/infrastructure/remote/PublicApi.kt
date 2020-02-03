@@ -1,6 +1,6 @@
 package com.yuyakaido.android.gaia.core.infrastructure.remote
 
-import com.yuyakaido.android.gaia.core.infrastructure.Constant
+import com.yuyakaido.android.gaia.core.domain.app.Constant
 import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.Query

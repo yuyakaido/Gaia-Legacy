@@ -2,10 +2,6 @@ package com.yuyakaido.android.gaia
 
 import android.app.Application
 import androidx.room.Room
-import com.yuyakaido.android.gaia.article.ArticleRepository
-import com.yuyakaido.android.gaia.auth.TokenRepository
-import com.yuyakaido.android.gaia.comment.CommentRepository
-import com.yuyakaido.android.gaia.community.CommunityRepository
 import com.yuyakaido.android.gaia.core.domain.app.AppRouterType
 import com.yuyakaido.android.gaia.core.domain.app.AppScope
 import com.yuyakaido.android.gaia.core.domain.app.TokenRepositoryType
@@ -16,7 +12,7 @@ import com.yuyakaido.android.gaia.core.domain.repository.UserRepositoryType
 import com.yuyakaido.android.gaia.core.infrastructure.local.AppDatabase
 import com.yuyakaido.android.gaia.core.infrastructure.remote.PrivateApi
 import com.yuyakaido.android.gaia.core.infrastructure.remote.PublicApi
-import com.yuyakaido.android.gaia.user.UserRepository
+import com.yuyakaido.android.gaia.core.infrastructure.repository.*
 import dagger.Module
 import dagger.Provides
 

@@ -1,4 +1,4 @@
-package com.yuyakaido.android.gaia.core.infrastructure
+package com.yuyakaido.android.gaia.core.domain.app
 
 object Constant {
 

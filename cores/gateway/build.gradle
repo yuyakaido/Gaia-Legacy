@@ -28,7 +28,6 @@ android {
 
 dependencies {
   // Modules
-  api project(':cores:infrastructure')
   api project(':cores:presentation')
 
   // Dependency Injection

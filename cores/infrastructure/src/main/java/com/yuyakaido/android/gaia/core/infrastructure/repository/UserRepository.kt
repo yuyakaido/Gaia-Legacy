@@ -1,4 +1,4 @@
-package com.yuyakaido.android.gaia.user
+package com.yuyakaido.android.gaia.core.infrastructure.repository
 
 import com.yuyakaido.android.gaia.core.domain.entity.Community
 import com.yuyakaido.android.gaia.core.domain.entity.User

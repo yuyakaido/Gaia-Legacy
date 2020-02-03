@@ -1,4 +1,4 @@
-package com.yuyakaido.android.gaia.article
+package com.yuyakaido.android.gaia.core.infrastructure.repository
 
 import com.yuyakaido.android.gaia.core.domain.entity.Article
 import com.yuyakaido.android.gaia.core.domain.entity.Community

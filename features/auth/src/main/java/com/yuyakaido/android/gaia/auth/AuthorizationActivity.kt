@@ -7,7 +7,7 @@ import androidx.activity.viewModels
 import androidx.lifecycle.observe
 import com.yuyakaido.android.gaia.auth.databinding.ActivityAuthorizationBinding
 import com.yuyakaido.android.gaia.core.domain.app.AppRouterType
-import com.yuyakaido.android.gaia.core.infrastructure.Constant
+import com.yuyakaido.android.gaia.core.domain.app.Constant
 import com.yuyakaido.android.gaia.core.presentation.ViewModelFactory
 import dagger.android.support.DaggerAppCompatActivity
 import javax.inject.Inject

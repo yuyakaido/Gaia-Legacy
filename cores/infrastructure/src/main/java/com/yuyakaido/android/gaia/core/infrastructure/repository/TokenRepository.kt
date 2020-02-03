@@ -1,4 +1,4 @@
-package com.yuyakaido.android.gaia.auth
+package com.yuyakaido.android.gaia.core.infrastructure.repository
 
 import android.app.Application
 import androidx.core.content.edit
