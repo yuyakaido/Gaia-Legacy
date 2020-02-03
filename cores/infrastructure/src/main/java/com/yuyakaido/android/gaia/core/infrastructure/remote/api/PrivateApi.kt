@@ -24,14 +24,6 @@ interface PrivateApi {
     @Field("dir") dir: Int
   )
 
-  @GET("subreddits/mine")
-  suspend fun communitiesOfMine(): ListingDataResponse
-
-  @GET("r/{community}/about")
-  suspend fun detail(
-    @Path("community") community: String
-  ): CommunityResponse
-
   @GET("r/{community}/about/moderators")
   suspend fun moderators(
     @Path("community") community: String
@@ -41,20 +33,6 @@ interface PrivateApi {
   suspend fun contributors(
     @Path("community") community: String
   ): UserListResponse
-
-  @FormUrlEncoded
-  @POST("api/subscribe")
-  suspend fun subscribe(
-    @Field("action") action: String = "sub",
-    @Field("sr_name") name: String
-  )
-
-  @FormUrlEncoded
-  @POST("api/subscribe")
-  suspend fun unsubscribe(
-    @Field("action") action: String = "unsub",
-    @Field("sr_name") name: String
-  )
 
   @GET("api/v1/me")
   suspend fun me(): MeResponse

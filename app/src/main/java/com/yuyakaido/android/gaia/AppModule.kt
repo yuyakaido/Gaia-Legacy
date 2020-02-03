@@ -6,6 +6,8 @@ import com.yuyakaido.android.gaia.auth.AuthApi
 import com.yuyakaido.android.gaia.auth.TokenRepository
 import com.yuyakaido.android.gaia.comment.CommentApi
 import com.yuyakaido.android.gaia.comment.CommentRepository
+import com.yuyakaido.android.gaia.community.CommunityApi
+import com.yuyakaido.android.gaia.community.CommunityRepository
 import com.yuyakaido.android.gaia.core.domain.app.AppRouterType
 import com.yuyakaido.android.gaia.core.domain.app.AppScope
 import com.yuyakaido.android.gaia.core.domain.repository.*
@@ -13,7 +15,6 @@ import com.yuyakaido.android.gaia.core.infrastructure.local.AppDatabase
 import com.yuyakaido.android.gaia.core.infrastructure.remote.api.PrivateApi
 import com.yuyakaido.android.gaia.core.infrastructure.remote.api.PublicApi
 import com.yuyakaido.android.gaia.core.infrastructure.repository.ArticleRepository
-import com.yuyakaido.android.gaia.core.infrastructure.repository.CommunityRepository
 import com.yuyakaido.android.gaia.core.infrastructure.repository.UserRepository
 import dagger.Module
 import dagger.Provides
@@ -82,7 +83,7 @@ class AppModule {
   @AppScope
   @Provides
   fun provideCommunityRepositoryType(
-    api: PrivateApi
+    api: CommunityApi
   ): CommunityRepositoryType {
     return CommunityRepository(
       api = api
