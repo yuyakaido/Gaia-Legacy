@@ -1,4 +1,4 @@
-package com.yuyakaido.android.gaia.core.infrastructure.remote
+package com.yuyakaido.android.gaia.core.infrastructure.remote.interceptor
 
 import com.yuyakaido.android.gaia.core.domain.app.TokenRepositoryType
 import kotlinx.coroutines.runBlocking

@@ -4,7 +4,7 @@ import com.yuyakaido.android.gaia.core.domain.entity.Community
 import com.yuyakaido.android.gaia.core.domain.entity.User
 import com.yuyakaido.android.gaia.core.domain.repository.UserRepositoryType
 import com.yuyakaido.android.gaia.core.infrastructure.local.AppDatabase
-import com.yuyakaido.android.gaia.core.infrastructure.remote.PrivateApi
+import com.yuyakaido.android.gaia.core.infrastructure.remote.api.PrivateApi
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 

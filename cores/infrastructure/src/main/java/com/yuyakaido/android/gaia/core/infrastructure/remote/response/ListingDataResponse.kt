@@ -1,4 +1,4 @@
-package com.yuyakaido.android.gaia.core.infrastructure.remote
+package com.yuyakaido.android.gaia.core.infrastructure.remote.response
 
 import android.net.Uri
 import android.webkit.URLUtil
@@ -61,7 +61,9 @@ data class ListingDataResponse(
       }
       data class Comment(
         @Json(name = "data") override val data: Data.Comment
-      ) : Child(Kind.Comment) {
+      ) : Child(
+        Kind.Comment
+      ) {
         fun toEntity(): com.yuyakaido.android.gaia.core.domain.entity.Comment {
           return Comment(
             id = com.yuyakaido.android.gaia.core.domain.entity.Comment.ID(value = data.id),
@@ -77,7 +79,9 @@ data class ListingDataResponse(
       }
       data class Article(
         @Json(name = "data") override val data: Data.Article
-      ) : Child(Kind.Article) {
+      ) : Child(
+        Kind.Article
+      ) {
         fun toEntity(): com.yuyakaido.android.gaia.core.domain.entity.Article {
           return Article(
             id = com.yuyakaido.android.gaia.core.domain.entity.Article.ID(value = data.id),
@@ -102,7 +106,9 @@ data class ListingDataResponse(
       }
       data class Community(
         @Json(name = "data") override val data: Data.Community
-      ) : Child(Kind.Community) {
+      ) : Child(
+        Kind.Community
+      ) {
         fun toEntity(): com.yuyakaido.android.gaia.core.domain.entity.Community.Detail {
           return com.yuyakaido.android.gaia.core.domain.entity.Community.Detail(
             id = data.id,
@@ -117,7 +123,9 @@ data class ListingDataResponse(
       }
       data class More(
         @Json(name = "data") override val data: Data.More
-      ) : Child(Kind.More)
+      ) : Child(
+        Kind.More
+      )
       abstract val data: Data
     }
   }

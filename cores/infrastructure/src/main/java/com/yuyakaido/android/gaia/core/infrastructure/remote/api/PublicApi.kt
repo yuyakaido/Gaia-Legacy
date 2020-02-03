@@ -1,6 +1,9 @@
-package com.yuyakaido.android.gaia.core.infrastructure.remote
+package com.yuyakaido.android.gaia.core.infrastructure.remote.api
 
 import com.yuyakaido.android.gaia.core.domain.app.Constant
+import com.yuyakaido.android.gaia.core.infrastructure.remote.response.AccessTokenResponse
+import com.yuyakaido.android.gaia.core.infrastructure.remote.response.ListingDataResponse
+import com.yuyakaido.android.gaia.core.infrastructure.remote.response.TrendingResponse
 import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.Query

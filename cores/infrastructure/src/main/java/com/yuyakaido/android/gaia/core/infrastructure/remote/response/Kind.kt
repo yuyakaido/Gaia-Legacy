@@ -1,4 +1,4 @@
-package com.yuyakaido.android.gaia.core.infrastructure.remote
+package com.yuyakaido.android.gaia.core.infrastructure.remote.response
 
 enum class Kind(val id: String) {
   Comment(id = "t1"),

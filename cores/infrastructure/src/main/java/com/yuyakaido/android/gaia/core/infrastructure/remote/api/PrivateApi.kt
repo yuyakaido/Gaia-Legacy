@@ -1,5 +1,10 @@
-package com.yuyakaido.android.gaia.core.infrastructure.remote
+package com.yuyakaido.android.gaia.core.infrastructure.remote.api
 
+import com.yuyakaido.android.gaia.core.infrastructure.remote.response.MeResponse
+import com.yuyakaido.android.gaia.core.infrastructure.remote.response.CommunityResponse
+import com.yuyakaido.android.gaia.core.infrastructure.remote.response.ListingDataResponse
+import com.yuyakaido.android.gaia.core.infrastructure.remote.response.UserListResponse
+import com.yuyakaido.android.gaia.core.infrastructure.remote.response.UserResponse
 import retrofit2.http.*
 
 interface PrivateApi {

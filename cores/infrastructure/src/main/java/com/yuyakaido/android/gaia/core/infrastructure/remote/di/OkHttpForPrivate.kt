@@ -1,4 +1,4 @@
-package com.yuyakaido.android.gaia.core.infrastructure.remote
+package com.yuyakaido.android.gaia.core.infrastructure.remote.di
 
 import javax.inject.Qualifier
 

@@ -10,8 +10,8 @@ import com.yuyakaido.android.gaia.core.domain.repository.CommentRepositoryType
 import com.yuyakaido.android.gaia.core.domain.repository.CommunityRepositoryType
 import com.yuyakaido.android.gaia.core.domain.repository.UserRepositoryType
 import com.yuyakaido.android.gaia.core.infrastructure.local.AppDatabase
-import com.yuyakaido.android.gaia.core.infrastructure.remote.PrivateApi
-import com.yuyakaido.android.gaia.core.infrastructure.remote.PublicApi
+import com.yuyakaido.android.gaia.core.infrastructure.remote.api.PrivateApi
+import com.yuyakaido.android.gaia.core.infrastructure.remote.api.PublicApi
 import com.yuyakaido.android.gaia.core.infrastructure.repository.*
 import dagger.Module
 import dagger.Provides

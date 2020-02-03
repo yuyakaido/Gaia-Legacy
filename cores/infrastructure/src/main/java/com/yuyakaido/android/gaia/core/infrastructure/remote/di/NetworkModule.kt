@@ -1,4 +1,4 @@
-package com.yuyakaido.android.gaia.core.infrastructure.remote
+package com.yuyakaido.android.gaia.core.infrastructure.remote.di
 
 import com.facebook.stetho.okhttp3.StethoInterceptor
 import com.squareup.moshi.Moshi
@@ -6,6 +6,13 @@ import com.squareup.moshi.adapters.PolymorphicJsonAdapterFactory
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import com.yuyakaido.android.gaia.core.domain.app.AppScope
 import com.yuyakaido.android.gaia.core.domain.app.TokenRepositoryType
+import com.yuyakaido.android.gaia.core.infrastructure.remote.interceptor.AuthInterceptor
+import com.yuyakaido.android.gaia.core.infrastructure.remote.interceptor.BasicAuthInterceptor
+import com.yuyakaido.android.gaia.core.infrastructure.remote.interceptor.TokenAuthenticator
+import com.yuyakaido.android.gaia.core.infrastructure.remote.api.PrivateApi
+import com.yuyakaido.android.gaia.core.infrastructure.remote.api.PublicApi
+import com.yuyakaido.android.gaia.core.infrastructure.remote.response.Kind
+import com.yuyakaido.android.gaia.core.infrastructure.remote.response.ListingDataResponse
 import dagger.Module
 import dagger.Provides
 import okhttp3.OkHttpClient
@@ -41,8 +48,16 @@ class NetworkModule {
     repository: TokenRepositoryType
   ): OkHttpClient {
     return createBaseOkHttpClientBuilder()
-      .addInterceptor(AuthInterceptor(repository = repository))
-      .authenticator(TokenAuthenticator(repository = repository))
+      .addInterceptor(
+        AuthInterceptor(
+          repository = repository
+        )
+      )
+      .authenticator(
+        TokenAuthenticator(
+          repository = repository
+        )
+      )
       .build()
   }
 
