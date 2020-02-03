@@ -1,15 +1,14 @@
-package com.yuyakaido.android.gaia.core.infrastructure.repository
+package com.yuyakaido.android.gaia.auth
 
 import android.app.Application
 import androidx.core.content.edit
 import androidx.preference.PreferenceManager
 import com.yuyakaido.android.gaia.core.domain.repository.TokenRepositoryType
 import com.yuyakaido.android.gaia.core.domain.value.AuthToken
-import com.yuyakaido.android.gaia.core.infrastructure.remote.api.PublicApi
 
 class TokenRepository(
   private val application: Application,
-  private val api: PublicApi
+  private val api: AuthApi
 ) : TokenRepositoryType {
 
   companion object {

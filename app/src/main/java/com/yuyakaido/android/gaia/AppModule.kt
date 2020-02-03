@@ -2,17 +2,18 @@ package com.yuyakaido.android.gaia
 
 import android.app.Application
 import androidx.room.Room
+import com.yuyakaido.android.gaia.auth.AuthApi
+import com.yuyakaido.android.gaia.auth.TokenRepository
 import com.yuyakaido.android.gaia.core.domain.app.AppRouterType
 import com.yuyakaido.android.gaia.core.domain.app.AppScope
-import com.yuyakaido.android.gaia.core.domain.repository.TokenRepositoryType
-import com.yuyakaido.android.gaia.core.domain.repository.ArticleRepositoryType
-import com.yuyakaido.android.gaia.core.domain.repository.CommentRepositoryType
-import com.yuyakaido.android.gaia.core.domain.repository.CommunityRepositoryType
-import com.yuyakaido.android.gaia.core.domain.repository.UserRepositoryType
+import com.yuyakaido.android.gaia.core.domain.repository.*
 import com.yuyakaido.android.gaia.core.infrastructure.local.AppDatabase
 import com.yuyakaido.android.gaia.core.infrastructure.remote.api.PrivateApi
 import com.yuyakaido.android.gaia.core.infrastructure.remote.api.PublicApi
-import com.yuyakaido.android.gaia.core.infrastructure.repository.*
+import com.yuyakaido.android.gaia.core.infrastructure.repository.ArticleRepository
+import com.yuyakaido.android.gaia.core.infrastructure.repository.CommentRepository
+import com.yuyakaido.android.gaia.core.infrastructure.repository.CommunityRepository
+import com.yuyakaido.android.gaia.core.infrastructure.repository.UserRepository
 import dagger.Module
 import dagger.Provides
 
@@ -47,7 +48,7 @@ class AppModule {
   @Provides
   fun provideTokenRepositoryType(
     application: Application,
-    api: PublicApi
+    api: AuthApi
   ): TokenRepositoryType {
     return TokenRepository(
       application = application,

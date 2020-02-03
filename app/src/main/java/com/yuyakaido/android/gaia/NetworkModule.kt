@@ -1,16 +1,19 @@
-package com.yuyakaido.android.gaia.core.infrastructure.remote.di
+package com.yuyakaido.android.gaia
 
 import com.facebook.stetho.okhttp3.StethoInterceptor
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.adapters.PolymorphicJsonAdapterFactory
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
+import com.yuyakaido.android.gaia.auth.AuthApi
 import com.yuyakaido.android.gaia.core.domain.app.AppScope
 import com.yuyakaido.android.gaia.core.domain.repository.TokenRepositoryType
+import com.yuyakaido.android.gaia.core.infrastructure.remote.api.PrivateApi
+import com.yuyakaido.android.gaia.core.infrastructure.remote.api.PublicApi
+import com.yuyakaido.android.gaia.core.infrastructure.remote.di.OkHttpForPrivate
+import com.yuyakaido.android.gaia.core.infrastructure.remote.di.OkHttpForPublic
 import com.yuyakaido.android.gaia.core.infrastructure.remote.interceptor.AuthInterceptor
 import com.yuyakaido.android.gaia.core.infrastructure.remote.interceptor.BasicAuthInterceptor
 import com.yuyakaido.android.gaia.core.infrastructure.remote.interceptor.TokenAuthenticator
-import com.yuyakaido.android.gaia.core.infrastructure.remote.api.PrivateApi
-import com.yuyakaido.android.gaia.core.infrastructure.remote.api.PublicApi
 import com.yuyakaido.android.gaia.core.infrastructure.remote.response.Kind
 import com.yuyakaido.android.gaia.core.infrastructure.remote.response.ListingDataResponse
 import dagger.Module
@@ -118,6 +121,21 @@ class NetworkModule {
       .addConverterFactory(MoshiConverterFactory.create(moshi))
       .build()
     return retrofit.create(PrivateApi::class.java)
+  }
+
+  @AppScope
+  @Provides
+  fun provideAuthApi(
+    moshi: Moshi,
+    @OkHttpForPublic client: OkHttpClient
+  ): AuthApi {
+    val retrofit = Retrofit
+      .Builder()
+      .client(client)
+      .baseUrl("https://www.reddit.com/")
+      .addConverterFactory(MoshiConverterFactory.create(moshi))
+      .build()
+    return retrofit.create(AuthApi::class.java)
   }
 
 }
