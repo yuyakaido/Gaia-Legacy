@@ -41,11 +41,11 @@ class ArticleListFragment : DaggerFragment() {
   internal lateinit var appRouter: AppRouterType
 
   @Inject
-  internal lateinit var factory: ViewModelFactory<ArticleListViewModelType>
+  internal lateinit var factory: ViewModelFactory<ArticleListViewModel>
 
   internal val args: ArticleListFragmentArgs by navArgs()
 
-  private val viewModel: ArticleListViewModelType by viewModels { factory }
+  private val viewModel: ArticleListViewModel by viewModels { factory }
 
   private lateinit var binding: FragmentArticleListBinding
 
@@ -124,8 +124,7 @@ class ArticleListFragment : DaggerFragment() {
       )
     }
 
-    viewModel
-      .items
+    viewModel.items
       .map { items ->
         items.flatMap { item -> item.entities }
       }
