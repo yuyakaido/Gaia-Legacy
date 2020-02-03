@@ -1,4 +1,4 @@
-package com.yuyakaido.android.gaia.core.gateway
+package com.yuyakaido.android.gaia.core.presentation
 
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.MutableLiveData

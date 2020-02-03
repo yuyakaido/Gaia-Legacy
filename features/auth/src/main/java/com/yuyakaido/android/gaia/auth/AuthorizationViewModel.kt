@@ -5,7 +5,7 @@ import android.content.Intent
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import com.yuyakaido.android.gaia.core.domain.app.TokenRepositoryType
-import com.yuyakaido.android.gaia.core.gateway.LiveEvent
+import com.yuyakaido.android.gaia.core.presentation.LiveEvent
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 

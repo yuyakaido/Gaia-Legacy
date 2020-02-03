@@ -1,4 +1,4 @@
-package com.yuyakaido.android.gaia.core.presentation
+package com.yuyakaido.android.gaia.article.list
 
 interface OptionMenuType {
   fun shouldShowOptionMenu(): Boolean

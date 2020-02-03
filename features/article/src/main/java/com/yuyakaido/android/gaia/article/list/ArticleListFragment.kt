@@ -21,7 +21,6 @@ import com.yuyakaido.android.gaia.core.domain.app.AppRouterType
 import com.yuyakaido.android.gaia.core.domain.entity.Article
 import com.yuyakaido.android.gaia.core.domain.extension.dpTpPx
 import com.yuyakaido.android.gaia.core.presentation.ArticleItem
-import com.yuyakaido.android.gaia.core.presentation.OptionMenuType
 import com.yuyakaido.android.gaia.core.presentation.ViewModelFactory
 import dagger.android.support.DaggerFragment
 import timber.log.Timber

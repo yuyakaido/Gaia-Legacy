@@ -1,10 +1,10 @@
 include ':app'
 
 // Modules - Core
+include ':cores:core'
 include ':cores:domain'
 include ':cores:infrastructure'
 include ':cores:presentation'
-include ':cores:gateway'
 
 // Modules - Feature
 include ':features:auth'

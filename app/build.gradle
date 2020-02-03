@@ -31,10 +31,10 @@ android {
 
 dependencies {
   // Modules - Core
+  implementation project(':cores:core')
   implementation project(':cores:domain')
   implementation project(':cores:infrastructure')
   implementation project(':cores:presentation')
-  implementation project(':cores:gateway')
 
   // Modules - Feature
   implementation project(':features:auth')
