@@ -4,7 +4,7 @@ import android.app.Application
 import androidx.room.Room
 import com.yuyakaido.android.gaia.core.domain.app.AppRouterType
 import com.yuyakaido.android.gaia.core.domain.app.AppScope
-import com.yuyakaido.android.gaia.core.domain.app.TokenRepositoryType
+import com.yuyakaido.android.gaia.core.domain.repository.TokenRepositoryType
 import com.yuyakaido.android.gaia.core.domain.repository.ArticleRepositoryType
 import com.yuyakaido.android.gaia.core.domain.repository.CommentRepositoryType
 import com.yuyakaido.android.gaia.core.domain.repository.CommunityRepositoryType

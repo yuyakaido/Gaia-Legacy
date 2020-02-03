@@ -5,7 +5,7 @@ import com.squareup.moshi.Moshi
 import com.squareup.moshi.adapters.PolymorphicJsonAdapterFactory
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import com.yuyakaido.android.gaia.core.domain.app.AppScope
-import com.yuyakaido.android.gaia.core.domain.app.TokenRepositoryType
+import com.yuyakaido.android.gaia.core.domain.repository.TokenRepositoryType
 import com.yuyakaido.android.gaia.core.infrastructure.remote.interceptor.AuthInterceptor
 import com.yuyakaido.android.gaia.core.infrastructure.remote.interceptor.BasicAuthInterceptor
 import com.yuyakaido.android.gaia.core.infrastructure.remote.interceptor.TokenAuthenticator

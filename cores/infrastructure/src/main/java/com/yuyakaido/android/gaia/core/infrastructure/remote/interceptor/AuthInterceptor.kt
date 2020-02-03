@@ -1,6 +1,6 @@
 package com.yuyakaido.android.gaia.core.infrastructure.remote.interceptor
 
-import com.yuyakaido.android.gaia.core.domain.app.TokenRepositoryType
+import com.yuyakaido.android.gaia.core.domain.repository.TokenRepositoryType
 import com.yuyakaido.android.gaia.core.domain.app.Constant
 import kotlinx.coroutines.runBlocking
 import okhttp3.Credentials

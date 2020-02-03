@@ -3,7 +3,7 @@ package com.yuyakaido.android.gaia.core.infrastructure.repository
 import android.app.Application
 import androidx.core.content.edit
 import androidx.preference.PreferenceManager
-import com.yuyakaido.android.gaia.core.domain.app.TokenRepositoryType
+import com.yuyakaido.android.gaia.core.domain.repository.TokenRepositoryType
 import com.yuyakaido.android.gaia.core.domain.value.AuthToken
 import com.yuyakaido.android.gaia.core.infrastructure.remote.api.PublicApi
 

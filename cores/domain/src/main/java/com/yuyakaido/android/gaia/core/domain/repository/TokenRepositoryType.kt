@@ -1,4 +1,4 @@
-package com.yuyakaido.android.gaia.core.domain.app
+package com.yuyakaido.android.gaia.core.domain.repository
 
 import com.yuyakaido.android.gaia.core.domain.value.AuthToken
 
