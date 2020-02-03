@@ -1,4 +1,4 @@
-package com.yuyakaido.android.gaia.core.infrastructure.repository
+package com.yuyakaido.android.gaia.comment
 
 import com.yuyakaido.android.gaia.core.domain.entity.Article
 import com.yuyakaido.android.gaia.core.domain.entity.Comment
@@ -6,10 +6,9 @@ import com.yuyakaido.android.gaia.core.domain.entity.User
 import com.yuyakaido.android.gaia.core.domain.repository.CommentRepositoryType
 import com.yuyakaido.android.gaia.core.domain.value.VoteTarget
 import com.yuyakaido.android.gaia.core.infrastructure.remote.response.Kind
-import com.yuyakaido.android.gaia.core.infrastructure.remote.api.PrivateApi
 
 class CommentRepository(
-  private val api: PrivateApi
+  private val api: CommentApi
 ) : CommentRepositoryType {
 
   override suspend fun comments(article: Article): List<Comment> {

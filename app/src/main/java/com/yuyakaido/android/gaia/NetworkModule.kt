@@ -5,6 +5,7 @@ import com.squareup.moshi.Moshi
 import com.squareup.moshi.adapters.PolymorphicJsonAdapterFactory
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import com.yuyakaido.android.gaia.auth.AuthApi
+import com.yuyakaido.android.gaia.comment.CommentApi
 import com.yuyakaido.android.gaia.core.domain.app.AppScope
 import com.yuyakaido.android.gaia.core.domain.repository.TokenRepositoryType
 import com.yuyakaido.android.gaia.core.infrastructure.remote.api.PrivateApi
@@ -136,6 +137,21 @@ class NetworkModule {
       .addConverterFactory(MoshiConverterFactory.create(moshi))
       .build()
     return retrofit.create(AuthApi::class.java)
+  }
+
+  @AppScope
+  @Provides
+  fun provideCommentApi(
+    moshi: Moshi,
+    @OkHttpForPrivate client: OkHttpClient
+  ): CommentApi {
+    val retrofit = Retrofit
+      .Builder()
+      .client(client)
+      .baseUrl("https://oauth.reddit.com")
+      .addConverterFactory(MoshiConverterFactory.create(moshi))
+      .build()
+    return retrofit.create(CommentApi::class.java)
   }
 
 }

@@ -1,10 +1,6 @@
 package com.yuyakaido.android.gaia.core.infrastructure.remote.api
 
-import com.yuyakaido.android.gaia.core.infrastructure.remote.response.MeResponse
-import com.yuyakaido.android.gaia.core.infrastructure.remote.response.CommunityResponse
-import com.yuyakaido.android.gaia.core.infrastructure.remote.response.ListingDataResponse
-import com.yuyakaido.android.gaia.core.infrastructure.remote.response.UserListResponse
-import com.yuyakaido.android.gaia.core.infrastructure.remote.response.UserResponse
+import com.yuyakaido.android.gaia.core.infrastructure.remote.response.*
 import retrofit2.http.*
 
 interface PrivateApi {
@@ -20,12 +16,6 @@ interface PrivateApi {
     @Path("community") community: String,
     @Query("after") after: String?
   ): ListingDataResponse
-
-  @GET("r/{community}/comments/{article}")
-  suspend fun commentsOfArticle(
-    @Path("community") community: String,
-    @Path("article") article: String
-  ): List<ListingDataResponse>
 
   @FormUrlEncoded
   @POST("api/vote")
@@ -78,11 +68,6 @@ interface PrivateApi {
   suspend fun articlesOfUser(
     @Path("user") user: String,
     @Query("after") after: String?
-  ): ListingDataResponse
-
-  @GET("user/{user}/comments")
-  suspend fun commentsOfUser(
-    @Path("user") user: String
   ): ListingDataResponse
 
   @GET("user/{user}/{type}")
