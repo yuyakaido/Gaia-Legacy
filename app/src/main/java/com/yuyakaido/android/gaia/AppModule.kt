@@ -2,6 +2,8 @@ package com.yuyakaido.android.gaia
 
 import android.app.Application
 import androidx.room.Room
+import com.yuyakaido.android.gaia.article.ArticleApi
+import com.yuyakaido.android.gaia.article.ArticleRepository
 import com.yuyakaido.android.gaia.auth.AuthApi
 import com.yuyakaido.android.gaia.auth.TokenRepository
 import com.yuyakaido.android.gaia.comment.CommentApi
@@ -14,7 +16,6 @@ import com.yuyakaido.android.gaia.core.domain.repository.*
 import com.yuyakaido.android.gaia.core.infrastructure.local.AppDatabase
 import com.yuyakaido.android.gaia.core.infrastructure.remote.api.PrivateApi
 import com.yuyakaido.android.gaia.core.infrastructure.remote.api.PublicApi
-import com.yuyakaido.android.gaia.core.infrastructure.repository.ArticleRepository
 import com.yuyakaido.android.gaia.core.infrastructure.repository.UserRepository
 import dagger.Module
 import dagger.Provides
@@ -61,11 +62,11 @@ class AppModule {
   @AppScope
   @Provides
   fun provideArticleRepositoryType(
-    privateApi: PrivateApi,
+    articleApi: ArticleApi,
     publicApi: PublicApi
   ): ArticleRepositoryType {
     return ArticleRepository(
-      privateApi = privateApi,
+      articleApi = articleApi,
       publicApi = publicApi
     )
   }

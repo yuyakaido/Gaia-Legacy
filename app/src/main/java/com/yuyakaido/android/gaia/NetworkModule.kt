@@ -4,6 +4,7 @@ import com.facebook.stetho.okhttp3.StethoInterceptor
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.adapters.PolymorphicJsonAdapterFactory
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
+import com.yuyakaido.android.gaia.article.ArticleApi
 import com.yuyakaido.android.gaia.auth.AuthApi
 import com.yuyakaido.android.gaia.comment.CommentApi
 import com.yuyakaido.android.gaia.community.CommunityApi
@@ -138,6 +139,21 @@ class NetworkModule {
       .addConverterFactory(MoshiConverterFactory.create(moshi))
       .build()
     return retrofit.create(AuthApi::class.java)
+  }
+
+  @AppScope
+  @Provides
+  fun provideArticleApi(
+    moshi: Moshi,
+    @OkHttpForPrivate client: OkHttpClient
+  ): ArticleApi {
+    val retrofit = Retrofit
+      .Builder()
+      .client(client)
+      .baseUrl("https://oauth.reddit.com")
+      .addConverterFactory(MoshiConverterFactory.create(moshi))
+      .build()
+    return retrofit.create(ArticleApi::class.java)
   }
 
   @AppScope

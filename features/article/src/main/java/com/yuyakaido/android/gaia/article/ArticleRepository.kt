@@ -1,4 +1,4 @@
-package com.yuyakaido.android.gaia.core.infrastructure.repository
+package com.yuyakaido.android.gaia.article
 
 import com.yuyakaido.android.gaia.core.domain.entity.Article
 import com.yuyakaido.android.gaia.core.domain.entity.Community
@@ -7,19 +7,18 @@ import com.yuyakaido.android.gaia.core.domain.repository.ArticleRepositoryType
 import com.yuyakaido.android.gaia.core.domain.value.EntityPaginationItem
 import com.yuyakaido.android.gaia.core.domain.value.TrendingArticle
 import com.yuyakaido.android.gaia.core.domain.value.VoteTarget
-import com.yuyakaido.android.gaia.core.infrastructure.remote.api.PrivateApi
 import com.yuyakaido.android.gaia.core.infrastructure.remote.api.PublicApi
 
 class ArticleRepository(
-  private val privateApi: PrivateApi,
-  private val publicApi: PublicApi
+  private val publicApi: PublicApi,
+  private val articleApi: ArticleApi
 ) : ArticleRepositoryType {
 
   override suspend fun articlesOfSort(
     sort: String,
     after: String?
   ): EntityPaginationItem<Article> {
-    return privateApi
+    return articleApi
       .articlesOfSort(
         sort = sort,
         after = after
@@ -31,7 +30,7 @@ class ArticleRepository(
     path: String,
     after: String?
   ): EntityPaginationItem<Article> {
-    return privateApi
+    return articleApi
       .articlesOfCommunity(
         community = path,
         after = after
@@ -43,7 +42,7 @@ class ArticleRepository(
     community: Community.Summary,
     after: String?
   ): EntityPaginationItem<Article> {
-    return privateApi
+    return articleApi
       .articlesOfCommunity(
         community = community.name,
         after = after
@@ -55,7 +54,7 @@ class ArticleRepository(
     user: User,
     after: String?
   ): EntityPaginationItem<Article> {
-    return privateApi
+    return articleApi
       .articlesOfUser(
         user = user.name,
         after = after
@@ -68,7 +67,7 @@ class ArticleRepository(
     path: String,
     after: String?
   ): EntityPaginationItem<Article> {
-    return privateApi
+    return articleApi
       .voted(
         user = user.name,
         type = path,
@@ -78,7 +77,7 @@ class ArticleRepository(
   }
 
   override suspend fun vote(target: VoteTarget) {
-    privateApi.vote(id = target.entity.name, dir = target.dir)
+    articleApi.vote(id = target.entity.name, dir = target.dir)
   }
 
   override suspend fun trendingArticles(): List<TrendingArticle> {
