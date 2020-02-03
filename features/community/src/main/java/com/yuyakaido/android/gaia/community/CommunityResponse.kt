@@ -1,4 +1,4 @@
-package com.yuyakaido.android.gaia.core.infrastructure.remote.response
+package com.yuyakaido.android.gaia.community
 
 import android.net.Uri
 import com.squareup.moshi.Json

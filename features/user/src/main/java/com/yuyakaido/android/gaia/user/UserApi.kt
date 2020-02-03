@@ -1,8 +1,5 @@
 package com.yuyakaido.android.gaia.user
 
-import com.yuyakaido.android.gaia.core.infrastructure.remote.response.MeResponse
-import com.yuyakaido.android.gaia.core.infrastructure.remote.response.UserListResponse
-import com.yuyakaido.android.gaia.core.infrastructure.remote.response.UserResponse
 import retrofit2.http.GET
 import retrofit2.http.Path
 

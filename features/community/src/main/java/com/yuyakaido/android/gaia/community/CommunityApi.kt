@@ -1,6 +1,5 @@
 package com.yuyakaido.android.gaia.community
 
-import com.yuyakaido.android.gaia.core.infrastructure.remote.response.CommunityResponse
 import com.yuyakaido.android.gaia.core.infrastructure.remote.response.ListingDataResponse
 import retrofit2.http.*
 
