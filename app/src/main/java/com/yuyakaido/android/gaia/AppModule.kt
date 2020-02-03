@@ -14,9 +14,9 @@ import com.yuyakaido.android.gaia.core.domain.app.AppRouterType
 import com.yuyakaido.android.gaia.core.domain.app.AppScope
 import com.yuyakaido.android.gaia.core.domain.repository.*
 import com.yuyakaido.android.gaia.core.infrastructure.local.AppDatabase
-import com.yuyakaido.android.gaia.core.infrastructure.remote.api.PrivateApi
 import com.yuyakaido.android.gaia.core.infrastructure.remote.api.PublicApi
-import com.yuyakaido.android.gaia.core.infrastructure.repository.UserRepository
+import com.yuyakaido.android.gaia.user.UserApi
+import com.yuyakaido.android.gaia.user.UserRepository
 import dagger.Module
 import dagger.Provides
 
@@ -94,7 +94,7 @@ class AppModule {
   @AppScope
   @Provides
   fun provideUserRepositoryType(
-    api: PrivateApi,
+    api: UserApi,
     database: AppDatabase
   ): UserRepositoryType {
     return UserRepository(

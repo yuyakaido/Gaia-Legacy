@@ -1,9 +1,12 @@
-package com.yuyakaido.android.gaia.core.infrastructure.remote.api
+package com.yuyakaido.android.gaia.user
 
-import com.yuyakaido.android.gaia.core.infrastructure.remote.response.*
-import retrofit2.http.*
+import com.yuyakaido.android.gaia.core.infrastructure.remote.response.MeResponse
+import com.yuyakaido.android.gaia.core.infrastructure.remote.response.UserListResponse
+import com.yuyakaido.android.gaia.core.infrastructure.remote.response.UserResponse
+import retrofit2.http.GET
+import retrofit2.http.Path
 
-interface PrivateApi {
+interface UserApi {
 
   @GET("r/{community}/about/moderators")
   suspend fun moderators(

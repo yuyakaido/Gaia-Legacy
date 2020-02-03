@@ -10,7 +10,6 @@ import com.yuyakaido.android.gaia.comment.CommentApi
 import com.yuyakaido.android.gaia.community.CommunityApi
 import com.yuyakaido.android.gaia.core.domain.app.AppScope
 import com.yuyakaido.android.gaia.core.domain.repository.TokenRepositoryType
-import com.yuyakaido.android.gaia.core.infrastructure.remote.api.PrivateApi
 import com.yuyakaido.android.gaia.core.infrastructure.remote.api.PublicApi
 import com.yuyakaido.android.gaia.core.infrastructure.remote.di.OkHttpForPrivate
 import com.yuyakaido.android.gaia.core.infrastructure.remote.di.OkHttpForPublic
@@ -19,6 +18,7 @@ import com.yuyakaido.android.gaia.core.infrastructure.remote.interceptor.BasicAu
 import com.yuyakaido.android.gaia.core.infrastructure.remote.interceptor.TokenAuthenticator
 import com.yuyakaido.android.gaia.core.infrastructure.remote.response.Kind
 import com.yuyakaido.android.gaia.core.infrastructure.remote.response.ListingDataResponse
+import com.yuyakaido.android.gaia.user.UserApi
 import dagger.Module
 import dagger.Provides
 import okhttp3.OkHttpClient
@@ -113,21 +113,6 @@ class NetworkModule {
 
   @AppScope
   @Provides
-  fun providePrivateApi(
-    moshi: Moshi,
-    @OkHttpForPrivate client: OkHttpClient
-  ): PrivateApi {
-    val retrofit = Retrofit
-      .Builder()
-      .client(client)
-      .baseUrl("https://oauth.reddit.com")
-      .addConverterFactory(MoshiConverterFactory.create(moshi))
-      .build()
-    return retrofit.create(PrivateApi::class.java)
-  }
-
-  @AppScope
-  @Provides
   fun provideAuthApi(
     moshi: Moshi,
     @OkHttpForPublic client: OkHttpClient
@@ -184,6 +169,21 @@ class NetworkModule {
       .addConverterFactory(MoshiConverterFactory.create(moshi))
       .build()
     return retrofit.create(CommentApi::class.java)
+  }
+
+  @AppScope
+  @Provides
+  fun provideUserApi(
+    moshi: Moshi,
+    @OkHttpForPrivate client: OkHttpClient
+  ): UserApi {
+    val retrofit = Retrofit
+      .Builder()
+      .client(client)
+      .baseUrl("https://oauth.reddit.com")
+      .addConverterFactory(MoshiConverterFactory.create(moshi))
+      .build()
+    return retrofit.create(UserApi::class.java)
   }
 
 }
