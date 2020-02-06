@@ -5,14 +5,14 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.yuyakaido.android.gaia.core.domain.entity.Article
-import com.yuyakaido.android.gaia.core.domain.repository.ArticleRepositoryType
+import com.yuyakaido.android.gaia.core.domain.repository.SearchRepositoryType
 import com.yuyakaido.android.gaia.core.domain.value.TrendingArticle
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class SearchViewModel @Inject constructor(
   application: Application,
-  private val repository: ArticleRepositoryType
+  private val repository: SearchRepositoryType
 ) : AndroidViewModel(application) {
 
   val trendingArticles = MutableLiveData<List<TrendingArticle>>()
@@ -27,8 +27,9 @@ class SearchViewModel @Inject constructor(
 
   fun onSubmit(query: String) {
     viewModelScope.launch {
-      val result = repository.search(query = query)
-      searchedArticles.value = result.entities
+      val item = repository.search(query = query)
+      val articles = item.entities.map { result -> result.article }
+      searchedArticles.value = articles
     }
   }
 

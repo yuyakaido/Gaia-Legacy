@@ -6,19 +6,17 @@ import com.squareup.moshi.adapters.PolymorphicJsonAdapterFactory
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import com.yuyakaido.android.gaia.article.ArticleApi
 import com.yuyakaido.android.gaia.auth.AuthApi
+import com.yuyakaido.android.gaia.auth.AuthInterceptor
+import com.yuyakaido.android.gaia.auth.BasicAuthInterceptor
+import com.yuyakaido.android.gaia.auth.TokenAuthenticator
 import com.yuyakaido.android.gaia.comment.CommentApi
 import com.yuyakaido.android.gaia.community.CommunityApi
 import com.yuyakaido.android.gaia.core.domain.app.AppScope
 import com.yuyakaido.android.gaia.core.domain.repository.TokenRepositoryType
-import com.yuyakaido.android.gaia.core.infrastructure.remote.api.PublicApi
-import com.yuyakaido.android.gaia.core.infrastructure.remote.di.OkHttpForPrivate
-import com.yuyakaido.android.gaia.core.infrastructure.remote.di.OkHttpForPublic
-import com.yuyakaido.android.gaia.auth.AuthInterceptor
-import com.yuyakaido.android.gaia.auth.BasicAuthInterceptor
-import com.yuyakaido.android.gaia.auth.TokenAuthenticator
-import com.yuyakaido.android.gaia.core.infrastructure.remote.response.Kind
-import com.yuyakaido.android.gaia.core.infrastructure.remote.response.ListingDataResponse
-import com.yuyakaido.android.gaia.user.UserApi
+import com.yuyakaido.android.gaia.core.infrastructure.Kind
+import com.yuyakaido.android.gaia.core.infrastructure.ListingDataResponse
+import com.yuyakaido.android.gaia.search.SearchApi
+import com.yuyakaido.android.gaia.user.infrastructure.remote.UserApi
 import dagger.Module
 import dagger.Provides
 import okhttp3.OkHttpClient
@@ -98,21 +96,6 @@ class NetworkModule {
 
   @AppScope
   @Provides
-  fun providePublicApi(
-    moshi: Moshi,
-    @OkHttpForPublic client: OkHttpClient
-  ): PublicApi {
-    val retrofit = Retrofit
-      .Builder()
-      .client(client)
-      .baseUrl("https://www.reddit.com/")
-      .addConverterFactory(MoshiConverterFactory.create(moshi))
-      .build()
-    return retrofit.create(PublicApi::class.java)
-  }
-
-  @AppScope
-  @Provides
   fun provideAuthApi(
     moshi: Moshi,
     @OkHttpForPublic client: OkHttpClient
@@ -184,6 +167,21 @@ class NetworkModule {
       .addConverterFactory(MoshiConverterFactory.create(moshi))
       .build()
     return retrofit.create(UserApi::class.java)
+  }
+
+  @AppScope
+  @Provides
+  fun provideSearchApi(
+    moshi: Moshi,
+    @OkHttpForPublic client: OkHttpClient
+  ): SearchApi {
+    val retrofit = Retrofit
+      .Builder()
+      .client(client)
+      .baseUrl("https://www.reddit.com/")
+      .addConverterFactory(MoshiConverterFactory.create(moshi))
+      .build()
+    return retrofit.create(SearchApi::class.java)
   }
 
 }

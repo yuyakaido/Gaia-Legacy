@@ -16,12 +16,12 @@ import com.yuyakaido.android.gaia.core.domain.entity.Article
 import com.yuyakaido.android.gaia.core.domain.entity.Community
 import com.yuyakaido.android.gaia.core.domain.entity.User
 import com.yuyakaido.android.gaia.search.SearchFragment
-import com.yuyakaido.android.gaia.user.detail.UserDetailFragment
-import com.yuyakaido.android.gaia.user.detail.UserDetailFragmentArgs
-import com.yuyakaido.android.gaia.user.detail.UserDetailSource
-import com.yuyakaido.android.gaia.user.list.UserListFragment
-import com.yuyakaido.android.gaia.user.list.UserListFragmentDirections
-import com.yuyakaido.android.gaia.user.list.UserListSource
+import com.yuyakaido.android.gaia.user.presentation.detail.UserDetailFragment
+import com.yuyakaido.android.gaia.user.presentation.detail.UserDetailFragmentArgs
+import com.yuyakaido.android.gaia.user.presentation.detail.UserDetailSource
+import com.yuyakaido.android.gaia.user.presentation.list.UserListFragment
+import com.yuyakaido.android.gaia.user.presentation.list.UserListFragmentDirections
+import com.yuyakaido.android.gaia.user.presentation.list.UserListSource
 import javax.inject.Inject
 
 class AppRouter @Inject constructor(

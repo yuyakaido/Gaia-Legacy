@@ -9,7 +9,7 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.yuyakaido.android.gaia.article.list.ArticleListSource
 import com.yuyakaido.android.gaia.databinding.ActivityAppBinding
-import com.yuyakaido.android.gaia.user.detail.UserDetailSource
+import com.yuyakaido.android.gaia.user.presentation.detail.UserDetailSource
 import dagger.android.support.DaggerAppCompatActivity
 
 class AppActivity : DaggerAppCompatActivity() {

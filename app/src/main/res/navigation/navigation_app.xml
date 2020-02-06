@@ -65,7 +65,7 @@
 
   <fragment
     android:id="@+id/fragment_user_list"
-    android:name="com.yuyakaido.android.gaia.user.list.UserListFragment"
+    android:name="com.yuyakaido.android.gaia.user.presentation.list.UserListFragment"
     tools:layout="@layout/fragment_user_list">
 
     <action
@@ -74,7 +74,7 @@
 
       <argument
         android:name="source"
-        app:argType="com.yuyakaido.android.gaia.user.detail.UserDetailSource"
+        app:argType="com.yuyakaido.android.gaia.user.presentation.detail.UserDetailSource"
         app:nullable="false"
         />
 
@@ -84,7 +84,7 @@
 
   <fragment
     android:id="@+id/fragment_user_detail"
-    android:name="com.yuyakaido.android.gaia.user.detail.UserDetailFragment"
+    android:name="com.yuyakaido.android.gaia.user.presentation.detail.UserDetailFragment"
     tools:layout="@layout/fragment_user_detail">
 
     <action
@@ -154,7 +154,7 @@
 
       <argument
         android:name="source"
-        app:argType="com.yuyakaido.android.gaia.user.detail.UserDetailSource"
+        app:argType="com.yuyakaido.android.gaia.user.presentation.detail.UserDetailSource"
         app:nullable="false"
         />
 
@@ -190,7 +190,7 @@
 
     <argument
       android:name="source"
-      app:argType="com.yuyakaido.android.gaia.user.detail.UserDetailSource"
+      app:argType="com.yuyakaido.android.gaia.user.presentation.detail.UserDetailSource"
       app:nullable="false"
       />
 

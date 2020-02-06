@@ -1,6 +1,6 @@
 package com.yuyakaido.android.gaia.comment
 
-import com.yuyakaido.android.gaia.core.infrastructure.remote.response.ListingDataResponse
+import com.yuyakaido.android.gaia.core.infrastructure.ListingDataResponse
 import retrofit2.http.*
 
 interface CommentApi {

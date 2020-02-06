@@ -10,10 +10,10 @@ import com.yuyakaido.android.gaia.community.detail.CommunityDetailFragment
 import com.yuyakaido.android.gaia.community.detail.CommunityDetailModule
 import com.yuyakaido.android.gaia.community.list.CommunityListFragment
 import com.yuyakaido.android.gaia.search.SearchFragment
-import com.yuyakaido.android.gaia.user.detail.UserDetailFragment
-import com.yuyakaido.android.gaia.user.detail.UserDetailModule
-import com.yuyakaido.android.gaia.user.list.UserListFragment
-import com.yuyakaido.android.gaia.user.list.UserListModule
+import com.yuyakaido.android.gaia.user.presentation.detail.UserDetailFragment
+import com.yuyakaido.android.gaia.user.presentation.detail.UserDetailModule
+import com.yuyakaido.android.gaia.user.presentation.list.UserListFragment
+import com.yuyakaido.android.gaia.user.presentation.list.UserListModule
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 

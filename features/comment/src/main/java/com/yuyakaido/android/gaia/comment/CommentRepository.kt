@@ -5,7 +5,7 @@ import com.yuyakaido.android.gaia.core.domain.entity.Comment
 import com.yuyakaido.android.gaia.core.domain.entity.User
 import com.yuyakaido.android.gaia.core.domain.repository.CommentRepositoryType
 import com.yuyakaido.android.gaia.core.domain.value.VoteTarget
-import com.yuyakaido.android.gaia.core.infrastructure.remote.response.Kind
+import com.yuyakaido.android.gaia.core.infrastructure.Kind
 
 class CommentRepository(
   private val api: CommentApi

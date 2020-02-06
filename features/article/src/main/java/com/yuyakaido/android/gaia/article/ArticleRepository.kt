@@ -5,20 +5,17 @@ import com.yuyakaido.android.gaia.core.domain.entity.Community
 import com.yuyakaido.android.gaia.core.domain.entity.User
 import com.yuyakaido.android.gaia.core.domain.repository.ArticleRepositoryType
 import com.yuyakaido.android.gaia.core.domain.value.EntityPaginationItem
-import com.yuyakaido.android.gaia.core.domain.value.TrendingArticle
 import com.yuyakaido.android.gaia.core.domain.value.VoteTarget
-import com.yuyakaido.android.gaia.core.infrastructure.remote.api.PublicApi
 
 class ArticleRepository(
-  private val publicApi: PublicApi,
-  private val articleApi: ArticleApi
+  private val api: ArticleApi
 ) : ArticleRepositoryType {
 
   override suspend fun articlesOfSort(
     sort: String,
     after: String?
   ): EntityPaginationItem<Article> {
-    return articleApi
+    return api
       .articlesOfSort(
         sort = sort,
         after = after
@@ -30,7 +27,7 @@ class ArticleRepository(
     path: String,
     after: String?
   ): EntityPaginationItem<Article> {
-    return articleApi
+    return api
       .articlesOfCommunity(
         community = path,
         after = after
@@ -42,7 +39,7 @@ class ArticleRepository(
     community: Community.Summary,
     after: String?
   ): EntityPaginationItem<Article> {
-    return articleApi
+    return api
       .articlesOfCommunity(
         community = community.name,
         after = after
@@ -54,7 +51,7 @@ class ArticleRepository(
     user: User,
     after: String?
   ): EntityPaginationItem<Article> {
-    return articleApi
+    return api
       .articlesOfUser(
         user = user.name,
         after = after
@@ -67,7 +64,7 @@ class ArticleRepository(
     path: String,
     after: String?
   ): EntityPaginationItem<Article> {
-    return articleApi
+    return api
       .voted(
         user = user.name,
         type = path,
@@ -77,19 +74,7 @@ class ArticleRepository(
   }
 
   override suspend fun vote(target: VoteTarget) {
-    articleApi.vote(id = target.entity.name, dir = target.dir)
-  }
-
-  override suspend fun trendingArticles(): List<TrendingArticle> {
-    return publicApi
-      .trending()
-      .toEntities()
-  }
-
-  override suspend fun search(query: String): EntityPaginationItem<Article> {
-    return publicApi
-      .search(query = query)
-      .toArticlePaginationItem()
+    api.vote(id = target.entity.name, dir = target.dir)
   }
 
 }

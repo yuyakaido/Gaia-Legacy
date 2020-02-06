@@ -7,11 +7,11 @@
 
   <fragment
     android:id="@+id/fragment_user_detail"
-    android:name="com.yuyakaido.android.gaia.user.detail.UserDetailFragment">
+    android:name="com.yuyakaido.android.gaia.user.presentation.detail.UserDetailFragment">
 
     <argument
       android:name="source"
-      app:argType="com.yuyakaido.android.gaia.user.detail.UserDetailSource"
+      app:argType="com.yuyakaido.android.gaia.user.presentation.detail.UserDetailSource"
       app:nullable="false"
       />
 

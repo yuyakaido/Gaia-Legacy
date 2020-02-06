@@ -13,10 +13,11 @@ import com.yuyakaido.android.gaia.community.CommunityRepository
 import com.yuyakaido.android.gaia.core.domain.app.AppRouterType
 import com.yuyakaido.android.gaia.core.domain.app.AppScope
 import com.yuyakaido.android.gaia.core.domain.repository.*
-import com.yuyakaido.android.gaia.core.infrastructure.local.AppDatabase
-import com.yuyakaido.android.gaia.core.infrastructure.remote.api.PublicApi
-import com.yuyakaido.android.gaia.user.UserApi
-import com.yuyakaido.android.gaia.user.UserRepository
+import com.yuyakaido.android.gaia.search.SearchApi
+import com.yuyakaido.android.gaia.search.SearchRepository
+import com.yuyakaido.android.gaia.user.infrastructure.local.MeDatabase
+import com.yuyakaido.android.gaia.user.infrastructure.remote.UserApi
+import com.yuyakaido.android.gaia.user.infrastructure.repository.UserRepository
 import dagger.Module
 import dagger.Provides
 
@@ -37,12 +38,12 @@ class AppModule {
   @Provides
   fun provideAppDatabase(
     application: Application
-  ): AppDatabase {
+  ): MeDatabase {
     return Room
       .databaseBuilder(
         application,
-        AppDatabase::class.java,
-        AppDatabase::class.java.simpleName
+        MeDatabase::class.java,
+        MeDatabase::class.java.simpleName
       )
       .build()
   }
@@ -62,12 +63,10 @@ class AppModule {
   @AppScope
   @Provides
   fun provideArticleRepositoryType(
-    articleApi: ArticleApi,
-    publicApi: PublicApi
+    api: ArticleApi
   ): ArticleRepositoryType {
     return ArticleRepository(
-      articleApi = articleApi,
-      publicApi = publicApi
+      api = api
     )
   }
 
@@ -95,11 +94,21 @@ class AppModule {
   @Provides
   fun provideUserRepositoryType(
     api: UserApi,
-    database: AppDatabase
+    database: MeDatabase
   ): UserRepositoryType {
     return UserRepository(
       api = api,
       database = database
+    )
+  }
+
+  @AppScope
+  @Provides
+  fun provideSearchRepositoryType(
+    api: SearchApi
+  ): SearchRepositoryType {
+    return SearchRepository(
+      api = api
     )
   }
 
