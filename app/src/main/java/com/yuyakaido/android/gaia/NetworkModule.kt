@@ -138,19 +138,4 @@ class NetworkModule {
     return retrofit.create(UserApi::class.java)
   }
 
-  @AppScope
-  @Provides
-  fun provideSearchApi(
-    moshi: Moshi,
-    @OkHttpForPublic client: OkHttpClient
-  ): SearchApi {
-    val retrofit = Retrofit
-      .Builder()
-      .client(client)
-      .baseUrl("https://www.reddit.com/")
-      .addConverterFactory(MoshiConverterFactory.create(moshi))
-      .build()
-    return retrofit.create(SearchApi::class.java)
-  }
-
 }
