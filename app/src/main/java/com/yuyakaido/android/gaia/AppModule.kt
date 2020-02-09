@@ -36,7 +36,7 @@ class AppModule {
 
   @AppScope
   @Provides
-  fun provideAppDatabase(
+  fun provideMeDatabase(
     application: Application
   ): MeDatabase {
     return Room
