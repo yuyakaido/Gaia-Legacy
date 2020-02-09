@@ -4,18 +4,12 @@ import com.facebook.stetho.okhttp3.StethoInterceptor
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.adapters.PolymorphicJsonAdapterFactory
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
-import com.yuyakaido.android.gaia.article.ArticleApi
-import com.yuyakaido.android.gaia.auth.AuthApi
 import com.yuyakaido.android.gaia.auth.AuthInterceptor
 import com.yuyakaido.android.gaia.auth.BasicAuthInterceptor
 import com.yuyakaido.android.gaia.auth.TokenAuthenticator
-import com.yuyakaido.android.gaia.comment.CommentApi
-import com.yuyakaido.android.gaia.community.CommunityApi
 import com.yuyakaido.android.gaia.core.domain.app.AppScope
 import com.yuyakaido.android.gaia.core.domain.repository.TokenRepositoryType
 import com.yuyakaido.android.gaia.core.infrastructure.*
-import com.yuyakaido.android.gaia.search.SearchApi
-import com.yuyakaido.android.gaia.user.infrastructure.remote.UserApi
 import dagger.Module
 import dagger.Provides
 import okhttp3.OkHttpClient
@@ -121,21 +115,6 @@ class NetworkModule {
       .baseUrl("https://oauth.reddit.com")
       .addConverterFactory(MoshiConverterFactory.create(moshi))
       .build()
-  }
-
-  @AppScope
-  @Provides
-  fun provideUserApi(
-    moshi: Moshi,
-    @OkHttpForPrivate client: OkHttpClient
-  ): UserApi {
-    val retrofit = Retrofit
-      .Builder()
-      .client(client)
-      .baseUrl("https://oauth.reddit.com")
-      .addConverterFactory(MoshiConverterFactory.create(moshi))
-      .build()
-    return retrofit.create(UserApi::class.java)
   }
 
 }

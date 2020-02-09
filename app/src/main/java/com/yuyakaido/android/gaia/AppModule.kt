@@ -36,20 +36,6 @@ class AppModule {
 
   @AppScope
   @Provides
-  fun provideMeDatabase(
-    application: Application
-  ): MeDatabase {
-    return Room
-      .databaseBuilder(
-        application,
-        MeDatabase::class.java,
-        MeDatabase::class.java.simpleName
-      )
-      .build()
-  }
-
-  @AppScope
-  @Provides
   fun provideTokenRepositoryType(
     application: Application,
     api: AuthApi
