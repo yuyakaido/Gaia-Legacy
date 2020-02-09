@@ -13,8 +13,7 @@ import com.yuyakaido.android.gaia.comment.CommentApi
 import com.yuyakaido.android.gaia.community.CommunityApi
 import com.yuyakaido.android.gaia.core.domain.app.AppScope
 import com.yuyakaido.android.gaia.core.domain.repository.TokenRepositoryType
-import com.yuyakaido.android.gaia.core.infrastructure.Kind
-import com.yuyakaido.android.gaia.core.infrastructure.ListingDataResponse
+import com.yuyakaido.android.gaia.core.infrastructure.*
 import com.yuyakaido.android.gaia.search.SearchApi
 import com.yuyakaido.android.gaia.user.infrastructure.remote.UserApi
 import dagger.Module
@@ -95,18 +94,33 @@ class NetworkModule {
   }
 
   @AppScope
+  @RetrofitForPublic
   @Provides
-  fun provideAuthApi(
-    moshi: Moshi,
-    @OkHttpForPublic client: OkHttpClient
-  ): AuthApi {
-    val retrofit = Retrofit
+  fun provideRetrofitForPublic(
+    @OkHttpForPublic client: OkHttpClient,
+    moshi: Moshi
+  ): Retrofit {
+    return Retrofit
       .Builder()
       .client(client)
       .baseUrl("https://www.reddit.com/")
       .addConverterFactory(MoshiConverterFactory.create(moshi))
       .build()
-    return retrofit.create(AuthApi::class.java)
+  }
+
+  @AppScope
+  @RetrofitForPrivate
+  @Provides
+  fun provideRetrofitForPrivate(
+    @OkHttpForPrivate client: OkHttpClient,
+    moshi: Moshi
+  ): Retrofit {
+    return Retrofit
+      .Builder()
+      .client(client)
+      .baseUrl("https://oauth.reddit.com")
+      .addConverterFactory(MoshiConverterFactory.create(moshi))
+      .build()
   }
 
   @AppScope
