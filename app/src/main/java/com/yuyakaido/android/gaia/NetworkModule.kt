@@ -140,21 +140,6 @@ class NetworkModule {
 
   @AppScope
   @Provides
-  fun provideCommentApi(
-    moshi: Moshi,
-    @OkHttpForPrivate client: OkHttpClient
-  ): CommentApi {
-    val retrofit = Retrofit
-      .Builder()
-      .client(client)
-      .baseUrl("https://oauth.reddit.com")
-      .addConverterFactory(MoshiConverterFactory.create(moshi))
-      .build()
-    return retrofit.create(CommentApi::class.java)
-  }
-
-  @AppScope
-  @Provides
   fun provideUserApi(
     moshi: Moshi,
     @OkHttpForPrivate client: OkHttpClient

@@ -3,6 +3,7 @@ package com.yuyakaido.android.gaia
 import android.app.Application
 import com.yuyakaido.android.gaia.article.ArticleModule
 import com.yuyakaido.android.gaia.auth.AuthModule
+import com.yuyakaido.android.gaia.comment.CommentModule
 import com.yuyakaido.android.gaia.core.domain.app.AppScope
 import dagger.BindsInstance
 import dagger.Component
@@ -14,13 +15,14 @@ import dagger.android.AndroidInjector
   // App
   AndroidInjectionModule::class,
   AppModule::class,
-  FragmentModule::class,
   NetworkModule::class,
+  FragmentModule::class,
+  ActivityModule::class,
 
   // Feature
   AuthModule::class,
   ArticleModule::class,
-  ActivityModule::class
+  CommentModule::class
 ])
 interface AppComponent : AndroidInjector<Gaia> {
   @Component.Builder
