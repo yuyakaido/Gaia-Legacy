@@ -1,7 +1,7 @@
 package com.yuyakaido.android.gaia
 
 import android.app.Application
-import com.yuyakaido.android.gaia.core.domain.app.AppRouterType
+import com.yuyakaido.android.gaia.core.domain.app.AppNavigatorType
 import com.yuyakaido.android.gaia.core.domain.app.AppScope
 import dagger.Module
 import dagger.Provides
@@ -11,10 +11,10 @@ class AppModule {
 
   @AppScope
   @Provides
-  fun provideAppRouterType(
+  fun provideAppNavigatorType(
     application: Application
-  ): AppRouterType {
-    return AppRouter(
+  ): AppNavigatorType {
+    return AppNavigator(
       application = application
     )
   }

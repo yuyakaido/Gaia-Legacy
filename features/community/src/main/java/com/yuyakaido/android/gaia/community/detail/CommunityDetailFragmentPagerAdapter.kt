@@ -4,13 +4,13 @@ import android.content.Context
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
-import com.yuyakaido.android.gaia.core.domain.app.AppRouterType
+import com.yuyakaido.android.gaia.core.domain.app.AppNavigatorType
 import com.yuyakaido.android.gaia.core.domain.entity.Community
 
 class CommunityDetailFragmentPagerAdapter(
   manager: FragmentManager,
   private val context: Context,
-  private val router: AppRouterType,
+  private val navigator: AppNavigatorType,
   private val community: Community.Summary
 ) : FragmentPagerAdapter(manager, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
 
@@ -24,7 +24,7 @@ class CommunityDetailFragmentPagerAdapter(
 
   override fun getItem(position: Int): Fragment {
     val page = CommunityDetailPage.values()[position]
-    return page.fragment.invoke(router, community)
+    return page.fragment.invoke(navigator, community)
   }
 
 }

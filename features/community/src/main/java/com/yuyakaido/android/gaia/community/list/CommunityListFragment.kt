@@ -14,7 +14,7 @@ import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
 import com.yqritc.recyclerviewflexibledivider.HorizontalDividerItemDecoration
 import com.yuyakaido.android.gaia.community.databinding.FragmentCommunityListBinding
-import com.yuyakaido.android.gaia.core.domain.app.AppRouterType
+import com.yuyakaido.android.gaia.core.domain.app.AppNavigatorType
 import com.yuyakaido.android.gaia.core.domain.entity.Community
 import com.yuyakaido.android.gaia.core.domain.extension.dpTpPx
 import com.yuyakaido.android.gaia.core.presentation.ViewModelFactory
@@ -30,7 +30,7 @@ class CommunityListFragment : DaggerFragment() {
   }
 
   @Inject
-  internal lateinit var appRouter: AppRouterType
+  internal lateinit var appNavigator: AppNavigatorType
 
   @Inject
   internal lateinit var factory: ViewModelFactory<CommunityListViewModel>
@@ -68,7 +68,7 @@ class CommunityListFragment : DaggerFragment() {
 
     val listener = { community: Community.Detail ->
       val summary = Community.Summary(name = community.name)
-      appRouter.navigateToCommunityDetail(
+      appNavigator.navigateToCommunityDetail(
         controller = findNavController(),
         community = summary
       )

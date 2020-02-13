@@ -12,7 +12,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
-import com.yuyakaido.android.gaia.core.domain.app.AppRouterType
+import com.yuyakaido.android.gaia.core.domain.app.AppNavigatorType
 import com.yuyakaido.android.gaia.core.presentation.ViewModelFactory
 import com.yuyakaido.android.gaia.user.databinding.FragmentUserListBinding
 import dagger.android.support.DaggerFragment
@@ -30,7 +30,7 @@ class UserListFragment : DaggerFragment() {
   }
 
   @Inject
-  internal lateinit var appRouter: AppRouterType
+  internal lateinit var appNavigator: AppNavigatorType
 
   @Inject
   internal lateinit var factory: ViewModelFactory<UserListViewModel>
@@ -63,7 +63,7 @@ class UserListFragment : DaggerFragment() {
     val adapter = GroupAdapter<GroupieViewHolder>()
     adapter.setOnItemClickListener { item, _ ->
       if (item is UserItem) {
-        appRouter.navigateToUserDetail(
+        appNavigator.navigateToUserDetail(
           findNavController(),
           user = item.user
         )

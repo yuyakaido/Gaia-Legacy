@@ -14,7 +14,7 @@ import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
 import com.yuyakaido.android.gaia.article.R
 import com.yuyakaido.android.gaia.article.databinding.FragmentArticleDetailBinding
-import com.yuyakaido.android.gaia.core.domain.app.AppRouterType
+import com.yuyakaido.android.gaia.core.domain.app.AppNavigatorType
 import com.yuyakaido.android.gaia.core.presentation.ViewModelFactory
 import dagger.android.support.DaggerFragment
 import javax.inject.Inject
@@ -22,7 +22,7 @@ import javax.inject.Inject
 class ArticleDetailFragment : DaggerFragment() {
 
   @Inject
-  internal lateinit var appRouter: AppRouterType
+  internal lateinit var appNavigator: AppNavigatorType
 
   @Inject
   internal lateinit var factory: ViewModelFactory<ArticleDetailViewModel>
@@ -99,7 +99,7 @@ class ArticleDetailFragment : DaggerFragment() {
       .beginTransaction()
       .replace(
         R.id.fragment_container,
-        appRouter.newCommentListFragment(article = args.article)
+        appNavigator.newCommentListFragment(article = args.article)
       )
       .commitNow()
   }

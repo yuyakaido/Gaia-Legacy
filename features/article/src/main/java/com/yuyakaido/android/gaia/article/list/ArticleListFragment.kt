@@ -17,7 +17,7 @@ import com.xwray.groupie.GroupieViewHolder
 import com.yqritc.recyclerviewflexibledivider.HorizontalDividerItemDecoration
 import com.yuyakaido.android.gaia.article.R
 import com.yuyakaido.android.gaia.article.databinding.FragmentArticleListBinding
-import com.yuyakaido.android.gaia.core.domain.app.AppRouterType
+import com.yuyakaido.android.gaia.core.domain.app.AppNavigatorType
 import com.yuyakaido.android.gaia.core.domain.entity.Article
 import com.yuyakaido.android.gaia.core.domain.extension.dpTpPx
 import com.yuyakaido.android.gaia.core.presentation.ArticleItem
@@ -38,7 +38,7 @@ class ArticleListFragment : DaggerFragment() {
   }
 
   @Inject
-  internal lateinit var appRouter: AppRouterType
+  internal lateinit var appNavigator: AppNavigatorType
 
   @Inject
   internal lateinit var factory: ViewModelFactory<ArticleListViewModel>
@@ -89,7 +89,7 @@ class ArticleListFragment : DaggerFragment() {
     val adapter = GroupAdapter<GroupieViewHolder>()
     adapter.setOnItemClickListener { item, _ ->
       if (item is ArticleItem) {
-        appRouter.navigateToArticleDetailActivity(
+        appNavigator.navigateToArticleDetailActivity(
           controller = findNavController(),
           article = item.article
         )
@@ -118,7 +118,7 @@ class ArticleListFragment : DaggerFragment() {
     val upvoteListener = { article: Article -> viewModel.onUpvote(article = article) }
     val downvoteListener = { article: Article -> viewModel.onDownvote(article = article) }
     val communityListener = { article: Article ->
-      appRouter.navigateToCommunityDetail(
+      appNavigator.navigateToCommunityDetail(
         controller = findNavController(),
         community = article.community
       )

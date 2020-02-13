@@ -11,7 +11,7 @@ import com.yuyakaido.android.gaia.article.list.ArticleListSource
 import com.yuyakaido.android.gaia.comment.CommentListFragment
 import com.yuyakaido.android.gaia.community.detail.CommunityDetailFragmentDirections
 import com.yuyakaido.android.gaia.community.list.CommunityListFragment
-import com.yuyakaido.android.gaia.core.domain.app.AppRouterType
+import com.yuyakaido.android.gaia.core.domain.app.AppNavigatorType
 import com.yuyakaido.android.gaia.core.domain.entity.Article
 import com.yuyakaido.android.gaia.core.domain.entity.Community
 import com.yuyakaido.android.gaia.core.domain.entity.User
@@ -24,9 +24,9 @@ import com.yuyakaido.android.gaia.user.presentation.list.UserListFragmentDirecti
 import com.yuyakaido.android.gaia.user.presentation.list.UserListSource
 import javax.inject.Inject
 
-class AppRouter @Inject constructor(
+class AppNavigator @Inject constructor(
   override val application: Application
-) : AppRouterType {
+) : AppNavigatorType {
 
   override fun newAppActivity(): Intent {
     return AppActivity.createIntent(context = application)

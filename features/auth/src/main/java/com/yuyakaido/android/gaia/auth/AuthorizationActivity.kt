@@ -6,7 +6,7 @@ import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.lifecycle.observe
 import com.yuyakaido.android.gaia.auth.databinding.ActivityAuthorizationBinding
-import com.yuyakaido.android.gaia.core.domain.app.AppRouterType
+import com.yuyakaido.android.gaia.core.domain.app.AppNavigatorType
 import com.yuyakaido.android.gaia.core.domain.app.Constant
 import com.yuyakaido.android.gaia.core.presentation.ViewModelFactory
 import dagger.android.support.DaggerAppCompatActivity
@@ -15,7 +15,7 @@ import javax.inject.Inject
 class AuthorizationActivity : DaggerAppCompatActivity() {
 
   @Inject
-  internal lateinit var appRouter: AppRouterType
+  internal lateinit var appNavigator: AppNavigatorType
 
   @Inject
   internal lateinit var factory: ViewModelFactory<AuthorizationViewModel>
@@ -33,7 +33,7 @@ class AuthorizationActivity : DaggerAppCompatActivity() {
   private fun setupNavigation() {
     viewModel.navigateToHome
       .observe(this) {
-        startActivity(appRouter.newAppActivity())
+        startActivity(appNavigator.newAppActivity())
       }
     viewModel.navigateToAuth
       .observe(this) {

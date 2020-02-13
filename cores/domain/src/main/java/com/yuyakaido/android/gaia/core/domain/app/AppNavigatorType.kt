@@ -8,7 +8,7 @@ import com.yuyakaido.android.gaia.core.domain.entity.Article
 import com.yuyakaido.android.gaia.core.domain.entity.Community
 import com.yuyakaido.android.gaia.core.domain.entity.User
 
-interface AppRouterType {
+interface AppNavigatorType {
 
   val application: Application
 

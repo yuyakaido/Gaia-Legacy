@@ -10,7 +10,7 @@ import androidx.lifecycle.observe
 import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
-import com.yuyakaido.android.gaia.core.domain.app.AppRouterType
+import com.yuyakaido.android.gaia.core.domain.app.AppNavigatorType
 import com.yuyakaido.android.gaia.core.domain.entity.User
 import com.yuyakaido.android.gaia.core.domain.extension.dpTpPx
 import com.yuyakaido.android.gaia.core.presentation.ViewModelFactory
@@ -32,7 +32,7 @@ class UserDetailFragment : DaggerFragment() {
   }
 
   @Inject
-  internal lateinit var appRouter: AppRouterType
+  internal lateinit var appNavigator: AppNavigatorType
 
   @Inject
   internal lateinit var factory: ViewModelFactory<UserDetailViewModel>
@@ -79,7 +79,7 @@ class UserDetailFragment : DaggerFragment() {
       manager = childFragmentManager,
       context = requireContext(),
       page = args.source.page(),
-      router = appRouter,
+      navigator = appNavigator,
       user = user
     )
     binding.viewPager.adapter = adapter
