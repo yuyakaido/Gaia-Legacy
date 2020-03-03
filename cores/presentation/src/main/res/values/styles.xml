@@ -2,7 +2,7 @@
 
 <resources>
 
-  <style name="AppTheme" parent="Theme.AppCompat">
+  <style name="AppTheme" parent="Theme.MaterialComponents">
     <item name="android:textAllCaps">false</item>
   </style>
 
