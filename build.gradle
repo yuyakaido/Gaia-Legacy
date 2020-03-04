@@ -7,6 +7,11 @@ buildscript {
       versionCode: 1,
       versionName: '1.0.0'
     ],
+    storybook: [
+      applicationId: 'com.yuyakaido.android.gaia.storybook',
+      versionCode: 1,
+      versionName: '1.0.0'
+    ],
     android: [
       buildTools: '29.0.2',
       compileSdk: 29,
