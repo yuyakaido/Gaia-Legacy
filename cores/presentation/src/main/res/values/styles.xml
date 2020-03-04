@@ -3,7 +3,7 @@
 <resources>
 
   <style name="AppTheme" parent="Theme.MaterialComponents">
-    <item name="android:textAllCaps">false</item>
+    <item name="textAllCaps">false</item>
   </style>
 
 </resources>
