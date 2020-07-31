@@ -4,8 +4,11 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.navigation.NavArgumentBuilder
+import androidx.navigation.NavController
 import androidx.navigation.NavType
 import androidx.navigation.findNavController
+import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.yuyakaido.android.gaia.article.list.ArticleListSource
 import com.yuyakaido.android.gaia.databinding.ActivityAppBinding
@@ -29,11 +32,23 @@ class AppActivity : DaggerAppCompatActivity() {
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     setContentView(binding.root)
+    setupNavigation()
+    setupActionBar()
     setupBottomNavigationView()
   }
 
-  private fun setupBottomNavigationView() {
-    val controller = findNavController(R.id.fragment_nav_host)
+  // https://developer.android.com/guide/navigation/navigation-ui#action_bar
+  override fun onSupportNavigateUp(): Boolean {
+    val controller = findNavController()
+    return controller.navigateUp() || super.onSupportNavigateUp()
+  }
+
+  private fun findNavController(): NavController {
+    return findNavController(R.id.fragment_nav_host)
+  }
+
+  private fun setupNavigation() {
+    val controller = findNavController()
     val graph = controller.graph
     graph.addArgument(
       "source",
@@ -46,7 +61,22 @@ class AppActivity : DaggerAppCompatActivity() {
         .build()
     )
     controller.graph = graph
+  }
 
+  private fun setupActionBar() {
+    val configuration = AppBarConfiguration(
+      setOf(
+        R.id.fragment_article_list,
+        R.id.fragment_search,
+        R.id.fragment_community_list,
+        R.id.fragment_user_detail
+      )
+    )
+    setupActionBarWithNavController(findNavController(), configuration)
+  }
+
+  private fun setupBottomNavigationView() {
+    val controller = findNavController()
     val view = binding.bottomNavigationView
     view.setupWithNavController(controller)
     view.setOnNavigationItemSelectedListener { item ->
