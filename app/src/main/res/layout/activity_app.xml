@@ -12,7 +12,7 @@
       android:id="@+id/fragment_nav_host"
       android:layout_width="match_parent"
       android:layout_height="0dp"
-      android:name="androidx.navigation.fragment.NavHostFragment"
+      android:name="com.yuyakaido.android.gaia.AppNavHostFragment"
       app:navGraph="@navigation/navigation_app"
       app:defaultNavHost="true"
       app:layout_constraintTop_toTopOf="parent"

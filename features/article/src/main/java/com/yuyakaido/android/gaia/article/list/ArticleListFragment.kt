@@ -51,7 +51,7 @@ class ArticleListFragment : DaggerFragment() {
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
-    val parent = requireContext()
+    val parent = requireParentFragment()
     if (parent is OptionMenuType) {
       Handler().post { setHasOptionsMenu(parent.shouldShowOptionMenu()) }
     }
