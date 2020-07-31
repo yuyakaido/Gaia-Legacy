@@ -50,6 +50,7 @@ class AppActivity : DaggerAppCompatActivity() {
   private fun setupNavigation() {
     val controller = findNavController()
     controller.addOnDestinationChangedListener { _, destination, _ ->
+      // https://developer.android.com/guide/navigation/navigation-ui#bottom_navigation
       binding.bottomNavigationView.visibility = TopLevelScreen.visibility(destination.id)
     }
 
