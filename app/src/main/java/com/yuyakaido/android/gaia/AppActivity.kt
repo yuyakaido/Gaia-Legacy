@@ -49,6 +49,10 @@ class AppActivity : DaggerAppCompatActivity() {
 
   private fun setupNavigation() {
     val controller = findNavController()
+    controller.addOnDestinationChangedListener { _, destination, _ ->
+      binding.bottomNavigationView.visibility = TopLevelScreen.visibility(destination.id)
+    }
+
     val graph = controller.graph
     graph.addArgument(
       "source",
@@ -80,21 +84,18 @@ class AppActivity : DaggerAppCompatActivity() {
     val view = binding.bottomNavigationView
     view.setupWithNavController(controller)
     view.setOnNavigationItemSelectedListener { item ->
-      val direction = when (item.itemId) {
-        R.id.fragment_article_list -> {
+      val direction = when (TopLevelScreen.from(item.itemId)) {
+        TopLevelScreen.Article -> {
           NavigationHomeDirections.actionArticleList(source = ArticleListSource.Popular)
         }
-        R.id.fragment_search -> {
+        TopLevelScreen.Search -> {
           NavigationHomeDirections.actionSearch()
         }
-        R.id.fragment_community_list -> {
+        TopLevelScreen.Community -> {
           NavigationHomeDirections.actionCommunityList()
         }
-        R.id.fragment_user_detail -> {
+        TopLevelScreen.Profile -> {
           NavigationHomeDirections.actionUserDetail(source = UserDetailSource.Me)
-        }
-        else -> {
-          NavigationHomeDirections.actionArticleList(source = ArticleListSource.Popular)
         }
       }
       controller.navigate(direction)
