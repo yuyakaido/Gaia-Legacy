@@ -47,7 +47,7 @@ class CommunityDetailFragment : DaggerFragment() {
 
   private fun setupDetail() {
     viewModel.community
-      .observe(this) { community ->
+      .observe(viewLifecycleOwner) { community ->
         Glide.with(this)
           .load(community.banner)
           .into(binding.banner)
