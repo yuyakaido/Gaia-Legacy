@@ -33,9 +33,4 @@ dependencies {
   // Dependency Injection
   kapt libs.dagger.java.compiler
   kapt libs.dagger.android.compiler
-
-  // Storage
-  api libs.androidx.room.core
-  api libs.androidx.room.ktx
-  kapt libs.androidx.room.compiler
 }
