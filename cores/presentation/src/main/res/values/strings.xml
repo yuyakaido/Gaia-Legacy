@@ -4,12 +4,10 @@
 
   <!-- App -->
   <string name="app_name">Gaia</string>
-
-  <!-- Home -->
-  <string name="home_popular">Popular</string>
-  <string name="home_search">Search</string>
-  <string name="home_community">Community</string>
-  <string name="home_profile">Profile</string>
+  <string name="app_popular">Popular</string>
+  <string name="app_search">Search</string>
+  <string name="app_community">Community</string>
+  <string name="app_profile">Profile</string>
 
   <!-- Search -->
   <string name="search_hint">Search</string>

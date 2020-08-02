@@ -87,16 +87,16 @@ class AppActivity : DaggerAppCompatActivity() {
     view.setOnNavigationItemSelectedListener { item ->
       val direction = when (TopLevelScreen.from(item.itemId)) {
         TopLevelScreen.Article -> {
-          NavigationHomeDirections.actionArticleList(source = ArticleListSource.Popular)
+          NavigationAppDirections.actionArticleList(source = ArticleListSource.Popular)
         }
         TopLevelScreen.Search -> {
-          NavigationHomeDirections.actionSearch()
+          NavigationAppDirections.actionSearch()
         }
         TopLevelScreen.Community -> {
-          NavigationHomeDirections.actionCommunityList()
+          NavigationAppDirections.actionCommunityList()
         }
         TopLevelScreen.Profile -> {
-          NavigationHomeDirections.actionUserDetail(source = UserDetailSource.Me)
+          NavigationAppDirections.actionUserDetail(source = UserDetailSource.Me)
         }
       }
       controller.navigate(direction)
