@@ -61,6 +61,7 @@ class SearchFragment : DaggerFragment() {
         }
       })
     binding.searchView.onActionViewExpanded()
+    binding.searchView.clearFocus()
   }
 
   private fun setupTrendingRecyclerView() {
