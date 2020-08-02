@@ -49,6 +49,17 @@ class SearchFragment : DaggerFragment() {
     viewModel.onBind()
   }
 
+  override fun onResume() {
+    super.onResume()
+    binding.searchView.onActionViewExpanded()
+    binding.searchView.clearFocus()
+  }
+
+  override fun onPause() {
+    super.onPause()
+    binding.searchView.onActionViewCollapsed()
+  }
+
   private fun setupSearchView() {
     binding.searchView
       .setOnQueryTextListener(object : SearchView.OnQueryTextListener {
@@ -60,8 +71,6 @@ class SearchFragment : DaggerFragment() {
           return true
         }
       })
-    binding.searchView.onActionViewExpanded()
-    binding.searchView.clearFocus()
   }
 
   private fun setupTrendingRecyclerView() {
