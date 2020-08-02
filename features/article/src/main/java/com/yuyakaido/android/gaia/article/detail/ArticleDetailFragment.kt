@@ -51,7 +51,7 @@ class ArticleDetailFragment : DaggerFragment() {
   private fun setupDetail() {
     viewModel
       .article
-      .observe(this) { article ->
+      .observe(viewLifecycleOwner) { article ->
         val b = binding.article
         b.community.text = getString(R.string.article_list_community, article.community.name)
         b.author.text = getString(R.string.article_list_author, article.author)
