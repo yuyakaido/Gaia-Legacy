@@ -15,7 +15,7 @@ import com.yuyakaido.android.gaia.core.domain.app.AppNavigatorType
 import com.yuyakaido.android.gaia.core.domain.entity.Article
 import com.yuyakaido.android.gaia.core.domain.entity.Community
 import com.yuyakaido.android.gaia.core.domain.entity.User
-import com.yuyakaido.android.gaia.search.SearchFragment
+import com.yuyakaido.android.gaia.search.presentation.SearchFragment
 import com.yuyakaido.android.gaia.user.presentation.detail.UserDetailFragment
 import com.yuyakaido.android.gaia.user.presentation.detail.UserDetailFragmentArgs
 import com.yuyakaido.android.gaia.user.presentation.detail.UserDetailSource

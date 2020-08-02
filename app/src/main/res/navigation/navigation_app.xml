@@ -40,7 +40,7 @@
 
   <fragment
     android:id="@+id/fragment_search"
-    android:name="com.yuyakaido.android.gaia.search.SearchFragment"
+    android:name="com.yuyakaido.android.gaia.search.presentation.SearchFragment"
     tools:layout="@layout/fragment_search"
     />
 

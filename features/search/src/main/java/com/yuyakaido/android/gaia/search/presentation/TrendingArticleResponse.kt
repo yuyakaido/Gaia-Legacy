@@ -1,4 +1,4 @@
-package com.yuyakaido.android.gaia.search
+package com.yuyakaido.android.gaia.search.presentation
 
 import com.squareup.moshi.Json
 import com.yuyakaido.android.gaia.core.domain.value.TrendingArticle

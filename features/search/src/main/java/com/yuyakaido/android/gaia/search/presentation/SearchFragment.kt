@@ -1,4 +1,4 @@
-package com.yuyakaido.android.gaia.search
+package com.yuyakaido.android.gaia.search.presentation
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -45,22 +45,31 @@ class SearchFragment : DaggerFragment() {
     super.onActivityCreated(savedInstanceState)
     setupSearchView()
     setupTrendingRecyclerView()
+    setupHistoryRecyclerView()
     setupSearchedRecyclerView()
     viewModel.onBind()
   }
 
   override fun onResume() {
     super.onResume()
-    binding.searchView.onActionViewExpanded()
     binding.searchView.clearFocus()
   }
 
   override fun onPause() {
     super.onPause()
-    binding.searchView.onActionViewCollapsed()
+    binding.searchView.clearFocus()
   }
 
   private fun setupSearchView() {
+    binding.searchView
+      .setOnSearchClickListener {
+        viewModel.onFocus()
+      }
+    binding.searchView
+      .setOnCloseListener {
+        viewModel.onClose()
+        return@setOnCloseListener false
+      }
     binding.searchView
       .setOnQueryTextListener(object : SearchView.OnQueryTextListener {
         override fun onQueryTextChange(newText: String?): Boolean = true
@@ -80,24 +89,53 @@ class SearchFragment : DaggerFragment() {
 
     viewModel.trendingArticles
       .observe(viewLifecycleOwner) { articles ->
-        adapter.updateAsync(articles.map { article ->
-          TrendingArticleItem(
-            article = article
-          )
-        })
+        if (articles.isEmpty()) {
+          binding.trendingRecyclerView.visibility = View.INVISIBLE
+          binding.historyRecyclerView.visibility = View.INVISIBLE
+        } else {
+          binding.trendingRecyclerView.visibility = View.VISIBLE
+          binding.historyRecyclerView.visibility = View.INVISIBLE
+          adapter.updateAsync(articles.map { article ->
+            TrendingArticleItem(
+              article = article
+            )
+          })
+        }
+      }
+  }
+
+  private fun setupHistoryRecyclerView() {
+    val adapter = GroupAdapter<GroupieViewHolder>()
+    binding.historyRecyclerView.layoutManager = LinearLayoutManager(requireContext())
+    binding.historyRecyclerView.adapter = adapter
+
+    viewModel.searchHistories
+      .observe(viewLifecycleOwner) { histories ->
+        if (histories.isEmpty()) {
+          binding.trendingRecyclerView.visibility = View.VISIBLE
+          binding.historyRecyclerView.visibility = View.INVISIBLE
+        } else {
+          binding.trendingRecyclerView.visibility = View.INVISIBLE
+          binding.historyRecyclerView.visibility = View.VISIBLE
+          adapter.updateAsync(histories.map { history ->
+            SearchHistoryItem(
+              history = history
+            )
+          })
+        }
       }
   }
 
   private fun setupSearchedRecyclerView() {
     val adapter = GroupAdapter<GroupieViewHolder>()
-    binding.searchedRecyclerView.layoutManager = LinearLayoutManager(requireContext())
-    binding.searchedRecyclerView.adapter = adapter
+    binding.searchRecyclerView.layoutManager = LinearLayoutManager(requireContext())
+    binding.searchRecyclerView.adapter = adapter
 
     val upvoteListener = { _: Article -> Unit }
     val downvoteListener = { _: Article -> Unit }
     val communityListener = { _: Article -> Unit }
 
-    viewModel.searchedArticles
+    viewModel.searchArticles
       .observe(viewLifecycleOwner) { articles ->
         adapter.updateAsync(articles.map { article ->
           ArticleItem(
