@@ -35,7 +35,7 @@ dependencies {
   kapt libs.dagger.android.compiler
 
   // Storage
-  api libs.storage.room.core
-  api libs.storage.room.ktx
-  kapt libs.storage.room.compiler
+  api libs.androidx.room.core
+  api libs.androidx.room.ktx
+  kapt libs.androidx.room.compiler
 }

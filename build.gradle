@@ -28,6 +28,7 @@ buildscript {
       appcompat: '1.1.0',
       fragment: '1.2.5',
       lifecycle: '2.2.0',
+      room: '2.2.5',
       navigation: '2.3.0',
       constraintlayout: '1.1.3',
       recyclerview: '1.1.0',
@@ -39,9 +40,6 @@ buildscript {
       retrofit: '2.6.2',
       moshi: '1.9.1',
       glide: '4.10.0'
-    ],
-    storage: [
-      room: '2.2.5'
     ],
     widget: [
       groupie: '2.7.1',
@@ -70,6 +68,11 @@ buildscript {
         extensions: "androidx.lifecycle:lifecycle-extensions:$versions.androidx.lifecycle",
         viewmodel: "androidx.lifecycle:lifecycle-viewmodel-ktx:$versions.androidx.lifecycle",
         livedata: "androidx.lifecycle:lifecycle-livedata-ktx:$versions.androidx.lifecycle"
+      ],
+      room: [
+        core: "androidx.room:room-runtime:$versions.androidx.room",
+        ktx: "androidx.room:room-ktx:$versions.androidx.room",
+        compiler: "androidx.room:room-compiler:$versions.androidx.room"
       ],
       navigation: [
         gradle: "androidx.navigation:navigation-safe-args-gradle-plugin:$versions.androidx.navigation",
@@ -107,13 +110,6 @@ buildscript {
       glide: [
         core: "com.github.bumptech.glide:glide:$versions.networking.glide",
         compiler: "com.github.bumptech.glide:compiler:$versions.networking.glide"
-      ]
-    ],
-    storage: [
-      room: [
-        core: "androidx.room:room-runtime:$versions.storage.room",
-        ktx: "androidx.room:room-ktx:$versions.storage.room",
-        compiler: "androidx.room:room-compiler:$versions.storage.room"
       ]
     ],
     widget: [
