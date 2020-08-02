@@ -60,26 +60,25 @@ class ArticleDetailFragment : DaggerFragment() {
         b.upvote.setOnClickListener { viewModel.onUpvote(article = article) }
         b.downvote.setOnClickListener { viewModel.onDownvote(article = article) }
         b.community.setOnClickListener { Unit }
-        when {
-          article.likes == null -> {
+        when (article.likes) {
+          null -> {
             b.upvote.setImageResource(R.drawable.ic_upvote_inactive)
             b.downvote.setImageResource(R.drawable.ic_downvote_inactive)
           }
-          article.likes == true -> {
+          true -> {
             b.upvote.setImageResource(R.drawable.ic_upvote_active)
             b.downvote.setImageResource(R.drawable.ic_downvote_inactive)
             b.voteCount.setTextColor(
               ContextCompat.getColor(requireContext(), R.color.upvpte)
             )
           }
-          article.likes == false -> {
+          false -> {
             b.upvote.setImageResource(R.drawable.ic_upvote_inactive)
             b.downvote.setImageResource(R.drawable.ic_downvote_active)
             b.voteCount.setTextColor(
               ContextCompat.getColor(requireContext(), R.color.downvote)
             )
           }
-          else -> Unit
         }
         b.commentCount.text = article.comments.toString()
         if (article.thumbnail == Uri.EMPTY) {
