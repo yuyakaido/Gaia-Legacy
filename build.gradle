@@ -44,7 +44,7 @@ buildscript {
     widget: [
       groupie: '2.7.1',
       divider: '1.4.0',
-      material: '1.1.0'
+      material: '1.2.0'
     ],
     debugging: [
       timber: '4.7.1',
