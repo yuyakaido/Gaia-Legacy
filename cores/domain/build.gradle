@@ -55,12 +55,6 @@ dependencies {
   kapt libs.dagger.android.compiler
 
   // Networking
-  api libs.networking.okhttp.core
-  api libs.networking.okhttp.logging
-  api libs.networking.retrofit.core
-  api libs.networking.retrofit.moshi
-  api libs.networking.moshi.core
-  api libs.networking.moshi.adapter
   api libs.networking.glide.core
   kapt libs.networking.glide.compiler
 
