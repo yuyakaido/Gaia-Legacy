@@ -30,6 +30,11 @@ dependencies {
   // Modules
   api project(':cores:domain')
 
+  // AndroidX
+  api libs.androidx.room.core
+  api libs.androidx.room.ktx
+  kapt libs.androidx.room.compiler
+
   // Dependency Injection
   kapt libs.dagger.java.compiler
   kapt libs.dagger.android.compiler
