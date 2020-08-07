@@ -4,6 +4,8 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
 import com.yuyakaido.android.gaia.core.domain.entity.Article
 import com.yuyakaido.android.gaia.core.domain.repository.ArticleRepositoryType
 import com.yuyakaido.android.gaia.core.domain.value.EntityPaginationItem
@@ -19,21 +21,30 @@ class ArticleListViewModel @Inject constructor(
 ) : AndroidViewModel(application) {
 
   private val source = MutableLiveData<ArticleListSource>(source)
-  val items = MutableLiveData<List<EntityPaginationItem<Article>>>()
 
+  // Without paging library
+  val itemsWithoutPaging = MutableLiveData<List<EntityPaginationItem<Article>>>()
   private var after: String? = null
   private var isLoading: Boolean = false
 
+  // With paging library
+  val itemsWithPaging = Pager(PagingConfig(10)) {
+    ArticlePagingSource(
+      source = source,
+      repository = repository
+    )
+  }.flow
+
   fun onBind() {
     Timber.d("repository = ${repository.hashCode()}")
-    if (items.value == null) {
+    if (itemsWithoutPaging.value == null) {
       onPaginate()
     }
   }
 
   fun onRefresh(source: ArticleListSource) {
     this.source.value = source
-    this.items.value = emptyList()
+    this.itemsWithoutPaging.value = emptyList()
     this.after = null
     onPaginate()
   }
@@ -46,9 +57,9 @@ class ArticleListViewModel @Inject constructor(
       viewModelScope.launch {
         isLoading = true
         val result = s.articles(repository = repository, after = after)
-        val oldItems = items.value ?: emptyList()
+        val oldItems = itemsWithoutPaging.value ?: emptyList()
         val newItems = oldItems.plus(result)
-        items.value = newItems
+        itemsWithoutPaging.value = newItems
         after = result.after
         isLoading = false
       }
@@ -71,7 +82,7 @@ class ArticleListViewModel @Inject constructor(
   }
 
   private fun refresh(target: VoteTarget) {
-    val newItems = items
+    val newItems = itemsWithoutPaging
       .value
       ?.map { item ->
         item.copy(
@@ -86,7 +97,7 @@ class ArticleListViewModel @Inject constructor(
             }
         )
       }
-    items.value = newItems
+    itemsWithoutPaging.value = newItems
   }
 
 }

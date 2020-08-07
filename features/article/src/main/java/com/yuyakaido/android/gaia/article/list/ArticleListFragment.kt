@@ -6,6 +6,7 @@ import android.os.Handler
 import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.map
 import androidx.lifecycle.observe
 import androidx.navigation.fragment.findNavController
@@ -23,6 +24,8 @@ import com.yuyakaido.android.gaia.core.domain.extension.dpTpPx
 import com.yuyakaido.android.gaia.core.presentation.ArticleItem
 import com.yuyakaido.android.gaia.core.presentation.ViewModelFactory
 import dagger.android.support.DaggerFragment
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -68,7 +71,8 @@ class ArticleListFragment : DaggerFragment() {
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
-    setupRecyclerView()
+//    setupRecyclerViewWithoutPaging()
+    setupRecyclerViewWithPaging()
     Timber.d("fragment = ${hashCode()}")
     Timber.d("viewmodel = ${viewModel.hashCode()}")
     viewModel.onBind()
@@ -84,7 +88,7 @@ class ArticleListFragment : DaggerFragment() {
     return super.onOptionsItemSelected(item)
   }
 
-  private fun setupRecyclerView() {
+  private fun setupRecyclerViewWithoutPaging() {
     val manager = LinearLayoutManager(requireContext())
     val adapter = GroupAdapter<GroupieViewHolder>()
     adapter.setOnItemClickListener { item, _ ->
@@ -96,24 +100,25 @@ class ArticleListFragment : DaggerFragment() {
       }
     }
 
-    binding.recyclerView.layoutManager = manager
-    binding.recyclerView.adapter = adapter
-    binding.recyclerView.addItemDecoration(
+    binding.recyclerViewWithoutPaging.layoutManager = manager
+    binding.recyclerViewWithoutPaging.adapter = adapter
+    binding.recyclerViewWithoutPaging.addItemDecoration(
       HorizontalDividerItemDecoration.Builder(requireContext())
         .color(Color.TRANSPARENT)
         .size(8.dpTpPx(requireContext()))
         .showLastDivider()
         .build()
     )
-    binding.recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-      override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-        val itemCount = manager.itemCount
-        val lastPosition = manager.findLastCompletelyVisibleItemPosition()
-        if (itemCount != 0 && lastPosition == itemCount - 1) {
-          viewModel.onPaginate()
+    binding.recyclerViewWithoutPaging
+      .addOnScrollListener(object : RecyclerView.OnScrollListener() {
+        override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+          val itemCount = manager.itemCount
+          val lastPosition = manager.findLastCompletelyVisibleItemPosition()
+          if (itemCount != 0 && lastPosition == itemCount - 1) {
+            viewModel.onPaginate()
+          }
         }
-      }
-    })
+      })
 
     val upvoteListener = { article: Article -> viewModel.onUpvote(article = article) }
     val downvoteListener = { article: Article -> viewModel.onDownvote(article = article) }
@@ -124,7 +129,7 @@ class ArticleListFragment : DaggerFragment() {
       )
     }
 
-    viewModel.items
+    viewModel.itemsWithoutPaging
       .map { items ->
         items.flatMap { item -> item.entities }
       }
@@ -138,6 +143,36 @@ class ArticleListFragment : DaggerFragment() {
           )
         })
       }
+  }
+
+  private fun setupRecyclerViewWithPaging() {
+    val manager = LinearLayoutManager(requireContext())
+    val adapter = PagingGroupAdapter()
+    adapter.setOnItemClickListener { item, _ ->
+      if (item is ArticleItem) {
+        appNavigator.navigateToArticleDetailActivity(
+          controller = findNavController(),
+          article = item.article
+        )
+      }
+    }
+
+    binding.recyclerViewWithPaging.layoutManager = manager
+    binding.recyclerViewWithPaging.adapter = adapter
+    binding.recyclerViewWithPaging.addItemDecoration(
+      HorizontalDividerItemDecoration.Builder(requireContext())
+        .color(Color.TRANSPARENT)
+        .size(8.dpTpPx(requireContext()))
+        .showLastDivider()
+        .build()
+    )
+
+    lifecycleScope.launch {
+      viewModel.itemsWithPaging
+        .collect {
+          adapter.submitData(it)
+        }
+    }
   }
 
   private fun refreshByPage(page: ArticleListPage) {
