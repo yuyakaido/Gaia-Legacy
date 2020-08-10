@@ -18,6 +18,8 @@ import com.xwray.groupie.GroupieViewHolder
 import com.yqritc.recyclerviewflexibledivider.HorizontalDividerItemDecoration
 import com.yuyakaido.android.gaia.article.R
 import com.yuyakaido.android.gaia.article.databinding.FragmentArticleListBinding
+import com.yuyakaido.android.gaia.core.AppAction
+import com.yuyakaido.android.gaia.core.AppStore
 import com.yuyakaido.android.gaia.core.domain.app.AppNavigatorType
 import com.yuyakaido.android.gaia.core.domain.entity.Article
 import com.yuyakaido.android.gaia.core.domain.extension.dpTpPx
@@ -25,6 +27,8 @@ import com.yuyakaido.android.gaia.core.presentation.ArticleItem
 import com.yuyakaido.android.gaia.core.presentation.ViewModelFactory
 import dagger.android.support.DaggerFragment
 import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import timber.log.Timber
 import javax.inject.Inject
@@ -39,6 +43,9 @@ class ArticleListFragment : DaggerFragment() {
         }
     }
   }
+
+  @Inject
+  internal lateinit var appStore: AppStore
 
   @Inject
   internal lateinit var appNavigator: AppNavigatorType
@@ -58,6 +65,10 @@ class ArticleListFragment : DaggerFragment() {
     if (parent is OptionMenuType) {
       Handler().post { setHasOptionsMenu(parent.shouldShowOptionMenu()) }
     }
+    appStore.flow()
+      .onEach { Timber.d(it.toString()) }
+      .launchIn(lifecycleScope)
+    (0..999).forEach { _ -> appStore.dispatch(AppAction.IncrementCount) }
   }
 
   override fun onCreateView(
