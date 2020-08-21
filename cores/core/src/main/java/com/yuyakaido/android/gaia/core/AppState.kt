@@ -1,5 +1,15 @@
 package com.yuyakaido.android.gaia.core
 
+import com.yuyakaido.android.gaia.core.domain.entity.Community
+
 data class AppState(
-  val count: Int = 0
-)
+  val community: CommunityState = CommunityState.Initial
+) {
+
+  sealed class CommunityState {
+    object Initial : CommunityState()
+    object Loading : CommunityState()
+    data class Ideal(val communities: List<Community.Detail>) : CommunityState()
+  }
+
+}

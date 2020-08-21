@@ -19,8 +19,12 @@ import com.yuyakaido.android.gaia.core.domain.entity.Community
 import com.yuyakaido.android.gaia.core.domain.extension.dpTpPx
 import com.yuyakaido.android.gaia.core.presentation.ViewModelFactory
 import dagger.android.support.DaggerFragment
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.FlowPreview
 import javax.inject.Inject
 
+@FlowPreview
+@ExperimentalCoroutinesApi
 class CommunityListFragment : DaggerFragment() {
 
   companion object {
@@ -74,10 +78,11 @@ class CommunityListFragment : DaggerFragment() {
       )
     }
 
-    listViewModel.communities
-      .observe(viewLifecycleOwner) { communities ->
+    listViewModel.state
+      .observe(viewLifecycleOwner) { state ->
+        binding.progressBar.visibility = state.progressVisibility
         adapter.updateAsync(
-          communities.map { community ->
+          state.communities.map { community ->
             CommunityItem(
               community = community,
               listener = listener
