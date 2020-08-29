@@ -10,17 +10,14 @@ import androidx.lifecycle.observe
 import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
-import com.yuyakaido.android.gaia.core.domain.app.AppNavigatorType
 import com.yuyakaido.android.gaia.core.domain.entity.User
 import com.yuyakaido.android.gaia.core.domain.extension.dpTpPx
-import com.yuyakaido.android.gaia.core.presentation.ViewModelFactory
+import com.yuyakaido.android.gaia.core.presentation.BaseFragment
 import com.yuyakaido.android.gaia.user.R
 import com.yuyakaido.android.gaia.user.databinding.FragmentUserDetailBinding
-import dagger.android.support.DaggerFragment
 import timber.log.Timber
-import javax.inject.Inject
 
-class UserDetailFragment : DaggerFragment() {
+class UserDetailFragment : BaseFragment<UserDetailViewModel>() {
 
   companion object {
     fun newInstance(args: UserDetailFragmentArgs): Fragment {
@@ -31,15 +28,8 @@ class UserDetailFragment : DaggerFragment() {
     }
   }
 
-  @Inject
-  internal lateinit var appNavigator: AppNavigatorType
-
-  @Inject
-  internal lateinit var factory: ViewModelFactory<UserDetailViewModel>
-
+  override val viewModel: UserDetailViewModel by viewModels { factory }
   internal val args: UserDetailFragmentArgs by navArgs()
-
-  private val viewModel: UserDetailViewModel by viewModels { factory }
 
   private lateinit var binding: FragmentUserDetailBinding
 
@@ -57,7 +47,6 @@ class UserDetailFragment : DaggerFragment() {
     setupProfile()
     Timber.d("fragment = ${hashCode()}")
     Timber.d("viewmodel = ${viewModel.hashCode()}")
-    viewModel.onBind()
   }
 
   private fun setupProfile() {
