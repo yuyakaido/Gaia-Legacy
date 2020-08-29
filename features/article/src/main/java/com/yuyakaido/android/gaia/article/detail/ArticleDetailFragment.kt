@@ -14,23 +14,12 @@ import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
 import com.yuyakaido.android.gaia.article.R
 import com.yuyakaido.android.gaia.article.databinding.FragmentArticleDetailBinding
-import com.yuyakaido.android.gaia.core.domain.app.AppNavigatorType
-import com.yuyakaido.android.gaia.core.presentation.ViewModelFactory
-import dagger.android.support.DaggerFragment
-import javax.inject.Inject
+import com.yuyakaido.android.gaia.core.presentation.BaseFragment
 
-class ArticleDetailFragment : DaggerFragment() {
+class ArticleDetailFragment : BaseFragment<ArticleDetailViewModel>() {
 
-  @Inject
-  internal lateinit var appNavigator: AppNavigatorType
-
-  @Inject
-  internal lateinit var factory: ViewModelFactory<ArticleDetailViewModel>
-
+  override val viewModel: ArticleDetailViewModel by viewModels { factory }
   internal val args: ArticleDetailFragmentArgs by navArgs()
-
-  private val viewModel: ArticleDetailViewModel by viewModels { factory }
-
   private lateinit var binding: FragmentArticleDetailBinding
 
   override fun onCreateView(

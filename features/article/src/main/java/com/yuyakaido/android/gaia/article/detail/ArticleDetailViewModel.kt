@@ -1,12 +1,12 @@
 package com.yuyakaido.android.gaia.article.detail
 
 import android.app.Application
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.yuyakaido.android.gaia.core.domain.entity.Article
 import com.yuyakaido.android.gaia.core.domain.repository.ArticleRepositoryType
 import com.yuyakaido.android.gaia.core.domain.value.VoteTarget
+import com.yuyakaido.android.gaia.core.presentation.BaseViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -14,7 +14,7 @@ class ArticleDetailViewModel @Inject constructor(
   application: Application,
   article: Article,
   private val repository: ArticleRepositoryType
-) : AndroidViewModel(application) {
+) : BaseViewModel(application) {
 
   val article = MutableLiveData<Article>(article)
 
