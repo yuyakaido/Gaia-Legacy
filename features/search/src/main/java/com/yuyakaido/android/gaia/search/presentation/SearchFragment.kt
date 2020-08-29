@@ -12,12 +12,10 @@ import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
 import com.yuyakaido.android.gaia.core.domain.entity.Article
 import com.yuyakaido.android.gaia.core.presentation.ArticleItem
-import com.yuyakaido.android.gaia.core.presentation.ViewModelFactory
+import com.yuyakaido.android.gaia.core.presentation.BaseFragment
 import com.yuyakaido.android.gaia.search.databinding.FragmentSearchBinding
-import dagger.android.support.DaggerFragment
-import javax.inject.Inject
 
-class SearchFragment : DaggerFragment() {
+class SearchFragment : BaseFragment<SearchViewModel>() {
 
   companion object {
     fun newInstance(): SearchFragment {
@@ -25,10 +23,7 @@ class SearchFragment : DaggerFragment() {
     }
   }
 
-  @Inject
-  internal lateinit var factory: ViewModelFactory<SearchViewModel>
-
-  private val viewModel: SearchViewModel by viewModels { factory }
+  override val viewModel: SearchViewModel by viewModels { factory }
 
   private lateinit var binding: FragmentSearchBinding
 
@@ -47,7 +42,6 @@ class SearchFragment : DaggerFragment() {
     setupTrendingRecyclerView()
     setupHistoryRecyclerView()
     setupSearchedRecyclerView()
-    viewModel.onBind()
   }
 
   override fun onResume() {
