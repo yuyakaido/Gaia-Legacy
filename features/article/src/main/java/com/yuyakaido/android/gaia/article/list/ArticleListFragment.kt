@@ -18,18 +18,15 @@ import com.xwray.groupie.GroupieViewHolder
 import com.yqritc.recyclerviewflexibledivider.HorizontalDividerItemDecoration
 import com.yuyakaido.android.gaia.article.R
 import com.yuyakaido.android.gaia.article.databinding.FragmentArticleListBinding
-import com.yuyakaido.android.gaia.core.domain.app.AppNavigatorType
 import com.yuyakaido.android.gaia.core.domain.entity.Article
 import com.yuyakaido.android.gaia.core.domain.extension.dpTpPx
 import com.yuyakaido.android.gaia.core.presentation.ArticleItem
-import com.yuyakaido.android.gaia.core.presentation.ViewModelFactory
-import dagger.android.support.DaggerFragment
+import com.yuyakaido.android.gaia.core.presentation.BaseFragment
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import timber.log.Timber
-import javax.inject.Inject
 
-class ArticleListFragment : DaggerFragment() {
+class ArticleListFragment : BaseFragment<ArticleListViewModel>() {
 
   companion object {
     fun newInstance(args: ArticleListFragmentArgs): Fragment {
@@ -40,16 +37,8 @@ class ArticleListFragment : DaggerFragment() {
     }
   }
 
-  @Inject
-  internal lateinit var appNavigator: AppNavigatorType
-
-  @Inject
-  internal lateinit var factory: ViewModelFactory<ArticleListViewModel>
-
+  override val viewModel: ArticleListViewModel by viewModels { factory }
   internal val args: ArticleListFragmentArgs by navArgs()
-
-  private val viewModel: ArticleListViewModel by viewModels { factory }
-
   private lateinit var binding: FragmentArticleListBinding
 
   override fun onCreate(savedInstanceState: Bundle?) {
@@ -75,7 +64,6 @@ class ArticleListFragment : DaggerFragment() {
     setupRecyclerViewWithPaging()
     Timber.d("fragment = ${hashCode()}")
     Timber.d("viewmodel = ${viewModel.hashCode()}")
-    viewModel.onBind()
   }
 
   override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {

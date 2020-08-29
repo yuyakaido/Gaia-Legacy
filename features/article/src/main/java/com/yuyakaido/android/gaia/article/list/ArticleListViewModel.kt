@@ -1,7 +1,7 @@
 package com.yuyakaido.android.gaia.article.list
 
 import android.app.Application
-import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import androidx.paging.Pager
@@ -10,6 +10,7 @@ import com.yuyakaido.android.gaia.core.domain.entity.Article
 import com.yuyakaido.android.gaia.core.domain.repository.ArticleRepositoryType
 import com.yuyakaido.android.gaia.core.domain.value.EntityPaginationItem
 import com.yuyakaido.android.gaia.core.domain.value.VoteTarget
+import com.yuyakaido.android.gaia.core.presentation.BaseViewModel
 import kotlinx.coroutines.launch
 import timber.log.Timber
 import javax.inject.Inject
@@ -18,7 +19,7 @@ class ArticleListViewModel @Inject constructor(
   application: Application,
   source: ArticleListSource,
   private val repository: ArticleRepositoryType
-) : AndroidViewModel(application) {
+) : BaseViewModel(application), LifecycleObserver {
 
   private val source = MutableLiveData<ArticleListSource>(source)
 
@@ -35,7 +36,8 @@ class ArticleListViewModel @Inject constructor(
     )
   }.flow
 
-  fun onBind() {
+  override fun onCreate() {
+    super.onCreate()
     Timber.d("repository = ${repository.hashCode()}")
     if (itemsWithoutPaging.value == null) {
       onPaginate()
