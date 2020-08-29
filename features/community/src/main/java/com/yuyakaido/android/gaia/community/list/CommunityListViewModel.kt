@@ -2,7 +2,6 @@ package com.yuyakaido.android.gaia.community.list
 
 import android.app.Application
 import android.view.View
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.map
 import androidx.lifecycle.viewModelScope
@@ -11,6 +10,7 @@ import com.yuyakaido.android.gaia.core.AppState
 import com.yuyakaido.android.gaia.core.AppStore
 import com.yuyakaido.android.gaia.core.domain.entity.Community
 import com.yuyakaido.android.gaia.core.domain.repository.CommunityRepositoryType
+import com.yuyakaido.android.gaia.core.presentation.BaseViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.launch
@@ -22,7 +22,7 @@ class CommunityListViewModel @Inject constructor(
   application: Application,
   private val appStore: AppStore,
   private val repository: CommunityRepositoryType
-) : AndroidViewModel(application) {
+) : BaseViewModel(application) {
 
   sealed class State {
     abstract val progressVisibility: Int
@@ -58,7 +58,8 @@ class CommunityListViewModel @Inject constructor(
     .asLiveData()
     .map { state -> State.from(state) }
 
-  fun onBind() {
+  override fun onCreate() {
+    super.onCreate()
     viewModelScope.launch {
       appStore.dispatch(AppAction.CommunityAction.ToLoading)
       val item = repository.mine()
