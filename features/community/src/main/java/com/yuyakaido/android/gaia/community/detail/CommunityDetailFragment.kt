@@ -10,24 +10,14 @@ import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
 import com.yuyakaido.android.gaia.community.R
 import com.yuyakaido.android.gaia.community.databinding.FragmentCommunityDetailBinding
-import com.yuyakaido.android.gaia.core.domain.app.AppNavigatorType
-import com.yuyakaido.android.gaia.core.presentation.ViewModelFactory
-import dagger.android.support.DaggerFragment
-import javax.inject.Inject
+import com.yuyakaido.android.gaia.core.presentation.BaseFragment
 
-class CommunityDetailFragment : DaggerFragment() {
+class CommunityDetailFragment : BaseFragment<CommunityDetailViewModel>() {
 
-  @Inject
-  internal lateinit var appNavigator: AppNavigatorType
-
-  @Inject
-  internal lateinit var factory: ViewModelFactory<CommunityDetailViewModel>
-
+  override val viewModel: CommunityDetailViewModel by viewModels { factory }
   internal val args: CommunityDetailFragmentArgs by navArgs()
 
   private lateinit var binding: FragmentCommunityDetailBinding
-
-  private val viewModel: CommunityDetailViewModel by viewModels { factory }
 
   override fun onCreateView(
     inflater: LayoutInflater,
@@ -42,7 +32,6 @@ class CommunityDetailFragment : DaggerFragment() {
     super.onViewCreated(view, savedInstanceState)
     setupDetail()
     setupViewPager()
-    viewModel.onBind()
   }
 
   private fun setupDetail() {
