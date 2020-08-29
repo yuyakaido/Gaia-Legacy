@@ -18,11 +18,9 @@ import com.yuyakaido.android.gaia.core.domain.entity.Article
 import com.yuyakaido.android.gaia.core.domain.entity.Comment
 import com.yuyakaido.android.gaia.core.domain.entity.User
 import com.yuyakaido.android.gaia.core.domain.extension.dpTpPx
-import com.yuyakaido.android.gaia.core.presentation.ViewModelFactory
-import dagger.android.support.DaggerFragment
-import javax.inject.Inject
+import com.yuyakaido.android.gaia.core.presentation.BaseFragment
 
-class CommentListFragment : DaggerFragment() {
+class CommentListFragment : BaseFragment<CommentListViewModel>() {
 
   companion object {
     private val SOURCE = CommentListSource::class.java.simpleName
@@ -46,11 +44,7 @@ class CommentListFragment : DaggerFragment() {
     }
   }
 
-  @Inject
-  internal lateinit var factory: ViewModelFactory<CommentListViewModel>
-
-  private val viewModel: CommentListViewModel by viewModels { factory }
-
+  override val viewModel: CommentListViewModel by viewModels { factory }
   private lateinit var binding: FragmentCommentListBinding
 
   internal fun getCommentListSource(): CommentListSource {
@@ -69,7 +63,6 @@ class CommentListFragment : DaggerFragment() {
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
     setupRecyclerView()
-    viewModel.onBind()
   }
 
   private fun setupRecyclerView() {
