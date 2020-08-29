@@ -46,6 +46,7 @@ class CommunityListFragment : BaseFragment<CommunityListViewModel>() {
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
     setupRecyclerView()
+    setupRetryButton()
   }
 
   private fun setupRecyclerView() {
@@ -71,6 +72,7 @@ class CommunityListFragment : BaseFragment<CommunityListViewModel>() {
     viewModel.state
       .observe(viewLifecycleOwner) { state ->
         binding.progressBar.visibility = state.progressVisibility
+        binding.retryButton.visibility = state.retryVisibility
         adapter.updateAsync(
           state.communities.map { community ->
             CommunityItem(
@@ -80,6 +82,12 @@ class CommunityListFragment : BaseFragment<CommunityListViewModel>() {
           }
         )
       }
+  }
+
+  private fun setupRetryButton() {
+    binding.retryButton.setOnClickListener {
+      viewModel.onRetry()
+    }
   }
 
 }

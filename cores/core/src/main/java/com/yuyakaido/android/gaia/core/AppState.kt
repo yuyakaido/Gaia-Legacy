@@ -9,6 +9,7 @@ data class AppState(
   sealed class CommunityState {
     object Initial : CommunityState()
     object Loading : CommunityState()
+    object Error : CommunityState()
     data class Ideal(val communities: List<Community.Detail>) : CommunityState()
   }
 

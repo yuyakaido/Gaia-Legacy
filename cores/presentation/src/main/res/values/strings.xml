@@ -9,6 +9,9 @@
   <string name="app_community">Community</string>
   <string name="app_profile">Profile</string>
 
+  <!-- Common -->
+  <string name="common_retry">Retry</string>
+
   <!-- Search -->
   <string name="search_hint">Search</string>
 

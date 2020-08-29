@@ -15,6 +15,9 @@ object CommunityReducer {
           communities = action.communities
         )
       }
+      is AppAction.CommunityAction.ToError -> {
+        AppState.CommunityState.Error
+      }
     }
   }
 

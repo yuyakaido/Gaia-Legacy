@@ -1,11 +1,11 @@
 package com.yuyakaido.android.gaia.core
 
-import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.FlowPreview
+import kotlinx.coroutines.*
 import kotlinx.coroutines.channels.ConflatedBroadcastChannel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.asFlow
 import kotlinx.coroutines.flow.map
+import timber.log.Timber
 import javax.inject.Inject
 
 @FlowPreview
@@ -22,6 +22,21 @@ class AppStore @Inject constructor() {
     val currentState = channel.value
     val nextState = AppReducer.reduce(action, currentState)
     channel.offer(nextState)
+  }
+
+  fun execute(
+    scope: CoroutineScope,
+    action: suspend (store: AppStore) -> Unit,
+    error: (store: AppStore, t: Throwable) -> Unit = { _, _ -> Unit }
+  ): Job {
+    return scope.launch {
+      try {
+        action.invoke(this@AppStore)
+      } catch (e: Exception) {
+        Timber.e(e)
+        error.invoke(this@AppStore, e)
+      }
+    }
   }
 
   fun communityAsFlow(): Flow<AppState.CommunityState> {

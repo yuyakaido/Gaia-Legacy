@@ -6,5 +6,6 @@ sealed class AppAction {
   sealed class CommunityAction : AppAction() {
     object ToLoading : CommunityAction()
     data class ToIdeal(val communities: List<Community.Detail>) : CommunityAction()
+    object ToError : CommunityAction()
   }
 }
