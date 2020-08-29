@@ -12,13 +12,10 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
-import com.yuyakaido.android.gaia.core.domain.app.AppNavigatorType
-import com.yuyakaido.android.gaia.core.presentation.ViewModelFactory
+import com.yuyakaido.android.gaia.core.presentation.BaseFragment
 import com.yuyakaido.android.gaia.user.databinding.FragmentUserListBinding
-import dagger.android.support.DaggerFragment
-import javax.inject.Inject
 
-class UserListFragment : DaggerFragment() {
+class UserListFragment : BaseFragment<UserListViewModel>() {
 
   companion object {
     private val SOURCE = UserListSource::class.java.simpleName
@@ -29,14 +26,7 @@ class UserListFragment : DaggerFragment() {
     }
   }
 
-  @Inject
-  internal lateinit var appNavigator: AppNavigatorType
-
-  @Inject
-  internal lateinit var factory: ViewModelFactory<UserListViewModel>
-
-  private val viewModel: UserListViewModel by viewModels { factory }
-
+  override val viewModel: UserListViewModel by viewModels { factory }
   private lateinit var binding: FragmentUserListBinding
 
   internal fun getUserListSource(): UserListSource {
@@ -55,7 +45,6 @@ class UserListFragment : DaggerFragment() {
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
     setupRecyclerView()
-    viewModel.onBind()
   }
 
   private fun setupRecyclerView() {
