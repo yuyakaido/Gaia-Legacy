@@ -2,10 +2,10 @@ package com.yuyakaido.android.gaia.core.presentation
 
 import android.os.Bundle
 import com.yuyakaido.android.gaia.core.domain.app.AppNavigatorType
-import dagger.android.support.DaggerFragment
+import dagger.android.support.DaggerAppCompatActivity
 import javax.inject.Inject
 
-abstract class BaseFragment<VM : BaseViewModel> : DaggerFragment(), BaseViewType<VM> {
+abstract class BaseActivity<VM : BaseViewModel> : DaggerAppCompatActivity(), BaseViewType<VM> {
 
   @Inject
   override lateinit var appNavigator: AppNavigatorType

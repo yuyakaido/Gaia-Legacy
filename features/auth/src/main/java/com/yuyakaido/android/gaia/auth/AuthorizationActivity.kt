@@ -6,28 +6,18 @@ import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.lifecycle.observe
 import com.yuyakaido.android.gaia.auth.databinding.ActivityAuthorizationBinding
-import com.yuyakaido.android.gaia.core.domain.app.AppNavigatorType
 import com.yuyakaido.android.gaia.core.domain.app.Constant
-import com.yuyakaido.android.gaia.core.presentation.ViewModelFactory
-import dagger.android.support.DaggerAppCompatActivity
-import javax.inject.Inject
+import com.yuyakaido.android.gaia.core.presentation.BaseActivity
 
-class AuthorizationActivity : DaggerAppCompatActivity() {
+class AuthorizationActivity : BaseActivity<AuthorizationViewModel>() {
 
-  @Inject
-  internal lateinit var appNavigator: AppNavigatorType
-
-  @Inject
-  internal lateinit var factory: ViewModelFactory<AuthorizationViewModel>
-
-  private val viewModel: AuthorizationViewModel by viewModels { factory }
+  override val viewModel: AuthorizationViewModel by viewModels { factory }
   private val binding by lazy { ActivityAuthorizationBinding.inflate(layoutInflater) }
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     setContentView(binding.root)
     setupNavigation()
-    viewModel.onBind(intent)
   }
 
   private fun setupNavigation() {

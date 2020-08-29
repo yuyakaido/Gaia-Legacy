@@ -2,22 +2,24 @@ package com.yuyakaido.android.gaia.auth
 
 import android.app.Application
 import android.content.Intent
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import com.yuyakaido.android.gaia.core.domain.repository.TokenRepositoryType
+import com.yuyakaido.android.gaia.core.presentation.BaseViewModel
 import com.yuyakaido.android.gaia.core.presentation.LiveEvent
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class AuthorizationViewModel @Inject constructor(
   application: Application,
+  private val intent: Intent,
   private val repository: TokenRepositoryType
-) : AndroidViewModel(application) {
+) : BaseViewModel(application) {
 
   val navigateToHome = LiveEvent<Unit>()
   val navigateToAuth = LiveEvent<Unit>()
 
-  fun onBind(intent: Intent) {
+  override fun onCreate() {
+    super.onCreate()
     viewModelScope.launch {
       val token = repository.get()
       when {
