@@ -1,7 +1,6 @@
 package com.yuyakaido.android.gaia.article.list
 
 import android.app.Application
-import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import androidx.paging.Pager
@@ -19,7 +18,7 @@ class ArticleListViewModel @Inject constructor(
   application: Application,
   source: ArticleListSource,
   private val repository: ArticleRepositoryType
-) : BaseViewModel(application), LifecycleObserver {
+) : BaseViewModel(application) {
 
   private val source = MutableLiveData<ArticleListSource>(source)
 
