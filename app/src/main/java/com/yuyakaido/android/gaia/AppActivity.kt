@@ -3,6 +3,7 @@ package com.yuyakaido.android.gaia
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import androidx.activity.viewModels
 import androidx.navigation.NavArgumentBuilder
 import androidx.navigation.NavController
 import androidx.navigation.NavType
@@ -11,11 +12,11 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.yuyakaido.android.gaia.article.list.ArticleListSource
+import com.yuyakaido.android.gaia.core.presentation.BaseActivity
 import com.yuyakaido.android.gaia.databinding.ActivityAppBinding
 import com.yuyakaido.android.gaia.user.presentation.detail.UserDetailSource
-import dagger.android.support.DaggerAppCompatActivity
 
-class AppActivity : DaggerAppCompatActivity() {
+class AppActivity : BaseActivity<AppViewModel>() {
 
   companion object {
     fun createIntent(context: Context): Intent {
@@ -27,6 +28,7 @@ class AppActivity : DaggerAppCompatActivity() {
     }
   }
 
+  override val viewModel: AppViewModel by viewModels { factory }
   private val binding by lazy { ActivityAppBinding.inflate(layoutInflater) }
 
   override fun onCreate(savedInstanceState: Bundle?) {
