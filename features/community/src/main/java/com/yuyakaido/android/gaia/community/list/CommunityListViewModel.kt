@@ -77,7 +77,7 @@ class CommunityListViewModel @Inject constructor(
   }
 
   private fun refresh() {
-    appStore.execute(
+    appStore.dispatch(
       scope = viewModelScope,
       action = { store ->
         store.dispatch(AppAction.CommunityAction.ToLoading)

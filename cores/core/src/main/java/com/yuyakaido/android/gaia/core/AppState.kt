@@ -4,9 +4,9 @@ import com.yuyakaido.android.gaia.core.domain.entity.Community
 
 data class AppState(
   val community: CommunityState = CommunityState.Initial
-) {
+) : StateType {
 
-  sealed class CommunityState {
+  sealed class CommunityState : StateType {
     object Initial : CommunityState()
     object Loading : CommunityState()
     object Error : CommunityState()

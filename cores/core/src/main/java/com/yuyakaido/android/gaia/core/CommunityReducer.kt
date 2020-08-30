@@ -1,10 +1,10 @@
 package com.yuyakaido.android.gaia.core
 
-object CommunityReducer {
+object CommunityReducer : ReducerType<AppState.CommunityState, AppAction.CommunityAction> {
 
-  fun reduce(
-    action: AppAction.CommunityAction,
-    state: AppState.CommunityState
+  override fun reduce(
+    state: AppState.CommunityState,
+    action: AppAction.CommunityAction
   ): AppState.CommunityState {
     return when (action) {
       is AppAction.CommunityAction.ToLoading -> {
