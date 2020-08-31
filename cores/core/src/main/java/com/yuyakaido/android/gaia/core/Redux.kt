@@ -24,32 +24,32 @@ interface DispatcherType {
   fun dispatch(action: ActionType)
 }
 
-abstract class Middleware<S : StateType, A : ActionType>(
+abstract class Middleware(
   dispatcher: DispatcherType
 ) {
-  open suspend fun before(state: S, action: A) = Unit
-  open suspend fun after(state: S, action: A) = Unit
+  open suspend fun before(state: StateType, action: ActionType) = Unit
+  open suspend fun after(state: StateType, action: ActionType) = Unit
 }
 
 @FlowPreview
 @ExperimentalCoroutinesApi
-class LoggerMiddleware<S : StateType, A : ActionType>(
-  private val dispatcher: DispatcherType
-) : Middleware<S, A>(dispatcher) {
-  override suspend fun before(state: S, action: A) {
+class LoggerMiddleware(
+  dispatcher: DispatcherType
+) : Middleware(dispatcher) {
+  override suspend fun before(state: StateType, action: ActionType) {
     Timber.v("Before: action = $action")
   }
-  override suspend fun after(state: S, action: A) {
+  override suspend fun after(state: StateType, action: ActionType) {
     Timber.v("After: action = $action")
   }
 }
 
 @FlowPreview
 @ExperimentalCoroutinesApi
-class ThunkMiddleware<S : StateType, A : ActionType>(
+class ThunkMiddleware(
   private val dispatcher: DispatcherType
-) : Middleware<S, A>(dispatcher) {
-  override suspend fun before(state: S, action: A) {
+) : Middleware(dispatcher) {
+  override suspend fun before(state: StateType, action: ActionType) {
     if (action is AsyncActionType) {
       action.execute(dispatcher)
     }
@@ -66,8 +66,8 @@ abstract class StoreType<S : StateType, A : ActionType, R : ReducerType<S, A>>(
   private val state = ConflatedBroadcastChannel(initialState)
   private val middlewares by lazy {
     listOf(
-      LoggerMiddleware<S, A>(this),
-      ThunkMiddleware<S, A>(this)
+      LoggerMiddleware(this),
+      ThunkMiddleware(this)
     )
   }
 
