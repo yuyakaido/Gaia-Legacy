@@ -83,7 +83,7 @@ abstract class StoreType<S : StateType, A : ActionType, R : ReducerType<S, A>>(
 
   fun dispatch(
     scope: CoroutineScope,
-    action: AsyncActionType
+    action: ActionType
   ): Job {
     return scope.launch {
       middlewares.forEach { middleware ->
