@@ -71,14 +71,14 @@ abstract class StoreType<S : StateType, A : ActionType, R : ReducerType<S, A>>(
     )
   }
 
-  private fun update(action: A) {
+  private fun update(action: ActionType) {
     val currentState = stateAsValue()
-    val nextState = reducer.reduce(currentState, action)
+    val nextState = reducer.reduce(currentState, action as A)
     state.offer(nextState)
   }
 
   override fun dispatch(action: ActionType) {
-    update(action as A)
+    update(action)
   }
 
   fun dispatch(
