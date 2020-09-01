@@ -78,7 +78,10 @@ class CommunityListViewModel @Inject constructor(
     appStore.dispatch(
       scope = viewModelScope,
       action = object : AsyncActionType<AppState> {
-        override suspend fun execute(dispatcher: DispatcherType<AppState>): ActionType<AppState> {
+        override suspend fun execute(
+          selector: SelectorType<AppState>,
+          dispatcher: DispatcherType<AppState>
+        ): ActionType<AppState> {
           dispatcher.dispatch(AppAction.CommunityAction.ToLoading)
           val item = repository.mine()
           return AppAction.CommunityAction.ToIdeal(communities = item.entities)

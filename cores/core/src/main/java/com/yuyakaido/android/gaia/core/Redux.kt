@@ -16,7 +16,11 @@ interface ActionType<S : StateType> {
 @ExperimentalCoroutinesApi
 interface AsyncActionType<S : StateType> : ActionType<S> {
   override fun reduce(state: S): S = state
-  suspend fun execute(dispatcher: DispatcherType<S>): ActionType<S>
+  suspend fun execute(selector: SelectorType<S>, dispatcher: DispatcherType<S>): ActionType<S>
+}
+
+interface SelectorType<S : StateType> {
+  fun select(): S
 }
 
 interface DispatcherType<S : StateType> {
@@ -48,11 +52,12 @@ class LoggerMiddleware<S : StateType>(
 @FlowPreview
 @ExperimentalCoroutinesApi
 class ThunkMiddleware<S : StateType>(
+  private val selector: SelectorType<S>,
   private val dispatcher: DispatcherType<S>
 ) : Middleware<S>(dispatcher) {
   override suspend fun before(state: StateType, action: ActionType<S>): ActionType<S> {
     if (action is AsyncActionType) {
-      return action.execute(dispatcher)
+      return action.execute(selector, dispatcher)
     }
     return action
   }
@@ -61,14 +66,14 @@ class ThunkMiddleware<S : StateType>(
 @FlowPreview
 @ExperimentalCoroutinesApi
 abstract class StoreType<S : StateType, A : ActionType<S>>(
-  private val initialState: S
-) : DispatcherType<S> {
+  initialState: S
+) : SelectorType<S>, DispatcherType<S> {
 
   private val state = ConflatedBroadcastChannel(initialState)
   private val middlewares by lazy {
     listOf(
-      LoggerMiddleware(this),
-      ThunkMiddleware(this)
+      LoggerMiddleware(dispatcher = this),
+      ThunkMiddleware(selector = this, dispatcher = this)
     )
   }
 
@@ -76,6 +81,10 @@ abstract class StoreType<S : StateType, A : ActionType<S>>(
     val currentState = stateAsValue()
     val nextState = action.reduce(currentState)
     state.offer(nextState)
+  }
+
+  override fun select(): S {
+    return stateAsValue()
   }
 
   override fun dispatch(action: ActionType<S>) {
