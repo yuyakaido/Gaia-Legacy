@@ -7,7 +7,6 @@ import androidx.lifecycle.map
 import androidx.lifecycle.viewModelScope
 import com.yuyakaido.android.gaia.core.*
 import com.yuyakaido.android.gaia.core.domain.entity.Community
-import com.yuyakaido.android.gaia.core.domain.repository.CommunityRepositoryType
 import com.yuyakaido.android.gaia.core.presentation.BaseViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
@@ -18,7 +17,7 @@ import javax.inject.Inject
 class CommunityListViewModel @Inject constructor(
   application: Application,
   private val appStore: AppStore,
-  private val repository: CommunityRepositoryType
+  private val actionCreator: CommunityListActionCreator
 ) : BaseViewModel(application) {
 
   sealed class State {
@@ -77,16 +76,7 @@ class CommunityListViewModel @Inject constructor(
   private fun refresh() {
     appStore.dispatch(
       scope = viewModelScope,
-      action = object : AsyncActionType<AppState> {
-        override suspend fun execute(
-          selector: SelectorType<AppState>,
-          dispatcher: DispatcherType<AppState>
-        ): ActionType<AppState> {
-          dispatcher.dispatch(AppAction.CommunityAction.ToLoading)
-          val item = repository.mine()
-          return AppAction.CommunityAction.ToIdeal(communities = item.entities)
-        }
-      }
+      action = actionCreator.refresh()
     )
   }
 
