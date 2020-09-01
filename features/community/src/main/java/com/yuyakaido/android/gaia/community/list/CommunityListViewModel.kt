@@ -78,10 +78,10 @@ class CommunityListViewModel @Inject constructor(
     appStore.dispatch(
       scope = viewModelScope,
       action = object : AsyncActionType {
-        override suspend fun execute(dispatcher: DispatcherType) {
+        override suspend fun execute(dispatcher: DispatcherType): ActionType {
           dispatcher.dispatch(AppAction.CommunityAction.ToLoading)
           val item = repository.mine()
-          dispatcher.dispatch(AppAction.CommunityAction.ToIdeal(communities = item.entities))
+          return AppAction.CommunityAction.ToIdeal(communities = item.entities)
         }
       }
 

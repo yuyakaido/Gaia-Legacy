@@ -13,7 +13,7 @@ interface ActionType
 @FlowPreview
 @ExperimentalCoroutinesApi
 interface AsyncActionType : ActionType {
-  suspend fun execute(dispatcher: DispatcherType)
+  suspend fun execute(dispatcher: DispatcherType): ActionType
 }
 
 interface ReducerType<S : StateType, A : ActionType> {
@@ -27,8 +27,8 @@ interface DispatcherType {
 abstract class Middleware(
   dispatcher: DispatcherType
 ) {
-  open suspend fun before(state: StateType, action: ActionType) = Unit
-  open suspend fun after(state: StateType, action: ActionType) = Unit
+  open suspend fun before(state: StateType, action: ActionType): ActionType = action
+  open suspend fun after(state: StateType, action: ActionType): ActionType = action
 }
 
 @FlowPreview
@@ -36,11 +36,13 @@ abstract class Middleware(
 class LoggerMiddleware(
   dispatcher: DispatcherType
 ) : Middleware(dispatcher) {
-  override suspend fun before(state: StateType, action: ActionType) {
+  override suspend fun before(state: StateType, action: ActionType): ActionType {
     Timber.v("Before: action = $action")
+    return action
   }
-  override suspend fun after(state: StateType, action: ActionType) {
+  override suspend fun after(state: StateType, action: ActionType): ActionType {
     Timber.v("After: action = $action")
+    return action
   }
 }
 
@@ -49,10 +51,11 @@ class LoggerMiddleware(
 class ThunkMiddleware(
   private val dispatcher: DispatcherType
 ) : Middleware(dispatcher) {
-  override suspend fun before(state: StateType, action: ActionType) {
+  override suspend fun before(state: StateType, action: ActionType): ActionType {
     if (action is AsyncActionType) {
-      action.execute(dispatcher)
+      return action.execute(dispatcher)
     }
+    return action
   }
 }
 
@@ -86,12 +89,13 @@ abstract class StoreType<S : StateType, A : ActionType, R : ReducerType<S, A>>(
     action: ActionType
   ): Job {
     return scope.launch {
-      middlewares.forEach { middleware ->
-        middleware.before(
+      val actualAction = middlewares.fold(action) { action, middleware ->
+        return@fold middleware.before(
           state = stateAsValue(),
           action = action as A
         )
       }
+      update(actualAction)
       middlewares.forEach { middleware ->
         middleware.after(
           state = stateAsValue(),
