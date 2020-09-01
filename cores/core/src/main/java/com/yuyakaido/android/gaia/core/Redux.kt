@@ -8,39 +8,42 @@ import timber.log.Timber
 
 interface StateType
 
-interface ActionType
+interface ActionType<S : StateType> {
+  fun reduce(state: S): S
+}
 
 @FlowPreview
 @ExperimentalCoroutinesApi
-interface AsyncActionType : ActionType {
-  suspend fun execute(dispatcher: DispatcherType): ActionType
+interface AsyncActionType<S : StateType> : ActionType<S> {
+  override fun reduce(state: S): S = state
+  suspend fun execute(dispatcher: DispatcherType<S>): ActionType<S>
 }
 
-interface ReducerType<S : StateType, A : ActionType> {
+interface ReducerType<S : StateType, A : ActionType<S>> {
   fun reduce(state: S, action: A): S
 }
 
-interface DispatcherType {
-  fun dispatch(action: ActionType)
+interface DispatcherType<S : StateType> {
+  fun dispatch(action: ActionType<S>)
 }
 
-abstract class Middleware(
-  dispatcher: DispatcherType
+abstract class Middleware<S : StateType>(
+  dispatcher: DispatcherType<S>
 ) {
-  open suspend fun before(state: StateType, action: ActionType): ActionType = action
-  open suspend fun after(state: StateType, action: ActionType): ActionType = action
+  open suspend fun before(state: StateType, action: ActionType<S>): ActionType<S> = action
+  open suspend fun after(state: StateType, action: ActionType<S>): ActionType<S> = action
 }
 
 @FlowPreview
 @ExperimentalCoroutinesApi
-class LoggerMiddleware(
-  dispatcher: DispatcherType
-) : Middleware(dispatcher) {
-  override suspend fun before(state: StateType, action: ActionType): ActionType {
+class LoggerMiddleware<S : StateType>(
+  dispatcher: DispatcherType<S>
+) : Middleware<S>(dispatcher) {
+  override suspend fun before(state: StateType, action: ActionType<S>): ActionType<S> {
     Timber.v("Before: action = $action")
     return action
   }
-  override suspend fun after(state: StateType, action: ActionType): ActionType {
+  override suspend fun after(state: StateType, action: ActionType<S>): ActionType<S> {
     Timber.v("After: action = $action")
     return action
   }
@@ -48,10 +51,10 @@ class LoggerMiddleware(
 
 @FlowPreview
 @ExperimentalCoroutinesApi
-class ThunkMiddleware(
-  private val dispatcher: DispatcherType
-) : Middleware(dispatcher) {
-  override suspend fun before(state: StateType, action: ActionType): ActionType {
+class ThunkMiddleware<S : StateType>(
+  private val dispatcher: DispatcherType<S>
+) : Middleware<S>(dispatcher) {
+  override suspend fun before(state: StateType, action: ActionType<S>): ActionType<S> {
     if (action is AsyncActionType) {
       return action.execute(dispatcher)
     }
@@ -61,10 +64,10 @@ class ThunkMiddleware(
 
 @FlowPreview
 @ExperimentalCoroutinesApi
-abstract class StoreType<S : StateType, A : ActionType, R : ReducerType<S, A>>(
+abstract class StoreType<S : StateType, A : ActionType<S>, R : ReducerType<S, A>>(
   private val initialState: S,
   private val reducer: R
-) : DispatcherType {
+) : DispatcherType<S> {
 
   private val state = ConflatedBroadcastChannel(initialState)
   private val middlewares by lazy {
@@ -74,19 +77,19 @@ abstract class StoreType<S : StateType, A : ActionType, R : ReducerType<S, A>>(
     )
   }
 
-  private fun update(action: ActionType) {
+  private fun update(action: ActionType<S>) {
     val currentState = stateAsValue()
     val nextState = reducer.reduce(currentState, action as A)
     state.offer(nextState)
   }
 
-  override fun dispatch(action: ActionType) {
+  override fun dispatch(action: ActionType<S>) {
     update(action)
   }
 
   fun dispatch(
     scope: CoroutineScope,
-    action: ActionType
+    action: ActionType<S>
   ): Job {
     return scope.launch {
       val actualAction = middlewares.fold(action) { action, middleware ->

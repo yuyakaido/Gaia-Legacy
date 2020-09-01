@@ -6,16 +6,7 @@ object AppReducer : ReducerType<AppState, AppAction> {
     state: AppState,
     action: AppAction
   ): AppState {
-    return when (action) {
-      is AppAction.CommunityAction -> {
-        state.copy(
-          community = CommunityReducer.reduce(
-            state = state.community,
-            action = action
-          )
-        )
-      }
-    }
+    return action.reduce(state)
   }
 
 }
