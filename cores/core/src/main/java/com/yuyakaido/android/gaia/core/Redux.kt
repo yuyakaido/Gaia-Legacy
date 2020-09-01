@@ -19,10 +19,6 @@ interface AsyncActionType<S : StateType> : ActionType<S> {
   suspend fun execute(dispatcher: DispatcherType<S>): ActionType<S>
 }
 
-interface ReducerType<S : StateType, A : ActionType<S>> {
-  fun reduce(state: S, action: A): S
-}
-
 interface DispatcherType<S : StateType> {
   fun dispatch(action: ActionType<S>)
 }
@@ -64,9 +60,8 @@ class ThunkMiddleware<S : StateType>(
 
 @FlowPreview
 @ExperimentalCoroutinesApi
-abstract class StoreType<S : StateType, A : ActionType<S>, R : ReducerType<S, A>>(
-  private val initialState: S,
-  private val reducer: R
+abstract class StoreType<S : StateType, A : ActionType<S>>(
+  private val initialState: S
 ) : DispatcherType<S> {
 
   private val state = ConflatedBroadcastChannel(initialState)
@@ -79,7 +74,7 @@ abstract class StoreType<S : StateType, A : ActionType<S>, R : ReducerType<S, A>
 
   private fun update(action: ActionType<S>) {
     val currentState = stateAsValue()
-    val nextState = reducer.reduce(currentState, action as A)
+    val nextState = action.reduce(currentState)
     state.offer(nextState)
   }
 

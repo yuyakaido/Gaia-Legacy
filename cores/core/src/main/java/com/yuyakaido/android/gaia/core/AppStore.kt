@@ -8,11 +8,9 @@ import kotlinx.coroutines.flow.map
 @FlowPreview
 @ExperimentalCoroutinesApi
 class AppStore(
-  initialState: AppState = AppState(),
-  reducer: AppReducer = AppReducer
-) : StoreType<AppState, AppAction, AppReducer>(
-  initialState = initialState,
-  reducer = reducer
+  initialState: AppState = AppState()
+) : StoreType<AppState, AppAction>(
+  initialState = initialState
 ) {
 
   fun communityAsFlow(): Flow<AppState.CommunityState> {
