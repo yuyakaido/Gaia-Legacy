@@ -27,7 +27,7 @@ interface DispatcherType<S : StateType> {
   fun dispatch(action: ActionType<S>)
 }
 
-abstract class Middleware<S : StateType>(
+abstract class MiddlewareType<S : StateType>(
   dispatcher: DispatcherType<S>
 ) {
   open suspend fun before(state: StateType, action: ActionType<S>): ActionType<S> = action
@@ -38,7 +38,7 @@ abstract class Middleware<S : StateType>(
 @ExperimentalCoroutinesApi
 class LoggerMiddleware<S : StateType>(
   dispatcher: DispatcherType<S>
-) : Middleware<S>(dispatcher) {
+) : MiddlewareType<S>(dispatcher) {
   override suspend fun before(state: StateType, action: ActionType<S>): ActionType<S> {
     Timber.v("Before: action = $action")
     return action
@@ -54,7 +54,7 @@ class LoggerMiddleware<S : StateType>(
 class ThunkMiddleware<S : StateType>(
   private val selector: SelectorType<S>,
   private val dispatcher: DispatcherType<S>
-) : Middleware<S>(dispatcher) {
+) : MiddlewareType<S>(dispatcher) {
   override suspend fun before(state: StateType, action: ActionType<S>): ActionType<S> {
     if (action is AsyncActionType) {
       return action.execute(selector, dispatcher)
@@ -71,9 +71,9 @@ abstract class StoreType<S : StateType, A : ActionType<S>>(
 
   private val state = ConflatedBroadcastChannel(initialState)
   private val middlewares by lazy {
-    listOf(
+    mutableListOf(
       LoggerMiddleware(dispatcher = this),
-      ThunkMiddleware(selector = this, dispatcher = this)
+      ThunkMiddleware(dispatcher = this, selector = this)
     )
   }
 
@@ -110,6 +110,14 @@ abstract class StoreType<S : StateType, A : ActionType<S>>(
         )
       }
     }
+  }
+
+  fun addMiddleware(middleware: MiddlewareType<S>) {
+    middlewares.add(middleware)
+  }
+
+  fun removeMiddleware(middleware: MiddlewareType<S>) {
+    middlewares.remove(middleware)
   }
 
   fun stateAsValue(): S {
