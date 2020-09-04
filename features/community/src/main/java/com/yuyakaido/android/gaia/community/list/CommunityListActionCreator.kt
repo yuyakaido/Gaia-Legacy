@@ -2,12 +2,8 @@ package com.yuyakaido.android.gaia.community.list
 
 import com.yuyakaido.android.gaia.core.*
 import com.yuyakaido.android.gaia.core.domain.repository.CommunityRepositoryType
-import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.FlowPreview
 import javax.inject.Inject
 
-@FlowPreview
-@ExperimentalCoroutinesApi
 class CommunityListActionCreator @Inject constructor(
   private val repository: CommunityRepositoryType
 ) {

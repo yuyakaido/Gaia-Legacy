@@ -12,8 +12,6 @@ interface ActionType<S : StateType> {
   fun reduce(state: S): S
 }
 
-@FlowPreview
-@ExperimentalCoroutinesApi
 interface AsyncActionType<S : StateType> : ActionType<S> {
   override fun reduce(state: S): S = state
   suspend fun execute(selector: SelectorType<S>, dispatcher: DispatcherType<S>): ActionType<S>
@@ -34,8 +32,6 @@ abstract class MiddlewareType<S : StateType>(
   open suspend fun after(state: StateType, action: ActionType<S>): ActionType<S> = action
 }
 
-@FlowPreview
-@ExperimentalCoroutinesApi
 class LoggerMiddleware<S : StateType>(
   dispatcher: DispatcherType<S>
 ) : MiddlewareType<S>(dispatcher) {
@@ -49,8 +45,6 @@ class LoggerMiddleware<S : StateType>(
   }
 }
 
-@FlowPreview
-@ExperimentalCoroutinesApi
 class ThunkMiddleware<S : StateType>(
   private val selector: SelectorType<S>,
   private val dispatcher: DispatcherType<S>
