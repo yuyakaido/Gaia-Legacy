@@ -2,12 +2,12 @@ package com.yuyakaido.android.gaia.core
 
 import io.reactivex.Observable
 import io.reactivex.Single
-import io.reactivex.disposables.Disposable
 import kotlinx.coroutines.*
 import kotlinx.coroutines.channels.ConflatedBroadcastChannel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.asFlow
 import kotlinx.coroutines.rx2.asObservable
+import kotlinx.coroutines.rx2.await
 import timber.log.Timber
 
 interface StateType
@@ -54,13 +54,25 @@ class LoggerMiddleware<S : StateType>(
   }
 }
 
-class ThunkMiddleware<S : StateType>(
+class ThunkMiddlewareForCoroutine<S : StateType>(
   private val selector: SelectorType<S>,
   private val dispatcher: DispatcherType<S>
 ) : MiddlewareType<S>(dispatcher) {
   override suspend fun before(state: StateType, action: ActionType<S>): ActionType<S> {
     if (action is SuspendableActionType) {
       return action.execute(selector, dispatcher)
+    }
+    return action
+  }
+}
+
+class ThunkMiddlewareForReactive<S : StateType>(
+  private val selector: SelectorType<S>,
+  private val dispatcher: DispatcherType<S>
+) : MiddlewareType<S>(dispatcher) {
+  override suspend fun before(state: StateType, action: ActionType<S>): ActionType<S> {
+    if (action is SingleActionType) {
+      return action.execute(selector, dispatcher).await()
     }
     return action
   }
@@ -76,7 +88,8 @@ abstract class StoreType<S : StateType, A : ActionType<S>>(
   private val middlewares by lazy {
     mutableListOf(
       LoggerMiddleware(dispatcher = this),
-      ThunkMiddleware(dispatcher = this, selector = this)
+      ThunkMiddlewareForCoroutine(selector = this, dispatcher = this),
+      ThunkMiddlewareForReactive(selector = this, dispatcher = this)
     )
   }
 
