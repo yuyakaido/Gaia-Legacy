@@ -8,8 +8,8 @@ class CommunityListActionCreator @Inject constructor(
   private val repository: CommunityRepositoryType
 ) {
 
-  fun refresh(): AsyncActionType<AppState> {
-    return object : AsyncActionType<AppState> {
+  fun refresh(): SuspendableActionType<AppState> {
+    return object : SuspendableActionType<AppState> {
       override suspend fun execute(
         selector: SelectorType<AppState>,
         dispatcher: DispatcherType<AppState>

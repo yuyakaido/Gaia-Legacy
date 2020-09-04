@@ -1,9 +1,13 @@
 package com.yuyakaido.android.gaia.core
 
+import io.reactivex.Observable
+import io.reactivex.Single
+import io.reactivex.disposables.Disposable
 import kotlinx.coroutines.*
 import kotlinx.coroutines.channels.ConflatedBroadcastChannel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.asFlow
+import kotlinx.coroutines.rx2.asObservable
 import timber.log.Timber
 
 interface StateType
@@ -12,9 +16,14 @@ interface ActionType<S : StateType> {
   fun reduce(state: S): S
 }
 
-interface AsyncActionType<S : StateType> : ActionType<S> {
+interface SuspendableActionType<S : StateType> : ActionType<S> {
   override fun reduce(state: S): S = state
   suspend fun execute(selector: SelectorType<S>, dispatcher: DispatcherType<S>): ActionType<S>
+}
+
+interface SingleActionType<S : StateType> : ActionType<S> {
+  override fun reduce(state: S): S = state
+  fun execute(selector: SelectorType<S>, dispatcher: DispatcherType<S>): Single<ActionType<S>>
 }
 
 interface SelectorType<S : StateType> {
@@ -50,7 +59,7 @@ class ThunkMiddleware<S : StateType>(
   private val dispatcher: DispatcherType<S>
 ) : MiddlewareType<S>(dispatcher) {
   override suspend fun before(state: StateType, action: ActionType<S>): ActionType<S> {
-    if (action is AsyncActionType) {
+    if (action is SuspendableActionType) {
       return action.execute(selector, dispatcher)
     }
     return action
@@ -93,14 +102,14 @@ abstract class StoreType<S : StateType, A : ActionType<S>>(
       val actualAction = middlewares.fold(action) { action, middleware ->
         return@fold middleware.before(
           state = stateAsValue(),
-          action = action as A
+          action = action
         )
       }
       update(actualAction)
       middlewares.forEach { middleware ->
         middleware.after(
           state = stateAsValue(),
-          action = action as A
+          action = action
         )
       }
     }
@@ -120,6 +129,10 @@ abstract class StoreType<S : StateType, A : ActionType<S>>(
 
   fun stateAsFlow(): Flow<S> {
     return state.asFlow()
+  }
+
+  fun stateAsObservable(): Observable<S> {
+    return stateAsFlow().asObservable()
   }
 
 }

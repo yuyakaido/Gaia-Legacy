@@ -29,7 +29,8 @@ android {
 dependencies {
   // Kotlin
   api libs.kotlin.stdlib
-  api libs.kotlin.coroutines
+  api libs.kotlin.coroutines.android
+  api libs.kotlin.coroutines.rx2
 
   // AndroidX
   api libs.androidx.core
