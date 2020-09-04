@@ -52,9 +52,7 @@ class CommunityListViewModel @Inject constructor(
           is AppState.CommunityState.Initial -> Initial
           is AppState.CommunityState.Loading -> Loading
           is AppState.CommunityState.Error -> Error
-          is AppState.CommunityState.Ideal -> {
-            Ideal(communities = state.communities)
-          }
+          is AppState.CommunityState.Ideal -> Ideal(communities = state.communities)
         }
       }
     }
