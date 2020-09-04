@@ -20,7 +20,7 @@ buildscript {
       gradle: '4.0.1'
     ],
     kotlin: [
-      core: '1.3.61',
+      core: '1.4.0',
       coroutines: '1.3.2'
     ],
     androidx: [
