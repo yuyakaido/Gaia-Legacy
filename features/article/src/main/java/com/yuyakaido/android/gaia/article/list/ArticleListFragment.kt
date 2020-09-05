@@ -7,7 +7,6 @@ import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.map
 import androidx.lifecycle.observe
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -22,10 +21,14 @@ import com.yuyakaido.android.gaia.core.domain.entity.Article
 import com.yuyakaido.android.gaia.core.domain.extension.dpTpPx
 import com.yuyakaido.android.gaia.core.presentation.ArticleItem
 import com.yuyakaido.android.gaia.core.presentation.BaseFragment
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import timber.log.Timber
 
+@FlowPreview
+@ExperimentalCoroutinesApi
 class ArticleListFragment : BaseFragment<ArticleListViewModel>() {
 
   companion object {
@@ -60,8 +63,8 @@ class ArticleListFragment : BaseFragment<ArticleListViewModel>() {
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
-//    setupRecyclerViewWithoutPaging()
-    setupRecyclerViewWithPaging()
+    setupRecyclerViewWithoutPaging()
+//    setupRecyclerViewWithPaging()
     Timber.d("fragment = ${hashCode()}")
     Timber.d("viewmodel = ${viewModel.hashCode()}")
   }
@@ -117,19 +120,18 @@ class ArticleListFragment : BaseFragment<ArticleListViewModel>() {
       )
     }
 
-    viewModel.itemsWithoutPaging
-      .map { items ->
-        items.flatMap { item -> item.entities }
-      }
-      .observe(viewLifecycleOwner) { items ->
-        adapter.updateAsync(items.map { item ->
+    viewModel.state
+      .observe(viewLifecycleOwner) { state ->
+        binding.progressBar.visibility = state.progressVisibility
+        val items = state.articles.map { article ->
           ArticleItem(
-            article = item,
+            article = article,
             upvoteListener = upvoteListener,
             downvoteListener = downvoteListener,
             communityListener = communityListener
           )
-        })
+        }
+        adapter.updateAsync(items)
       }
   }
 

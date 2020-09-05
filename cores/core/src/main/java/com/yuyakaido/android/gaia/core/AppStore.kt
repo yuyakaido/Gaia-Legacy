@@ -13,6 +13,10 @@ class AppStore(
   initialState = initialState
 ) {
 
+  fun articleAsFlow(): Flow<AppState.ArticleState> {
+    return stateAsFlow().map { it.article }
+  }
+
   fun communityAsFlow(): Flow<AppState.CommunityState> {
     return stateAsFlow().map { it.community }
   }
