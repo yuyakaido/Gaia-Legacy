@@ -17,7 +17,7 @@ class ArticleListActionCreator @Inject constructor(
       ): ActionType<AppState> {
         val state = selector.select().article
         dispatcher.dispatch(
-          AppAction.ArticleAction.ToLoading(
+          ArticleAction.ToLoading(
             articles = state.articles
           )
         )
@@ -25,7 +25,7 @@ class ArticleListActionCreator @Inject constructor(
           repository = repository,
           after = state.after
         )
-        return AppAction.ArticleAction.ToIdeal(
+        return ArticleAction.ToIdeal(
           after = item.after,
           articles = item.entities
         )
@@ -40,7 +40,7 @@ class ArticleListActionCreator @Inject constructor(
         dispatcher: DispatcherType<AppState>
       ): ActionType<AppState> {
         repository.vote(target)
-        return AppAction.ArticleAction.Update(
+        return ArticleAction.Update(
           newArticle = target.article()
         )
       }

@@ -16,9 +16,9 @@ class CommunityListActionCreator @Inject constructor(
         selector: SelectorType<AppState>,
         dispatcher: DispatcherType<AppState>
       ): ActionType<AppState> {
-        dispatcher.dispatch(AppAction.CommunityAction.ToLoading)
+        dispatcher.dispatch(CommunityAction.ToLoading)
         val item = repository.mine()
-        return AppAction.CommunityAction.ToIdeal(communities = item.entities)
+        return CommunityAction.ToIdeal(communities = item.entities)
       }
     }
   }
@@ -30,11 +30,11 @@ class CommunityListActionCreator @Inject constructor(
         dispatcher: DispatcherType<AppState>
       ): Single<ActionType<AppState>> {
         return Single.just(Unit)
-          .doOnSubscribe { dispatcher.dispatch(AppAction.CommunityAction.ToLoading) }
+          .doOnSubscribe { dispatcher.dispatch(CommunityAction.ToLoading) }
           .flatMap {
             rxSingle {
               val item = repository.mine()
-              AppAction.CommunityAction.ToIdeal(communities = item.entities)
+              CommunityAction.ToIdeal(communities = item.entities)
             }
           }
       }
