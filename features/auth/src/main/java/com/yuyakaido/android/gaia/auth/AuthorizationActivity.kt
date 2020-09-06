@@ -4,7 +4,6 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import androidx.activity.viewModels
-import androidx.lifecycle.observe
 import com.yuyakaido.android.gaia.auth.databinding.ActivityAuthorizationBinding
 import com.yuyakaido.android.gaia.core.domain.app.Constant
 import com.yuyakaido.android.gaia.core.presentation.BaseActivity
