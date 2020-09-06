@@ -30,7 +30,6 @@ buildscript {
       lifecycle: '2.2.0',
       room: '2.2.5',
       navigation: '2.3.0',
-      paging: '3.0.0-alpha06',
       constraintlayout: '2.0.0',
       recyclerview: '1.1.0',
       preference: '1.1.1'
@@ -83,7 +82,6 @@ buildscript {
         fragment: "androidx.navigation:navigation-fragment-ktx:$versions.androidx.navigation",
         ui: "androidx.navigation:navigation-ui-ktx:$versions.androidx.navigation"
       ],
-      paging: "androidx.paging:paging-runtime:$versions.androidx.paging",
       constraintlayout: "androidx.constraintlayout:constraintlayout:$versions.androidx.constraintlayout",
       recyclerview: "androidx.recyclerview:recyclerview:$versions.androidx.recyclerview",
       preference: "androidx.preference:preference-ktx:$versions.androidx.preference"

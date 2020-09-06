@@ -40,7 +40,6 @@ dependencies {
   api libs.androidx.lifecycle.viewmodel
   api libs.androidx.lifecycle.livedata
   api libs.androidx.navigation.fragment
-  api libs.androidx.paging
   api libs.androidx.navigation.ui
   api libs.androidx.constraintlayout
   api libs.androidx.recyclerview

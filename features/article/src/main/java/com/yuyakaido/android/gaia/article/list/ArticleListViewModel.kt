@@ -5,9 +5,6 @@ import android.view.View
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
-import androidx.paging.Pager
-import androidx.paging.PagingConfig
-import com.yuyakaido.android.gaia.core.AppAction
 import com.yuyakaido.android.gaia.core.AppState
 import com.yuyakaido.android.gaia.core.AppStore
 import com.yuyakaido.android.gaia.core.domain.entity.Article
@@ -35,14 +32,6 @@ class ArticleListViewModel @Inject constructor(
   val state = appStore.articleAsFlow()
     .map { state -> State.from(state = state) }
     .asLiveData()
-
-  // With paging library
-  val itemsWithPaging = Pager(PagingConfig(10)) {
-    ArticlePagingSource(
-      source = source,
-      repository = repository
-    )
-  }.flow
 
   sealed class State {
     abstract val progressVisibility: Int

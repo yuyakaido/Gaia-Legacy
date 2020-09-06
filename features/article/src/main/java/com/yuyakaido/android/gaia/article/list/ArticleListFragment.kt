@@ -6,7 +6,6 @@ import android.os.Handler
 import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.observe
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -23,8 +22,6 @@ import com.yuyakaido.android.gaia.core.presentation.ArticleItem
 import com.yuyakaido.android.gaia.core.presentation.BaseFragment
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.launch
 import timber.log.Timber
 
 @FlowPreview
@@ -63,8 +60,7 @@ class ArticleListFragment : BaseFragment<ArticleListViewModel>() {
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
-    setupRecyclerViewWithoutPaging()
-//    setupRecyclerViewWithPaging()
+    setupRecyclerView()
     Timber.d("fragment = ${hashCode()}")
     Timber.d("viewmodel = ${viewModel.hashCode()}")
   }
@@ -79,7 +75,7 @@ class ArticleListFragment : BaseFragment<ArticleListViewModel>() {
     return super.onOptionsItemSelected(item)
   }
 
-  private fun setupRecyclerViewWithoutPaging() {
+  private fun setupRecyclerView() {
     val manager = LinearLayoutManager(requireContext())
     val adapter = GroupAdapter<GroupieViewHolder>()
     adapter.setOnItemClickListener { item, _ ->
@@ -91,16 +87,16 @@ class ArticleListFragment : BaseFragment<ArticleListViewModel>() {
       }
     }
 
-    binding.recyclerViewWithoutPaging.layoutManager = manager
-    binding.recyclerViewWithoutPaging.adapter = adapter
-    binding.recyclerViewWithoutPaging.addItemDecoration(
+    binding.recyclerView.layoutManager = manager
+    binding.recyclerView.adapter = adapter
+    binding.recyclerView.addItemDecoration(
       HorizontalDividerItemDecoration.Builder(requireContext())
         .color(Color.TRANSPARENT)
         .size(8.dpTpPx(requireContext()))
         .showLastDivider()
         .build()
     )
-    binding.recyclerViewWithoutPaging
+    binding.recyclerView
       .addOnScrollListener(object : RecyclerView.OnScrollListener() {
         override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
           val itemCount = manager.itemCount
@@ -133,36 +129,6 @@ class ArticleListFragment : BaseFragment<ArticleListViewModel>() {
         }
         adapter.updateAsync(items)
       }
-  }
-
-  private fun setupRecyclerViewWithPaging() {
-    val manager = LinearLayoutManager(requireContext())
-    val adapter = PagingGroupAdapter()
-    adapter.setOnItemClickListener { item, _ ->
-      if (item is ArticleItem) {
-        appNavigator.navigateToArticleDetailActivity(
-          controller = findNavController(),
-          article = item.article
-        )
-      }
-    }
-
-    binding.recyclerViewWithPaging.layoutManager = manager
-    binding.recyclerViewWithPaging.adapter = adapter
-    binding.recyclerViewWithPaging.addItemDecoration(
-      HorizontalDividerItemDecoration.Builder(requireContext())
-        .color(Color.TRANSPARENT)
-        .size(8.dpTpPx(requireContext()))
-        .showLastDivider()
-        .build()
-    )
-
-    lifecycleScope.launch {
-      viewModel.itemsWithPaging
-        .collect {
-          adapter.submitData(it)
-        }
-    }
   }
 
   private fun refreshByPage(page: ArticleListPage) {
