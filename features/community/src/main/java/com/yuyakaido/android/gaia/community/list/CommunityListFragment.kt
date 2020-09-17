@@ -16,11 +16,7 @@ import com.yuyakaido.android.gaia.community.databinding.FragmentCommunityListBin
 import com.yuyakaido.android.gaia.core.domain.entity.Community
 import com.yuyakaido.android.gaia.core.domain.extension.dpTpPx
 import com.yuyakaido.android.gaia.core.presentation.BaseFragment
-import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.FlowPreview
 
-@FlowPreview
-@ExperimentalCoroutinesApi
 class CommunityListFragment : BaseFragment<CommunityListViewModel>() {
 
   companion object {

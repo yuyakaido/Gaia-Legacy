@@ -78,8 +78,6 @@ class ThunkMiddlewareForReactive<S : StateType>(
   }
 }
 
-@FlowPreview
-@ExperimentalCoroutinesApi
 abstract class StoreType<S : StateType, A : ActionType<S>>(
   initialState: S
 ) : SelectorType<S>, DispatcherType<S> {

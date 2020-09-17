@@ -6,12 +6,8 @@ import com.yuyakaido.android.gaia.core.domain.app.AppNavigatorType
 import com.yuyakaido.android.gaia.core.domain.app.AppScope
 import dagger.Module
 import dagger.Provides
-import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.FlowPreview
 
 @Module
-@FlowPreview
-@ExperimentalCoroutinesApi
 class AppModule {
 
   @AppScope

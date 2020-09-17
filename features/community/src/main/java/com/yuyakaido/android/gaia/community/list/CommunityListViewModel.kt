@@ -5,15 +5,12 @@ import android.view.View
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.map
 import androidx.lifecycle.viewModelScope
-import com.yuyakaido.android.gaia.core.*
+import com.yuyakaido.android.gaia.core.AppState
+import com.yuyakaido.android.gaia.core.AppStore
 import com.yuyakaido.android.gaia.core.domain.entity.Community
 import com.yuyakaido.android.gaia.core.presentation.BaseViewModel
-import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.FlowPreview
 import javax.inject.Inject
 
-@FlowPreview
-@ExperimentalCoroutinesApi
 class CommunityListViewModel @Inject constructor(
   application: Application,
   private val appStore: AppStore,
