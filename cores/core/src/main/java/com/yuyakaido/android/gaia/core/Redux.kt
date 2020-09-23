@@ -23,7 +23,7 @@ interface SuspendableActionType<S : StateType> : ActionType<S> {
 
 interface SingleActionType<S : StateType> : ActionType<S> {
   override fun reduce(state: S): S = state
-  fun execute(selector: SelectorType<S>, dispatcher: DispatcherType<S>): Single<ActionType<S>>
+  fun execute(selector: SelectorType<S>, dispatcher: DispatcherType<S>): Single<out ActionType<S>>
 }
 
 interface SelectorType<S : StateType> {

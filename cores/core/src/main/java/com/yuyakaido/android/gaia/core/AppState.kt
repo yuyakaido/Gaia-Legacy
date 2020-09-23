@@ -49,7 +49,7 @@ data class AppState(
       override val communities: List<Community.Detail> = emptyList(),
       override val after: String? = null
     ) : CommunityState() {
-      override fun canPaginate(): Boolean = false
+      override fun canPaginate(): Boolean = true
     }
     data class Ideal(
       override val communities: List<Community.Detail>,

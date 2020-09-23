@@ -15,7 +15,7 @@ class CommunityListActionCreator @Inject constructor(
       override fun execute(
         selector: SelectorType<AppState>,
         dispatcher: DispatcherType<AppState>
-      ): Single<ActionType<AppState>> {
+      ): Single<out CommunityAction> {
         return if (selector.select().community.canPaginate()) {
           Single.just(Unit)
             .doOnSubscribe {
@@ -26,7 +26,7 @@ class CommunityListActionCreator @Inject constructor(
                 )
               )
             }
-            .flatMap {
+            .flatMap<CommunityAction> {
               rxSingle {
                 val state = selector.select().community
                 val item = repository.mine(after = state.after)
@@ -36,6 +36,7 @@ class CommunityListActionCreator @Inject constructor(
                 )
               }
             }
+            .onErrorReturnItem(CommunityAction.ToError)
         } else {
           Single.just(CommunityAction.DoNothing)
         }
