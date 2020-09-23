@@ -84,7 +84,10 @@ class CommunityListFragment : BaseFragment<CommunityListViewModel>() {
         if (state.communities.isEmpty()) {
           adapter.clear()
         }
-        adapter.updateAsync(
+        // Workaround:
+        // GroupAdapter.updateAsyncを使うと詳細画面から戻った際にスクロール位置がリセットされてしまう
+        // 因果関係は不明だが、GroupAdapter.updateを使うと同様の操作をしてもスクロール位置が変わらない
+        adapter.update(
           state.communities.map { community ->
             CommunityItem(
               community = community,
