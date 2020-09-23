@@ -16,7 +16,7 @@ import com.yuyakaido.android.gaia.comment.databinding.FragmentCommentListBinding
 import com.yuyakaido.android.gaia.core.domain.entity.Article
 import com.yuyakaido.android.gaia.core.domain.entity.Comment
 import com.yuyakaido.android.gaia.core.domain.entity.User
-import com.yuyakaido.android.gaia.core.domain.extension.dpTpPx
+import com.yuyakaido.android.gaia.core.domain.extension.dpToPx
 import com.yuyakaido.android.gaia.core.presentation.BaseFragment
 
 class CommentListFragment : BaseFragment<CommentListViewModel>() {
@@ -72,7 +72,7 @@ class CommentListFragment : BaseFragment<CommentListViewModel>() {
     binding.recyclerView.addItemDecoration(
       HorizontalDividerItemDecoration.Builder(requireContext())
         .color(Color.TRANSPARENT)
-        .size(8.dpTpPx(requireContext()))
+        .size(8.dpToPx(requireContext()))
         .showLastDivider()
         .build()
     )

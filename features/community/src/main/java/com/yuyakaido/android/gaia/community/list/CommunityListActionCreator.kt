@@ -10,6 +10,10 @@ class CommunityListActionCreator @Inject constructor(
   private val repository: CommunityRepositoryType
 ) {
 
+  fun refresh(): ActionType<AppState> {
+    return CommunityAction.ToInitial
+  }
+
   fun paginate(): SingleActionType<AppState> {
     return object : SingleActionType<AppState> {
       override fun execute(

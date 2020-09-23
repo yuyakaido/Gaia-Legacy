@@ -18,27 +18,27 @@ class CommunityListViewModel @Inject constructor(
 ) : BaseViewModel(application) {
 
   sealed class State {
-    abstract val progressVisibility: Int
+    abstract val progressVisibility: Boolean
     abstract val retryVisibility: Int
     abstract val communities: List<Community.Detail>
 
     object Initial : State() {
-      override val progressVisibility: Int = View.GONE
+      override val progressVisibility: Boolean = true
       override val retryVisibility: Int = View.GONE
       override val communities: List<Community.Detail> = emptyList()
     }
     data class Loading(
-      override val progressVisibility: Int = View.VISIBLE,
-        override val retryVisibility: Int = View.GONE,
-        override val communities: List<Community.Detail>
+      override val progressVisibility: Boolean = true,
+      override val retryVisibility: Int = View.GONE,
+      override val communities: List<Community.Detail>
     ) : State()
     object Error : State() {
-      override val progressVisibility: Int = View.GONE
+      override val progressVisibility: Boolean = false
       override val retryVisibility: Int = View.VISIBLE
       override val communities: List<Community.Detail> = emptyList()
     }
     data class Ideal(
-      override val progressVisibility: Int = View.GONE,
+      override val progressVisibility: Boolean = false,
       override val retryVisibility: Int = View.GONE,
       override val communities: List<Community.Detail>
     ) : State()
@@ -64,12 +64,16 @@ class CommunityListViewModel @Inject constructor(
     paginate()
   }
 
-  fun onRetry() {
+  fun onPaginate() {
     paginate()
   }
 
-  fun onPaginate() {
-    paginate()
+  fun onRefresh() {
+    refresh()
+  }
+
+  fun onRetry() {
+    refresh()
   }
 
   private fun paginate() {
@@ -77,6 +81,11 @@ class CommunityListViewModel @Inject constructor(
       scope = viewModelScope,
       action = actionCreator.paginate()
     )
+  }
+
+  private fun refresh() {
+    appStore.dispatch(actionCreator.refresh())
+    paginate()
   }
 
 }

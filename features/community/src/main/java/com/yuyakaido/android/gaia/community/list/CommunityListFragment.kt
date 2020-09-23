@@ -15,7 +15,7 @@ import com.xwray.groupie.GroupieViewHolder
 import com.yqritc.recyclerviewflexibledivider.HorizontalDividerItemDecoration
 import com.yuyakaido.android.gaia.community.databinding.FragmentCommunityListBinding
 import com.yuyakaido.android.gaia.core.domain.entity.Community
-import com.yuyakaido.android.gaia.core.domain.extension.dpTpPx
+import com.yuyakaido.android.gaia.core.domain.extension.dpToPx
 import com.yuyakaido.android.gaia.core.presentation.BaseFragment
 
 class CommunityListFragment : BaseFragment<CommunityListViewModel>() {
@@ -42,6 +42,7 @@ class CommunityListFragment : BaseFragment<CommunityListViewModel>() {
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
     setupRecyclerView()
+    setupSwipeRefreshLayout()
     setupRetryButton()
   }
 
@@ -53,7 +54,7 @@ class CommunityListFragment : BaseFragment<CommunityListViewModel>() {
     binding.recyclerView.addItemDecoration(
       HorizontalDividerItemDecoration.Builder(requireContext())
         .color(Color.TRANSPARENT)
-        .size(8.dpTpPx(requireContext()))
+        .size(8.dpToPx(requireContext()))
         .build()
     )
     binding.recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
@@ -77,8 +78,12 @@ class CommunityListFragment : BaseFragment<CommunityListViewModel>() {
 
     viewModel.state
       .observe(viewLifecycleOwner) { state ->
-        binding.progressBar.visibility = state.progressVisibility
+        binding.swipeRefreshLayout.isRefreshing = state.progressVisibility
         binding.retryButton.visibility = state.retryVisibility
+        // Workaround: リフレッシュ時にItemDecorationが消えてしまう現象の対応
+        if (state.communities.isEmpty()) {
+          adapter.clear()
+        }
         adapter.updateAsync(
           state.communities.map { community ->
             CommunityItem(
@@ -88,6 +93,12 @@ class CommunityListFragment : BaseFragment<CommunityListViewModel>() {
           }
         )
       }
+  }
+
+  private fun setupSwipeRefreshLayout() {
+    binding.swipeRefreshLayout.setOnRefreshListener {
+      viewModel.onRefresh()
+    }
   }
 
   private fun setupRetryButton() {

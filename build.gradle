@@ -32,6 +32,7 @@ buildscript {
       navigation: '2.3.0',
       constraintlayout: '2.0.0',
       recyclerview: '1.1.0',
+      swiperefreshlayout: '1.1.0',
       preference: '1.1.1'
     ],
     dagger: '2.28.3',
@@ -84,6 +85,7 @@ buildscript {
       ],
       constraintlayout: "androidx.constraintlayout:constraintlayout:$versions.androidx.constraintlayout",
       recyclerview: "androidx.recyclerview:recyclerview:$versions.androidx.recyclerview",
+      swiperefreshlayout: "androidx.swiperefreshlayout:swiperefreshlayout:$versions.androidx.swiperefreshlayout",
       preference: "androidx.preference:preference-ktx:$versions.androidx.preference"
     ],
     dagger: [

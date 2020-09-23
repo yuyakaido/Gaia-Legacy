@@ -43,6 +43,7 @@ dependencies {
   api libs.androidx.navigation.ui
   api libs.androidx.constraintlayout
   api libs.androidx.recyclerview
+  api libs.androidx.swiperefreshlayout
   api libs.androidx.preference
 
   // Dependency Injection

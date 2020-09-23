@@ -66,6 +66,13 @@ sealed class ArticleAction : AppAction() {
 }
 
 sealed class CommunityAction : AppAction() {
+  object ToInitial : CommunityAction() {
+    override fun reduce(state: AppState): AppState {
+      return state.copy(
+        community = AppState.CommunityState.Initial()
+      )
+    }
+  }
   data class ToLoading(
     private val communities: List<Community.Detail>,
   ) : CommunityAction() {
