@@ -6,7 +6,9 @@ import retrofit2.http.*
 interface CommunityApi {
 
   @GET("subreddits/mine")
-  suspend fun communitiesOfMine(): ListingDataResponse
+  suspend fun communitiesOfMine(
+    @Query("after") after: String?
+  ): ListingDataResponse
 
   @GET("r/{community}/about")
   suspend fun detail(

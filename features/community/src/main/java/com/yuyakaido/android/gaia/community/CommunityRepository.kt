@@ -8,8 +8,10 @@ class CommunityRepository(
   private val api: CommunityApi
 ) : CommunityRepositoryType {
 
-  override suspend fun mine(): EntityPaginationItem<Community.Detail> {
-    return api.communitiesOfMine().toCommunityPaginationItem()
+  override suspend fun mine(
+    after: String?
+  ): EntityPaginationItem<Community.Detail> {
+    return api.communitiesOfMine(after = after).toCommunityPaginationItem()
   }
 
   override suspend fun detail(community: Community.Summary): Community.Detail {

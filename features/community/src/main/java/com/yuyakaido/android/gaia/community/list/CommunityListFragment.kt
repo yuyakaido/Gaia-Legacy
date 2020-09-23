@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
 import com.yqritc.recyclerviewflexibledivider.HorizontalDividerItemDecoration
@@ -55,6 +56,16 @@ class CommunityListFragment : BaseFragment<CommunityListViewModel>() {
         .size(8.dpTpPx(requireContext()))
         .build()
     )
+    binding.recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+      override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) = Unit
+      override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+        val itemCount = manager.itemCount
+        val lastVisibleItemPosition = manager.findLastVisibleItemPosition()
+        if (lastVisibleItemPosition >= itemCount - 1) {
+          viewModel.onPaginate()
+        }
+      }
+    })
 
     val listener = { community: Community.Detail ->
       val summary = Community.Summary(name = community.name)

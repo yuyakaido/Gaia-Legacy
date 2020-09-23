@@ -13,21 +13,27 @@ sealed class ArticleAction : AppAction() {
       )
     }
   }
-  data class ToLoading(val articles: List<Article>) : ArticleAction() {
+  data class ToLoading(
+    private val articles: List<Article>
+  ) : ArticleAction() {
     override fun reduce(state: AppState): AppState {
       return state.copy(
         article = AppState.ArticleState.Loading(
-          articles = articles
+          articles = articles,
+          after = state.article.after
         )
       )
     }
   }
-  data class ToIdeal(val after: String?, val articles: List<Article>) : ArticleAction() {
+  data class ToIdeal(
+    private val articles: List<Article>,
+    private val after: String?
+  ) : ArticleAction() {
     override fun reduce(state: AppState): AppState {
       return state.copy(
         article = AppState.ArticleState.Ideal(
-          after = after,
-          articles = state.article.articles.plus(articles)
+          articles = state.article.articles.plus(articles),
+          after = after
         )
       )
     }
@@ -39,18 +45,20 @@ sealed class ArticleAction : AppAction() {
       )
     }
   }
-  data class Update(val newArticle: Article) : ArticleAction() {
+  data class Update(
+    private val newArticle: Article
+  ) : ArticleAction() {
     override fun reduce(state: AppState): AppState {
       return state.copy(
         article = AppState.ArticleState.Ideal(
-          after = state.article.after,
           articles = state.article.articles.map { oldArticle ->
             if (oldArticle.id == newArticle.id) {
               newArticle
             } else {
               oldArticle
             }
-          }
+          },
+          after = state.article.after
         )
       )
     }
@@ -58,25 +66,41 @@ sealed class ArticleAction : AppAction() {
 }
 
 sealed class CommunityAction : AppAction() {
-  object ToLoading : CommunityAction() {
+  data class ToLoading(
+    private val communities: List<Community.Detail>,
+  ) : CommunityAction() {
     override fun reduce(state: AppState): AppState {
       return state.copy(
-        community = AppState.CommunityState.Loading
+        community = AppState.CommunityState.Loading(
+          communities = communities,
+          after = state.community.after
+        )
       )
     }
   }
-  data class ToIdeal(val communities: List<Community.Detail>) : CommunityAction() {
+  data class ToIdeal(
+    private val communities: List<Community.Detail>,
+    private val after: String?
+  ) : CommunityAction() {
     override fun reduce(state: AppState): AppState {
       return state.copy(
-        community = AppState.CommunityState.Ideal(communities = communities)
+        community = AppState.CommunityState.Ideal(
+          communities = state.community.communities.plus(communities),
+          after = after
+        )
       )
     }
   }
   object ToError : CommunityAction() {
     override fun reduce(state: AppState): AppState {
       return state.copy(
-        community = AppState.CommunityState.Error
+        community = AppState.CommunityState.Error()
       )
+    }
+  }
+  object DoNothing : CommunityAction() {
+    override fun reduce(state: AppState): AppState {
+      return state
     }
   }
 }

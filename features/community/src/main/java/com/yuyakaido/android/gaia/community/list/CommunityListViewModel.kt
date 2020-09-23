@@ -27,11 +27,11 @@ class CommunityListViewModel @Inject constructor(
       override val retryVisibility: Int = View.GONE
       override val communities: List<Community.Detail> = emptyList()
     }
-    object Loading : State() {
-      override val progressVisibility: Int = View.VISIBLE
-      override val retryVisibility: Int = View.GONE
-      override val communities: List<Community.Detail> = emptyList()
-    }
+    data class Loading(
+      override val progressVisibility: Int = View.VISIBLE,
+        override val retryVisibility: Int = View.GONE,
+        override val communities: List<Community.Detail>
+    ) : State()
     object Error : State() {
       override val progressVisibility: Int = View.GONE
       override val retryVisibility: Int = View.VISIBLE
@@ -47,7 +47,7 @@ class CommunityListViewModel @Inject constructor(
       fun from(state: AppState.CommunityState): State {
         return when (state) {
           is AppState.CommunityState.Initial -> Initial
-          is AppState.CommunityState.Loading -> Loading
+          is AppState.CommunityState.Loading -> Loading(communities = state.communities)
           is AppState.CommunityState.Error -> Error
           is AppState.CommunityState.Ideal -> Ideal(communities = state.communities)
         }
@@ -61,17 +61,21 @@ class CommunityListViewModel @Inject constructor(
 
   override fun onCreate() {
     super.onCreate()
-    refresh()
+    paginate()
   }
 
   fun onRetry() {
-    refresh()
+    paginate()
   }
 
-  private fun refresh() {
+  fun onPaginate() {
+    paginate()
+  }
+
+  private fun paginate() {
     appStore.dispatch(
       scope = viewModelScope,
-      action = actionCreator.refreshAsSingle()
+      action = actionCreator.paginate()
     )
   }
 

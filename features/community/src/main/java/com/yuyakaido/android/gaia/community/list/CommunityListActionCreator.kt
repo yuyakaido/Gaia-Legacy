@@ -10,33 +10,35 @@ class CommunityListActionCreator @Inject constructor(
   private val repository: CommunityRepositoryType
 ) {
 
-  fun refreshAsSuspendable(): SuspendableActionType<AppState> {
-    return object : SuspendableActionType<AppState> {
-      override suspend fun execute(
-        selector: SelectorType<AppState>,
-        dispatcher: DispatcherType<AppState>
-      ): ActionType<AppState> {
-        dispatcher.dispatch(CommunityAction.ToLoading)
-        val item = repository.mine()
-        return CommunityAction.ToIdeal(communities = item.entities)
-      }
-    }
-  }
-
-  fun refreshAsSingle(): SingleActionType<AppState> {
+  fun paginate(): SingleActionType<AppState> {
     return object : SingleActionType<AppState> {
       override fun execute(
         selector: SelectorType<AppState>,
         dispatcher: DispatcherType<AppState>
       ): Single<ActionType<AppState>> {
-        return Single.just(Unit)
-          .doOnSubscribe { dispatcher.dispatch(CommunityAction.ToLoading) }
-          .flatMap {
-            rxSingle {
-              val item = repository.mine()
-              CommunityAction.ToIdeal(communities = item.entities)
+        return if (selector.select().community.canPaginate()) {
+          Single.just(Unit)
+            .doOnSubscribe {
+              val state = selector.select().community
+              dispatcher.dispatch(
+                CommunityAction.ToLoading(
+                  communities = state.communities
+                )
+              )
             }
-          }
+            .flatMap {
+              rxSingle {
+                val state = selector.select().community
+                val item = repository.mine(after = state.after)
+                CommunityAction.ToIdeal(
+                  communities = item.entities,
+                  after = item.after
+                )
+              }
+            }
+        } else {
+          Single.just(CommunityAction.DoNothing)
+        }
       }
     }
   }

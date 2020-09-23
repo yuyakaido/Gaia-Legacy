@@ -5,7 +5,7 @@ import com.yuyakaido.android.gaia.core.domain.entity.Community
 
 data class AppState(
   val article: ArticleState = ArticleState.Initial(),
-  val community: CommunityState = CommunityState.Initial
+  val community: CommunityState = CommunityState.Initial()
 ) : StateType {
 
   sealed class ArticleState : StateType {
@@ -16,8 +16,8 @@ data class AppState(
       override val after: String? = null
     ) : ArticleState()
     data class Loading(
-      override val articles: List<Article> = emptyList(),
-      override val after: String? = null
+      override val articles: List<Article>,
+      override val after: String?
     ) : ArticleState()
     data class Error(
       override val articles: List<Article> = emptyList(),
@@ -30,10 +30,33 @@ data class AppState(
   }
 
   sealed class CommunityState : StateType {
-    object Initial : CommunityState()
-    object Loading : CommunityState()
-    object Error : CommunityState()
-    data class Ideal(val communities: List<Community.Detail>) : CommunityState()
+    abstract val communities: List<Community.Detail>
+    abstract val after: String?
+    abstract fun canPaginate(): Boolean
+    data class Initial(
+      override val communities: List<Community.Detail> = emptyList(),
+      override val after: String? = null
+    ) : CommunityState() {
+      override fun canPaginate(): Boolean = true
+    }
+    data class Loading(
+      override val communities: List<Community.Detail>,
+      override val after: String?
+    ) : CommunityState() {
+      override fun canPaginate(): Boolean = false
+    }
+    data class Error(
+      override val communities: List<Community.Detail> = emptyList(),
+      override val after: String? = null
+    ) : CommunityState() {
+      override fun canPaginate(): Boolean = false
+    }
+    data class Ideal(
+      override val communities: List<Community.Detail>,
+      override val after: String?
+    ) : CommunityState() {
+      override fun canPaginate(): Boolean = after?.isNotEmpty() ?: false
+    }
   }
 
 }
