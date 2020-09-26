@@ -76,7 +76,7 @@ class ArticleListFragment : BaseFragment<ArticleListViewModel>() {
     val adapter = GroupAdapter<GroupieViewHolder>()
     adapter.setOnItemClickListener { item, _ ->
       if (item is ArticleItem) {
-        appNavigator.navigateToArticleDetailActivity(
+        appNavigator.navigateToArticleDetail(
           controller = findNavController(),
           article = item.article
         )

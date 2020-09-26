@@ -56,7 +56,7 @@ class AppNavigator @Inject constructor(
     return ArticleListFragment.newInstance(args = args)
   }
 
-  override fun navigateToArticleDetailActivity(
+  override fun navigateToArticleDetail(
     controller: NavController,
     article: Article
   ) {

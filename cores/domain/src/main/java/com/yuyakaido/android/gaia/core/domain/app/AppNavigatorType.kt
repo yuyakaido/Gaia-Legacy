@@ -20,7 +20,7 @@ interface AppNavigatorType {
   fun newSubmittedArticleListFragment(user: User): Fragment
   fun newUpvotedArticleListFragment(user: User): Fragment
   fun newDownvotedArticleListFragment(user: User): Fragment
-  fun navigateToArticleDetailActivity(controller: NavController, article: Article)
+  fun navigateToArticleDetail(controller: NavController, article: Article)
 
   // Comment
   fun newCommentListFragment(user: User): Fragment
