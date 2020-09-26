@@ -10,16 +10,16 @@ class CommunityListActionCreator @Inject constructor(
   private val repository: CommunityRepositoryType
 ) {
 
-  fun refresh(): ActionType<AppState> {
+  fun refresh(): AppAction {
     return CommunityAction.ToInitial
   }
 
-  fun paginate(): SingleActionType<AppState> {
-    return object : SingleActionType<AppState> {
+  fun paginate(): SingleAction {
+    return object : SingleAction {
       override fun execute(
         selector: SelectorType<AppState>,
         dispatcher: DispatcherType<AppState>
-      ): Single<out CommunityAction> {
+      ): Single<out ActionType<AppState>> {
         return if (selector.select().community.canPaginate()) {
           Single.just(Unit)
             .doOnSubscribe {

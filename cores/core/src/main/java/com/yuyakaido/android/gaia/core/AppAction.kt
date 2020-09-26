@@ -5,6 +5,10 @@ import com.yuyakaido.android.gaia.core.domain.entity.Community
 
 sealed class AppAction : ActionType<AppState>
 
+interface SuspendableAction : SuspendableActionType<AppState>
+
+interface SingleAction : SingleActionType<AppState>
+
 sealed class ArticleAction : AppAction() {
   object ToInitial : ArticleAction() {
     override fun reduce(state: AppState): AppState {

@@ -9,8 +9,8 @@ class ArticleListActionCreator @Inject constructor(
   private val repository: ArticleRepositoryType
 ) {
 
-  fun fetch(source: ArticleListSource): SuspendableActionType<AppState> {
-    return object : SuspendableActionType<AppState> {
+  fun fetch(source: ArticleListSource): SuspendableAction {
+    return object : SuspendableAction {
       override suspend fun execute(
         selector: SelectorType<AppState>,
         dispatcher: DispatcherType<AppState>
@@ -33,8 +33,8 @@ class ArticleListActionCreator @Inject constructor(
     }
   }
 
-  fun vote(target: VoteTarget): SuspendableActionType<AppState> {
-    return object : SuspendableActionType<AppState> {
+  fun vote(target: VoteTarget): SuspendableAction {
+    return object : SuspendableAction {
       override suspend fun execute(
         selector: SelectorType<AppState>,
         dispatcher: DispatcherType<AppState>
