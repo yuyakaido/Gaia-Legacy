@@ -56,6 +56,7 @@ class ArticleListFragment : BaseFragment<ArticleListViewModel>() {
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
     setupRecyclerView()
+    setupSwipeRefreshLayout()
     Timber.d("fragment = ${hashCode()}")
     Timber.d("viewmodel = ${viewModel.hashCode()}")
   }
@@ -113,7 +114,7 @@ class ArticleListFragment : BaseFragment<ArticleListViewModel>() {
 
     viewModel.state
       .observe(viewLifecycleOwner) { state ->
-        binding.progressBar.visibility = state.progressVisibility
+        binding.swipeRefreshLayout.isRefreshing = state.progressVisibility
         val items = state.articles.map { article ->
           ArticleItem(
             article = article,
@@ -124,6 +125,12 @@ class ArticleListFragment : BaseFragment<ArticleListViewModel>() {
         }
         adapter.updateAsync(items)
       }
+  }
+
+  private fun setupSwipeRefreshLayout() {
+    binding.swipeRefreshLayout.setOnRefreshListener {
+      viewModel.onRefresh()
+    }
   }
 
   private fun refreshByPage(page: ArticleListPage) {

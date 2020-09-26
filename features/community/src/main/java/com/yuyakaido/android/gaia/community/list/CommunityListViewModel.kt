@@ -18,38 +18,38 @@ class CommunityListViewModel @Inject constructor(
 ) : BaseViewModel(application) {
 
   sealed class State {
+    abstract val communities: List<Community.Detail>
     abstract val progressVisibility: Boolean
     abstract val retryVisibility: Int
-    abstract val communities: List<Community.Detail>
 
     object Initial : State() {
+      override val communities: List<Community.Detail> = emptyList()
       override val progressVisibility: Boolean = true
       override val retryVisibility: Int = View.GONE
-      override val communities: List<Community.Detail> = emptyList()
     }
     data class Loading(
+      override val communities: List<Community.Detail>,
       override val progressVisibility: Boolean = true,
-      override val retryVisibility: Int = View.GONE,
-      override val communities: List<Community.Detail>
+      override val retryVisibility: Int = View.GONE
+    ) : State()
+    data class Ideal(
+      override val communities: List<Community.Detail>,
+      override val progressVisibility: Boolean = false,
+      override val retryVisibility: Int = View.GONE
     ) : State()
     object Error : State() {
+      override val communities: List<Community.Detail> = emptyList()
       override val progressVisibility: Boolean = false
       override val retryVisibility: Int = View.VISIBLE
-      override val communities: List<Community.Detail> = emptyList()
     }
-    data class Ideal(
-      override val progressVisibility: Boolean = false,
-      override val retryVisibility: Int = View.GONE,
-      override val communities: List<Community.Detail>
-    ) : State()
 
     companion object {
       fun from(state: AppState.CommunityState): State {
         return when (state) {
           is AppState.CommunityState.Initial -> Initial
           is AppState.CommunityState.Loading -> Loading(communities = state.communities)
-          is AppState.CommunityState.Error -> Error
           is AppState.CommunityState.Ideal -> Ideal(communities = state.communities)
+          is AppState.CommunityState.Error -> Error
         }
       }
     }

@@ -1,7 +1,6 @@
 package com.yuyakaido.android.gaia.article.list
 
 import android.app.Application
-import android.view.View
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
@@ -30,40 +29,40 @@ class ArticleListViewModel @Inject constructor(
     .asLiveData()
 
   sealed class State {
-    abstract val progressVisibility: Int
     abstract val articles: List<Article>
+    abstract val progressVisibility: Boolean
 
-    data class Initial(
-      override val progressVisibility: Int = View.GONE,
-      override val articles: List<Article>
-    ) : State()
+    object Initial: State() {
+      override val articles: List<Article> = emptyList()
+      override val progressVisibility: Boolean = true
+    }
     data class Loading(
-      override val progressVisibility: Int = View.VISIBLE,
-      override val articles: List<Article>
-    ) : State()
-    data class  Error(
-      override val progressVisibility: Int = View.GONE,
-      override val articles: List<Article>
+      override val articles: List<Article>,
+      override val progressVisibility: Boolean = true
     ) : State()
     data class Ideal(
-      override val progressVisibility: Int = View.GONE,
-      override val articles: List<Article>
+      override val articles: List<Article>,
+      override val progressVisibility: Boolean = false
     ) : State()
+    object Error: State() {
+      override val articles: List<Article> = emptyList()
+      override val progressVisibility: Boolean = false
+    }
 
     companion object {
       fun from(state: AppState.ArticleState): State {
         return when (state) {
           is AppState.ArticleState.Initial -> {
-            Initial(articles = state.articles)
+            Initial
           }
           is AppState.ArticleState.Loading -> {
             Loading(articles = state.articles)
           }
-          is AppState.ArticleState.Error -> {
-            Error(articles = state.articles)
-          }
           is AppState.ArticleState.Ideal -> {
             Ideal(articles = state.articles)
+          }
+          is AppState.ArticleState.Error -> {
+            Error
           }
         }
       }
@@ -73,21 +72,19 @@ class ArticleListViewModel @Inject constructor(
   override fun onCreate() {
     super.onCreate()
     Timber.d("repository = ${repository.hashCode()}")
-    onPaginate()
-  }
-
-  fun onRefresh(source: ArticleListSource) {
-    this.source.value = source
-    onPaginate()
+    paginate()
   }
 
   fun onPaginate() {
-    source.value?.let { s ->
-      appStore.dispatch(
-        scope = viewModelScope,
-        action = actionCreator.fetch(source = s)
-      )
-    }
+    paginate()
+  }
+
+  fun onRefresh() {
+    refresh()
+  }
+
+  fun onRefresh(source: ArticleListSource) {
+    refresh(source = source)
   }
 
   fun onUpvote(article: Article) {
@@ -96,6 +93,25 @@ class ArticleListViewModel @Inject constructor(
 
   fun onDownvote(article: Article) {
     vote(target = VoteTarget.forDownvote(entity = article))
+  }
+
+  private fun paginate() {
+    source.value?.let { s ->
+      appStore.dispatch(
+        scope = viewModelScope,
+        action = actionCreator.paginate(source = s)
+      )
+    }
+  }
+
+  private fun refresh() {
+    appStore.dispatch(actionCreator.refresh())
+    paginate()
+  }
+
+  private fun refresh(source: ArticleListSource) {
+    this.source.value = source
+    refresh()
   }
 
   private fun vote(target: VoteTarget) {

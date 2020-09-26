@@ -9,7 +9,11 @@ class ArticleListActionCreator @Inject constructor(
   private val repository: ArticleRepositoryType
 ) {
 
-  fun fetch(source: ArticleListSource): SuspendableAction {
+  fun refresh(): AppAction {
+    return ArticleAction.ToInitial
+  }
+
+  fun paginate(source: ArticleListSource): SuspendableAction {
     return object : SuspendableAction {
       override suspend fun execute(
         selector: SelectorType<AppState>,

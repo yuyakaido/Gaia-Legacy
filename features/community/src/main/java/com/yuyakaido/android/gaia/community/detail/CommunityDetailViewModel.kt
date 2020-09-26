@@ -26,19 +26,16 @@ class CommunityDetailViewModel @Inject constructor(
       override val contentVisibility: Int = View.GONE,
       override val progressVisibility: Int = View.VISIBLE
     ) : State()
-
     data class Loading(
       override val community: Community.Summary,
       override val contentVisibility: Int = View.GONE,
       override val progressVisibility: Int = View.VISIBLE
     ) : State()
-
     data class Ideal(
       override val community: Community.Detail,
       override val contentVisibility: Int = View.VISIBLE,
       override val progressVisibility: Int = View.GONE
     ) : State()
-
     data class Error(
       override val community: Community.Summary,
       override val contentVisibility: Int = View.GONE,

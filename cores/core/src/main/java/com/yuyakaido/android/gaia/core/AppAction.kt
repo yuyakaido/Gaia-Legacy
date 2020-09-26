@@ -13,7 +13,7 @@ sealed class ArticleAction : AppAction() {
   object ToInitial : ArticleAction() {
     override fun reduce(state: AppState): AppState {
       return state.copy(
-        article = AppState.ArticleState.Initial()
+        article = AppState.ArticleState.Initial
       )
     }
   }
@@ -45,7 +45,7 @@ sealed class ArticleAction : AppAction() {
   object ToError : ArticleAction() {
     override fun reduce(state: AppState): AppState {
       return state.copy(
-        article = AppState.ArticleState.Error()
+        article = AppState.ArticleState.Error
       )
     }
   }
@@ -73,7 +73,7 @@ sealed class CommunityAction : AppAction() {
   object ToInitial : CommunityAction() {
     override fun reduce(state: AppState): AppState {
       return state.copy(
-        community = AppState.CommunityState.Initial()
+        community = AppState.CommunityState.Initial
       )
     }
   }
@@ -105,7 +105,7 @@ sealed class CommunityAction : AppAction() {
   object ToError : CommunityAction() {
     override fun reduce(state: AppState): AppState {
       return state.copy(
-        community = AppState.CommunityState.Error()
+        community = AppState.CommunityState.Error
       )
     }
   }
