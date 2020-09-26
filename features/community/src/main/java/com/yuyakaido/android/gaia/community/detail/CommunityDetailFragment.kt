@@ -34,24 +34,31 @@ class CommunityDetailFragment : BaseFragment<CommunityDetailViewModel>() {
   }
 
   private fun setupDetail() {
-    viewModel.community
-      .observe(viewLifecycleOwner) { community ->
-        Glide.with(this)
-          .load(community.banner)
-          .into(binding.banner)
-        Glide.with(this)
-          .load(community.icon)
-          .circleCrop()
-          .into(binding.icon)
-        binding.name.text = getString(R.string.community_detail_name, community.name)
-        binding.subscribe.setOnClickListener { viewModel.onSubscribe() }
-        if (community.isSubscriber) {
-          binding.subscribe.text = getString(R.string.community_detail_unsubscribe)
-        } else {
-          binding.subscribe.text = getString(R.string.community_detail_subscribe)
+    viewModel.state
+      .observe(viewLifecycleOwner) { state ->
+        binding.contentContainer.visibility = state.contentVisibility
+        binding.progressBar.visibility = state.progressVisibility
+        when (state) {
+          is CommunityDetailViewModel.State.Ideal -> {
+            val community = state.community
+            Glide.with(this)
+              .load(community.banner)
+              .into(binding.banner)
+            Glide.with(this)
+              .load(community.icon)
+              .circleCrop()
+              .into(binding.icon)
+            binding.name.text = getString(R.string.community_detail_name, community.name)
+            binding.subscribe.setOnClickListener { viewModel.onSubscribe() }
+            if (community.isSubscriber) {
+              binding.subscribe.text = getString(R.string.community_detail_unsubscribe)
+            } else {
+              binding.subscribe.text = getString(R.string.community_detail_subscribe)
+            }
+            binding.subscribers.text = getString(R.string.community_detail_subscribers, community.subscribers)
+            binding.description.text = community.description
+          }
         }
-        binding.subscribers.text = getString(R.string.community_detail_subscribers, community.subscribers)
-        binding.description.text = community.description
       }
   }
 
