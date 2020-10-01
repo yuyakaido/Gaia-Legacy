@@ -22,8 +22,8 @@ interface SingleAction : SingleActionType<AppState>
 sealed class ArticleAction : SessionAction() {
   object ToInitial : ArticleAction() {
     override fun reduce(state: AppState): AppState {
-      return state.copy(
-        session = state.session.copy(
+      return state.update(
+        state = state.session.copy(
           article = SessionState.ArticleState.Initial
         )
       )
@@ -33,8 +33,8 @@ sealed class ArticleAction : SessionAction() {
     private val articles: List<Article>
   ) : ArticleAction() {
     override fun reduce(state: AppState): AppState {
-      return state.copy(
-        session = state.session.copy(
+      return state.update(
+        state = state.session.copy(
           article = SessionState.ArticleState.Loading(
             articles = articles,
             after = state.session.article.after
@@ -48,8 +48,8 @@ sealed class ArticleAction : SessionAction() {
     private val after: String?
   ) : ArticleAction() {
     override fun reduce(state: AppState): AppState {
-      return state.copy(
-        session = state.session.copy(
+      return state.update(
+        state = state.session.copy(
           article = SessionState.ArticleState.Ideal(
             articles = state.session.article.articles.plus(articles),
             after = after
@@ -60,8 +60,8 @@ sealed class ArticleAction : SessionAction() {
   }
   object ToError : ArticleAction() {
     override fun reduce(state: AppState): AppState {
-      return state.copy(
-        session = state.session.copy(
+      return state.update(
+        state = state.session.copy(
           article = SessionState.ArticleState.Error
         )
       )
@@ -71,8 +71,8 @@ sealed class ArticleAction : SessionAction() {
     private val newArticle: Article
   ) : ArticleAction() {
     override fun reduce(state: AppState): AppState {
-      return state.copy(
-        session = state.session.copy(
+      return state.update(
+        state = state.session.copy(
           article = SessionState.ArticleState.Ideal(
             articles = state.session.article.articles.map { oldArticle ->
               if (oldArticle.id == newArticle.id) {
@@ -92,8 +92,8 @@ sealed class ArticleAction : SessionAction() {
 sealed class CommunityAction : AppAction() {
   object ToInitial : CommunityAction() {
     override fun reduce(state: AppState): AppState {
-      return state.copy(
-        session = state.session.copy(
+      return state.update(
+        state = state.session.copy(
           community = SessionState.CommunityState.Initial
         )
       )
@@ -103,8 +103,8 @@ sealed class CommunityAction : AppAction() {
     private val communities: List<Community.Detail>,
   ) : CommunityAction() {
     override fun reduce(state: AppState): AppState {
-      return state.copy(
-        session = state.session.copy(
+      return state.update(
+        state = state.session.copy(
           community = SessionState.CommunityState.Loading(
             communities = communities,
             after = state.session.community.after
@@ -118,8 +118,8 @@ sealed class CommunityAction : AppAction() {
     private val after: String?
   ) : CommunityAction() {
     override fun reduce(state: AppState): AppState {
-      return state.copy(
-        session = state.session.copy(
+      return state.update(
+        state = state.session.copy(
           community = SessionState.CommunityState.Ideal(
             communities = state.session.community.communities.plus(communities),
             after = after
@@ -130,8 +130,8 @@ sealed class CommunityAction : AppAction() {
   }
   object ToError : CommunityAction() {
     override fun reduce(state: AppState): AppState {
-      return state.copy(
-        session = state.session.copy(
+      return state.update(
+        state = state.session.copy(
           community = SessionState.CommunityState.Error
         )
       )

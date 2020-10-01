@@ -9,16 +9,20 @@ class AppStore(
   initialState = initialState
 ) {
 
+  private fun sessionAsFlow(): Flow<SessionState> {
+    return stateAsFlow().map { it.session }
+  }
+
   fun lifecycleAsFlow(): Flow<AppLifecycle> {
     return stateAsFlow().map { it.lifecycle }
   }
 
   fun articleAsFlow(): Flow<SessionState.ArticleState> {
-    return stateAsFlow().map { it.session.article }
+    return sessionAsFlow().map { it.article }
   }
 
   fun communityAsFlow(): Flow<SessionState.CommunityState> {
-    return stateAsFlow().map { it.session.community }
+    return sessionAsFlow().map { it.community }
   }
 
 }
