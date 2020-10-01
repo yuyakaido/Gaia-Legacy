@@ -5,24 +5,20 @@ import com.yuyakaido.android.gaia.core.domain.entity.User
 import com.yuyakaido.android.gaia.core.domain.repository.UserRepositoryType
 import com.yuyakaido.android.gaia.user.infrastructure.local.MeDatabase
 import com.yuyakaido.android.gaia.user.infrastructure.remote.UserApi
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
 
 class UserRepository(
   private val api: UserApi,
   private val database: MeDatabase
 ) : UserRepositoryType {
 
-  override fun detail(user: User): Flow<User.Detail> = flow {
-    emit(api.user(user = user.name).toEntity())
+  override suspend fun detail(user: User): User.Detail {
+    return api.user(user = user.name).toEntity()
   }
 
-  override fun me(): Flow<User.Detail.Me> = flow {
-    val meDao = database.meDao()
-    meDao.findAll().firstOrNull()?.let { emit(it.toEntity()) }
+  override suspend fun me(): User.Detail.Me {
     val schema = api.me().toSchema()
-    meDao.insert(me = schema)
-    emit(schema.toEntity())
+    database.meDao().insert(me = schema)
+    return schema.toEntity()
   }
 
   override suspend fun moderators(

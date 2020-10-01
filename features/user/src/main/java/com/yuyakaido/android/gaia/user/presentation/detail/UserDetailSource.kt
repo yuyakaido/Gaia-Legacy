@@ -4,23 +4,22 @@ import android.os.Parcelable
 import com.yuyakaido.android.gaia.core.domain.entity.User
 import com.yuyakaido.android.gaia.core.domain.repository.UserRepositoryType
 import kotlinx.android.parcel.Parcelize
-import kotlinx.coroutines.flow.Flow
 
 sealed class UserDetailSource : Parcelable {
 
   abstract fun page(): UserDetailPage
-  abstract fun detail(
+  abstract suspend fun detail(
     repository: UserRepositoryType
-  ): Flow<User.Detail>
+  ): User.Detail
 
   @Parcelize
   object Me : UserDetailSource() {
     override fun page(): UserDetailPage {
       return UserDetailPage.Me
     }
-    override fun detail(
+    override suspend fun detail(
       repository: UserRepositoryType
-    ): Flow<User.Detail.Me> {
+    ): User.Detail.Me {
       return repository.me()
     }
   }
@@ -32,9 +31,9 @@ sealed class UserDetailSource : Parcelable {
     override fun page(): UserDetailPage {
       return UserDetailPage.Other
     }
-    override fun detail(
+    override suspend fun detail(
       repository: UserRepositoryType
-    ): Flow<User.Detail> {
+    ): User.Detail {
       return repository.detail(user = user)
     }
   }

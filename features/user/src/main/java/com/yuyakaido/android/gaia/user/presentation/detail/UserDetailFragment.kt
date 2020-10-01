@@ -49,16 +49,31 @@ class UserDetailFragment : BaseFragment<UserDetailViewModel>() {
   }
 
   private fun setupProfile() {
-    viewModel.detail
-      .observe(viewLifecycleOwner) { detail ->
-        Glide.with(requireContext())
-          .load(detail.icon)
-          .transform(RoundedCorners(16.dpToPx(requireContext())))
-          .into(binding.icon)
-        binding.identity.text = getString(R.string.user_detail_identity, detail.name)
-        binding.birthday.text = detail.birthday.toString()
-        binding.karma.text = getString(R.string.user_detail_karma, detail.karma)
-        setupViewPager(detail)
+    binding.retryButton.setOnClickListener {
+      viewModel.onRetry()
+    }
+
+    viewModel.state
+      .observe(viewLifecycleOwner) { state ->
+        binding.contentContainer.visibility = state.contentVisibility
+        binding.progressBar.visibility = state.progressVisibility
+        binding.retryButton.visibility = state.retryVisibility
+        when (state) {
+          is UserDetailViewModel.State.Initial,
+          is UserDetailViewModel.State.Loading,
+          is UserDetailViewModel.State.Error -> Unit
+          is UserDetailViewModel.State.Ideal -> {
+            val user = state.user
+            Glide.with(requireContext())
+              .load(user.icon)
+              .transform(RoundedCorners(16.dpToPx(requireContext())))
+              .into(binding.icon)
+            binding.identity.text = getString(R.string.user_detail_identity, user.name)
+            binding.birthday.text = user.birthday.toString()
+            binding.karma.text = getString(R.string.user_detail_karma, user.karma)
+            setupViewPager(user)
+          }
+        }
       }
   }
 

@@ -16,7 +16,7 @@ class ArticleDetailViewModel @Inject constructor(
   private val repository: ArticleRepositoryType
 ) : BaseViewModel(application) {
 
-  val article = MutableLiveData<Article>(article)
+  val article = MutableLiveData(article)
 
   fun onUpvote(article: Article) {
     vote(target = VoteTarget.forUpvote(entity = article))
