@@ -4,6 +4,7 @@ import com.yuyakaido.android.gaia.core.domain.entity.Article
 import com.yuyakaido.android.gaia.core.domain.entity.Community
 
 data class AppState(
+  val lifecycle: AppLifecycle = AppLifecycle.OnAny,
   val article: ArticleState = ArticleState.Initial,
   val community: CommunityState = CommunityState.Initial
 ) : StateType {

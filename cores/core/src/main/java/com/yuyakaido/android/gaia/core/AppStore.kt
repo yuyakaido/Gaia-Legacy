@@ -9,6 +9,10 @@ class AppStore(
   initialState = initialState
 ) {
 
+  fun lifecycleAsFlow(): Flow<AppLifecycle> {
+    return stateAsFlow().map { it.lifecycle }
+  }
+
   fun articleAsFlow(): Flow<AppState.ArticleState> {
     return stateAsFlow().map { it.article }
   }

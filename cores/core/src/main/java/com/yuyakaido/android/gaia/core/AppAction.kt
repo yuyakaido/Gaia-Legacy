@@ -3,7 +3,15 @@ package com.yuyakaido.android.gaia.core
 import com.yuyakaido.android.gaia.core.domain.entity.Article
 import com.yuyakaido.android.gaia.core.domain.entity.Community
 
-sealed class AppAction : ActionType<AppState>
+sealed class AppAction : ActionType<AppState> {
+  data class UpdateLifecycle(val lifecycle: AppLifecycle) : AppAction() {
+    override fun reduce(state: AppState): AppState {
+      return state.copy(
+        lifecycle = lifecycle
+      )
+    }
+  }
+}
 
 interface SuspendableAction : SuspendableActionType<AppState>
 
