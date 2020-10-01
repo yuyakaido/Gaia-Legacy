@@ -13,12 +13,12 @@ class AppStore(
     return stateAsFlow().map { it.lifecycle }
   }
 
-  fun articleAsFlow(): Flow<AppState.ArticleState> {
-    return stateAsFlow().map { it.article }
+  fun articleAsFlow(): Flow<SessionState.ArticleState> {
+    return stateAsFlow().map { it.session.article }
   }
 
-  fun communityAsFlow(): Flow<AppState.CommunityState> {
-    return stateAsFlow().map { it.community }
+  fun communityAsFlow(): Flow<SessionState.CommunityState> {
+    return stateAsFlow().map { it.session.community }
   }
 
 }

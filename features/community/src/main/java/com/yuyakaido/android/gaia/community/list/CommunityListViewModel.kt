@@ -7,6 +7,7 @@ import androidx.lifecycle.map
 import androidx.lifecycle.viewModelScope
 import com.yuyakaido.android.gaia.core.AppState
 import com.yuyakaido.android.gaia.core.AppStore
+import com.yuyakaido.android.gaia.core.SessionState
 import com.yuyakaido.android.gaia.core.domain.entity.Community
 import com.yuyakaido.android.gaia.core.presentation.BaseViewModel
 import javax.inject.Inject
@@ -44,12 +45,12 @@ class CommunityListViewModel @Inject constructor(
     }
 
     companion object {
-      fun from(state: AppState.CommunityState): State {
+      fun from(state: SessionState.CommunityState): State {
         return when (state) {
-          is AppState.CommunityState.Initial -> Initial
-          is AppState.CommunityState.Loading -> Loading(communities = state.communities)
-          is AppState.CommunityState.Ideal -> Ideal(communities = state.communities)
-          is AppState.CommunityState.Error -> Error
+          is SessionState.CommunityState.Initial -> Initial
+          is SessionState.CommunityState.Loading -> Loading(communities = state.communities)
+          is SessionState.CommunityState.Ideal -> Ideal(communities = state.communities)
+          is SessionState.CommunityState.Error -> Error
         }
       }
     }
