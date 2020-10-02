@@ -7,7 +7,7 @@ import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import com.yuyakaido.android.gaia.auth.AuthInterceptor
 import com.yuyakaido.android.gaia.auth.BasicAuthInterceptor
 import com.yuyakaido.android.gaia.auth.TokenAuthenticator
-import com.yuyakaido.android.gaia.core.domain.app.AppScope
+import com.yuyakaido.android.gaia.core.domain.app.SessionScope
 import com.yuyakaido.android.gaia.core.domain.repository.TokenRepositoryType
 import com.yuyakaido.android.gaia.core.infrastructure.*
 import dagger.Module
@@ -29,7 +29,7 @@ class NetworkModule {
       .addInterceptor(httpLoggingInterceptor)
   }
 
-  @AppScope
+  @SessionScope
   @OkHttpForPublic
   @Provides
   fun provideOkHttpClientForPublic(): OkHttpClient {
@@ -38,7 +38,7 @@ class NetworkModule {
       .build()
   }
 
-  @AppScope
+  @SessionScope
   @OkHttpForPrivate
   @Provides
   fun provideOkHttpClientForPrivate(
@@ -58,7 +58,7 @@ class NetworkModule {
       .build()
   }
 
-  @AppScope
+  @SessionScope
   @Provides
   fun provideMoshi(): Moshi {
     return Moshi
@@ -87,7 +87,7 @@ class NetworkModule {
       .build()
   }
 
-  @AppScope
+  @SessionScope
   @RetrofitForPublic
   @Provides
   fun provideRetrofitForPublic(
@@ -102,7 +102,7 @@ class NetworkModule {
       .build()
   }
 
-  @AppScope
+  @SessionScope
   @RetrofitForPrivate
   @Provides
   fun provideRetrofitForPrivate(

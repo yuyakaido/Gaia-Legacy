@@ -2,7 +2,7 @@ package com.yuyakaido.android.gaia.user
 
 import android.app.Application
 import androidx.room.Room
-import com.yuyakaido.android.gaia.core.domain.app.AppScope
+import com.yuyakaido.android.gaia.core.domain.app.SessionScope
 import com.yuyakaido.android.gaia.core.domain.repository.UserRepositoryType
 import com.yuyakaido.android.gaia.core.infrastructure.RetrofitForPrivate
 import com.yuyakaido.android.gaia.user.infrastructure.local.MeDatabase
@@ -15,7 +15,7 @@ import retrofit2.Retrofit
 @Module
 class UserModule {
 
-  @AppScope
+  @SessionScope
   @Provides
   fun provideUserApi(
     @RetrofitForPrivate retrofit: Retrofit
@@ -23,7 +23,7 @@ class UserModule {
     return retrofit.create(UserApi::class.java)
   }
 
-  @AppScope
+  @SessionScope
   @Provides
   fun provideMeDatabase(
     application: Application
@@ -37,7 +37,7 @@ class UserModule {
       .build()
   }
 
-  @AppScope
+  @SessionScope
   @Provides
   fun provideUserRepositoryType(
     api: UserApi,

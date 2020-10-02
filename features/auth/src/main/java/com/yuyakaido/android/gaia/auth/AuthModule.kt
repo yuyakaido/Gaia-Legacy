@@ -1,7 +1,7 @@
 package com.yuyakaido.android.gaia.auth
 
 import android.app.Application
-import com.yuyakaido.android.gaia.core.domain.app.AppScope
+import com.yuyakaido.android.gaia.core.domain.app.SessionScope
 import com.yuyakaido.android.gaia.core.domain.repository.TokenRepositoryType
 import com.yuyakaido.android.gaia.core.infrastructure.RetrofitForPublic
 import dagger.Module
@@ -11,7 +11,7 @@ import retrofit2.Retrofit
 @Module
 class AuthModule {
 
-  @AppScope
+  @SessionScope
   @Provides
   fun provideAuthApi(
     @RetrofitForPublic retrofit: Retrofit
@@ -19,7 +19,7 @@ class AuthModule {
     return retrofit.create(AuthApi::class.java)
   }
 
-  @AppScope
+  @SessionScope
   @Provides
   fun provideTokenRepositoryType(
     application: Application,

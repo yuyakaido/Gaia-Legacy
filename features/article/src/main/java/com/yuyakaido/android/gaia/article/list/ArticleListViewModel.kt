@@ -4,11 +4,9 @@ import android.app.Application
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
-import com.yuyakaido.android.gaia.core.AppState
 import com.yuyakaido.android.gaia.core.AppStore
 import com.yuyakaido.android.gaia.core.SessionState
 import com.yuyakaido.android.gaia.core.domain.entity.Article
-import com.yuyakaido.android.gaia.core.domain.repository.ArticleRepositoryType
 import com.yuyakaido.android.gaia.core.domain.value.VoteTarget
 import com.yuyakaido.android.gaia.core.presentation.BaseViewModel
 import kotlinx.coroutines.flow.map
@@ -19,8 +17,7 @@ class ArticleListViewModel @Inject constructor(
   application: Application,
   source: ArticleListSource,
   private val appStore: AppStore,
-  private val actionCreator: ArticleListActionCreator,
-  private val repository: ArticleRepositoryType
+  private val actionCreator: ArticleListActionCreator
 ) : BaseViewModel(application) {
 
   private val source = MutableLiveData(source)
@@ -72,7 +69,7 @@ class ArticleListViewModel @Inject constructor(
 
   override fun onCreate() {
     super.onCreate()
-    Timber.d("repository = ${repository.hashCode()}")
+    Timber.v("AppStore = $appStore")
     paginate()
   }
 

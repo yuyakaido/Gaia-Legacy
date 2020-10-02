@@ -1,6 +1,6 @@
 package com.yuyakaido.android.gaia.article
 
-import com.yuyakaido.android.gaia.core.domain.app.AppScope
+import com.yuyakaido.android.gaia.core.domain.app.SessionScope
 import com.yuyakaido.android.gaia.core.domain.repository.ArticleRepositoryType
 import com.yuyakaido.android.gaia.core.infrastructure.RetrofitForPrivate
 import dagger.Module
@@ -10,7 +10,7 @@ import retrofit2.Retrofit
 @Module
 class ArticleModule {
 
-  @AppScope
+  @SessionScope
   @Provides
   fun provideArticleApi(
     @RetrofitForPrivate retrofit: Retrofit
@@ -18,7 +18,7 @@ class ArticleModule {
     return retrofit.create(ArticleApi::class.java)
   }
 
-  @AppScope
+  @SessionScope
   @Provides
   fun provideArticleRepositoryType(
     api: ArticleApi

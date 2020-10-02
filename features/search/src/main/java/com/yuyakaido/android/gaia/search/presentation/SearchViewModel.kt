@@ -9,6 +9,7 @@ import com.yuyakaido.android.gaia.core.domain.value.SearchHistory
 import com.yuyakaido.android.gaia.core.domain.value.TrendingArticle
 import com.yuyakaido.android.gaia.core.presentation.BaseViewModel
 import kotlinx.coroutines.launch
+import timber.log.Timber
 import javax.inject.Inject
 
 class SearchViewModel @Inject constructor(
@@ -22,6 +23,11 @@ class SearchViewModel @Inject constructor(
 
   override fun onCreate() {
     super.onCreate()
+    Timber.v("SearchRepository = $repository")
+    fetchTrending()
+  }
+
+  private fun fetchTrending() {
     viewModelScope.launch {
       val articles = repository.getTrendingArticles()
       trendingArticles.value = articles

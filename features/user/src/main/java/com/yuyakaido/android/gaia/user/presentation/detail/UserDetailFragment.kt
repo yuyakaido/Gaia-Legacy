@@ -14,7 +14,6 @@ import com.yuyakaido.android.gaia.core.domain.extension.dpToPx
 import com.yuyakaido.android.gaia.core.presentation.BaseFragment
 import com.yuyakaido.android.gaia.user.R
 import com.yuyakaido.android.gaia.user.databinding.FragmentUserDetailBinding
-import timber.log.Timber
 
 class UserDetailFragment : BaseFragment<UserDetailViewModel>() {
 
@@ -44,8 +43,6 @@ class UserDetailFragment : BaseFragment<UserDetailViewModel>() {
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
     setupProfile()
-    Timber.d("fragment = ${hashCode()}")
-    Timber.d("viewmodel = ${viewModel.hashCode()}")
   }
 
   private fun setupProfile() {

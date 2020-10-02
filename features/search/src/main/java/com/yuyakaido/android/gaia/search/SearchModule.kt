@@ -1,9 +1,8 @@
 package com.yuyakaido.android.gaia.search
 
 import android.app.Application
-import androidx.appcompat.widget.AppCompatImageButton
 import androidx.room.Room
-import com.yuyakaido.android.gaia.core.domain.app.AppScope
+import com.yuyakaido.android.gaia.core.domain.app.SessionScope
 import com.yuyakaido.android.gaia.core.domain.repository.SearchRepositoryType
 import com.yuyakaido.android.gaia.core.infrastructure.RetrofitForPublic
 import com.yuyakaido.android.gaia.search.infrastructure.HistoryDatabase
@@ -16,7 +15,7 @@ import retrofit2.Retrofit
 @Module
 class SearchModule {
 
-  @AppScope
+  @SessionScope
   @Provides
   fun provideSearchApi(
     @RetrofitForPublic retrofit: Retrofit
@@ -24,7 +23,7 @@ class SearchModule {
     return retrofit.create(SearchApi::class.java)
   }
 
-  @AppScope
+  @SessionScope
   @Provides
   fun provideHistoryDatabase(
     application: Application
@@ -38,7 +37,7 @@ class SearchModule {
       .build()
   }
 
-  @AppScope
+  @SessionScope
   @Provides
   fun provideSearchRepositoryType(
     api: SearchApi,

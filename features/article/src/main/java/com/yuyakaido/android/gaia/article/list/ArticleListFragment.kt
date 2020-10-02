@@ -19,7 +19,6 @@ import com.yuyakaido.android.gaia.core.domain.entity.Article
 import com.yuyakaido.android.gaia.core.domain.extension.dpToPx
 import com.yuyakaido.android.gaia.core.presentation.ArticleItem
 import com.yuyakaido.android.gaia.core.presentation.BaseFragment
-import timber.log.Timber
 
 class ArticleListFragment : BaseFragment<ArticleListViewModel>() {
 
@@ -57,8 +56,6 @@ class ArticleListFragment : BaseFragment<ArticleListViewModel>() {
     super.onViewCreated(view, savedInstanceState)
     setupRecyclerView()
     setupSwipeRefreshLayout()
-    Timber.d("fragment = ${hashCode()}")
-    Timber.d("viewmodel = ${viewModel.hashCode()}")
   }
 
   override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {

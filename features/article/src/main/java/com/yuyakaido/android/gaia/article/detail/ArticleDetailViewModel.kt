@@ -8,6 +8,7 @@ import com.yuyakaido.android.gaia.core.domain.repository.ArticleRepositoryType
 import com.yuyakaido.android.gaia.core.domain.value.VoteTarget
 import com.yuyakaido.android.gaia.core.presentation.BaseViewModel
 import kotlinx.coroutines.launch
+import timber.log.Timber
 import javax.inject.Inject
 
 class ArticleDetailViewModel @Inject constructor(
@@ -17,6 +18,11 @@ class ArticleDetailViewModel @Inject constructor(
 ) : BaseViewModel(application) {
 
   val article = MutableLiveData(article)
+
+  override fun onCreate() {
+    super.onCreate()
+    Timber.v("ArticleRepository = $repository")
+  }
 
   fun onUpvote(article: Article) {
     vote(target = VoteTarget.forUpvote(entity = article))

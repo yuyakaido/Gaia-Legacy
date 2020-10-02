@@ -20,11 +20,21 @@ class Gaia : GaiaType() {
   @Inject
   internal lateinit var appStore: AppStore
 
+  private lateinit var appComponent: AppComponent
+
   override fun applicationInjector(): AndroidInjector<out DaggerApplication> {
-    return DaggerAppComponent
+    appComponent = DaggerAppComponent
       .builder()
       .application(this)
       .build()
+    return appComponent
+  }
+
+  override fun androidInjector(): AndroidInjector<Any> {
+    return appComponent
+      .newSessionComponent()
+      .build()
+      .androidInjector()
   }
 
   override fun onCreate() {

@@ -5,11 +5,11 @@ import android.view.View
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.map
 import androidx.lifecycle.viewModelScope
-import com.yuyakaido.android.gaia.core.AppState
 import com.yuyakaido.android.gaia.core.AppStore
 import com.yuyakaido.android.gaia.core.SessionState
 import com.yuyakaido.android.gaia.core.domain.entity.Community
 import com.yuyakaido.android.gaia.core.presentation.BaseViewModel
+import timber.log.Timber
 import javax.inject.Inject
 
 class CommunityListViewModel @Inject constructor(
@@ -62,6 +62,7 @@ class CommunityListViewModel @Inject constructor(
 
   override fun onCreate() {
     super.onCreate()
+    Timber.v("AppStore = $appStore")
     paginate()
   }
 
