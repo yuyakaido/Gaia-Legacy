@@ -13,6 +13,10 @@ class AppStore(
     return stateAsFlow().map { it.session }
   }
 
+  fun hasSessionAsFlow(): Flow<Boolean> {
+    return stateAsFlow().map { it.sessions.isNotEmpty() }
+  }
+
   fun lifecycleAsFlow(): Flow<AppLifecycle> {
     return stateAsFlow().map { it.lifecycle }
   }

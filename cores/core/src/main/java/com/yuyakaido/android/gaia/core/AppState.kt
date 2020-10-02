@@ -8,10 +8,6 @@ data class AppState(
 
   val session get() = sessions[index]
 
-  init {
-    sessions.add(SessionState())
-  }
-
   fun update(state: SessionState): AppState {
     sessions[index] = state
     return this

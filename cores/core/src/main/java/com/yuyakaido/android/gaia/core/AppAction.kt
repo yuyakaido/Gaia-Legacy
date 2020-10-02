@@ -4,6 +4,13 @@ import com.yuyakaido.android.gaia.core.domain.entity.Article
 import com.yuyakaido.android.gaia.core.domain.entity.Community
 
 sealed class AppAction : ActionType<AppState> {
+  object AddSession : AppAction() {
+    override fun reduce(state: AppState): AppState {
+      state.sessions.add(SessionState())
+      return state
+    }
+  }
+
   data class UpdateLifecycle(val lifecycle: AppLifecycle) : AppAction() {
     override fun reduce(state: AppState): AppState {
       return state.copy(
