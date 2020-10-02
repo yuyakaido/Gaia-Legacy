@@ -12,6 +12,7 @@ import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.take
 import kotlinx.coroutines.launch
+import timber.log.Timber
 import javax.inject.Inject
 
 class AuthorizationViewModel @Inject constructor(
@@ -26,16 +27,39 @@ class AuthorizationViewModel @Inject constructor(
 
   override fun onCreate() {
     super.onCreate()
+    Timber.v("AppStore = $appStore")
+    initialize()
+  }
+
+  private fun initialize() {
+    appStore.dispatch(AppAction.ClearSession)
+    viewModelScope.launch {
+      appStore.stateAsFlow()
+        .filter { it.sessions.isEmpty() }
+        .take(1)
+        .collect { setup() }
+    }
+  }
+
+  private fun setup() {
     setupNavigation()
     handleToken()
   }
 
   private fun setupNavigation() {
     viewModelScope.launch {
-      appStore.hasSessionAsFlow()
-        .filter { hasSession -> hasSession }
+      appStore.signedOutAsFlow()
         .take(1)
-        .collect { navigateToHome.postValue(Unit) }
+        .collect {
+          navigateToAuth.postValue(Unit)
+        }
+    }
+    viewModelScope.launch {
+      appStore.signedInAsFlow()
+        .take(1)
+        .collect {
+          navigateToHome.postValue(Unit)
+        }
     }
   }
 
@@ -47,15 +71,15 @@ class AuthorizationViewModel @Inject constructor(
           intent.data?.let { uri ->
             uri.getQueryParameter("code")?.let { code ->
               repository.save(repository.get(code = code))
-              appStore.dispatch(AppAction.AddSession)
+              appStore.dispatch(AppAction.AddSignedInSession)
             }
           }
         }
         token.isLoggedIn() -> {
-          appStore.dispatch(AppAction.AddSession)
+          appStore.dispatch(AppAction.AddSignedInSession)
         }
         else -> {
-          navigateToAuth.postValue(Unit)
+          appStore.dispatch(AppAction.AddSignedOutSession)
         }
       }
     }

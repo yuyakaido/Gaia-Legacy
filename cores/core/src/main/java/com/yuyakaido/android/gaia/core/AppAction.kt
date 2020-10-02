@@ -4,10 +4,27 @@ import com.yuyakaido.android.gaia.core.domain.entity.Article
 import com.yuyakaido.android.gaia.core.domain.entity.Community
 
 sealed class AppAction : ActionType<AppState> {
-  object AddSession : AppAction() {
+  object ClearSession : AppAction() {
     override fun reduce(state: AppState): AppState {
-      state.sessions.add(SessionState())
-      return state
+      return state.copy(
+        sessions = emptyList()
+      )
+    }
+  }
+
+  object AddSignedOutSession : AppAction() {
+    override fun reduce(state: AppState): AppState {
+      return state.copy(
+        sessions = listOf(SessionState.SignedOut)
+      )
+    }
+  }
+
+  object AddSignedInSession : AppAction() {
+    override fun reduce(state: AppState): AppState {
+      return state.copy(
+        sessions = listOf(SessionState.SignedIn())
+      )
     }
   }
 
@@ -29,25 +46,35 @@ interface SingleAction : SingleActionType<AppState>
 sealed class ArticleAction : SessionAction() {
   object ToInitial : ArticleAction() {
     override fun reduce(state: AppState): AppState {
-      return state.update(
-        state = state.session.copy(
-          article = SessionState.ArticleState.Initial
-        )
-      )
+      return when (val session = state.session) {
+        is SessionState.SignedOut -> state
+        is SessionState.SignedIn -> {
+          state.update(
+            state = session.copy(
+              article = SessionState.ArticleState.Initial
+            )
+          )
+        }
+      }
     }
   }
   data class ToLoading(
     private val articles: List<Article>
   ) : ArticleAction() {
     override fun reduce(state: AppState): AppState {
-      return state.update(
-        state = state.session.copy(
-          article = SessionState.ArticleState.Loading(
-            articles = articles,
-            after = state.session.article.after
+      return when (val session = state.session) {
+        is SessionState.SignedOut -> state
+        is SessionState.SignedIn -> {
+          state.update(
+            state = session.copy(
+              article = SessionState.ArticleState.Loading(
+                articles = articles,
+                after = session.article.after
+              )
+            )
           )
-        )
-      )
+        }
+      }
     }
   }
   data class ToIdeal(
@@ -55,43 +82,58 @@ sealed class ArticleAction : SessionAction() {
     private val after: String?
   ) : ArticleAction() {
     override fun reduce(state: AppState): AppState {
-      return state.update(
-        state = state.session.copy(
-          article = SessionState.ArticleState.Ideal(
-            articles = state.session.article.articles.plus(articles),
-            after = after
+      return when (val session = state.session) {
+        is SessionState.SignedOut -> state
+        is SessionState.SignedIn -> {
+          state.update(
+            state = session.copy(
+              article = SessionState.ArticleState.Ideal(
+                articles = session.article.articles.plus(articles),
+                after = after
+              )
+            )
           )
-        )
-      )
+        }
+      }
     }
   }
   object ToError : ArticleAction() {
     override fun reduce(state: AppState): AppState {
-      return state.update(
-        state = state.session.copy(
-          article = SessionState.ArticleState.Error
-        )
-      )
+      return when (val session = state.session) {
+        is SessionState.SignedOut -> state
+        is SessionState.SignedIn -> {
+          state.update(
+            state = session.copy(
+              article = SessionState.ArticleState.Error
+            )
+          )
+        }
+      }
     }
   }
   data class Update(
     private val newArticle: Article
   ) : ArticleAction() {
     override fun reduce(state: AppState): AppState {
-      return state.update(
-        state = state.session.copy(
-          article = SessionState.ArticleState.Ideal(
-            articles = state.session.article.articles.map { oldArticle ->
-              if (oldArticle.id == newArticle.id) {
-                newArticle
-              } else {
-                oldArticle
-              }
-            },
-            after = state.session.article.after
+      return when (val session = state.session) {
+        is SessionState.SignedOut -> state
+        is SessionState.SignedIn -> {
+          state.update(
+            state = session.copy(
+              article = SessionState.ArticleState.Ideal(
+                articles = session.article.articles.map { oldArticle ->
+                  if (oldArticle.id == newArticle.id) {
+                    newArticle
+                  } else {
+                    oldArticle
+                  }
+                },
+                after = session.article.after
+              )
+            )
           )
-        )
-      )
+        }
+      }
     }
   }
 }
@@ -99,25 +141,35 @@ sealed class ArticleAction : SessionAction() {
 sealed class CommunityAction : AppAction() {
   object ToInitial : CommunityAction() {
     override fun reduce(state: AppState): AppState {
-      return state.update(
-        state = state.session.copy(
-          community = SessionState.CommunityState.Initial
-        )
-      )
+      return when (val session = state.session) {
+        is SessionState.SignedOut -> state
+        is SessionState.SignedIn -> {
+          state.update(
+            state = session.copy(
+              community = SessionState.CommunityState.Initial
+            )
+          )
+        }
+      }
     }
   }
   data class ToLoading(
     private val communities: List<Community.Detail>,
   ) : CommunityAction() {
     override fun reduce(state: AppState): AppState {
-      return state.update(
-        state = state.session.copy(
-          community = SessionState.CommunityState.Loading(
-            communities = communities,
-            after = state.session.community.after
+      return when (val session = state.session) {
+        is SessionState.SignedOut -> state
+        is SessionState.SignedIn -> {
+          state.update(
+            state = session.copy(
+              community = SessionState.CommunityState.Loading(
+                communities = communities,
+                after = session.community.after
+              )
+            )
           )
-        )
-      )
+        }
+      }
     }
   }
   data class ToIdeal(
@@ -125,23 +177,33 @@ sealed class CommunityAction : AppAction() {
     private val after: String?
   ) : CommunityAction() {
     override fun reduce(state: AppState): AppState {
-      return state.update(
-        state = state.session.copy(
-          community = SessionState.CommunityState.Ideal(
-            communities = state.session.community.communities.plus(communities),
-            after = after
+      return when (val session = state.session) {
+        is SessionState.SignedOut -> state
+        is SessionState.SignedIn -> {
+          state.update(
+            state = session.copy(
+              community = SessionState.CommunityState.Ideal(
+                communities = session.community.communities.plus(communities),
+                after = after
+              )
+            )
           )
-        )
-      )
+        }
+      }
     }
   }
   object ToError : CommunityAction() {
     override fun reduce(state: AppState): AppState {
-      return state.update(
-        state = state.session.copy(
-          community = SessionState.CommunityState.Error
-        )
-      )
+      return when (val session = state.session) {
+        is SessionState.SignedOut -> state
+        is SessionState.SignedIn -> {
+          state.update(
+            state = session.copy(
+              community = SessionState.CommunityState.Error
+            )
+          )
+        }
+      }
     }
   }
   object DoNothing : CommunityAction() {

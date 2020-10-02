@@ -19,7 +19,7 @@ class ArticleListActionCreator @Inject constructor(
         selector: SelectorType<AppState>,
         dispatcher: DispatcherType<AppState>
       ): ActionType<AppState> {
-        val state = selector.select().session.article
+        val state = selector.select().signedIn.article
         dispatcher.dispatch(
           ArticleAction.ToLoading(
             articles = state.articles

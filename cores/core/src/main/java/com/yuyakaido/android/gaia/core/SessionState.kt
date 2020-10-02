@@ -3,12 +3,16 @@ package com.yuyakaido.android.gaia.core
 import com.yuyakaido.android.gaia.core.domain.entity.Article
 import com.yuyakaido.android.gaia.core.domain.entity.Community
 
-data class SessionState(
-  val article: ArticleState = ArticleState.Initial,
-  val community: CommunityState = CommunityState.Initial
-) {
+sealed class SessionState {
 
-  sealed class ArticleState : StateType {
+  object SignedOut : SessionState()
+
+  data class SignedIn(
+    val article: ArticleState = ArticleState.Initial,
+    val community: CommunityState = CommunityState.Initial
+  ) : SessionState()
+
+  sealed class ArticleState {
     abstract val articles: List<Article>
     abstract val after: String?
 
@@ -30,7 +34,7 @@ data class SessionState(
     }
   }
 
-  sealed class CommunityState : StateType {
+  sealed class CommunityState {
     abstract val communities: List<Community.Detail>
     abstract val after: String?
     abstract fun canPaginate(): Boolean

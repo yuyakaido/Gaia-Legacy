@@ -1,6 +1,8 @@
 package com.yuyakaido.android.gaia.core
 
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.filter
+import kotlinx.coroutines.flow.filterIsInstance
 import kotlinx.coroutines.flow.map
 
 class AppStore(
@@ -10,11 +12,17 @@ class AppStore(
 ) {
 
   private fun sessionAsFlow(): Flow<SessionState> {
-    return stateAsFlow().map { it.session }
+    return stateAsFlow()
+      .filter { it.sessions.isNotEmpty() }
+      .map { it.session }
   }
 
-  fun hasSessionAsFlow(): Flow<Boolean> {
-    return stateAsFlow().map { it.sessions.isNotEmpty() }
+  fun signedOutAsFlow(): Flow<SessionState.SignedOut> {
+    return sessionAsFlow().filterIsInstance()
+  }
+
+  fun signedInAsFlow(): Flow<SessionState.SignedIn> {
+    return sessionAsFlow().filterIsInstance()
   }
 
   fun lifecycleAsFlow(): Flow<AppLifecycle> {
@@ -22,11 +30,11 @@ class AppStore(
   }
 
   fun articleAsFlow(): Flow<SessionState.ArticleState> {
-    return sessionAsFlow().map { it.article }
+    return signedInAsFlow().map { it.article }
   }
 
   fun communityAsFlow(): Flow<SessionState.CommunityState> {
-    return sessionAsFlow().map { it.community }
+    return signedInAsFlow().map { it.community }
   }
 
 }

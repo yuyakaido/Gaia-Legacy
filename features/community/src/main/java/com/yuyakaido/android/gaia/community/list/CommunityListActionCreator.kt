@@ -20,10 +20,10 @@ class CommunityListActionCreator @Inject constructor(
         selector: SelectorType<AppState>,
         dispatcher: DispatcherType<AppState>
       ): Single<out ActionType<AppState>> {
-        return if (selector.select().session.community.canPaginate()) {
+        return if (selector.select().signedIn.community.canPaginate()) {
           Single.just(Unit)
             .doOnSubscribe {
-              val state = selector.select().session.community
+              val state = selector.select().signedIn.community
               dispatcher.dispatch(
                 CommunityAction.ToLoading(
                   communities = state.communities
@@ -32,7 +32,7 @@ class CommunityListActionCreator @Inject constructor(
             }
             .flatMap<CommunityAction> {
               rxSingle {
-                val state = selector.select().session.community
+                val state = selector.select().signedIn.community
                 val item = repository.mine(after = state.after)
                 CommunityAction.ToIdeal(
                   communities = item.entities,
