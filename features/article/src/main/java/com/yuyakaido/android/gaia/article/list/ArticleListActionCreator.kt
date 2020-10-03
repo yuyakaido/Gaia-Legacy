@@ -1,8 +1,14 @@
 package com.yuyakaido.android.gaia.article.list
 
-import com.yuyakaido.android.gaia.core.*
+import com.yuyakaido.android.gaia.core.AppAction
+import com.yuyakaido.android.gaia.core.AppState
+import com.yuyakaido.android.gaia.core.ArticleAction
+import com.yuyakaido.android.gaia.core.SuspendableAction
 import com.yuyakaido.android.gaia.core.domain.repository.ArticleRepositoryType
 import com.yuyakaido.android.gaia.core.domain.value.VoteTarget
+import com.yuyakaido.android.reduxkit.ActionType
+import com.yuyakaido.android.reduxkit.DispatcherType
+import com.yuyakaido.android.reduxkit.SelectorType
 import javax.inject.Inject
 
 class ArticleListActionCreator @Inject constructor(

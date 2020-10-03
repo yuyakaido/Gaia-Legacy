@@ -1,8 +1,5 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-android-extensions'
-apply plugin: 'kotlin-kapt'
-apply plugin: 'androidx.navigation.safeargs.kotlin'
 
 android {
   buildToolsVersion versions.android.buildTools
@@ -10,12 +7,6 @@ android {
   defaultConfig {
     targetSdkVersion versions.android.targetSdk
     minSdkVersion versions.android.minSdk
-  }
-  dataBinding {
-    enabled = true
-  }
-  androidExtensions {
-    experimental = true
   }
   compileOptions {
     sourceCompatibility JavaVersion.VERSION_1_8
@@ -27,12 +18,11 @@ android {
 }
 
 dependencies {
-  // Modules
-  api project(':cores:infrastructure')
-  api project(':cores:presentation')
-  api project(':libs:reduxkit')
+  // Kotlin
+  api libs.kotlin.stdlib
+  api libs.kotlin.coroutines.android
+  api libs.kotlin.coroutines.rx2
 
-  // Dependency Injection
-  kapt libs.dagger.java.compiler
-  kapt libs.dagger.android.compiler
+  // Debugging
+  api libs.debugging.timber
 }

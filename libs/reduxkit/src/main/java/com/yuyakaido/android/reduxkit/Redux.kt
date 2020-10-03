@@ -1,4 +1,4 @@
-package com.yuyakaido.android.gaia.core
+package com.yuyakaido.android.reduxkit
 
 import io.reactivex.Observable
 import io.reactivex.Single

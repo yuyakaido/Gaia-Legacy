@@ -1,7 +1,13 @@
 package com.yuyakaido.android.gaia.community.list
 
-import com.yuyakaido.android.gaia.core.*
+import com.yuyakaido.android.gaia.core.AppAction
+import com.yuyakaido.android.gaia.core.AppState
+import com.yuyakaido.android.gaia.core.CommunityAction
+import com.yuyakaido.android.gaia.core.SingleAction
 import com.yuyakaido.android.gaia.core.domain.repository.CommunityRepositoryType
+import com.yuyakaido.android.reduxkit.ActionType
+import com.yuyakaido.android.reduxkit.DispatcherType
+import com.yuyakaido.android.reduxkit.SelectorType
 import io.reactivex.Single
 import kotlinx.coroutines.rx2.rxSingle
 import javax.inject.Inject

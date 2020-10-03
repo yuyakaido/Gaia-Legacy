@@ -2,6 +2,9 @@ package com.yuyakaido.android.gaia.core
 
 import com.yuyakaido.android.gaia.core.domain.entity.Article
 import com.yuyakaido.android.gaia.core.domain.entity.Community
+import com.yuyakaido.android.reduxkit.ActionType
+import com.yuyakaido.android.reduxkit.SingleActionType
+import com.yuyakaido.android.reduxkit.SuspendableActionType
 
 sealed class AppAction : ActionType<AppState> {
   object ClearSession : AppAction() {

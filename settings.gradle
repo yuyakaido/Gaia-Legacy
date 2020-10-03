@@ -14,3 +14,6 @@ include ':features:comment'
 include ':features:community'
 include ':features:user'
 include ':features:search'
+
+// Modules - Lib
+include ':libs:reduxkit'

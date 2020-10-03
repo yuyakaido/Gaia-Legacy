@@ -2,6 +2,7 @@ package com.yuyakaido.android.gaia.core
 
 import android.app.Application
 import android.widget.Toast
+import com.yuyakaido.android.reduxkit.StoreType
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.filterIsInstance
