@@ -11,7 +11,6 @@ sealed class AppAction : ActionType<AppState> {
       )
     }
   }
-
   object AddSignedOutSession : AppAction() {
     override fun reduce(state: AppState): AppState {
       return state.copy(
@@ -19,7 +18,6 @@ sealed class AppAction : ActionType<AppState> {
       )
     }
   }
-
   object AddSignedInSession : AppAction() {
     override fun reduce(state: AppState): AppState {
       return state.copy(
@@ -27,7 +25,6 @@ sealed class AppAction : ActionType<AppState> {
       )
     }
   }
-
   data class UpdateLifecycle(val lifecycle: AppLifecycle) : AppAction() {
     override fun reduce(state: AppState): AppState {
       return state.copy(

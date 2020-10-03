@@ -79,7 +79,8 @@ class ThunkMiddlewareForReactive<S : StateType>(
 }
 
 abstract class StoreType<S : StateType, A : ActionType<S>>(
-  initialState: S
+  initialState: S,
+  private val errorHandler: (e: Exception) -> Unit
 ) : SelectorType<S>, DispatcherType<S> {
 
   private val state = ConflatedBroadcastChannel(initialState)
@@ -110,18 +111,22 @@ abstract class StoreType<S : StateType, A : ActionType<S>>(
     action: ActionType<S>
   ): Job {
     return scope.launch {
-      val actualAction = middlewares.fold(action) { action, middleware ->
-        return@fold middleware.before(
-          state = stateAsValue(),
-          action = action
-        )
-      }
-      update(actualAction)
-      middlewares.forEach { middleware ->
-        middleware.after(
-          state = stateAsValue(),
-          action = action
-        )
+      try {
+        val actualAction = middlewares.fold(action) { action, middleware ->
+          return@fold middleware.before(
+            state = stateAsValue(),
+            action = action
+          )
+        }
+        update(actualAction)
+        middlewares.forEach { middleware ->
+          middleware.after(
+            state = stateAsValue(),
+            action = action
+          )
+        }
+      } catch (e: Exception) {
+        errorHandler.invoke(e)
       }
     }
   }

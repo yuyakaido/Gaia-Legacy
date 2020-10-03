@@ -25,14 +25,18 @@ class ArticleListActionCreator @Inject constructor(
             articles = state.articles
           )
         )
-        val item = source.articles(
-          repository = repository,
-          after = state.after
-        )
-        return ArticleAction.ToIdeal(
-          after = item.after,
-          articles = item.entities
-        )
+        return try {
+          val item = source.articles(
+            repository = repository,
+            after = state.after
+          )
+          ArticleAction.ToIdeal(
+            after = item.after,
+            articles = item.entities
+          )
+        } catch (e: Exception) {
+          ArticleAction.ToError
+        }
       }
     }
   }

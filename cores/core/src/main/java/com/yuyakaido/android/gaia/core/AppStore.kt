@@ -1,14 +1,18 @@
 package com.yuyakaido.android.gaia.core
 
+import android.app.Application
+import android.widget.Toast
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.filterIsInstance
 import kotlinx.coroutines.flow.map
 
 class AppStore(
-  initialState: AppState = AppState()
+  private val application: Application,
+  initialState: AppState
 ) : StoreType<AppState, AppAction>(
-  initialState = initialState
+  initialState = initialState,
+  { e -> Toast.makeText(application, e.toString(), Toast.LENGTH_SHORT).show() }
 ) {
 
   private fun sessionAsFlow(): Flow<SessionState> {
