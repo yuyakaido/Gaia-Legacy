@@ -11,7 +11,7 @@ data class AppState(
   val session get() = sessions[index]
   val signedIn get() = session as SessionState.SignedIn
 
-  fun update(state: SessionState): AppState {
+  fun update(state: SessionState.SignedIn): AppState {
     return copy(
       sessions = listOf(state)
     )
