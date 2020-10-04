@@ -1,5 +1,6 @@
 package com.yuyakaido.android.gaia
 
+import android.app.Application
 import com.facebook.stetho.okhttp3.StethoInterceptor
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.adapters.PolymorphicJsonAdapterFactory
@@ -7,6 +8,8 @@ import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import com.yuyakaido.android.gaia.auth.AuthInterceptor
 import com.yuyakaido.android.gaia.auth.BasicAuthInterceptor
 import com.yuyakaido.android.gaia.auth.TokenAuthenticator
+import com.yuyakaido.android.gaia.core.infrastructure.ImageLoader
+import com.yuyakaido.android.gaia.core.domain.app.ImageLoaderType
 import com.yuyakaido.android.gaia.core.domain.app.SessionScope
 import com.yuyakaido.android.gaia.core.domain.repository.TokenRepositoryType
 import com.yuyakaido.android.gaia.core.infrastructure.*
@@ -115,6 +118,16 @@ class NetworkModule {
       .baseUrl("https://oauth.reddit.com")
       .addConverterFactory(MoshiConverterFactory.create(moshi))
       .build()
+  }
+
+  @SessionScope
+  @Provides
+  fun provideImageLoaderType(
+    application: Application
+  ): ImageLoaderType {
+    return ImageLoader(
+      application = application
+    )
   }
 
 }

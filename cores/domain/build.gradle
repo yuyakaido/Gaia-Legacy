@@ -53,10 +53,6 @@ dependencies {
   api libs.dagger.android.support
   kapt libs.dagger.android.compiler
 
-  // Networking
-  api libs.networking.glide.core
-  kapt libs.networking.glide.compiler
-
   // Debugging
   api libs.debugging.timber
   api libs.debugging.stetho.core

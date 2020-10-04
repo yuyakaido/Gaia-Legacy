@@ -4,14 +4,15 @@ import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.net.Uri
 import androidx.core.content.ContextCompat
-import com.bumptech.glide.Glide
 import com.xwray.groupie.Item
 import com.xwray.groupie.databinding.BindableItem
+import com.yuyakaido.android.gaia.core.domain.app.ImageLoaderType
 import com.yuyakaido.android.gaia.core.domain.entity.Article
 import com.yuyakaido.android.gaia.core.presentation.databinding.ItemArticleBinding
 
 class ArticleItem(
   val article: Article,
+  private val imageLoader: ImageLoaderType,
   private val upvoteListener: (Article) -> Unit,
   private val downvoteListener: (Article) -> Unit,
   private val communityListener: (Article) -> Unit
@@ -78,11 +79,7 @@ class ArticleItem(
     if (article.thumbnail == Uri.EMPTY) {
       binding.article.thumbnail.setImageDrawable(placeholder)
     } else {
-      Glide
-        .with(binding.root.context)
-        .load(article.thumbnail)
-        .placeholder(placeholder)
-        .into(binding.article.thumbnail)
+      imageLoader.load(article.thumbnail, placeholder, binding.article.thumbnail)
     }
   }
 

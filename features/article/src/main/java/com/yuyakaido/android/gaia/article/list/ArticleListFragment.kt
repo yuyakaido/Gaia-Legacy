@@ -15,10 +15,12 @@ import com.xwray.groupie.GroupieViewHolder
 import com.yqritc.recyclerviewflexibledivider.HorizontalDividerItemDecoration
 import com.yuyakaido.android.gaia.article.R
 import com.yuyakaido.android.gaia.article.databinding.FragmentArticleListBinding
+import com.yuyakaido.android.gaia.core.domain.app.ImageLoaderType
 import com.yuyakaido.android.gaia.core.domain.entity.Article
 import com.yuyakaido.android.gaia.core.domain.extension.dpToPx
 import com.yuyakaido.android.gaia.core.presentation.ArticleItem
 import com.yuyakaido.android.gaia.core.presentation.BaseFragment
+import javax.inject.Inject
 
 class ArticleListFragment : BaseFragment<ArticleListViewModel>() {
 
@@ -34,6 +36,9 @@ class ArticleListFragment : BaseFragment<ArticleListViewModel>() {
   override val viewModel: ArticleListViewModel by viewModels { factory }
   internal val args: ArticleListFragmentArgs by navArgs()
   private lateinit var binding: FragmentArticleListBinding
+
+  @Inject
+  internal lateinit var imageLoader: ImageLoaderType
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
@@ -115,6 +120,7 @@ class ArticleListFragment : BaseFragment<ArticleListViewModel>() {
         val items = state.articles.map { article ->
           ArticleItem(
             article = article,
+            imageLoader = imageLoader,
             upvoteListener = upvoteListener,
             downvoteListener = downvoteListener,
             communityListener = communityListener

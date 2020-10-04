@@ -9,10 +9,12 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
+import com.yuyakaido.android.gaia.core.domain.app.ImageLoaderType
 import com.yuyakaido.android.gaia.core.domain.entity.Article
 import com.yuyakaido.android.gaia.core.presentation.ArticleItem
 import com.yuyakaido.android.gaia.core.presentation.BaseFragment
 import com.yuyakaido.android.gaia.search.databinding.FragmentSearchBinding
+import javax.inject.Inject
 
 class SearchFragment : BaseFragment<SearchViewModel>() {
 
@@ -23,8 +25,10 @@ class SearchFragment : BaseFragment<SearchViewModel>() {
   }
 
   override val viewModel: SearchViewModel by viewModels { factory }
-
   private lateinit var binding: FragmentSearchBinding
+
+  @Inject
+  internal lateinit var imageLoader: ImageLoaderType
 
   override fun onCreateView(
     inflater: LayoutInflater,
@@ -133,6 +137,7 @@ class SearchFragment : BaseFragment<SearchViewModel>() {
         adapter.updateAsync(articles.map { article ->
           ArticleItem(
             article = article,
+            imageLoader = imageLoader,
             upvoteListener = upvoteListener,
             downvoteListener = downvoteListener,
             communityListener = communityListener
