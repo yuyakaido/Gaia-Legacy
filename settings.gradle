@@ -6,6 +6,7 @@ include ':cores:core'
 include ':cores:domain'
 include ':cores:infrastructure'
 include ':cores:presentation'
+include ':cores:widget'
 
 // Modules - Feature
 include ':features:auth'
