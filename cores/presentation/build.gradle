@@ -30,6 +30,20 @@ dependencies {
   // Modules
   api project(':cores:domain')
 
+  // AndroidX
+  api libs.androidx.core
+  api libs.androidx.appcompat
+  api libs.androidx.fragment
+  api libs.androidx.lifecycle.extensions
+  api libs.androidx.lifecycle.viewmodel
+  api libs.androidx.lifecycle.livedata
+  api libs.androidx.navigation.fragment
+  api libs.androidx.navigation.ui
+  api libs.androidx.constraintlayout
+  api libs.androidx.recyclerview
+  api libs.androidx.swiperefreshlayout
+  api libs.androidx.preference
+
   // Dependency Injection
   kapt libs.dagger.java.compiler
   kapt libs.dagger.android.compiler

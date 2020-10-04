@@ -2,7 +2,6 @@ package com.yuyakaido.android.gaia.core.presentation
 
 import android.os.Bundle
 import androidx.lifecycle.Lifecycle
-import com.yuyakaido.android.gaia.core.domain.app.AppNavigatorType
 import dagger.android.support.DaggerFragment
 import timber.log.Timber
 import javax.inject.Inject

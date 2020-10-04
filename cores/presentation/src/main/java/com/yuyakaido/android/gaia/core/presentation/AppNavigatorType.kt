@@ -1,4 +1,4 @@
-package com.yuyakaido.android.gaia.core.domain.app
+package com.yuyakaido.android.gaia.core.presentation
 
 import android.app.Application
 import android.content.Intent

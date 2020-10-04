@@ -1,7 +1,6 @@
 package com.yuyakaido.android.gaia.core.presentation
 
 import androidx.lifecycle.Lifecycle
-import com.yuyakaido.android.gaia.core.domain.app.AppNavigatorType
 
 interface BaseViewType<VM : BaseViewModel> {
 

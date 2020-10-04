@@ -2,7 +2,7 @@ package com.yuyakaido.android.gaia.community.detail
 
 import androidx.fragment.app.Fragment
 import com.yuyakaido.android.gaia.community.R
-import com.yuyakaido.android.gaia.core.domain.app.AppNavigatorType
+import com.yuyakaido.android.gaia.core.presentation.AppNavigatorType
 import com.yuyakaido.android.gaia.core.domain.entity.Community
 
 enum class CommunityDetailPage(

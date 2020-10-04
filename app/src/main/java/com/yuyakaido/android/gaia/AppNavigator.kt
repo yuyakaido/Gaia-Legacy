@@ -11,7 +11,7 @@ import com.yuyakaido.android.gaia.article.list.ArticleListSource
 import com.yuyakaido.android.gaia.comment.CommentListFragment
 import com.yuyakaido.android.gaia.community.detail.CommunityDetailFragmentDirections
 import com.yuyakaido.android.gaia.community.list.CommunityListFragment
-import com.yuyakaido.android.gaia.core.domain.app.AppNavigatorType
+import com.yuyakaido.android.gaia.core.presentation.AppNavigatorType
 import com.yuyakaido.android.gaia.core.domain.entity.Article
 import com.yuyakaido.android.gaia.core.domain.entity.Community
 import com.yuyakaido.android.gaia.core.domain.entity.User

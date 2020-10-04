@@ -4,7 +4,7 @@ import android.content.Context
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
-import com.yuyakaido.android.gaia.core.domain.app.AppNavigatorType
+import com.yuyakaido.android.gaia.core.presentation.AppNavigatorType
 import com.yuyakaido.android.gaia.core.domain.entity.User
 
 class UserDetailFragmentPagerAdapter(
