@@ -2,7 +2,6 @@ package com.yuyakaido.android.gaia.core.domain.repository
 
 import com.yuyakaido.android.gaia.core.domain.entity.Community
 import com.yuyakaido.android.gaia.core.domain.entity.User
-import kotlinx.coroutines.flow.Flow
 
 interface UserRepositoryType {
   suspend fun detail(user: User): User.Detail

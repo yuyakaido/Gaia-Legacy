@@ -1,9 +1,10 @@
 package com.yuyakaido.android.gaia
 
 import androidx.lifecycle.ProcessLifecycleOwner
+import com.facebook.stetho.Stetho
 import com.yuyakaido.android.gaia.core.AppLifecycleObserver
 import com.yuyakaido.android.gaia.core.AppStore
-import com.yuyakaido.android.gaia.core.domain.app.GaiaType
+import com.yuyakaido.android.gaia.core.domain.BuildConfig
 import dagger.android.AndroidInjector
 import dagger.android.support.DaggerApplication
 import kotlinx.coroutines.GlobalScope
@@ -12,7 +13,7 @@ import kotlinx.coroutines.launch
 import timber.log.Timber
 import javax.inject.Inject
 
-class Gaia : GaiaType() {
+class Gaia : DaggerApplication() {
 
   @Inject
   internal lateinit var appLifecycleObserver: AppLifecycleObserver
@@ -39,7 +40,19 @@ class Gaia : GaiaType() {
 
   override fun onCreate() {
     super.onCreate()
+    initializeTimber()
+    initializeStetho()
     initializeAppLifecycleObserver()
+  }
+
+  private fun initializeTimber() {
+    Timber.plant(Timber.DebugTree())
+  }
+
+  private fun initializeStetho() {
+    if (BuildConfig.DEBUG) {
+      Stetho.initializeWithDefaults(this)
+    }
   }
 
   private fun initializeAppLifecycleObserver() {

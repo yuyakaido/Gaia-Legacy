@@ -39,6 +39,4 @@ dependencies {
 
   // Debugging
   api libs.debugging.timber
-  api libs.debugging.stetho.core
-  api libs.debugging.stetho.okhttp
 }

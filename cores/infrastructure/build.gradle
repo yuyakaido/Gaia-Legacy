@@ -48,4 +48,8 @@ dependencies {
   api libs.networking.moshi.adapter
   api libs.networking.glide.core
   kapt libs.networking.glide.compiler
+
+  // Debugging
+  api libs.debugging.stetho.core
+  api libs.debugging.stetho.okhttp
 }
