@@ -32,6 +32,10 @@ dependencies {
   api project(':cores:presentation')
   api project(':libs:reduxkit')
 
+  // Kotlin
+  api libs.kotlin.coroutines.android
+  api libs.kotlin.coroutines.rx2
+
   // Dependency Injection
   kapt libs.dagger.java.compiler
   kapt libs.dagger.android.compiler

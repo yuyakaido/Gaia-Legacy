@@ -29,11 +29,6 @@ android {
 dependencies {
   // Kotlin
   api libs.kotlin.stdlib
-  api libs.kotlin.coroutines.android
-  api libs.kotlin.coroutines.rx2
-
-  // AndroidX
-
 
   // Dependency Injection
   api libs.dagger.java.core
