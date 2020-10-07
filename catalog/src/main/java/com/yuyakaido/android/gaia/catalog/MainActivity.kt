@@ -36,7 +36,7 @@ class MainActivity : AppCompatActivity() {
             Item.Section(
               name = "Article",
               items = createArticles().map { article ->
-                object : Item.Element.Groupie(name = "Article") {
+                object : Item.Element.Groupie(name = article.name) {
                   override fun group(): Group {
                     return ArticleItem(
                       article = article,
@@ -60,16 +60,76 @@ class MainActivity : AppCompatActivity() {
   private fun createArticles(): List<Article> {
     return listOf(
       Article(
-        id = Article.ID(value = "id"),
-        name = "name",
+        id = Article.ID(value = System.nanoTime().toString()),
+        name = "Normal article",
+        community = Community.Summary(name = "community"),
+        title = "title",
+        thumbnail = Uri.EMPTY,
+        author = "yuyakaido",
+        likes = null,
+        ups = 0,
+        downs = 0,
+        comments = 0
+      ),
+      Article(
+        id = Article.ID(value = System.nanoTime().toString()),
+        name = "Upvoted article",
+        community = Community.Summary(name = "community"),
+        title = "title",
+        thumbnail = Uri.EMPTY,
+        author = "yuyakaido",
+        likes = true,
+        ups = 0,
+        downs = 0,
+        comments = 0
+      ),
+      Article(
+        id = Article.ID(value = System.nanoTime().toString()),
+        name = "Downvoted article",
         community = Community.Summary(name = "community"),
         title = "title",
         thumbnail = Uri.EMPTY,
         author = "yuyakaido",
         likes = false,
-        ups = 256,
-        downs = 256,
-        comments = 256
+        ups = 0,
+        downs = 0,
+        comments = 0
+      ),
+      Article(
+        id = Article.ID(value = System.nanoTime().toString()),
+        name = "Article with very long title",
+        community = Community.Summary(name = "community"),
+        title = "Article with very loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog title",
+        thumbnail = Uri.EMPTY,
+        author = "yuyakaido",
+        likes = false,
+        ups = 0,
+        downs = 0,
+        comments = 0
+      ),
+      Article(
+        id = Article.ID(value = System.nanoTime().toString()),
+        name = "Article with very long community",
+        community = Community.Summary(name = "looooooooooong community"),
+        title = "title",
+        thumbnail = Uri.EMPTY,
+        author = "yuyakaido",
+        likes = false,
+        ups = 0,
+        downs = 0,
+        comments = 0
+      ),
+      Article(
+        id = Article.ID(value = System.nanoTime().toString()),
+        name = "Article with very long author",
+        community = Community.Summary(name = "community"),
+        title = "title",
+        thumbnail = Uri.EMPTY,
+        author = "looooooooooong author",
+        likes = false,
+        ups = 0,
+        downs = 0,
+        comments = 0
       )
     )
   }
