@@ -49,8 +49,5 @@ dependencies {
   kapt libs.dagger.android.compiler
 
   // Widget
-  api libs.widget.groupie.core
-  api libs.widget.groupie.databinding
   api libs.widget.divider
-  api libs.widget.material
 }

@@ -13,12 +13,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
 import com.yqritc.recyclerviewflexibledivider.HorizontalDividerItemDecoration
+import com.yuyakaido.android.core.widget.ArticleItem
 import com.yuyakaido.android.gaia.article.R
 import com.yuyakaido.android.gaia.article.databinding.FragmentArticleListBinding
 import com.yuyakaido.android.gaia.core.domain.app.ImageLoaderType
 import com.yuyakaido.android.gaia.core.domain.entity.Article
 import com.yuyakaido.android.gaia.core.domain.extension.dpToPx
-import com.yuyakaido.android.gaia.core.presentation.ArticleItem
 import com.yuyakaido.android.gaia.core.presentation.BaseFragment
 import javax.inject.Inject
 

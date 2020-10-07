@@ -28,4 +28,12 @@ android {
 
 dependencies {
   api project(':cores:domain')
+
+  // AndroidX
+  api libs.androidx.constraintlayout
+
+  // Widget
+  api libs.widget.groupie.core
+  api libs.widget.groupie.databinding
+  api libs.widget.material
 }

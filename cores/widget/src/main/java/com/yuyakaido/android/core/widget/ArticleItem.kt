@@ -1,4 +1,4 @@
-package com.yuyakaido.android.gaia.core.presentation
+package com.yuyakaido.android.core.widget
 
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
@@ -6,9 +6,9 @@ import android.net.Uri
 import androidx.core.content.ContextCompat
 import com.xwray.groupie.Item
 import com.xwray.groupie.databinding.BindableItem
+import com.yuyakaido.android.core.widget.databinding.ItemArticleBinding
 import com.yuyakaido.android.gaia.core.domain.app.ImageLoaderType
 import com.yuyakaido.android.gaia.core.domain.entity.Article
-import com.yuyakaido.android.gaia.core.presentation.databinding.ItemArticleBinding
 
 class ArticleItem(
   val article: Article,
