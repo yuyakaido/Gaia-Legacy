@@ -17,6 +17,8 @@
       </intent-filter>
     </activity>
 
+    <activity android:name="com.yuyakaido.android.storybook.StorybookActivity" />
+
   </application>
 
 </manifest>
