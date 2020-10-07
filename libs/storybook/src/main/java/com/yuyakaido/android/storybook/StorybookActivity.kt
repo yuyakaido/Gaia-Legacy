@@ -3,7 +3,6 @@ package com.yuyakaido.android.storybook
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -11,6 +10,7 @@ import androidx.room.Room
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
 import com.yuyakaido.android.storybook.databinding.ActivityStorybookBinding
+import timber.log.Timber
 
 class StorybookActivity : AppCompatActivity() {
 
@@ -41,15 +41,15 @@ class StorybookActivity : AppCompatActivity() {
     if (storybook.hasElement()) {
       val history = History(name = storybook.name)
       historyDao.insert(history)
-      Log.d("Storybook", "Insert = ${history.name}")
+      Timber.d("Insert = ${history.name}")
     }
 
     val lastItem = if (storybook.isFirstSection()) {
       val history = historyDao.getLatest()
       history?.let {
         val item = Storybook.find(storybook, history)
-        Log.d("Storybook", "History = ${history.name}")
-        Log.d("Storybook", "Item = ${item?.name}")
+        Timber.d("History = ${history.name}")
+        Timber.d("Item = ${item?.name}")
         item
       }
     } else {

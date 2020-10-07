@@ -31,8 +31,6 @@ dependencies {
   api libs.kotlin.stdlib
 
   // AndroidX
-
-  // AndroidX
   api libs.androidx.core
   api libs.androidx.appcompat
   api libs.androidx.fragment
@@ -44,4 +42,7 @@ dependencies {
   // Widget
   api libs.widget.groupie.core
   api libs.widget.groupie.databinding
+
+  // Debugging
+  api libs.debugging.timber
 }
