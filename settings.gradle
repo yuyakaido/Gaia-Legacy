@@ -18,3 +18,4 @@ include ':features:search'
 
 // Modules - Lib
 include ':libs:reduxkit'
+include ':libs:storybook'

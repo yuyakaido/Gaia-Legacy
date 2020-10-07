@@ -31,9 +31,6 @@ android {
 
 dependencies {
   // Modules
+  implementation project(':libs:storybook')
   implementation project(':cores:widget')
-
-  // Dependency Injection
-  kapt libs.dagger.java.compiler
-  kapt libs.dagger.android.compiler
 }
