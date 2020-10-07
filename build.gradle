@@ -7,8 +7,8 @@ buildscript {
       versionCode: 1,
       versionName: '1.0.0'
     ],
-    storybook: [
-      applicationId: 'com.yuyakaido.android.gaia.storybook',
+    catalog: [
+      applicationId: 'com.yuyakaido.android.gaia.catalog',
       versionCode: 1,
       versionName: '1.0.0'
     ],

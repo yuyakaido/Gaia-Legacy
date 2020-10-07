@@ -10,9 +10,9 @@ android {
   defaultConfig {
     targetSdkVersion versions.android.targetSdk
     minSdkVersion versions.android.minSdk
-    applicationId versions.storybook.applicationId
-    versionCode versions.storybook.versionCode
-    versionName versions.storybook.versionName
+    applicationId versions.catalog.applicationId
+    versionCode versions.catalog.versionCode
+    versionName versions.catalog.versionName
   }
   androidExtensions {
     experimental = true

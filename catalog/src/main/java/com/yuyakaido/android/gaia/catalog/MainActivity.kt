@@ -1,4 +1,4 @@
-package com.yuyakaido.android.gaia.storybook
+package com.yuyakaido.android.gaia.catalog
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity

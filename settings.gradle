@@ -1,5 +1,5 @@
 include ':app'
-include ':storybook'
+include ':catalog'
 
 // Modules - Core
 include ':cores:core'
