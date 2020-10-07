@@ -53,6 +53,8 @@ class MainActivity : AppCompatActivity() {
         )
       )
     )
+
+    finish()
   }
 
   private fun createArticles(): List<Article> {
