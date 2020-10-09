@@ -14,6 +14,28 @@ android {
     versionCode versions.app.versionCode
     versionName versions.app.versionName
   }
+  signingConfigs {
+    debug {
+      storeFile file("${System.properties['user.home']}/.android/debug.keystore")
+      storePassword 'android'
+      keyAlias 'androiddebugkey'
+      keyPassword 'android'
+    }
+    release {
+      storeFile file("${System.properties['user.home']}/.android/debug.keystore")
+      storePassword 'android'
+      keyAlias 'androiddebugkey'
+      keyPassword 'android'
+    }
+  }
+  buildTypes {
+    debug {
+      signingConfig signingConfigs.debug
+    }
+    release {
+      signingConfig signingConfigs.release
+    }
+  }
   androidExtensions {
     experimental = true
   }

@@ -19,6 +19,9 @@ class Gaia : DaggerApplication() {
   internal lateinit var appLifecycleObserver: AppLifecycleObserver
 
   @Inject
+  internal lateinit var supportNotificationManager: SupportNotificationManager
+
+  @Inject
   internal lateinit var appStore: AppStore
 
   private lateinit var appComponent: AppComponent
@@ -43,6 +46,7 @@ class Gaia : DaggerApplication() {
     initializeTimber()
     initializeStetho()
     initializeAppLifecycleObserver()
+    initializeSupportNotificationManager()
   }
 
   private fun initializeTimber() {
@@ -61,6 +65,10 @@ class Gaia : DaggerApplication() {
         .collect { Timber.v("AppLifecycle = $it") }
     }
     ProcessLifecycleOwner.get().lifecycle.addObserver(appLifecycleObserver)
+  }
+
+  private fun initializeSupportNotificationManager() {
+    supportNotificationManager.initialize()
   }
 
 }
