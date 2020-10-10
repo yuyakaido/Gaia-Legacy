@@ -2,6 +2,7 @@ package com.yuyakaido.android.gaia.core
 
 import com.yuyakaido.android.gaia.core.domain.entity.Article
 import com.yuyakaido.android.gaia.core.domain.entity.Community
+import com.yuyakaido.android.gaia.core.domain.entity.User
 import com.yuyakaido.android.reduxkit.ActionType
 import com.yuyakaido.android.reduxkit.SingleActionType
 import com.yuyakaido.android.reduxkit.SuspendableActionType
@@ -21,10 +22,16 @@ sealed class AppAction : ActionType<AppState> {
       )
     }
   }
-  object AddSignedInSession : AppAction() {
+  data class AddSignedInSession(
+    private val me: User.Detail.Me
+  ) : AppAction() {
     override fun reduce(state: AppState): AppState {
       return state.copy(
-        sessions = listOf(SessionState.SignedIn())
+        sessions = listOf(
+          SessionState.SignedIn(
+            me = me
+          )
+        )
       )
     }
   }

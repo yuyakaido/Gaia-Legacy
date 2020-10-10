@@ -18,7 +18,7 @@ class SessionListViewModel @Inject constructor(
     super.onCreate()
     viewModelScope.launch {
       appStore.signedInAsFlow()
-        .collect { Timber.v("Sessions = $it") }
+        .collect { Timber.v("Me = ${it.me}") }
     }
   }
 

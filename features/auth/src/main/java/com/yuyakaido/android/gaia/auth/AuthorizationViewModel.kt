@@ -6,6 +6,7 @@ import androidx.lifecycle.viewModelScope
 import com.yuyakaido.android.gaia.core.AppAction
 import com.yuyakaido.android.gaia.core.AppStore
 import com.yuyakaido.android.gaia.core.domain.repository.TokenRepositoryType
+import com.yuyakaido.android.gaia.core.domain.repository.UserRepositoryType
 import com.yuyakaido.android.gaia.core.presentation.BaseViewModel
 import com.yuyakaido.android.gaia.core.presentation.LiveEvent
 import kotlinx.coroutines.flow.collect
@@ -19,7 +20,8 @@ class AuthorizationViewModel @Inject constructor(
   application: Application,
   private val appStore: AppStore,
   private val intent: Intent,
-  private val repository: TokenRepositoryType
+  private val tokenRepository: TokenRepositoryType,
+  private val userRepository: UserRepositoryType
 ) : BaseViewModel(application) {
 
   val navigateToHome = LiveEvent<Unit>()
@@ -65,18 +67,28 @@ class AuthorizationViewModel @Inject constructor(
 
   private fun handleToken() {
     viewModelScope.launch {
-      val token = repository.get()
+      val token = tokenRepository.get()
       when {
         intent.data != null -> {
           intent.data?.let { uri ->
             uri.getQueryParameter("code")?.let { code ->
-              repository.save(repository.get(code = code))
-              appStore.dispatch(AppAction.AddSignedInSession)
+              tokenRepository.save(tokenRepository.get(code = code))
+              val me = userRepository.me()
+              appStore.dispatch(
+                AppAction.AddSignedInSession(
+                  me = me
+                )
+              )
             }
           }
         }
         token.isLoggedIn() -> {
-          appStore.dispatch(AppAction.AddSignedInSession)
+          val me = userRepository.me()
+          appStore.dispatch(
+            AppAction.AddSignedInSession(
+              me = me
+            )
+          )
         }
         else -> {
           appStore.dispatch(AppAction.AddSignedOutSession)

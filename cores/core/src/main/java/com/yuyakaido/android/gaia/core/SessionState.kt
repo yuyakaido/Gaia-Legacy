@@ -2,12 +2,14 @@ package com.yuyakaido.android.gaia.core
 
 import com.yuyakaido.android.gaia.core.domain.entity.Article
 import com.yuyakaido.android.gaia.core.domain.entity.Community
+import com.yuyakaido.android.gaia.core.domain.entity.User
 
 sealed class SessionState {
 
   object SignedOut : SessionState()
 
   data class SignedIn(
+    val me: User.Detail.Me,
     val article: ArticleState = ArticleState.Initial,
     val community: CommunityState = CommunityState.Initial
   ) : SessionState()
