@@ -1,4 +1,4 @@
-package com.yuyakaido.android.gaia
+package com.yuyakaido.android.gaia.support
 
 import android.app.Application
 import android.app.Notification

@@ -5,6 +5,7 @@ import com.facebook.stetho.Stetho
 import com.yuyakaido.android.gaia.core.AppLifecycleObserver
 import com.yuyakaido.android.gaia.core.AppStore
 import com.yuyakaido.android.gaia.core.domain.BuildConfig
+import com.yuyakaido.android.gaia.support.SupportNotificationManager
 import dagger.android.AndroidInjector
 import dagger.android.support.DaggerApplication
 import kotlinx.coroutines.GlobalScope
