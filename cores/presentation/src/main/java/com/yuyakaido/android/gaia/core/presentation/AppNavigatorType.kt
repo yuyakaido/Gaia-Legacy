@@ -13,7 +13,6 @@ interface AppNavigatorType {
   val application: Application
 
   // App
-  fun newGatewayActivity(): Intent
   fun newAppActivity(): Intent
 
   // Support

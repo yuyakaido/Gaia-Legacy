@@ -17,7 +17,6 @@ class AuthorizationActivity : BaseActivity<AuthorizationViewModel>() {
     viewModel.navigateToApp
       .observe(this) {
         startActivity(appNavigator.newAppActivity())
-        finish()
       }
   }
 

@@ -30,10 +30,6 @@ class AppNavigator(
   override val application: Application
 ) : AppNavigatorType {
 
-  override fun newGatewayActivity(): Intent {
-    return GatewayActivity.createIntent(application)
-  }
-
   override fun newAppActivity(): Intent {
     return AppActivity.createIntent(application)
   }
@@ -55,6 +51,10 @@ class AppNavigator(
       .appendQueryParameter("scope", Constant.OAUTH_SCOPES.joinToString(" "))
       .build()
     return Intent(Intent.ACTION_VIEW, uri)
+      .apply {
+        addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
+        addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+      }
   }
 
   override fun newCommunityDetailArticleListFragment(community: Community.Summary): Fragment {
