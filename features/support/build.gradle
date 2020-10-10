@@ -1,0 +1,32 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+apply plugin: 'androidx.navigation.safeargs.kotlin'
+
+android {
+  buildToolsVersion versions.android.buildTools
+  compileSdkVersion versions.android.compileSdk
+  defaultConfig {
+    targetSdkVersion versions.android.targetSdk
+    minSdkVersion versions.android.minSdk
+  }
+  androidExtensions {
+    experimental = true
+  }
+  dataBinding {
+    enabled = true
+  }
+  compileOptions {
+    sourceCompatibility JavaVersion.VERSION_1_8
+    targetCompatibility JavaVersion.VERSION_1_8
+  }
+  kotlinOptions {
+    jvmTarget = JavaVersion.VERSION_1_8.toString()
+  }
+}
+
+dependencies {
+  // Module
+  implementation project(':cores:core')
+}
