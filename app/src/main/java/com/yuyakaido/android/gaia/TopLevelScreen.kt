@@ -24,8 +24,5 @@ enum class TopLevelScreen(
     fun visibility(id: Int): Int {
       return values().find { it.id == id }?.let { View.VISIBLE } ?: View.GONE
     }
-    fun toSet(): Set<Int> {
-      return values().map { it.id }.toSet()
-    }
   }
 }

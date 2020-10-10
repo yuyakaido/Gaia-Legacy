@@ -25,9 +25,8 @@ import com.yuyakaido.android.gaia.user.presentation.detail.UserDetailSource
 import com.yuyakaido.android.gaia.user.presentation.list.UserListFragment
 import com.yuyakaido.android.gaia.user.presentation.list.UserListFragmentDirections
 import com.yuyakaido.android.gaia.user.presentation.list.UserListSource
-import javax.inject.Inject
 
-class AppNavigator @Inject constructor(
+class AppNavigator(
   override val application: Application
 ) : AppNavigatorType {
 

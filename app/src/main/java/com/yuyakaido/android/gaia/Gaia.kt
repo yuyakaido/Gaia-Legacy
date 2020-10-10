@@ -25,6 +25,9 @@ class Gaia : DaggerApplication() {
   @Inject
   internal lateinit var appStore: AppStore
 
+  @Inject
+  internal lateinit var runningSession: RunningSession
+
   private lateinit var appComponent: AppComponent
 
   override fun applicationInjector(): AndroidInjector<out DaggerApplication> {
@@ -36,10 +39,17 @@ class Gaia : DaggerApplication() {
   }
 
   override fun androidInjector(): AndroidInjector<Any> {
-    return appComponent
-      .newSessionComponent()
-      .build()
-      .androidInjector()
+    val state = appStore.stateAsValue()
+    val component = if (state.sessions.isEmpty()) {
+      appComponent.newSessionComponent().build()
+    } else {
+      runningSession.add(
+        state = state.session,
+        component = appComponent
+      )
+      runningSession.component(state.session)
+    }
+    return component.androidInjector()
   }
 
   override fun onCreate() {

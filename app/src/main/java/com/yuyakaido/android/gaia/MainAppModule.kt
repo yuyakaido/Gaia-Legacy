@@ -32,4 +32,10 @@ open class MainAppModule {
     )
   }
 
+  @AppScope
+  @Provides
+  fun provideRunningSession(): RunningSession {
+    return RunningSession()
+  }
+
 }
