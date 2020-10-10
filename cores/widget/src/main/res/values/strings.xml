@@ -9,6 +9,9 @@
   <string name="app_community">Community</string>
   <string name="app_profile">Profile</string>
 
+  <!-- Support -->
+  <string name="support_add_session">Add</string>
+
   <!-- Common -->
   <string name="common_retry">Retry</string>
 
