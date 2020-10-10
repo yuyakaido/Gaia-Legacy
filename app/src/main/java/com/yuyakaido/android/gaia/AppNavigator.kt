@@ -2,6 +2,7 @@ package com.yuyakaido.android.gaia
 
 import android.app.Application
 import android.content.Intent
+import android.net.Uri
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import com.yuyakaido.android.gaia.article.list.ArticleListFragment
@@ -11,6 +12,7 @@ import com.yuyakaido.android.gaia.article.list.ArticleListSource
 import com.yuyakaido.android.gaia.comment.CommentListFragment
 import com.yuyakaido.android.gaia.community.detail.CommunityDetailFragmentDirections
 import com.yuyakaido.android.gaia.community.list.CommunityListFragment
+import com.yuyakaido.android.gaia.core.domain.app.Constant
 import com.yuyakaido.android.gaia.core.domain.entity.Article
 import com.yuyakaido.android.gaia.core.domain.entity.Community
 import com.yuyakaido.android.gaia.core.domain.entity.User
@@ -35,6 +37,21 @@ class AppNavigator @Inject constructor(
 
   override fun newSessionListActivity(): Intent {
     return SessionListActivity.createIntent(context = application)
+  }
+
+  override fun newAuthActivity(): Intent {
+    val uri = Uri.Builder()
+      .scheme(Constant.OAUTH_SCHEME)
+      .encodedAuthority(Constant.OAUTH_AUTHORITY)
+      .encodedPath(Constant.OAUTH_PATH)
+      .appendQueryParameter("client_id", Constant.OAUTH_CLIENT_ID)
+      .appendQueryParameter("response_type", Constant.OAUTH_RESPONSE_TYPE)
+      .appendQueryParameter("state", System.currentTimeMillis().toString())
+      .appendQueryParameter("redirect_uri", Constant.OAUTH_REDIRECT_URI)
+      .appendQueryParameter("duration", Constant.OAUTH_DURATION)
+      .appendQueryParameter("scope", Constant.OAUTH_SCOPES.joinToString(" "))
+      .build()
+    return Intent(Intent.ACTION_VIEW, uri)
   }
 
   override fun newCommunityDetailArticleListFragment(community: Community.Summary): Fragment {
