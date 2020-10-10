@@ -2,6 +2,7 @@ package com.yuyakaido.android.gaia
 
 import com.yuyakaido.android.gaia.auth.AuthorizationActivity
 import com.yuyakaido.android.gaia.auth.AuthorizationModule
+import com.yuyakaido.android.gaia.support.SessionListActivity
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 
@@ -15,5 +16,8 @@ abstract class ActivityModule {
 
   @ContributesAndroidInjector
   abstract fun contributeAppActivity(): AppActivity
+
+  @ContributesAndroidInjector
+  abstract fun contributeSessionListActivity(): SessionListActivity
 
 }

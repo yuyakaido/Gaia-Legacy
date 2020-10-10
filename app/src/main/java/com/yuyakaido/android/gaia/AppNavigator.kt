@@ -11,11 +11,12 @@ import com.yuyakaido.android.gaia.article.list.ArticleListSource
 import com.yuyakaido.android.gaia.comment.CommentListFragment
 import com.yuyakaido.android.gaia.community.detail.CommunityDetailFragmentDirections
 import com.yuyakaido.android.gaia.community.list.CommunityListFragment
-import com.yuyakaido.android.gaia.core.presentation.AppNavigatorType
 import com.yuyakaido.android.gaia.core.domain.entity.Article
 import com.yuyakaido.android.gaia.core.domain.entity.Community
 import com.yuyakaido.android.gaia.core.domain.entity.User
+import com.yuyakaido.android.gaia.core.presentation.AppNavigatorType
 import com.yuyakaido.android.gaia.search.presentation.SearchFragment
+import com.yuyakaido.android.gaia.support.SessionListActivity
 import com.yuyakaido.android.gaia.user.presentation.detail.UserDetailFragment
 import com.yuyakaido.android.gaia.user.presentation.detail.UserDetailFragmentArgs
 import com.yuyakaido.android.gaia.user.presentation.detail.UserDetailSource
@@ -30,6 +31,10 @@ class AppNavigator @Inject constructor(
 
   override fun newAppActivity(): Intent {
     return AppActivity.createIntent(context = application)
+  }
+
+  override fun newSessionListActivity(): Intent {
+    return SessionListActivity.createIntent(context = application)
   }
 
   override fun newCommunityDetailArticleListFragment(community: Community.Summary): Fragment {

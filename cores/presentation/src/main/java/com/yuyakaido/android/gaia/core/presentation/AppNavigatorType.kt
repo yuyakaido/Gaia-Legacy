@@ -14,6 +14,7 @@ interface AppNavigatorType {
 
   // App
   fun newAppActivity(): Intent
+  fun newSessionListActivity(): Intent
 
   // Article
   fun newCommunityDetailArticleListFragment(community: Community.Summary): Fragment

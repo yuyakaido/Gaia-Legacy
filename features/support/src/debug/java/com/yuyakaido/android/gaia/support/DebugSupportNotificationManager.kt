@@ -1,20 +1,19 @@
 package com.yuyakaido.android.gaia.support
 
-import android.app.Application
-import android.app.Notification
-import android.app.NotificationChannel
-import android.app.NotificationManager
+import android.app.*
 import android.os.Build
 import androidx.core.app.NotificationCompat
 import androidx.core.content.getSystemService
 import com.yuyakaido.android.gaia.core.AppLifecycle
 import com.yuyakaido.android.gaia.core.AppStore
+import com.yuyakaido.android.gaia.core.presentation.AppNavigatorType
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 class DebugSupportNotificationManager(
   override val application: Application,
+  override val appNavigator: AppNavigatorType,
   override val appStore: AppStore
 ) : SupportNotificationManager {
 
@@ -59,6 +58,14 @@ class DebugSupportNotificationManager(
     val notification = NotificationCompat.Builder(application, CHANNEL_ID)
       .setSmallIcon(R.mipmap.ic_launcher)
       .setContentTitle(CHANNEL_NAME)
+      .setContentIntent(
+        PendingIntent.getActivity(
+          application,
+          0,
+          appNavigator.newSessionListActivity(),
+          PendingIntent.FLAG_UPDATE_CURRENT
+        )
+      )
       .setAutoCancel(false)
       .build()
     notification.flags = Notification.FLAG_NO_CLEAR
