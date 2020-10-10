@@ -11,9 +11,15 @@ data class AppState(
   val session get() = sessions[index]
   val signedIn get() = session as SessionState.SignedIn
 
-  fun update(state: SessionState.SignedIn): AppState {
+  fun update(next: SessionState.SignedIn): AppState {
     return copy(
-      sessions = listOf(state)
+      sessions = sessions.map { current ->
+        if (current.id() == next.id()) {
+          next
+        } else {
+          current
+        }
+      }
     )
   }
 

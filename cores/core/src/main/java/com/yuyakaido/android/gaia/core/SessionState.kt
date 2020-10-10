@@ -6,15 +6,25 @@ import com.yuyakaido.android.gaia.core.domain.entity.User
 
 sealed class SessionState {
 
+  abstract fun id(): String
+
   data class SignedOut(
     val state: String
-  ) : SessionState()
+  ) : SessionState() {
+    override fun id(): String {
+      return state
+    }
+  }
 
   data class SignedIn(
     val me: User.Detail.Me,
     val article: ArticleState = ArticleState.Initial,
     val community: CommunityState = CommunityState.Initial
-  ) : SessionState()
+  ) : SessionState() {
+    override fun id(): String {
+      return me.id
+    }
+  }
 
   sealed class ArticleState {
     abstract val articles: List<Article>

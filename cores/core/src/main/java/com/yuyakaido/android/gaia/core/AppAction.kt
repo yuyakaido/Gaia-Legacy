@@ -45,7 +45,7 @@ sealed class ArticleAction : SessionAction() {
   object ToInitial : ArticleAction() {
     override fun reduce(state: AppState): AppState {
       return state.update(
-        state = state.signedIn.copy(
+        next = state.signedIn.copy(
           article = SessionState.ArticleState.Initial
         )
       )
@@ -56,7 +56,7 @@ sealed class ArticleAction : SessionAction() {
   ) : ArticleAction() {
     override fun reduce(state: AppState): AppState {
       return state.update(
-        state = state.signedIn.copy(
+        next = state.signedIn.copy(
           article = SessionState.ArticleState.Loading(
             articles = articles,
             after = state.signedIn.article.after
@@ -71,7 +71,7 @@ sealed class ArticleAction : SessionAction() {
   ) : ArticleAction() {
     override fun reduce(state: AppState): AppState {
       return state.update(
-        state = state.signedIn.copy(
+        next = state.signedIn.copy(
           article = SessionState.ArticleState.Ideal(
             articles = state.signedIn.article.articles.plus(articles),
             after = after
@@ -83,7 +83,7 @@ sealed class ArticleAction : SessionAction() {
   object ToError : ArticleAction() {
     override fun reduce(state: AppState): AppState {
       return state.update(
-        state = state.signedIn.copy(
+        next = state.signedIn.copy(
           article = SessionState.ArticleState.Error
         )
       )
@@ -94,7 +94,7 @@ sealed class ArticleAction : SessionAction() {
   ) : ArticleAction() {
     override fun reduce(state: AppState): AppState {
       return state.update(
-        state = state.signedIn.copy(
+        next = state.signedIn.copy(
           article = SessionState.ArticleState.Ideal(
             articles = state.signedIn.article.articles.map { oldArticle ->
               if (oldArticle.id == newArticle.id) {
@@ -115,7 +115,7 @@ sealed class CommunityAction : AppAction() {
   object ToInitial : CommunityAction() {
     override fun reduce(state: AppState): AppState {
       return state.update(
-        state = state.signedIn.copy(
+        next = state.signedIn.copy(
           community = SessionState.CommunityState.Initial
         )
       )
@@ -126,7 +126,7 @@ sealed class CommunityAction : AppAction() {
   ) : CommunityAction() {
     override fun reduce(state: AppState): AppState {
       return state.update(
-        state = state.signedIn.copy(
+        next = state.signedIn.copy(
           community = SessionState.CommunityState.Loading(
             communities = communities,
             after = state.signedIn.community.after
@@ -141,7 +141,7 @@ sealed class CommunityAction : AppAction() {
   ) : CommunityAction() {
     override fun reduce(state: AppState): AppState {
       return state.update(
-        state = state.signedIn.copy(
+        next = state.signedIn.copy(
           community = SessionState.CommunityState.Ideal(
             communities = state.signedIn.community.communities.plus(communities),
             after = after
@@ -153,7 +153,7 @@ sealed class CommunityAction : AppAction() {
   object ToError : CommunityAction() {
     override fun reduce(state: AppState): AppState {
       return state.update(
-        state = state.signedIn.copy(
+        next = state.signedIn.copy(
           community = SessionState.CommunityState.Error
         )
       )
