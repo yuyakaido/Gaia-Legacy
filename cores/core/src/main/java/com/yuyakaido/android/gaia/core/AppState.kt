@@ -23,4 +23,34 @@ data class AppState(
     )
   }
 
+  fun add(target: SessionState): AppState {
+    val none = sessions.none { it.id() == target.id() }
+    val nextSessions = if (none) {
+      sessions.plus(target)
+    } else {
+      sessions
+    }
+    val nextIndex = if (none) {
+      nextSessions.lastIndex
+    } else {
+      index
+    }
+    return copy(
+      index = nextIndex,
+      sessions = nextSessions
+    )
+  }
+
+  fun replace(state: String, target: SessionState): AppState {
+    return copy(
+      sessions = sessions.map { current ->
+        if (current.id() == state) {
+          target
+        } else {
+          current
+        }
+      }
+    )
+  }
+
 }

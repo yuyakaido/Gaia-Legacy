@@ -41,7 +41,12 @@ class AuthorizationViewModel @Inject constructor(
             uri.getQueryParameter("code")?.let { code ->
               tokenRepository.save(tokenRepository.get(code = code))
               val me = userRepository.me()
-              appStore.dispatch(AppAction.AddSignedInSession(me))
+              appStore.dispatch(
+                AppAction.ReplaceSession(
+                  s = it.state,
+                  me = me
+                )
+              )
               dispatchApp()
             }
           }

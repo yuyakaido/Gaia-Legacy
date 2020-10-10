@@ -12,17 +12,24 @@ sealed class AppAction : ActionType<AppState> {
     private val s: String
   ) : AppAction() {
     override fun reduce(state: AppState): AppState {
-      return state.copy(
-        sessions = listOf(SessionState.SignedOut(s))
-      )
+      return state.add(SessionState.SignedOut(s))
     }
   }
   data class AddSignedInSession(
     private val me: User.Detail.Me
   ) : AppAction() {
     override fun reduce(state: AppState): AppState {
-      return state.copy(
-        sessions = listOf(SessionState.SignedIn(me))
+      return state.add(SessionState.SignedIn(me))
+    }
+  }
+  data class ReplaceSession(
+    private val s: String,
+    private val me: User.Detail.Me
+  ) : AppAction() {
+    override fun reduce(state: AppState): AppState {
+      return state.replace(
+        state = s,
+        target = SessionState.SignedIn(me)
       )
     }
   }
