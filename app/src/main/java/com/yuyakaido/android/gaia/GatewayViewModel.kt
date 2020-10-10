@@ -1,7 +1,6 @@
-package com.yuyakaido.android.gaia.auth
+package com.yuyakaido.android.gaia
 
 import android.app.Application
-import android.content.Intent
 import androidx.lifecycle.viewModelScope
 import com.yuyakaido.android.gaia.core.AppAction
 import com.yuyakaido.android.gaia.core.AppStore
@@ -15,36 +14,53 @@ import kotlinx.coroutines.flow.take
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-class AuthorizationViewModel @Inject constructor(
+class GatewayViewModel @Inject constructor(
   application: Application,
   private val appStore: AppStore,
-  private val intent: Intent,
   private val tokenRepository: TokenRepositoryType,
   private val userRepository: UserRepositoryType
 ) : BaseViewModel(application) {
 
+  val navigateToAuth = LiveEvent<String>()
   val navigateToApp = LiveEvent<Unit>()
 
   override fun onCreate() {
     super.onCreate()
-    dispatchNavigation()
+    initialize()
+  }
+
+  private fun initialize() {
+    viewModelScope.launch {
+      appStore.stateAsFlow()
+        .filter { it.sessions.isEmpty() }
+        .take(1)
+        .collect {
+          dispatchNavigation()
+        }
+    }
   }
 
   private fun dispatchNavigation() {
     viewModelScope.launch {
-      val state = intent.data?.getQueryParameter("state")
+      val token = tokenRepository.get()
+      if (token.isLoggedIn()) {
+        val me = userRepository.me()
+        appStore.dispatch(AppAction.AddSignedInSession(me))
+        dispatchApp()
+      } else {
+        val state = System.nanoTime().toString()
+        appStore.dispatch(AppAction.AddSignedOutSession(state))
+        dispatchAuth()
+      }
+    }
+  }
+
+  private fun dispatchAuth() {
+    viewModelScope.launch {
       appStore.signedOutAsFlow()
-        .filter { it.state == state }
         .take(1)
         .collect {
-          intent.data?.let { uri ->
-            uri.getQueryParameter("code")?.let { code ->
-              tokenRepository.save(tokenRepository.get(code = code))
-              val me = userRepository.me()
-              appStore.dispatch(AppAction.AddSignedInSession(me))
-              dispatchApp()
-            }
-          }
+          navigateToAuth.postValue(it.state)
         }
     }
   }

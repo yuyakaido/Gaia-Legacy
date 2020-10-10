@@ -13,11 +13,11 @@ class LiveEvent<T> : MutableLiveData<T>() {
   override fun observe(owner: LifecycleOwner, observer: Observer<in T>) {
     observers.add(observer)
     if (!hasObservers()) {
-      super.observe(owner, Observer { value ->
+      super.observe(owner) { value ->
         if (hasPendingValue.compareAndSet(true, false)) {
           observers.forEach { o -> o.onChanged(value) }
         }
-      })
+      }
     }
   }
 

@@ -21,13 +21,6 @@ class SessionListActivity : BaseActivity<SessionListViewModel>() {
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     setContentView(binding.root)
-    setupSessionButton()
-  }
-
-  private fun setupSessionButton() {
-    binding.addSessionButton.setOnClickListener {
-      startActivity(appNavigator.newAuthActivity())
-    }
   }
 
 }

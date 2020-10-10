@@ -31,22 +31,26 @@ class AppNavigator @Inject constructor(
   override val application: Application
 ) : AppNavigatorType {
 
+  override fun newGatewayActivity(): Intent {
+    return GatewayActivity.createIntent(application)
+  }
+
   override fun newAppActivity(): Intent {
-    return AppActivity.createIntent(context = application)
+    return AppActivity.createIntent(application)
   }
 
   override fun newSessionListActivity(): Intent {
-    return SessionListActivity.createIntent(context = application)
+    return SessionListActivity.createIntent(application)
   }
 
-  override fun newAuthActivity(): Intent {
+  override fun newAuthActivity(state: String): Intent {
     val uri = Uri.Builder()
       .scheme(Constant.OAUTH_SCHEME)
       .encodedAuthority(Constant.OAUTH_AUTHORITY)
       .encodedPath(Constant.OAUTH_PATH)
       .appendQueryParameter("client_id", Constant.OAUTH_CLIENT_ID)
       .appendQueryParameter("response_type", Constant.OAUTH_RESPONSE_TYPE)
-      .appendQueryParameter("state", System.currentTimeMillis().toString())
+      .appendQueryParameter("state", state)
       .appendQueryParameter("redirect_uri", Constant.OAUTH_REDIRECT_URI)
       .appendQueryParameter("duration", Constant.OAUTH_DURATION)
       .appendQueryParameter("scope", Constant.OAUTH_SCOPES.joinToString(" "))
@@ -55,27 +59,27 @@ class AppNavigator @Inject constructor(
   }
 
   override fun newCommunityDetailArticleListFragment(community: Community.Summary): Fragment {
-    val source = ArticleListSource.CommunityDetail(community = community)
-    val args = ArticleListFragmentArgs(source = source)
-    return ArticleListFragment.newInstance(args = args)
+    val source = ArticleListSource.CommunityDetail(community)
+    val args = ArticleListFragmentArgs(source)
+    return ArticleListFragment.newInstance(args)
   }
 
   override fun newSubmittedArticleListFragment(user: User): Fragment {
-    val source = ArticleListSource.Submit(user = user)
-    val args = ArticleListFragmentArgs(source = source)
-    return ArticleListFragment.newInstance(args = args)
+    val source = ArticleListSource.Submit(user)
+    val args = ArticleListFragmentArgs(source)
+    return ArticleListFragment.newInstance(args)
   }
 
   override fun newUpvotedArticleListFragment(user: User): Fragment {
-    val source = ArticleListSource.Upvote(user = user)
-    val args = ArticleListFragmentArgs(source = source)
-    return ArticleListFragment.newInstance(args = args)
+    val source = ArticleListSource.Upvote(user)
+    val args = ArticleListFragmentArgs(source)
+    return ArticleListFragment.newInstance(args)
   }
 
   override fun newDownvotedArticleListFragment(user: User): Fragment {
-    val source = ArticleListSource.Downvote(user = user)
-    val args = ArticleListFragmentArgs(source = source)
-    return ArticleListFragment.newInstance(args = args)
+    val source = ArticleListSource.Downvote(user)
+    val args = ArticleListFragmentArgs(source)
+    return ArticleListFragment.newInstance(args)
   }
 
   override fun navigateToArticleDetail(
@@ -83,18 +87,16 @@ class AppNavigator @Inject constructor(
     article: Article
   ) {
     controller.navigate(
-      ArticleListFragmentDirections.actionArticleDetail(
-        article = article
-      )
+      ArticleListFragmentDirections.actionArticleDetail(article)
     )
   }
 
   override fun newCommentListFragment(user: User): Fragment {
-    return CommentListFragment.createIntent(user = user)
+    return CommentListFragment.createIntent(user)
   }
 
   override fun newCommentListFragment(article: Article): Fragment {
-    return CommentListFragment.createIntent(article = article)
+    return CommentListFragment.createIntent(article)
   }
 
   override fun newCommunityFragment(): Fragment {
@@ -106,20 +108,18 @@ class AppNavigator @Inject constructor(
     community: Community.Summary
   ) {
     controller.navigate(
-      CommunityDetailFragmentDirections.actionCommunityDetail(
-        community = community
-      )
+      CommunityDetailFragmentDirections.actionCommunityDetail(community)
     )
   }
 
   override fun newModeratorListFragment(community: Community.Summary): Fragment {
-    val page = UserListSource.Moderator(community = community)
-    return UserListFragment.newInstance(source = page)
+    val page = UserListSource.Moderator(community)
+    return UserListFragment.newInstance(page)
   }
 
   override fun newContributorListFragment(community: Community.Summary): Fragment {
-    val page = UserListSource.Contributor(community = community)
-    return UserListFragment.newInstance(source = page)
+    val page = UserListSource.Contributor(community)
+    return UserListFragment.newInstance(page)
   }
 
   override fun navigateToUserDetail(
@@ -127,22 +127,20 @@ class AppNavigator @Inject constructor(
     user: User
   ) {
     controller.navigate(
-      UserListFragmentDirections.actionUserDetail(
-        source = UserDetailSource.Other(user = user)
-      )
+      UserListFragmentDirections.actionUserDetail(UserDetailSource.Other(user))
     )
   }
 
   override fun newUserDetailFragmentForUser(user: User): Fragment {
-    val source = UserDetailSource.Other(user = user)
-    val args = UserDetailFragmentArgs(source = source)
-    return UserDetailFragment.newInstance(args = args)
+    val source = UserDetailSource.Other(user)
+    val args = UserDetailFragmentArgs(source)
+    return UserDetailFragment.newInstance(args)
   }
 
   override fun newUserDetailFragmentForMe(): Fragment {
     val source = UserDetailSource.Me
-    val args = UserDetailFragmentArgs(source = source)
-    return UserDetailFragment.newInstance(args = args)
+    val args = UserDetailFragmentArgs(source)
+    return UserDetailFragment.newInstance(args)
   }
 
   override fun newSearchFragment(): Fragment {

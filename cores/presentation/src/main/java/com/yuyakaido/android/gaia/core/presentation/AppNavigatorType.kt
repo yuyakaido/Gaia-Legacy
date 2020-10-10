@@ -13,11 +13,14 @@ interface AppNavigatorType {
   val application: Application
 
   // App
+  fun newGatewayActivity(): Intent
   fun newAppActivity(): Intent
+
+  // Support
   fun newSessionListActivity(): Intent
 
   // Auth
-  fun newAuthActivity(): Intent
+  fun newAuthActivity(state: String): Intent
 
   // Article
   fun newCommunityDetailArticleListFragment(community: Community.Summary): Fragment

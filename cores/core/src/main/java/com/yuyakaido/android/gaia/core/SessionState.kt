@@ -6,7 +6,9 @@ import com.yuyakaido.android.gaia.core.domain.entity.User
 
 sealed class SessionState {
 
-  object SignedOut : SessionState()
+  data class SignedOut(
+    val state: String
+  ) : SessionState()
 
   data class SignedIn(
     val me: User.Detail.Me,

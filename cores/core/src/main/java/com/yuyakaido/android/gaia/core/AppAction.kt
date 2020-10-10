@@ -8,17 +8,12 @@ import com.yuyakaido.android.reduxkit.SingleActionType
 import com.yuyakaido.android.reduxkit.SuspendableActionType
 
 sealed class AppAction : ActionType<AppState> {
-  object ClearSession : AppAction() {
+  data class AddSignedOutSession(
+    private val s: String
+  ) : AppAction() {
     override fun reduce(state: AppState): AppState {
       return state.copy(
-        sessions = emptyList()
-      )
-    }
-  }
-  object AddSignedOutSession : AppAction() {
-    override fun reduce(state: AppState): AppState {
-      return state.copy(
-        sessions = listOf(SessionState.SignedOut)
+        sessions = listOf(SessionState.SignedOut(s))
       )
     }
   }
@@ -27,11 +22,7 @@ sealed class AppAction : ActionType<AppState> {
   ) : AppAction() {
     override fun reduce(state: AppState): AppState {
       return state.copy(
-        sessions = listOf(
-          SessionState.SignedIn(
-            me = me
-          )
-        )
+        sessions = listOf(SessionState.SignedIn(me))
       )
     }
   }
