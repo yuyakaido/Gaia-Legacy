@@ -41,16 +41,26 @@ data class AppState(
     )
   }
 
-  fun replace(state: String, target: SessionState): AppState {
-    return copy(
-      sessions = sessions.map { current ->
-        if (current.id() == state) {
-          target
-        } else {
-          current
+  fun replace(state: String, target: SessionState.SignedIn): AppState {
+    val isNewAccount = sessions.none { it.id() == target.id() }
+    return if (isNewAccount) {
+      copy(
+        sessions = sessions.map { current ->
+          if (current.id() == state) {
+            target
+          } else {
+            current
+          }
         }
-      }
-    )
+      )
+    } else {
+      val nextSessions = sessions.filterNot { current -> current.id() == state }
+      val nextIndex = nextSessions.lastIndex
+      copy(
+        index = nextIndex,
+        sessions = nextSessions
+      )
+    }
   }
 
 }
