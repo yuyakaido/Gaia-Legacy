@@ -9,7 +9,6 @@ import com.yuyakaido.android.gaia.core.domain.repository.UserRepositoryType
 import com.yuyakaido.android.gaia.core.presentation.BaseViewModel
 import com.yuyakaido.android.gaia.core.presentation.LiveEvent
 import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.take
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -26,18 +25,7 @@ class GatewayViewModel @Inject constructor(
 
   override fun onCreate() {
     super.onCreate()
-    initialize()
-  }
-
-  private fun initialize() {
-    viewModelScope.launch {
-      appStore.stateAsFlow()
-        .filter { it.sessions.isEmpty() }
-        .take(1)
-        .collect {
-          dispatchNavigation()
-        }
-    }
+    dispatchNavigation()
   }
 
   private fun dispatchNavigation() {
