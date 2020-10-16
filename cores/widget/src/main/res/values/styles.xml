@@ -2,7 +2,7 @@
 
 <resources>
 
-  <style name="AppTheme" parent="Theme.MaterialComponents.NoActionBar">
+  <style name="AppTheme" parent="Theme.MaterialComponents">
     <item name="textAllCaps">false</item>
   </style>
 

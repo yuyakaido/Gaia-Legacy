@@ -35,7 +35,7 @@ class AppActivity : BaseActivity<AppViewModel>() {
     super.onCreate(savedInstanceState)
     setContentView(binding.root)
     setupNavigation()
-    setupToolbar()
+    setupActionBar()
     setupBottomNavigationView()
   }
 
@@ -70,8 +70,7 @@ class AppActivity : BaseActivity<AppViewModel>() {
     controller.graph = graph
   }
 
-  private fun setupToolbar() {
-    setSupportActionBar(binding.toolbar)
+  private fun setupActionBar() {
     val configuration = AppBarConfiguration(
       setOf(
         R.id.fragment_article_list,
