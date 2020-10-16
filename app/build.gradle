@@ -36,6 +36,11 @@ android {
       signingConfig signingConfigs.release
     }
   }
+  productFlavors {
+    flavorDimensions 'default'
+    gaia {}
+    ouranos {}
+  }
   androidExtensions {
     experimental = true
   }
