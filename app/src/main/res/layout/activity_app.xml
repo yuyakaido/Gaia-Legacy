@@ -8,6 +8,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <androidx.appcompat.widget.Toolbar
+      android:id="@+id/toolbar"
+      android:layout_width="match_parent"
+      android:layout_height="?attr/actionBarSize"
+      app:layout_constraintTop_toTopOf="parent"
+      app:layout_constraintBottom_toTopOf="@id/fragment_nav_host"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      />
+
     <fragment
       android:id="@+id/fragment_nav_host"
       android:layout_width="match_parent"
@@ -15,7 +25,7 @@
       android:name="com.yuyakaido.android.gaia.AppNavHostFragment"
       app:navGraph="@navigation/navigation_app"
       app:defaultNavHost="true"
-      app:layout_constraintTop_toTopOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/toolbar"
       app:layout_constraintBottom_toTopOf="@id/bottom_navigation_view"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintEnd_toEndOf="parent"
