@@ -19,16 +19,11 @@ class AppCompletionObserver @Inject constructor(
         override fun onActivityCreated(activity: Activity, savedInstanceState: Bundle?) {
           activityCount++
         }
-        override fun onActivityStarted(activity: Activity) {
-        }
-        override fun onActivityResumed(activity: Activity) {
-        }
-        override fun onActivityPaused(activity: Activity) {
-        }
-        override fun onActivityStopped(activity: Activity) {
-        }
-        override fun onActivitySaveInstanceState(activity: Activity, outState: Bundle) {
-        }
+        override fun onActivityStarted(activity: Activity) = Unit
+        override fun onActivityResumed(activity: Activity) = Unit
+        override fun onActivityPaused(activity: Activity) = Unit
+        override fun onActivityStopped(activity: Activity) = Unit
+        override fun onActivitySaveInstanceState(activity: Activity, outState: Bundle) = Unit
         override fun onActivityDestroyed(activity: Activity) {
           activityCount--
           if (activityCount == 0) {
