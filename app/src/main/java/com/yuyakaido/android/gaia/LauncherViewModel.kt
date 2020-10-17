@@ -13,7 +13,7 @@ import kotlinx.coroutines.flow.take
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-class GatewayViewModel @Inject constructor(
+class LauncherViewModel @Inject constructor(
   application: Application,
   private val appStore: AppStore,
   private val tokenRepository: TokenRepositoryType,

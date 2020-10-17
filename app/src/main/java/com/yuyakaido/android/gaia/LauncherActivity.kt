@@ -4,9 +4,9 @@ import android.os.Bundle
 import androidx.activity.viewModels
 import com.yuyakaido.android.gaia.core.presentation.BaseActivity
 
-class GatewayActivity : BaseActivity<GatewayViewModel>() {
+class LauncherActivity : BaseActivity<LauncherViewModel>() {
 
-  override val viewModel: GatewayViewModel by viewModels { factory }
+  override val viewModel: LauncherViewModel by viewModels { factory }
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)

@@ -10,7 +10,7 @@ import dagger.android.ContributesAndroidInjector
 abstract class ActivityModule {
 
   @ContributesAndroidInjector
-  abstract fun contributeGatewayActivity(): GatewayActivity
+  abstract fun contributeLauncherActivity(): LauncherActivity
 
   @ContributesAndroidInjector(
     modules = [AuthorizationModule::class]
