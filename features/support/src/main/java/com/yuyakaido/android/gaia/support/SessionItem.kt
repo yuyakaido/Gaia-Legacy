@@ -6,7 +6,7 @@ import com.yuyakaido.android.gaia.core.SessionState
 import com.yuyakaido.android.gaia.support.databinding.ItemSessionBinding
 
 class SessionItem(
-  val session: SessionState
+  val content: SessionContent
 ) : BindableItem<ItemSessionBinding>() {
 
   override fun getLayout(): Int {
@@ -14,12 +14,17 @@ class SessionItem(
   }
 
   override fun bind(binding: ItemSessionBinding, position: Int) {
-    binding.name.text = session.id()
+    val icon = if (content.isSelected) { "🔵" } else { "" }
+    binding.name.text = when (val session = content.session) {
+      is SessionState.SignedOut -> "$icon${session.id}"
+      is SessionState.SigningIn -> "$icon${session.id}"
+      is SessionState.SignedIn -> "$icon${session.me.name}"
+    }
   }
 
   override fun isSameAs(other: Item<*>?): Boolean {
     return if (other is SessionItem) {
-      other.session.id() == session.id()
+      other.content == content
     } else {
       false
     }
@@ -27,14 +32,14 @@ class SessionItem(
 
   override fun equals(other: Any?): Boolean {
     return if (other is SessionItem) {
-      other.session == session
+      other.content == content
     } else {
       false
     }
   }
 
   override fun hashCode(): Int {
-    return session.hashCode()
+    return content.hashCode()
   }
 
 }

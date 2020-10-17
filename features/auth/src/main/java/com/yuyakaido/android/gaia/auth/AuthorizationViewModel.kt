@@ -5,8 +5,10 @@ import android.content.Intent
 import androidx.lifecycle.viewModelScope
 import com.yuyakaido.android.gaia.core.AppAction
 import com.yuyakaido.android.gaia.core.AppStore
+import com.yuyakaido.android.gaia.core.SessionState
+import com.yuyakaido.android.gaia.core.domain.entity.Session
+import com.yuyakaido.android.gaia.core.domain.repository.SessionRepositoryType
 import com.yuyakaido.android.gaia.core.domain.repository.TokenRepositoryType
-import com.yuyakaido.android.gaia.core.domain.repository.UserRepositoryType
 import com.yuyakaido.android.gaia.core.presentation.BaseViewModel
 import com.yuyakaido.android.gaia.core.presentation.LiveEvent
 import kotlinx.coroutines.flow.collect
@@ -19,11 +21,11 @@ class AuthorizationViewModel @Inject constructor(
   application: Application,
   private val appStore: AppStore,
   private val intent: Intent,
-  private val tokenRepository: TokenRepositoryType,
-  private val userRepository: UserRepositoryType
+  private val sessionRepository: SessionRepositoryType,
+  private val tokenRepository: TokenRepositoryType
 ) : BaseViewModel(application) {
 
-  val navigateToApp = LiveEvent<Unit>()
+  val navigateToGateway = LiveEvent<Unit>()
 
   override fun onCreate() {
     super.onCreate()
@@ -32,34 +34,37 @@ class AuthorizationViewModel @Inject constructor(
 
   private fun dispatchNavigation() {
     viewModelScope.launch {
-      val state = intent.data?.getQueryParameter("state")
+      val id = intent.data?.getQueryParameter("state")
       appStore.signedOutAsFlow()
-        .filter { it.state == state }
+        .filter { it.id == id }
         .take(1)
-        .collect {
+        .collect { signedOut ->
           intent.data?.let { uri ->
             uri.getQueryParameter("code")?.let { code ->
-              tokenRepository.save(tokenRepository.get(code = code))
-              val me = userRepository.me()
-              appStore.dispatch(
-                AppAction.ReplaceSession(
-                  s = it.state,
-                  me = me
-                )
+              val token = tokenRepository.get(code)
+              val session = Session.SignedIn(
+                id = signedOut.id,
+                token = token
               )
-              dispatchApp()
+              sessionRepository.put(session)
+              val state = SessionState.SigningIn(
+                id = signedOut.id,
+                token = token
+              )
+              appStore.dispatch(AppAction.ReplaceSession(state))
+              dispatchGateway()
             }
           }
         }
     }
   }
 
-  private fun dispatchApp() {
+  private fun dispatchGateway() {
     viewModelScope.launch {
-      appStore.signedInAsFlow()
+      appStore.signingInAsFlow()
         .take(1)
         .collect {
-          navigateToApp.postValue(Unit)
+          navigateToGateway.postValue(Unit)
         }
     }
   }

@@ -72,6 +72,9 @@ dependencies {
   implementation project(':features:search')
   implementation project(':features:support')
 
+  // AndroidX
+  kapt libs.androidx.room.compiler
+
   // Dependency Injection
   kapt libs.dagger.java.compiler
   kapt libs.dagger.android.compiler

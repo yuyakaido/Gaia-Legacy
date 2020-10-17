@@ -14,7 +14,7 @@ data class AppState(
   fun update(next: SessionState.SignedIn): AppState {
     return copy(
       sessions = sessions.map { current ->
-        if (current.id() == next.id()) {
+        if (current.id == next.id) {
           next
         } else {
           current
@@ -24,7 +24,7 @@ data class AppState(
   }
 
   fun add(target: SessionState): AppState {
-    val none = sessions.none { it.id() == target.id() }
+    val none = sessions.none { it.id == target.id }
     val nextSessions = if (none) {
       sessions.plus(target)
     } else {
@@ -41,26 +41,22 @@ data class AppState(
     )
   }
 
-  fun replace(state: String, target: SessionState.SignedIn): AppState {
-    val isNewAccount = sessions.none { it.id() == target.id() }
-    return if (isNewAccount) {
-      copy(
-        sessions = sessions.map { current ->
-          if (current.id() == state) {
-            target
-          } else {
-            current
-          }
+  fun replace(target: SessionState): AppState {
+    return copy(
+      sessions = sessions.map { current ->
+        if (current.id == target.id) {
+          target
+        } else {
+          current
         }
-      )
-    } else {
-      val nextSessions = sessions.filterNot { current -> current.id() == state }
-      val nextIndex = nextSessions.lastIndex
-      copy(
-        index = nextIndex,
-        sessions = nextSessions
-      )
-    }
+      }
+    )
+  }
+
+  fun switch(id: String): AppState {
+    return copy(
+      index = sessions.indexOfFirst { it.id == id }
+    )
   }
 
 }

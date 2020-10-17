@@ -14,9 +14,9 @@ class AuthorizationActivity : BaseActivity<AuthorizationViewModel>() {
   }
 
   private fun setupNavigation() {
-    viewModel.navigateToApp
+    viewModel.navigateToGateway
       .observe(this) {
-        startActivity(appNavigator.newAppActivity())
+        startActivity(appNavigator.newGatewayActivity())
       }
   }
 

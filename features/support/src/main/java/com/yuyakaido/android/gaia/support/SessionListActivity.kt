@@ -34,16 +34,22 @@ class SessionListActivity : BaseActivity<SessionListViewModel>() {
     val adapter = GroupAdapter<GroupieViewHolder>()
     adapter.setOnItemClickListener { item, _ ->
       if (item is SessionItem) {
-        viewModel.onSessionClicked(item.session)
+        viewModel.onSessionClicked(item.content.session)
       }
     }
 
     binding.recyclerView.layoutManager = manager
     binding.recyclerView.adapter = adapter
 
-    viewModel.sessions
-      .observe(this) { sessions ->
-        val items = sessions.map { session -> SessionItem(session) }
+    viewModel.state
+      .observe(this) { state ->
+        val items = state.sessions.mapIndexed { index, session ->
+          val content = SessionContent(
+            session = session,
+            isSelected = state.index == index
+          )
+          SessionItem(content)
+        }
         adapter.updateAsync(items)
       }
   }
@@ -58,6 +64,14 @@ class SessionListActivity : BaseActivity<SessionListViewModel>() {
     viewModel.navigateToAuth
       .observe(this) {
         startActivity(appNavigator.newAuthActivity(it))
+      }
+    viewModel.navigateToGateway
+      .observe(this) {
+        startActivity(appNavigator.newGatewayActivity())
+      }
+    viewModel.navigateToApp
+      .observe(this) {
+        startActivity(appNavigator.newAppActivity())
       }
   }
 

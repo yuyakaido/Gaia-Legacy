@@ -1,14 +1,14 @@
 package com.yuyakaido.android.gaia.auth
 
-import com.yuyakaido.android.gaia.core.domain.repository.TokenRepositoryType
-import com.yuyakaido.android.gaia.core.domain.app.Constant
+import com.yuyakaido.android.gaia.core.domain.entity.Session
+import com.yuyakaido.android.gaia.core.domain.repository.SessionRepositoryType
 import kotlinx.coroutines.runBlocking
-import okhttp3.Credentials
 import okhttp3.Interceptor
 import okhttp3.Response
 
 class AuthInterceptor(
-  private val repository: TokenRepositoryType
+  private val initial: Session,
+  private val repository: SessionRepositoryType
 ) : Interceptor {
 
   override fun intercept(chain: Interceptor.Chain): Response {
@@ -17,13 +17,8 @@ class AuthInterceptor(
         .newBuilder()
         .apply {
           runBlocking {
-            val token = repository.get()
-            if (token.isLoggedIn()) {
-              addHeader("Authorization", token.bearerToken())
-            } else {
-              val credential = Credentials.basic(Constant.OAUTH_CLIENT_ID, "")
-              addHeader("Authorization", credential)
-            }
+            val s = repository.get(initial.id)
+            addHeader("Authorization", s.bearerToken())
           }
         }
         .build()

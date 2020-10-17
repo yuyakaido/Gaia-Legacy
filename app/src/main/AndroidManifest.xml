@@ -29,6 +29,8 @@
       </intent-filter>
     </activity>
 
+    <activity android:name=".GatewayActivity" />
+
     <activity android:name=".AppActivity" />
 
     <activity android:name=".support.SessionListActivity" />

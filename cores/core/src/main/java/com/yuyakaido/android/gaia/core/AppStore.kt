@@ -26,6 +26,10 @@ class AppStore(
     return sessionAsFlow().filterIsInstance()
   }
 
+  fun signingInAsFlow(): Flow<SessionState.SigningIn> {
+    return sessionAsFlow().filterIsInstance()
+  }
+
   fun signedInAsFlow(): Flow<SessionState.SignedIn> {
     return sessionAsFlow().filterIsInstance()
   }

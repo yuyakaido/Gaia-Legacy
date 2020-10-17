@@ -18,7 +18,7 @@ import dagger.Module
 import dagger.android.ContributesAndroidInjector
 
 @Module
-abstract class FragmentModule {
+abstract class SignedInFragmentModule {
 
   @ContributesAndroidInjector(
     modules = [ArticleListModule::class]

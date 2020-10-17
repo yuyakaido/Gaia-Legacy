@@ -12,6 +12,11 @@ class AppLifecycleObserver @Inject constructor(
   private val appStore: AppStore
 ) : LifecycleObserver {
 
+  @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
+  fun onAppCreate() {
+    appStore.dispatch(AppAction.ClearSession)
+  }
+
   @OnLifecycleEvent(Lifecycle.Event.ON_ANY)
   fun onAppAny(owner: LifecycleOwner, event: Lifecycle.Event) {
     appStore.dispatch(AppAction.UpdateLifecycle(AppLifecycle.from(event)))

@@ -9,7 +9,6 @@ import com.yuyakaido.android.gaia.core.SessionState
 import com.yuyakaido.android.gaia.core.presentation.BaseViewModel
 import com.yuyakaido.android.gaia.core.presentation.LiveEvent
 import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.take
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -19,18 +18,25 @@ class SessionListViewModel @Inject constructor(
   private val appStore: AppStore
 ) : BaseViewModel(application) {
 
-  val sessions = appStore.stateAsFlow().map { it.sessions }.asLiveData()
+  val state = appStore.stateAsFlow().asLiveData()
 
   val navigateToAuth = LiveEvent<String>()
+  val navigateToGateway = LiveEvent<Unit>()
+  val navigateToApp = LiveEvent<Unit>()
 
   fun onAddSessionClicked() {
-    val s = System.nanoTime().toString()
-    appStore.dispatch(AppAction.AddSignedOutSession(s))
+    val id = System.nanoTime().toString()
+    appStore.dispatch(AppAction.AddSignedOutSession(id))
     dispatchAuth()
   }
 
   fun onSessionClicked(session: SessionState) {
-
+    appStore.dispatch(AppAction.SwitchSession(session.id))
+    when (session) {
+      is SessionState.SignedOut -> dispatchAuth()
+      is SessionState.SigningIn -> dispatchGateway()
+      is SessionState.SignedIn -> dispatchApp()
+    }
   }
 
   private fun dispatchAuth() {
@@ -38,7 +44,27 @@ class SessionListViewModel @Inject constructor(
       appStore.signedOutAsFlow()
         .take(1)
         .collect {
-          navigateToAuth.postValue(it.state)
+          navigateToAuth.postValue(it.id)
+        }
+    }
+  }
+
+  private fun dispatchGateway() {
+    viewModelScope.launch {
+      appStore.signingInAsFlow()
+        .take(1)
+        .collect {
+          navigateToGateway.postValue(Unit)
+        }
+    }
+  }
+
+  private fun dispatchApp() {
+    viewModelScope.launch {
+      appStore.signedInAsFlow()
+        .take(1)
+        .collect {
+          navigateToApp.postValue(Unit)
         }
     }
   }

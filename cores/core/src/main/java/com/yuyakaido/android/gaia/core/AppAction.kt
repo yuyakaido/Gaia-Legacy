@@ -2,35 +2,48 @@ package com.yuyakaido.android.gaia.core
 
 import com.yuyakaido.android.gaia.core.domain.entity.Article
 import com.yuyakaido.android.gaia.core.domain.entity.Community
-import com.yuyakaido.android.gaia.core.domain.entity.User
 import com.yuyakaido.android.reduxkit.ActionType
 import com.yuyakaido.android.reduxkit.SingleActionType
 import com.yuyakaido.android.reduxkit.SuspendableActionType
 
 sealed class AppAction : ActionType<AppState> {
-  data class AddSignedOutSession(
-    private val s: String
-  ) : AppAction() {
+  object ClearSession : AppAction() {
     override fun reduce(state: AppState): AppState {
-      return state.add(SessionState.SignedOut(s))
+      return state.copy(
+        sessions = emptyList()
+      )
     }
   }
-  data class AddSignedInSession(
-    private val me: User.Detail.Me
+  data class AddSignedOutSession(
+    private val id: String
   ) : AppAction() {
     override fun reduce(state: AppState): AppState {
-      return state.add(SessionState.SignedIn(me))
+      return state.add(SessionState.SignedOut(id))
+    }
+  }
+  data class AddSigningInSession(
+    private val id: String
+  ) : AppAction() {
+    override fun reduce(state: AppState): AppState {
+      val signingIn = SessionState.SigningIn(
+        id = id,
+        token = null
+      )
+      return state.add(signingIn)
     }
   }
   data class ReplaceSession(
-    private val s: String,
-    private val me: User.Detail.Me
+    private val target: SessionState
   ) : AppAction() {
     override fun reduce(state: AppState): AppState {
-      return state.replace(
-        state = s,
-        target = SessionState.SignedIn(me)
-      )
+      return state.replace(target)
+    }
+  }
+  data class SwitchSession(
+    private val id: String
+  ) : AppAction() {
+    override fun reduce(state: AppState): AppState {
+      return state.switch(id)
     }
   }
   data class UpdateLifecycle(val lifecycle: AppLifecycle) : AppAction() {

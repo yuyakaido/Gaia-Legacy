@@ -30,6 +30,10 @@ class AppNavigator(
   override val application: Application
 ) : AppNavigatorType {
 
+  override fun newGatewayActivity(): Intent {
+    return GatewayActivity.createIntent(application)
+  }
+
   override fun newAppActivity(): Intent {
     return AppActivity.createIntent(application)
   }
@@ -38,14 +42,14 @@ class AppNavigator(
     return SessionListActivity.createIntent(application)
   }
 
-  override fun newAuthActivity(state: String): Intent {
+  override fun newAuthActivity(id: String): Intent {
     val uri = Uri.Builder()
       .scheme(Constant.OAUTH_SCHEME)
       .encodedAuthority(Constant.OAUTH_AUTHORITY)
       .encodedPath(Constant.OAUTH_PATH)
       .appendQueryParameter("client_id", Constant.OAUTH_CLIENT_ID)
       .appendQueryParameter("response_type", Constant.OAUTH_RESPONSE_TYPE)
-      .appendQueryParameter("state", state)
+      .appendQueryParameter("state", id)
       .appendQueryParameter("redirect_uri", Constant.OAUTH_REDIRECT_URI)
       .appendQueryParameter("duration", Constant.OAUTH_DURATION)
       .appendQueryParameter("scope", Constant.OAUTH_SCOPES.joinToString(" "))

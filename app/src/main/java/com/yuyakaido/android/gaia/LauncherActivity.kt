@@ -18,9 +18,9 @@ class LauncherActivity : BaseActivity<LauncherViewModel>() {
       .observe(this) {
         startActivity(appNavigator.newAuthActivity(it))
       }
-    viewModel.navigateToApp
+    viewModel.navigateToGateway
       .observe(this) {
-        startActivity(appNavigator.newAppActivity())
+        startActivity(appNavigator.newGatewayActivity())
       }
   }
 

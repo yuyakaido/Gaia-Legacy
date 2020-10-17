@@ -1,25 +1,27 @@
 package com.yuyakaido.android.gaia
 
 import com.yuyakaido.android.gaia.article.ArticleModule
-import com.yuyakaido.android.gaia.auth.AuthModule
+import com.yuyakaido.android.gaia.auth.SignedInAuthModule
 import com.yuyakaido.android.gaia.comment.CommentModule
 import com.yuyakaido.android.gaia.community.CommunityModule
-import com.yuyakaido.android.gaia.core.domain.app.SessionScope
+import com.yuyakaido.android.gaia.core.domain.app.SignedInScope
 import com.yuyakaido.android.gaia.search.SearchModule
 import com.yuyakaido.android.gaia.user.UserModule
 import dagger.Subcomponent
 import dagger.android.DispatchingAndroidInjector
 
-@SessionScope
+@SignedInScope
 @Subcomponent(
   modules = [
+    SignedInSessionModule::class,
+
     // Core
-    NetworkModule::class,
-    FragmentModule::class,
-    ActivityModule::class,
+    SignedInNetworkModule::class,
+    SignedInActivityModule::class,
+    SignedInFragmentModule::class,
 
     // Feature
-    AuthModule::class,
+    SignedInAuthModule::class,
     ArticleModule::class,
     CommentModule::class,
     CommunityModule::class,
@@ -27,10 +29,11 @@ import dagger.android.DispatchingAndroidInjector
     SearchModule::class
   ]
 )
-interface SessionComponent {
+interface SignedInSessionComponent {
   @Subcomponent.Builder
   interface Builder {
-    fun build(): SessionComponent
+    fun module(module: SignedInSessionModule): Builder
+    fun build(): SignedInSessionComponent
   }
 
   fun androidInjector(): DispatchingAndroidInjector<Any>

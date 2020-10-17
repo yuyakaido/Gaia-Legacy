@@ -2,9 +2,12 @@ package com.yuyakaido.android.gaia
 
 import androidx.lifecycle.ProcessLifecycleOwner
 import com.facebook.stetho.Stetho
+import com.yuyakaido.android.gaia.core.AppCompletionObserver
 import com.yuyakaido.android.gaia.core.AppLifecycleObserver
 import com.yuyakaido.android.gaia.core.AppStore
+import com.yuyakaido.android.gaia.core.SessionState
 import com.yuyakaido.android.gaia.core.domain.BuildConfig
+import com.yuyakaido.android.gaia.core.domain.entity.Session
 import com.yuyakaido.android.gaia.support.SupportNotificationManager
 import dagger.android.AndroidInjector
 import dagger.android.support.DaggerApplication
@@ -18,6 +21,9 @@ class Gaia : DaggerApplication() {
 
   @Inject
   internal lateinit var appLifecycleObserver: AppLifecycleObserver
+
+  @Inject
+  internal lateinit var appCompletionObserver: AppCompletionObserver
 
   @Inject
   internal lateinit var supportNotificationManager: SupportNotificationManager
@@ -40,16 +46,39 @@ class Gaia : DaggerApplication() {
 
   override fun androidInjector(): AndroidInjector<Any> {
     val state = appStore.stateAsValue()
-    val component = if (state.sessions.isEmpty()) {
-      appComponent.newSessionComponent().build()
+    return if (state.sessions.isEmpty()) {
+      appComponent
+        .newSignedOutSessionComponent()
+        .build()
+        .androidInjector()
     } else {
-      runningSession.add(
-        state = state.session,
-        component = appComponent
-      )
-      runningSession.component(state.session)
+      when (val session = state.session) {
+        is SessionState.SignedOut -> {
+          appComponent
+            .newSignedOutSessionComponent()
+            .build()
+            .androidInjector()
+        }
+        is SessionState.SigningIn -> {
+          val signingIn = Session.SigningIn(session.id)
+          val module = SignedInSessionModule(signingIn)
+          appComponent
+            .newSignedInSessionComponent()
+            .module(module)
+            .build()
+            .androidInjector()
+        }
+        is SessionState.SignedIn -> {
+          runningSession.add(
+            state = session,
+            component = appComponent
+          )
+          runningSession
+            .component(state.session)
+            .androidInjector()
+        }
+      }
     }
-    return component.androidInjector()
   }
 
   override fun onCreate() {
@@ -57,6 +86,7 @@ class Gaia : DaggerApplication() {
     initializeTimber()
     initializeStetho()
     initializeAppLifecycleObserver()
+    initializeAppCompletionObserver()
     initializeSupportNotificationManager()
   }
 
@@ -76,6 +106,10 @@ class Gaia : DaggerApplication() {
         .collect { Timber.v("AppLifecycle = $it") }
     }
     ProcessLifecycleOwner.get().lifecycle.addObserver(appLifecycleObserver)
+  }
+
+  private fun initializeAppCompletionObserver() {
+    appCompletionObserver.initialize()
   }
 
   private fun initializeSupportNotificationManager() {

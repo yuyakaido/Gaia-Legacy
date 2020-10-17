@@ -1,22 +1,30 @@
 package com.yuyakaido.android.gaia
 
 import com.yuyakaido.android.gaia.core.SessionState
+import com.yuyakaido.android.gaia.core.domain.entity.Session
 
 class RunningSession {
 
-  private val sessions = mutableMapOf<String, SessionComponent>()
+  private val sessions = mutableMapOf<String, SignedInSessionComponent>()
 
   fun add(
-    state: SessionState,
+    state: SessionState.SignedIn,
     component: AppComponent
   ) {
-    if (!sessions.containsKey(state.id())) {
-      sessions[state.id()] = component.newSessionComponent().build()
+    if (!sessions.containsKey(state.id)) {
+      val session = Session.SignedIn(
+        id = state.id,
+        token = state.token
+      )
+      sessions[state.id] = component
+        .newSignedInSessionComponent()
+        .module(SignedInSessionModule(session))
+        .build()
     }
   }
 
-  fun component(state: SessionState): SessionComponent {
-    return sessions.getValue(state.id())
+  fun component(state: SessionState): SignedInSessionComponent {
+    return sessions.getValue(state.id)
   }
 
 }

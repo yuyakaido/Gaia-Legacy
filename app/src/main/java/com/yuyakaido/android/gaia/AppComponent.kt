@@ -19,5 +19,6 @@ interface AppComponent : AndroidInjector<Gaia> {
     fun build(): AppComponent
   }
 
-  fun newSessionComponent(): SessionComponent.Builder
+  fun newSignedOutSessionComponent(): SignedOutSessionComponent.Builder
+  fun newSignedInSessionComponent(): SignedInSessionComponent.Builder
 }

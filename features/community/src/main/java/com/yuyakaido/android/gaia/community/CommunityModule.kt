@@ -1,6 +1,6 @@
 package com.yuyakaido.android.gaia.community
 
-import com.yuyakaido.android.gaia.core.domain.app.SessionScope
+import com.yuyakaido.android.gaia.core.domain.app.SignedInScope
 import com.yuyakaido.android.gaia.core.domain.repository.CommunityRepositoryType
 import com.yuyakaido.android.gaia.core.infrastructure.RetrofitForPrivate
 import dagger.Module
@@ -10,7 +10,7 @@ import retrofit2.Retrofit
 @Module
 class CommunityModule {
 
-  @SessionScope
+  @SignedInScope
   @Provides
   fun provideCommunityApi(
     @RetrofitForPrivate retrofit: Retrofit
@@ -18,7 +18,7 @@ class CommunityModule {
     return retrofit.create(CommunityApi::class.java)
   }
 
-  @SessionScope
+  @SignedInScope
   @Provides
   fun provideCommunityRepositoryType(
     api: CommunityApi

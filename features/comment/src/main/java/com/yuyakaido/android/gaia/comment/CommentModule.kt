@@ -1,6 +1,6 @@
 package com.yuyakaido.android.gaia.comment
 
-import com.yuyakaido.android.gaia.core.domain.app.SessionScope
+import com.yuyakaido.android.gaia.core.domain.app.SignedInScope
 import com.yuyakaido.android.gaia.core.domain.repository.CommentRepositoryType
 import com.yuyakaido.android.gaia.core.infrastructure.RetrofitForPrivate
 import dagger.Module
@@ -10,7 +10,7 @@ import retrofit2.Retrofit
 @Module
 class CommentModule {
 
-  @SessionScope
+  @SignedInScope
   @Provides
   fun provideCommentApi(
     @RetrofitForPrivate retrofit: Retrofit
@@ -18,7 +18,7 @@ class CommentModule {
     return retrofit.create(CommentApi::class.java)
   }
 
-  @SessionScope
+  @SignedInScope
   @Provides
   fun provideCommentRepositoryType(
     api: CommentApi
