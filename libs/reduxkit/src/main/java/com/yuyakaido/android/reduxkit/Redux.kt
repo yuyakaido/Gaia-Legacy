@@ -1,11 +1,13 @@
 package com.yuyakaido.android.reduxkit
 
+import io.reactivex.Completable
 import io.reactivex.Observable
-import io.reactivex.Single
-import kotlinx.coroutines.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.channels.ConflatedBroadcastChannel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.asFlow
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.rx2.asObservable
 import kotlinx.coroutines.rx2.await
 import timber.log.Timber
@@ -16,14 +18,16 @@ interface ActionType<S : StateType> {
   fun reduce(state: S): S
 }
 
-interface SuspendableActionType<S : StateType> : ActionType<S> {
+interface AsyncActionType<S : StateType> : ActionType<S> {
   override fun reduce(state: S): S = state
-  suspend fun execute(selector: SelectorType<S>, dispatcher: DispatcherType<S>): ActionType<S>
 }
 
-interface SingleActionType<S : StateType> : ActionType<S> {
-  override fun reduce(state: S): S = state
-  fun execute(selector: SelectorType<S>, dispatcher: DispatcherType<S>): Single<out ActionType<S>>
+interface SuspendableActionType<S : StateType> : AsyncActionType<S> {
+  suspend fun execute(selector: SelectorType<S>, dispatcher: DispatcherType<S>)
+}
+
+interface CompletableActionType<S : StateType> : AsyncActionType<S> {
+  fun execute(selector: SelectorType<S>, dispatcher: DispatcherType<S>): Completable
 }
 
 interface SelectorType<S : StateType> {
@@ -34,47 +38,39 @@ interface DispatcherType<S : StateType> {
   fun dispatch(action: ActionType<S>)
 }
 
-abstract class MiddlewareType<S : StateType>(
-  dispatcher: DispatcherType<S>
-) {
-  open suspend fun before(state: StateType, action: ActionType<S>): ActionType<S> = action
-  open suspend fun after(state: StateType, action: ActionType<S>): ActionType<S> = action
+abstract class MiddlewareType<S : StateType> {
+  open suspend fun before(state: StateType, action: ActionType<S>) = Unit
+  open suspend fun after(state: StateType, action: ActionType<S>) = Unit
 }
 
-class LoggerMiddleware<S : StateType>(
-  dispatcher: DispatcherType<S>
-) : MiddlewareType<S>(dispatcher) {
-  override suspend fun before(state: StateType, action: ActionType<S>): ActionType<S> {
+class LoggerMiddleware<S : StateType> : MiddlewareType<S>() {
+  override suspend fun before(state: StateType, action: ActionType<S>) {
     Timber.v("Before: action = $action")
-    return action
   }
-  override suspend fun after(state: StateType, action: ActionType<S>): ActionType<S> {
+  override suspend fun after(state: StateType, action: ActionType<S>) {
     Timber.v("After: action = $action")
-    return action
   }
 }
 
 class ThunkMiddlewareForCoroutine<S : StateType>(
   private val selector: SelectorType<S>,
   private val dispatcher: DispatcherType<S>
-) : MiddlewareType<S>(dispatcher) {
-  override suspend fun before(state: StateType, action: ActionType<S>): ActionType<S> {
+) : MiddlewareType<S>() {
+  override suspend fun before(state: StateType, action: ActionType<S>) {
     if (action is SuspendableActionType) {
-      return action.execute(selector, dispatcher)
+      action.execute(selector, dispatcher)
     }
-    return action
   }
 }
 
 class ThunkMiddlewareForReactive<S : StateType>(
   private val selector: SelectorType<S>,
   private val dispatcher: DispatcherType<S>
-) : MiddlewareType<S>(dispatcher) {
-  override suspend fun before(state: StateType, action: ActionType<S>): ActionType<S> {
-    if (action is SingleActionType) {
-      return action.execute(selector, dispatcher).await()
+) : MiddlewareType<S>() {
+  override suspend fun before(state: StateType, action: ActionType<S>) {
+    if (action is CompletableActionType<S>) {
+      action.execute(selector, dispatcher).await()
     }
-    return action
   }
 }
 
@@ -86,7 +82,7 @@ abstract class StoreType<S : StateType, A : ActionType<S>>(
   private val state = ConflatedBroadcastChannel(initialState)
   private val middlewares by lazy {
     mutableListOf(
-      LoggerMiddleware(dispatcher = this),
+      LoggerMiddleware(),
       ThunkMiddlewareForCoroutine(selector = this, dispatcher = this),
       ThunkMiddlewareForReactive(selector = this, dispatcher = this)
     )
@@ -112,13 +108,13 @@ abstract class StoreType<S : StateType, A : ActionType<S>>(
   ): Job {
     return scope.launch {
       try {
-        val actualAction = middlewares.fold(action) { action, middleware ->
-          return@fold middleware.before(
+        middlewares.forEach { middleware ->
+          middleware.before(
             state = stateAsValue(),
             action = action
           )
         }
-        update(actualAction)
+        update(action)
         middlewares.forEach { middleware ->
           middleware.after(
             state = stateAsValue(),

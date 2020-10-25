@@ -6,7 +6,6 @@ import com.yuyakaido.android.gaia.core.ArticleAction
 import com.yuyakaido.android.gaia.core.SuspendableAction
 import com.yuyakaido.android.gaia.core.domain.repository.ArticleRepositoryType
 import com.yuyakaido.android.gaia.core.domain.value.VoteTarget
-import com.yuyakaido.android.reduxkit.ActionType
 import com.yuyakaido.android.reduxkit.DispatcherType
 import com.yuyakaido.android.reduxkit.SelectorType
 import javax.inject.Inject
@@ -24,24 +23,28 @@ class ArticleListActionCreator @Inject constructor(
       override suspend fun execute(
         selector: SelectorType<AppState>,
         dispatcher: DispatcherType<AppState>
-      ): ActionType<AppState> {
+      ) {
         val state = selector.select().signedIn.article
         dispatcher.dispatch(
           ArticleAction.ToLoading(
             articles = state.articles
           )
         )
-        return try {
+        try {
           val item = source.articles(
             repository = repository,
             after = state.after
           )
-          ArticleAction.ToIdeal(
-            after = item.after,
-            articles = item.entities
+          dispatcher.dispatch(
+            ArticleAction.ToIdeal(
+              after = item.after,
+              articles = item.entities
+            )
           )
         } catch (e: Exception) {
-          ArticleAction.ToError
+          dispatcher.dispatch(
+            ArticleAction.ToError
+          )
         }
       }
     }
@@ -52,10 +55,12 @@ class ArticleListActionCreator @Inject constructor(
       override suspend fun execute(
         selector: SelectorType<AppState>,
         dispatcher: DispatcherType<AppState>
-      ): ActionType<AppState> {
+      ) {
         repository.vote(target)
-        return ArticleAction.Update(
-          newArticle = target.article()
+        dispatcher.dispatch(
+          ArticleAction.Update(
+            newArticle = target.article()
+          )
         )
       }
     }

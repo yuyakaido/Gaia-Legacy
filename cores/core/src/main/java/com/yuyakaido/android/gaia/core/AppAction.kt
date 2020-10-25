@@ -3,7 +3,7 @@ package com.yuyakaido.android.gaia.core
 import com.yuyakaido.android.gaia.core.domain.entity.Article
 import com.yuyakaido.android.gaia.core.domain.entity.Community
 import com.yuyakaido.android.reduxkit.ActionType
-import com.yuyakaido.android.reduxkit.SingleActionType
+import com.yuyakaido.android.reduxkit.CompletableActionType
 import com.yuyakaido.android.reduxkit.SuspendableActionType
 
 sealed class AppAction : ActionType<AppState> {
@@ -59,7 +59,7 @@ sealed class SessionAction : AppAction()
 
 interface SuspendableAction : SuspendableActionType<AppState>
 
-interface SingleAction : SingleActionType<AppState>
+interface CompletableAction : CompletableActionType<AppState>
 
 sealed class ArticleAction : SessionAction() {
   object ToInitial : ArticleAction() {
@@ -177,11 +177,6 @@ sealed class CommunityAction : AppAction() {
           community = SessionState.CommunityState.Error
         )
       )
-    }
-  }
-  object DoNothing : CommunityAction() {
-    override fun reduce(state: AppState): AppState {
-      return state
     }
   }
 }
