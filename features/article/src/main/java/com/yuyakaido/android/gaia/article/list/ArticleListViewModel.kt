@@ -7,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.yuyakaido.android.gaia.core.AppStore
 import com.yuyakaido.android.gaia.core.SessionState
 import com.yuyakaido.android.gaia.core.domain.entity.Article
+import com.yuyakaido.android.gaia.core.domain.entity.ArticleListSource
 import com.yuyakaido.android.gaia.core.domain.value.VoteTarget
 import com.yuyakaido.android.gaia.core.presentation.BaseViewModel
 import kotlinx.coroutines.flow.map
@@ -15,14 +16,14 @@ import javax.inject.Inject
 
 class ArticleListViewModel @Inject constructor(
   application: Application,
-  source: ArticleListSource,
+  private val source: ArticleListSource,
   private val appStore: AppStore,
   private val actionCreator: ArticleListActionCreator
 ) : BaseViewModel(application) {
 
-  private val source = MutableLiveData(source)
+  private val currentSource = MutableLiveData(source)
 
-  val state = appStore.articleAsFlow()
+  val state = appStore.articleAsFlow(source)
     .map { state -> State.from(state = state) }
     .asLiveData()
 
@@ -48,18 +49,18 @@ class ArticleListViewModel @Inject constructor(
     }
 
     companion object {
-      fun from(state: SessionState.ArticleState): State {
+      fun from(state: SessionState.ArticleListState): State {
         return when (state) {
-          is SessionState.ArticleState.Initial -> {
+          is SessionState.ArticleListState.Initial -> {
             Initial
           }
-          is SessionState.ArticleState.Loading -> {
+          is SessionState.ArticleListState.Loading -> {
             Loading(articles = state.articles)
           }
-          is SessionState.ArticleState.Ideal -> {
+          is SessionState.ArticleListState.Ideal -> {
             Ideal(articles = state.articles)
           }
-          is SessionState.ArticleState.Error -> {
+          is SessionState.ArticleListState.Error -> {
             Error
           }
         }
@@ -94,7 +95,7 @@ class ArticleListViewModel @Inject constructor(
   }
 
   private fun paginate() {
-    source.value?.let { s ->
+    currentSource.value?.let { s ->
       appStore.dispatch(
         scope = viewModelScope,
         action = actionCreator.paginate(source = s)
@@ -103,19 +104,22 @@ class ArticleListViewModel @Inject constructor(
   }
 
   private fun refresh() {
-    appStore.dispatch(actionCreator.refresh())
+    appStore.dispatch(actionCreator.refresh(source))
     paginate()
   }
 
   private fun refresh(source: ArticleListSource) {
-    this.source.value = source
+    this.currentSource.value = source
     refresh()
   }
 
   private fun vote(target: VoteTarget) {
     appStore.dispatch(
       scope = viewModelScope,
-      action = actionCreator.vote(target = target)
+      action = actionCreator.vote(
+        source = source,
+        target = target
+      )
     )
   }
 

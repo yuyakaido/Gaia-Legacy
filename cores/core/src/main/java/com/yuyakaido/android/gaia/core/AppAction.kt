@@ -1,6 +1,7 @@
 package com.yuyakaido.android.gaia.core
 
 import com.yuyakaido.android.gaia.core.domain.entity.Article
+import com.yuyakaido.android.gaia.core.domain.entity.ArticleListSource
 import com.yuyakaido.android.gaia.core.domain.entity.Community
 import com.yuyakaido.android.reduxkit.ActionType
 import com.yuyakaido.android.reduxkit.CompletableActionType
@@ -62,68 +63,91 @@ interface SuspendableAction : SuspendableActionType<AppState>
 interface CompletableAction : CompletableActionType<AppState>
 
 sealed class ArticleAction : SessionAction() {
-  object ToInitial : ArticleAction() {
+  abstract val source: ArticleListSource
+  data class ToInitial(
+    override val source: ArticleListSource
+  ) : ArticleAction() {
     override fun reduce(state: AppState): AppState {
       return state.update(
         next = state.signedIn.copy(
-          article = SessionState.ArticleState.Initial
+          article = state.signedIn.article.update(
+            source = source,
+            state = SessionState.ArticleListState.Initial
+          )
         )
       )
     }
   }
   data class ToLoading(
+    override val source: ArticleListSource,
     private val articles: List<Article>
   ) : ArticleAction() {
     override fun reduce(state: AppState): AppState {
       return state.update(
         next = state.signedIn.copy(
-          article = SessionState.ArticleState.Loading(
-            articles = articles,
-            after = state.signedIn.article.after
+          article = state.signedIn.article.update(
+            source = source,
+            state = SessionState.ArticleListState.Loading(
+              articles = articles,
+              after = state.signedIn.article.find(source).after
+            )
           )
         )
       )
     }
   }
   data class ToIdeal(
+    override val source: ArticleListSource,
     private val articles: List<Article>,
     private val after: String?
   ) : ArticleAction() {
     override fun reduce(state: AppState): AppState {
       return state.update(
         next = state.signedIn.copy(
-          article = SessionState.ArticleState.Ideal(
-            articles = state.signedIn.article.articles.plus(articles),
-            after = after
+          article = state.signedIn.article.update(
+            source = source,
+            state = SessionState.ArticleListState.Ideal(
+              articles = state.signedIn.article.find(source).articles.plus(articles),
+              after = after
+            )
           )
         )
       )
     }
   }
-  object ToError : ArticleAction() {
+  data class ToError(
+    override val source: ArticleListSource
+  ) : ArticleAction() {
     override fun reduce(state: AppState): AppState {
       return state.update(
         next = state.signedIn.copy(
-          article = SessionState.ArticleState.Error
+          article = state.signedIn.article.update(
+            source = source,
+            state = SessionState.ArticleListState.Error
+          )
         )
       )
     }
   }
   data class Update(
+    override val source: ArticleListSource,
     private val newArticle: Article
   ) : ArticleAction() {
     override fun reduce(state: AppState): AppState {
       return state.update(
         next = state.signedIn.copy(
-          article = SessionState.ArticleState.Ideal(
-            articles = state.signedIn.article.articles.map { oldArticle ->
-              if (oldArticle.id == newArticle.id) {
-                newArticle
-              } else {
-                oldArticle
-              }
-            },
-            after = state.signedIn.article.after
+          article = state.signedIn.article.update(
+            source = source,
+            state = SessionState.ArticleListState.Ideal(
+              articles = state.signedIn.article.find(source).articles.map { oldArticle ->
+                if (oldArticle.id == newArticle.id) {
+                  newArticle
+                } else {
+                  oldArticle
+                }
+              },
+              after = state.signedIn.article.find(source).after
+            )
           )
         )
       )

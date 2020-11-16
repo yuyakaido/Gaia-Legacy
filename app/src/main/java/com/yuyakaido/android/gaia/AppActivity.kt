@@ -11,7 +11,7 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
-import com.yuyakaido.android.gaia.article.list.ArticleListSource
+import com.yuyakaido.android.gaia.core.domain.entity.ArticleListSource
 import com.yuyakaido.android.gaia.core.presentation.BaseActivity
 import com.yuyakaido.android.gaia.databinding.ActivityAppBinding
 import com.yuyakaido.android.gaia.user.presentation.detail.UserDetailSource

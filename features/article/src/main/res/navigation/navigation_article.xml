@@ -11,7 +11,7 @@
 
     <argument
       android:name="source"
-      app:argType="com.yuyakaido.android.gaia.article.list.ArticleListSource"
+      app:argType="com.yuyakaido.android.gaia.core.domain.entity.ArticleListSource"
       app:nullable="false"
       />
 

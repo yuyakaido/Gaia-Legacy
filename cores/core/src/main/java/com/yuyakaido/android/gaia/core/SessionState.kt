@@ -1,6 +1,7 @@
 package com.yuyakaido.android.gaia.core
 
 import com.yuyakaido.android.gaia.core.domain.entity.Article
+import com.yuyakaido.android.gaia.core.domain.entity.ArticleListSource
 import com.yuyakaido.android.gaia.core.domain.entity.Community
 import com.yuyakaido.android.gaia.core.domain.entity.User
 import com.yuyakaido.android.gaia.core.domain.value.AuthToken
@@ -22,27 +23,43 @@ sealed class SessionState {
     override val id: String,
     val token: AuthToken,
     val me: User.Detail.Me,
-    val article: ArticleState = ArticleState.Initial,
+    val article: ArticleState = ArticleState(),
     val community: CommunityState = CommunityState.Initial
   ) : SessionState()
 
-  sealed class ArticleState {
+  data class ArticleState(
+    val sources: MutableMap<ArticleListSource, ArticleListState> = mutableMapOf()
+  ) {
+    fun find(source: ArticleListSource): ArticleListState {
+      return sources[source] ?: ArticleListState.Initial
+    }
+    fun update(
+      source: ArticleListSource,
+      state: ArticleListState
+    ): ArticleState {
+      return apply {
+        sources[source] = state
+      }
+    }
+  }
+
+  sealed class ArticleListState {
     abstract val articles: List<Article>
     abstract val after: String?
 
-    object Initial: ArticleState() {
+    object Initial: ArticleListState() {
       override val articles: List<Article> = emptyList()
       override val after: String? = null
     }
     data class Loading(
       override val articles: List<Article>,
       override val after: String?
-    ) : ArticleState()
+    ) : ArticleListState()
     data class Ideal(
       override val articles: List<Article>,
       override val after: String?
-    ) : ArticleState()
-    object Error : ArticleState() {
+    ) : ArticleListState()
+    object Error : ArticleListState() {
       override val articles: List<Article> = emptyList()
       override val after: String? = null
     }

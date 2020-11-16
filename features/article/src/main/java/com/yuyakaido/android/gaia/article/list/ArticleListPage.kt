@@ -2,6 +2,7 @@ package com.yuyakaido.android.gaia.article.list
 
 import androidx.annotation.IdRes
 import com.yuyakaido.android.gaia.article.R
+import com.yuyakaido.android.gaia.core.domain.entity.ArticleListSource
 
 enum class ArticleListPage(
   @IdRes val id: Int,
