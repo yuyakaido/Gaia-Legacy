@@ -62,25 +62,25 @@ class AppNavigator(
   }
 
   override fun newCommunityDetailArticleListFragment(community: Community.Summary): Fragment {
-    val source = ArticleListSource.CommunityDetail(community)
+    val source = ArticleListSource.CommunityDetail(community = community)
     val args = ArticleListFragmentArgs(source)
     return ArticleListFragment.newInstance(args)
   }
 
   override fun newSubmittedArticleListFragment(user: User): Fragment {
-    val source = ArticleListSource.Submit(user)
+    val source = ArticleListSource.Submit(user = user)
     val args = ArticleListFragmentArgs(source)
     return ArticleListFragment.newInstance(args)
   }
 
   override fun newUpvotedArticleListFragment(user: User): Fragment {
-    val source = ArticleListSource.Upvote(user)
+    val source = ArticleListSource.Upvoted(user = user)
     val args = ArticleListFragmentArgs(source)
     return ArticleListFragment.newInstance(args)
   }
 
   override fun newDownvotedArticleListFragment(user: User): Fragment {
-    val source = ArticleListSource.Downvote(user)
+    val source = ArticleListSource.Downvoted(user = user)
     val args = ArticleListFragmentArgs(source)
     return ArticleListFragment.newInstance(args)
   }

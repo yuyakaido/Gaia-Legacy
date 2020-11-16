@@ -6,9 +6,12 @@ import com.yuyakaido.android.gaia.core.domain.entity.Community
 import com.yuyakaido.android.gaia.core.domain.entity.User
 import com.yuyakaido.android.gaia.core.domain.repository.ArticleRepositoryType
 import com.yuyakaido.android.gaia.core.domain.value.EntityPaginationItem
+import kotlinx.android.parcel.IgnoredOnParcel
 import kotlinx.android.parcel.Parcelize
 
 sealed class ArticleListSource : Parcelable {
+
+  abstract val id: String
 
   abstract suspend fun articles(
     repository: ArticleRepositoryType,
@@ -16,112 +19,128 @@ sealed class ArticleListSource : Parcelable {
   ): EntityPaginationItem<Article>
 
   @Parcelize
-  object Popular : ArticleListSource() {
+  data class Popular(
+    override val id: String = "popular"
+  ) : ArticleListSource() {
     override suspend fun articles(
       repository: ArticleRepositoryType,
       after: String?
     ): EntityPaginationItem<Article> {
       return repository
         .articlesOfCommunity(
-          path = "popular",
+          path = id,
           after = after
         )
     }
   }
 
   @Parcelize
-  object Best : ArticleListSource() {
+  data class Best(
+    override val id: String = "best"
+  ) : ArticleListSource() {
     override suspend fun articles(
       repository: ArticleRepositoryType,
       after: String?
     ): EntityPaginationItem<Article> {
       return repository
         .articlesOfSort(
-          sort = "best",
+          sort = id,
           after = after
         )
     }
   }
 
   @Parcelize
-  object Hot : ArticleListSource() {
+  data class Hot(
+    override val id: String = "hot"
+  ) : ArticleListSource() {
     override suspend fun articles(
       repository: ArticleRepositoryType,
       after: String?
     ): EntityPaginationItem<Article> {
       return repository
         .articlesOfSort(
-          sort = "hot",
+          sort = id,
           after = after
         )
     }
   }
 
   @Parcelize
-  object New : ArticleListSource() {
+  data class New(
+    override val id: String = "new"
+  ) : ArticleListSource() {
     override suspend fun articles(
       repository: ArticleRepositoryType,
       after: String?
     ): EntityPaginationItem<Article> {
       return repository
         .articlesOfSort(
-          sort = "new",
+          sort = id,
           after = after
         )
     }
   }
 
   @Parcelize
-  object Top : ArticleListSource() {
+  data class Top(
+    override val id: String = "top"
+  ) : ArticleListSource() {
     override suspend fun articles(
       repository: ArticleRepositoryType,
       after: String?
     ): EntityPaginationItem<Article> {
       return repository
         .articlesOfSort(
-          sort = "top",
+          sort = id,
           after = after
         )
     }
   }
 
   @Parcelize
-  object Controversial : ArticleListSource() {
+  data class Controversial(
+    override val id: String = "controversial"
+  ) : ArticleListSource() {
     override suspend fun articles(
       repository: ArticleRepositoryType,
       after: String?
     ): EntityPaginationItem<Article> {
       return repository
         .articlesOfSort(
-          sort = "controversial",
+          sort = id,
           after = after
         )
     }
   }
 
   @Parcelize
-  object Rising : ArticleListSource() {
+  data class Rising(
+    override val id: String = "rising"
+  ) : ArticleListSource() {
     override suspend fun articles(
       repository: ArticleRepositoryType,
       after: String?
     ): EntityPaginationItem<Article> {
       return repository
         .articlesOfSort(
-          sort = "rising",
+          sort = id,
           after = after
         )
     }
   }
 
   @Parcelize
-  object Random : ArticleListSource() {
+  data class Random(
+    override val id: String = "random"
+  ) : ArticleListSource() {
     override suspend fun articles(
       repository: ArticleRepositoryType,
       after: String?
     ): EntityPaginationItem<Article> {
       return repository
         .articlesOfSort(
-          sort = "random",
+          sort = id,
           after = after
         )
     }
@@ -129,6 +148,7 @@ sealed class ArticleListSource : Parcelable {
 
   @Parcelize
   data class CommunityDetail(
+    override val id: String = "community_detail",
     val community: Community.Summary
   ) : ArticleListSource() {
     override suspend fun articles(
@@ -145,6 +165,7 @@ sealed class ArticleListSource : Parcelable {
 
   @Parcelize
   data class Submit(
+    override val id: String = "submit",
     val user: User
   ) : ArticleListSource() {
     override suspend fun articles(
@@ -160,7 +181,8 @@ sealed class ArticleListSource : Parcelable {
   }
 
   @Parcelize
-  data class Upvote(
+  data class Upvoted(
+    override val id: String = "upvoted",
     val user: User
   ) : ArticleListSource() {
     override suspend fun articles(
@@ -170,14 +192,15 @@ sealed class ArticleListSource : Parcelable {
       return repository
         .articlesOfUser(
           user = user,
-          path = "upvoted",
+          path = id,
           after = after
         )
     }
   }
 
   @Parcelize
-  data class Downvote(
+  data class Downvoted(
+    override val id: String = "downvoted",
     val user: User
   ) : ArticleListSource() {
     override suspend fun articles(
@@ -187,7 +210,7 @@ sealed class ArticleListSource : Parcelable {
       return repository
         .articlesOfUser(
           user = user,
-          path = "downvoted",
+          path = id,
           after = after
         )
     }

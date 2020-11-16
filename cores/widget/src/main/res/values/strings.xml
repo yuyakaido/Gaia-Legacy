@@ -26,6 +26,7 @@
   <string name="article_list_top">Top</string>
   <string name="article_list_controversial">Controversial</string>
   <string name="article_list_rising">Rising</string>
+  <string name="article_list_random">Random</string>
   <string name="article_list_community">r/%1$s</string>
   <string name="article_list_author">Posted by u/%1$s</string>
   <string name="article_list_share">Share</string>

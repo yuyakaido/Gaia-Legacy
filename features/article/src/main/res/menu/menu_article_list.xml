@@ -37,4 +37,9 @@
     android:title="@string/article_list_rising"
     />
 
+  <item
+    android:id="@+id/sort_random"
+    android:title="@string/article_list_random"
+    />
+
 </menu>

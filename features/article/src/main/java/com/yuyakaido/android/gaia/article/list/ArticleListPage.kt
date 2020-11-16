@@ -9,31 +9,35 @@ enum class ArticleListPage(
 ) {
   Popular(
     id = R.id.sort_popular,
-    source = ArticleListSource.Popular
+    source = ArticleListSource.Popular()
   ),
   Best(
     id = R.id.sort_best,
-    source = ArticleListSource.Best
+    source = ArticleListSource.Best()
   ),
   Hot(
     id = R.id.sort_hot,
-    source = ArticleListSource.Hot
+    source = ArticleListSource.Hot()
   ),
   New(
     id = R.id.sort_new,
-    source = ArticleListSource.New
+    source = ArticleListSource.New()
   ),
   Top(
     id = R.id.sort_top,
-    source = ArticleListSource.Top
+    source = ArticleListSource.Top()
   ),
   Controversial(
     id = R.id.sort_controversial,
-    source = ArticleListSource.Controversial
+    source = ArticleListSource.Controversial()
   ),
   Rising(
     id = R.id.sort_rising,
-    source = ArticleListSource.Rising
+    source = ArticleListSource.Rising()
+  ),
+  Random(
+    id = R.id.sort_random,
+    source = ArticleListSource.Random()
   );
 
   companion object {

@@ -63,7 +63,7 @@ class AppActivity : BaseActivity<AppViewModel>() {
         .apply {
           type = NavType.ParcelableType(ArticleListSource::class.java)
           nullable = false
-          defaultValue = ArticleListSource.Popular
+          defaultValue = ArticleListSource.Popular()
         }
         .build()
     )
@@ -89,7 +89,7 @@ class AppActivity : BaseActivity<AppViewModel>() {
     view.setOnNavigationItemSelectedListener { item ->
       val direction = when (TopLevelScreen.from(item.itemId)) {
         TopLevelScreen.Article -> {
-          NavigationAppDirections.actionArticleList(source = ArticleListSource.Popular)
+          NavigationAppDirections.actionArticleList(source = ArticleListSource.Popular())
         }
         TopLevelScreen.Search -> {
           NavigationAppDirections.actionSearch()
