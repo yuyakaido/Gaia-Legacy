@@ -28,7 +28,7 @@ sealed class SessionState {
   ) : SessionState()
 
   data class ArticleState(
-    val sources: MutableMap<ArticleListSource, ArticleListState> = mutableMapOf()
+    val sources: Map<ArticleListSource, ArticleListState> = mapOf()
   ) {
     fun find(source: ArticleListSource): ArticleListState {
       return sources[source] ?: ArticleListState.Initial
@@ -37,9 +37,9 @@ sealed class SessionState {
       source: ArticleListSource,
       state: ArticleListState
     ): ArticleState {
-      return apply {
-        sources[source] = state
-      }
+      return copy(
+        sources = sources.plus(source to state)
+      )
     }
   }
 
