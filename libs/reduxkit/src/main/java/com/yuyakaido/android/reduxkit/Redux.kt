@@ -4,9 +4,8 @@ import io.reactivex.Completable
 import io.reactivex.Observable
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
-import kotlinx.coroutines.channels.ConflatedBroadcastChannel
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.asFlow
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.rx2.asObservable
 import kotlinx.coroutines.rx2.await
@@ -79,7 +78,7 @@ abstract class StoreType<S : StateType, A : ActionType<S>>(
   private val errorHandler: (e: Exception) -> Unit
 ) : SelectorType<S>, DispatcherType<S> {
 
-  private val state = ConflatedBroadcastChannel(initialState)
+  private val state = MutableStateFlow(initialState)
   private val middlewares by lazy {
     mutableListOf(
       LoggerMiddleware(),
@@ -91,7 +90,7 @@ abstract class StoreType<S : StateType, A : ActionType<S>>(
   private fun update(action: ActionType<S>) {
     val currentState = stateAsValue()
     val nextState = action.reduce(currentState)
-    state.offer(nextState)
+    state.value = nextState
   }
 
   override fun select(): S {
@@ -140,7 +139,7 @@ abstract class StoreType<S : StateType, A : ActionType<S>>(
   }
 
   fun stateAsFlow(): Flow<S> {
-    return state.asFlow()
+    return state
   }
 
   fun stateAsObservable(): Observable<S> {
