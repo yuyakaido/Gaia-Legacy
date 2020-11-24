@@ -1,13 +1,11 @@
 package com.yuyakaido.android.reduxkit
 
 import io.reactivex.Completable
-import io.reactivex.Observable
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.rx2.asObservable
 import kotlinx.coroutines.rx2.await
 import timber.log.Timber
 
@@ -140,10 +138,6 @@ abstract class StoreType<S : StateType, A : ActionType<S>>(
 
   fun stateAsFlow(): Flow<S> {
     return state
-  }
-
-  fun stateAsObservable(): Observable<S> {
-    return stateAsFlow().asObservable()
   }
 
 }
