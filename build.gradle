@@ -58,7 +58,7 @@ buildscript {
     ],
     kotlin: [
       gradle: "org.jetbrains.kotlin:kotlin-gradle-plugin:$versions.kotlin.core",
-      stdlib: "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$versions.kotlin.core",
+      stdlib: "org.jetbrains.kotlin:kotlin-stdlib:$versions.kotlin.core",
       coroutines: [
         android: "org.jetbrains.kotlinx:kotlinx-coroutines-android:$versions.kotlin.coroutines",
         rx2: "org.jetbrains.kotlinx:kotlinx-coroutines-rx2:$versions.kotlin.coroutines"
