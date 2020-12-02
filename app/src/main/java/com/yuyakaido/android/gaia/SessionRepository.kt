@@ -6,7 +6,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
 class SessionRepository(
-  private val database: SessionDatabase
+  database: SessionDatabase
 ) : SessionRepositoryType {
 
   private val dao = database.sessionDao()
@@ -23,9 +23,23 @@ class SessionRepository(
     }
   }
 
-  override suspend fun put(session: Session.SignedIn) {
+  override suspend fun post(session: Session.SignedIn) {
     return withContext(Dispatchers.IO) {
       dao.insert(SessionSchema.fromEntity(session))
+    }
+  }
+
+  override suspend fun put(
+    oldSession: Session.SignedIn,
+    newSession: Session.SignedIn
+  ) {
+    return withContext(Dispatchers.IO) {
+      dao.insert(
+        SessionSchema.fromEntity(
+          oldSession = oldSession,
+          newSession = newSession
+        )
+      )
     }
   }
 

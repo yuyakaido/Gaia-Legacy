@@ -14,11 +14,24 @@ data class SessionSchema(
 ) {
 
   companion object {
-    fun fromEntity(session: Session.SignedIn): SessionSchema {
+    fun fromEntity(
+      session: Session.SignedIn
+    ): SessionSchema {
       return SessionSchema(
         id = session.id,
         accessToken = session.token.accessToken,
         refreshToken = session.refreshToken()
+      )
+    }
+
+    fun fromEntity(
+      oldSession: Session.SignedIn,
+      newSession: Session.SignedIn
+    ): SessionSchema {
+      return SessionSchema(
+        id = newSession.id,
+        accessToken = newSession.token.accessToken,
+        refreshToken = oldSession.refreshToken()
       )
     }
   }

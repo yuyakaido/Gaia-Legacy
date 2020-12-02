@@ -46,7 +46,7 @@ class AuthorizationViewModel @Inject constructor(
                 id = signedOut.id,
                 token = token
               )
-              sessionRepository.put(session)
+              sessionRepository.post(session)
               val state = SessionState.SigningIn(
                 id = signedOut.id,
                 token = token

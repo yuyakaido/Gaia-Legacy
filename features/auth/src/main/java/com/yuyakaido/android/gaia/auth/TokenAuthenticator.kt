@@ -15,15 +15,18 @@ class TokenAuthenticator(
   private val tokenRepository: TokenRepositoryType
 ) : Authenticator {
 
-  override fun authenticate(route: Route?, response: Response): Request? {
+  override fun authenticate(route: Route?, response: Response): Request {
     return runBlocking {
-      val currentSession = sessionRepository.get(initial.id)
-      val token = tokenRepository.refresh(currentSession)
+      val oldSession = sessionRepository.get(initial.id)
+      val newToken = tokenRepository.refresh(oldSession)
       val newSession = Session.SignedIn(
         id = initial.id,
-        token = token
+        token = newToken
       )
-      sessionRepository.put(newSession)
+      sessionRepository.put(
+        oldSession = oldSession,
+        newSession = newSession
+      )
       response
         .request
         .newBuilder()
