@@ -26,7 +26,7 @@ class CommunityItem(
     binding.root.setOnClickListener { listener.invoke(community) }
   }
 
-  override fun isSameAs(other: Item<*>?): Boolean {
+  override fun isSameAs(other: Item<*>): Boolean {
     return if (other is CommunityItem) {
       other.community.id == community.id
     } else {
@@ -34,16 +34,12 @@ class CommunityItem(
     }
   }
 
-  override fun equals(other: Any?): Boolean {
+  override fun hasSameContentAs(other: Item<*>): Boolean {
     return if (other is CommunityItem) {
       other.community == community
     } else {
       false
     }
-  }
-
-  override fun hashCode(): Int {
-    return community.hashCode()
   }
 
 }

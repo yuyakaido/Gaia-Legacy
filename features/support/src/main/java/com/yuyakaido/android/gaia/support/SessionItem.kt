@@ -22,7 +22,7 @@ class SessionItem(
     }
   }
 
-  override fun isSameAs(other: Item<*>?): Boolean {
+  override fun isSameAs(other: Item<*>): Boolean {
     return if (other is SessionItem) {
       other.content == content
     } else {
@@ -30,16 +30,12 @@ class SessionItem(
     }
   }
 
-  override fun equals(other: Any?): Boolean {
+  override fun hasSameContentAs(other: Item<*>): Boolean {
     return if (other is SessionItem) {
       other.content == content
     } else {
       false
     }
-  }
-
-  override fun hashCode(): Int {
-    return content.hashCode()
   }
 
 }

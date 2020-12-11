@@ -11,7 +11,7 @@ class CommentItem(
   private val downvoteListener: (Comment) -> Unit
   ) : BindableItem<ItemCommentBinding>() {
 
-  override fun isSameAs(other: Item<*>?): Boolean {
+  override fun isSameAs(other: Item<*>): Boolean {
     return if (other is CommentItem) {
       other.comment.id == comment.id
     } else {
@@ -19,16 +19,12 @@ class CommentItem(
     }
   }
 
-  override fun equals(other: Any?): Boolean {
+  override fun hasSameContentAs(other: Item<*>): Boolean {
     return if (other is CommentItem) {
       other.comment == comment
     } else {
       false
     }
-  }
-
-  override fun hashCode(): Int {
-    return comment.hashCode()
   }
 
   override fun getLayout(): Int {

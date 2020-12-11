@@ -20,7 +20,7 @@ class ArticleItem(
 
   private val placeholder = ColorDrawable(Color.LTGRAY)
 
-  override fun isSameAs(other: Item<*>?): Boolean {
+  override fun isSameAs(other: Item<*>): Boolean {
     return if (other is ArticleItem) {
       other.article.id == article.id
     } else {
@@ -28,16 +28,12 @@ class ArticleItem(
     }
   }
 
-  override fun equals(other: Any?): Boolean {
+  override fun hasSameContentAs(other: Item<*>): Boolean {
     return if (other is ArticleItem) {
       other.article == article
     } else {
       false
     }
-  }
-
-  override fun hashCode(): Int {
-    return article.hashCode()
   }
 
   override fun getLayout(): Int {

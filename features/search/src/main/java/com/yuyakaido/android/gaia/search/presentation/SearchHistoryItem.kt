@@ -10,7 +10,7 @@ class SearchHistoryItem(
   private val history: SearchHistory
 ) : BindableItem<ItemSearchHistoryBinding>() {
 
-  override fun isSameAs(other: Item<*>?): Boolean {
+  override fun isSameAs(other: Item<*>): Boolean {
     return if (other is SearchHistoryItem) {
       other.history.name == history.name
     } else {
@@ -18,16 +18,12 @@ class SearchHistoryItem(
     }
   }
 
-  override fun equals(other: Any?): Boolean {
+  override fun hasSameContentAs(other: Item<*>): Boolean {
     return if (other is SearchHistoryItem) {
       other.history == history
     } else {
       false
     }
-  }
-
-  override fun hashCode(): Int {
-    return history.hashCode()
   }
 
   override fun getLayout(): Int {
