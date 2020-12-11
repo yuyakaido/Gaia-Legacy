@@ -1,7 +1,8 @@
 package com.yuyakaido.android.gaia.comment
 
+import android.view.View
 import com.xwray.groupie.Item
-import com.xwray.groupie.databinding.BindableItem
+import com.xwray.groupie.viewbinding.BindableItem
 import com.yuyakaido.android.gaia.comment.databinding.ItemCommentBinding
 import com.yuyakaido.android.gaia.core.domain.entity.Comment
 
@@ -10,6 +11,10 @@ class CommentItem(
   private val upvoteListener: (Comment) -> Unit,
   private val downvoteListener: (Comment) -> Unit
   ) : BindableItem<ItemCommentBinding>() {
+
+  override fun initializeViewBinding(view: View): ItemCommentBinding {
+    return ItemCommentBinding.bind(view)
+  }
 
   override fun isSameAs(other: Item<*>): Boolean {
     return if (other is CommentItem) {

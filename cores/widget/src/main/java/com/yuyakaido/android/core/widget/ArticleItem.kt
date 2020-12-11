@@ -3,9 +3,10 @@ package com.yuyakaido.android.core.widget
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.net.Uri
+import android.view.View
 import androidx.core.content.ContextCompat
 import com.xwray.groupie.Item
-import com.xwray.groupie.databinding.BindableItem
+import com.xwray.groupie.viewbinding.BindableItem
 import com.yuyakaido.android.core.widget.databinding.ItemArticleBinding
 import com.yuyakaido.android.gaia.core.domain.app.ImageLoaderType
 import com.yuyakaido.android.gaia.core.domain.entity.Article
@@ -19,6 +20,10 @@ class ArticleItem(
 ) : BindableItem<ItemArticleBinding>() {
 
   private val placeholder = ColorDrawable(Color.LTGRAY)
+
+  override fun initializeViewBinding(view: View): ItemArticleBinding {
+    return ItemArticleBinding.bind(view)
+  }
 
   override fun isSameAs(other: Item<*>): Boolean {
     return if (other is ArticleItem) {

@@ -1,7 +1,8 @@
 package com.yuyakaido.android.gaia.search.presentation
 
+import android.view.View
 import com.xwray.groupie.Item
-import com.xwray.groupie.databinding.BindableItem
+import com.xwray.groupie.viewbinding.BindableItem
 import com.yuyakaido.android.gaia.core.domain.value.SearchHistory
 import com.yuyakaido.android.gaia.search.R
 import com.yuyakaido.android.gaia.search.databinding.ItemSearchHistoryBinding
@@ -9,6 +10,10 @@ import com.yuyakaido.android.gaia.search.databinding.ItemSearchHistoryBinding
 class SearchHistoryItem(
   private val history: SearchHistory
 ) : BindableItem<ItemSearchHistoryBinding>() {
+
+  override fun initializeViewBinding(view: View): ItemSearchHistoryBinding {
+    return ItemSearchHistoryBinding.bind(view)
+  }
 
   override fun isSameAs(other: Item<*>): Boolean {
     return if (other is SearchHistoryItem) {

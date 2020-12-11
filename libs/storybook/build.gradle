@@ -14,8 +14,8 @@ android {
   androidExtensions {
     experimental = true
   }
-  dataBinding {
-    enabled = true
+  buildFeatures {
+    dataBinding true
   }
   compileOptions {
     sourceCompatibility JavaVersion.VERSION_1_8
@@ -41,7 +41,7 @@ dependencies {
 
   // Widget
   api libs.widget.groupie.core
-  api libs.widget.groupie.databinding
+  api libs.widget.groupie.viewbinding
 
   // Debugging
   api libs.debugging.timber

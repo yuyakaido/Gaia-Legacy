@@ -1,11 +1,16 @@
 package com.yuyakaido.android.storybook
 
-import com.xwray.groupie.databinding.BindableItem
+import android.view.View
+import com.xwray.groupie.viewbinding.BindableItem
 import com.yuyakaido.android.storybook.databinding.ItemPlatformElementBinding
 
 class PlatformElementItem(
   private val element: Item.Element.Platform
 ) : BindableItem<ItemPlatformElementBinding>() {
+
+  override fun initializeViewBinding(view: View): ItemPlatformElementBinding {
+    return ItemPlatformElementBinding.bind(view)
+  }
 
   override fun getLayout(): Int {
     return R.layout.item_platform_element

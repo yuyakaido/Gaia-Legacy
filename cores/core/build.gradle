@@ -11,8 +11,8 @@ android {
     targetSdkVersion versions.android.targetSdk
     minSdkVersion versions.android.minSdk
   }
-  dataBinding {
-    enabled = true
+  buildFeatures {
+    dataBinding true
   }
   androidExtensions {
     experimental = true

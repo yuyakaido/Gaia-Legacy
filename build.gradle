@@ -120,7 +120,7 @@ buildscript {
     widget: [
       groupie: [
         core: "com.xwray:groupie:$versions.widget.groupie",
-        databinding: "com.xwray:groupie-databinding:$versions.widget.groupie"
+        viewbinding: "com.xwray:groupie-viewbinding:$versions.widget.groupie"
       ],
       divider: "com.yqritc:recyclerview-flexibledivider:$versions.widget.divider",
       material: "com.google.android.material:material:$versions.widget.material"
