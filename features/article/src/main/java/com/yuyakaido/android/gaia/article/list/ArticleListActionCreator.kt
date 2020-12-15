@@ -4,15 +4,17 @@ import com.yuyakaido.android.gaia.core.AppAction
 import com.yuyakaido.android.gaia.core.AppState
 import com.yuyakaido.android.gaia.core.ArticleAction
 import com.yuyakaido.android.gaia.core.SuspendableAction
+import com.yuyakaido.android.gaia.core.domain.entity.Article
 import com.yuyakaido.android.gaia.core.domain.entity.ArticleListSource
 import com.yuyakaido.android.gaia.core.domain.repository.ArticleRepositoryType
-import com.yuyakaido.android.gaia.core.domain.value.VoteTarget
+import com.yuyakaido.android.gaia.core.domain.repository.VoteRepositoryType
 import com.yuyakaido.android.reduxkit.DispatcherType
 import com.yuyakaido.android.reduxkit.SelectorType
 import javax.inject.Inject
 
 class ArticleListActionCreator @Inject constructor(
-  private val repository: ArticleRepositoryType
+  private val articleRepository: ArticleRepositoryType,
+  private val voteRepository: VoteRepositoryType
 ) {
 
   fun refresh(source: ArticleListSource): AppAction {
@@ -34,7 +36,7 @@ class ArticleListActionCreator @Inject constructor(
         )
         try {
           val item = source.articles(
-            repository = repository,
+            repository = articleRepository,
             after = state.after
           )
           dispatcher.dispatch(
@@ -53,20 +55,40 @@ class ArticleListActionCreator @Inject constructor(
     }
   }
 
-  fun vote(
+  fun upvote(
     source: ArticleListSource,
-    target: VoteTarget
+    article: Article
   ): SuspendableAction {
     return object : SuspendableAction {
       override suspend fun execute(
         selector: SelectorType<AppState>,
         dispatcher: DispatcherType<AppState>
       ) {
-        repository.vote(target)
+        val votedArticle = voteRepository.upvote(article)
         dispatcher.dispatch(
           ArticleAction.Update(
             source = source,
-            newArticle = target.article()
+            newArticle = votedArticle
+          )
+        )
+      }
+    }
+  }
+
+  fun downvote(
+    source: ArticleListSource,
+    article: Article
+  ): SuspendableAction {
+    return object : SuspendableAction {
+      override suspend fun execute(
+        selector: SelectorType<AppState>,
+        dispatcher: DispatcherType<AppState>
+      ) {
+        val votedArticle = voteRepository.downvote(article)
+        dispatcher.dispatch(
+          ArticleAction.Update(
+            source = source,
+            newArticle = votedArticle
           )
         )
       }

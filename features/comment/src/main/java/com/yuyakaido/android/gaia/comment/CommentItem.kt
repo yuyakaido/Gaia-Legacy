@@ -42,20 +42,19 @@ class CommentItem(
     binding.body.text = comment.body
     binding.upvote.setOnClickListener { upvoteListener.invoke(comment) }
     binding.downvote.setOnClickListener { downvoteListener.invoke(comment) }
-    when {
-      comment.likes == null -> {
+    when (comment.likes) {
+      null -> {
         binding.upvote.setImageResource(R.drawable.ic_upvote_inactive)
         binding.downvote.setImageResource(R.drawable.ic_downvote_inactive)
       }
-      comment.likes == true -> {
+      true -> {
         binding.upvote.setImageResource(R.drawable.ic_upvote_active)
         binding.downvote.setImageResource(R.drawable.ic_downvote_inactive)
       }
-      comment.likes == false -> {
+      false -> {
         binding.upvote.setImageResource(R.drawable.ic_upvote_inactive)
         binding.downvote.setImageResource(R.drawable.ic_downvote_active)
       }
-      else -> Unit
     }
   }
 

@@ -7,6 +7,7 @@ import com.yuyakaido.android.gaia.community.CommunityModule
 import com.yuyakaido.android.gaia.core.domain.app.SignedInScope
 import com.yuyakaido.android.gaia.search.SearchModule
 import com.yuyakaido.android.gaia.user.UserModule
+import com.yuyakaido.android.gaia.vote.VoteModule
 import dagger.Subcomponent
 import dagger.android.DispatchingAndroidInjector
 
@@ -26,7 +27,8 @@ import dagger.android.DispatchingAndroidInjector
     CommentModule::class,
     CommunityModule::class,
     UserModule::class,
-    SearchModule::class
+    SearchModule::class,
+    VoteModule::class
   ]
 )
 interface SignedInSessionComponent {

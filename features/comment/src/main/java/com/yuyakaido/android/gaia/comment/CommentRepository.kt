@@ -4,14 +4,13 @@ import com.yuyakaido.android.gaia.core.domain.entity.Article
 import com.yuyakaido.android.gaia.core.domain.entity.Comment
 import com.yuyakaido.android.gaia.core.domain.entity.User
 import com.yuyakaido.android.gaia.core.domain.repository.CommentRepositoryType
-import com.yuyakaido.android.gaia.core.domain.value.VoteTarget
 import com.yuyakaido.android.gaia.core.infrastructure.Kind
 
 class CommentRepository(
   private val api: CommentApi
 ) : CommentRepositoryType {
 
-  override suspend fun comments(article: Article): List<Comment> {
+  override suspend fun commentsByArticle(article: Article): List<Comment> {
     val response = api
       .commentsOfArticle(
         community = article.community.name,
@@ -23,14 +22,10 @@ class CommentRepository(
     return responseOfComment?.toComments() ?: emptyList()
   }
 
-  override suspend fun comments(user: User): List<Comment> {
+  override suspend fun commentsByUser(user: User): List<Comment> {
     return api
       .commentsOfUser(user = user.name)
       .toComments()
-  }
-
-  override suspend fun vote(target: VoteTarget) {
-    api.vote(id = target.entity.name, dir = target.dir)
   }
 
 }

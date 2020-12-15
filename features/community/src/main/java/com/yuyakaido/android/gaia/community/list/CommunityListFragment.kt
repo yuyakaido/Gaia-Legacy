@@ -34,7 +34,7 @@ class CommunityListFragment : BaseFragment<CommunityListViewModel>() {
     inflater: LayoutInflater,
     container: ViewGroup?,
     savedInstanceState: Bundle?
-  ): View? {
+  ): View {
     binding = FragmentCommunityListBinding.inflate(inflater)
     return binding.root
   }

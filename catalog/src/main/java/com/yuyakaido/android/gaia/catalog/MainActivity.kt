@@ -23,9 +23,9 @@ class MainActivity : AppCompatActivity() {
     val imageLoader = object : ImageLoaderType {
       override fun load(uri: Uri, placeholder: Drawable, view: ImageView) = Unit
     }
-    val upvote = { _: Article -> Unit }
-    val downvote = { _: Article -> Unit }
-    val community = { _: Article -> Unit }
+    val upvote = { _: Article -> }
+    val downvote = { _: Article -> }
+    val community = { _: Article -> }
 
     startActivity(
       StorybookActivity.createIntent(

@@ -15,7 +15,7 @@ class UserDetailFragmentPagerAdapter(
   private val user: User.Detail
 ) : FragmentPagerAdapter(manager, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
 
-  override fun getPageTitle(position: Int): CharSequence? {
+  override fun getPageTitle(position: Int): CharSequence {
     return context.getString(page.title(index = position))
   }
 

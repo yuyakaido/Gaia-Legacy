@@ -17,12 +17,16 @@ data class Article(
   val ups: Int,
   val downs: Int,
   val comments: Int
-) : PaginationEntityType, VotableEntityType, Parcelable {
+) : PaginatableType, VotableType, Parcelable {
 
   @Parcelize
   data class ID(val value: String) : Parcelable
 
   @IgnoredOnParcel
   val voteCount = ups - downs
+
+  override fun <T : VotableType> toVoted(likes: Boolean?): T {
+    return copy(likes = likes) as T
+  }
 
 }

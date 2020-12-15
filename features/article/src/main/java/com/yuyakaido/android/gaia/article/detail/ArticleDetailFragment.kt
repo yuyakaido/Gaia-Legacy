@@ -25,7 +25,7 @@ class ArticleDetailFragment : BaseFragment<ArticleDetailViewModel>() {
     inflater: LayoutInflater,
     container: ViewGroup?,
     savedInstanceState: Bundle?
-  ): View? {
+  ): View {
     binding = FragmentArticleDetailBinding.inflate(inflater)
     return binding.root
   }
@@ -45,9 +45,8 @@ class ArticleDetailFragment : BaseFragment<ArticleDetailViewModel>() {
         b.author.text = getString(R.string.article_list_author, article.author)
         b.title.text = article.title
         b.voteCount.text = article.voteCount.toString()
-        b.upvote.setOnClickListener { viewModel.onUpvote(article = article) }
-        b.downvote.setOnClickListener { viewModel.onDownvote(article = article) }
-        b.community.setOnClickListener { Unit }
+        b.upvote.setOnClickListener { viewModel.onUpvote(article) }
+        b.downvote.setOnClickListener { viewModel.onDownvote(article) }
         when (article.likes) {
           null -> {
             b.upvote.setImageResource(R.drawable.ic_upvote_inactive)

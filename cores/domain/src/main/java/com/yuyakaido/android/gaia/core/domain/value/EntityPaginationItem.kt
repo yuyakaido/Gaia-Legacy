@@ -1,8 +1,8 @@
 package com.yuyakaido.android.gaia.core.domain.value
 
-import com.yuyakaido.android.gaia.core.domain.entity.PaginationEntityType
+import com.yuyakaido.android.gaia.core.domain.entity.PaginatableType
 
-data class EntityPaginationItem<E : PaginationEntityType>(
+data class EntityPaginationItem<E : PaginatableType>(
   val entities: List<E>,
   val before: String?,
   val after: String?

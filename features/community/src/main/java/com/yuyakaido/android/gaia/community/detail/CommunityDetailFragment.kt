@@ -22,7 +22,7 @@ class CommunityDetailFragment : BaseFragment<CommunityDetailViewModel>() {
     inflater: LayoutInflater,
     container: ViewGroup?,
     savedInstanceState: Bundle?
-  ): View? {
+  ): View {
     binding = FragmentCommunityDetailBinding.inflate(inflater)
     return binding.root
   }
@@ -39,6 +39,9 @@ class CommunityDetailFragment : BaseFragment<CommunityDetailViewModel>() {
         binding.contentContainer.visibility = state.contentVisibility
         binding.progressBar.visibility = state.progressVisibility
         when (state) {
+          is CommunityDetailViewModel.State.Initial,
+          is CommunityDetailViewModel.State.Loading,
+          is CommunityDetailViewModel.State.Error -> Unit
           is CommunityDetailViewModel.State.Ideal -> {
             val community = state.community
             Glide.with(this)

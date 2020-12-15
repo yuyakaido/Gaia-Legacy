@@ -23,13 +23,6 @@ interface ArticleApi {
     @Query("after") after: String?
   ): ListingDataResponse
 
-  @FormUrlEncoded
-  @POST("api/vote")
-  suspend fun vote(
-    @Field("id") id: String,
-    @Field("dir") dir: Int
-  )
-
   @GET("user/{user}/{type}")
   suspend fun voted(
     @Path("user") user: String,

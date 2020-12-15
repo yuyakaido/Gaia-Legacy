@@ -23,7 +23,7 @@ sealed class ArticleListSource : Parcelable {
       after: String?
     ): EntityPaginationItem<Article> {
       return repository
-        .articlesOfCommunity(
+        .articlesByCommunity(
           path = id,
           after = after
         )
@@ -39,7 +39,7 @@ sealed class ArticleListSource : Parcelable {
       after: String?
     ): EntityPaginationItem<Article> {
       return repository
-        .articlesOfSort(
+        .articlesBySort(
           sort = id,
           after = after
         )
@@ -55,7 +55,7 @@ sealed class ArticleListSource : Parcelable {
       after: String?
     ): EntityPaginationItem<Article> {
       return repository
-        .articlesOfSort(
+        .articlesBySort(
           sort = id,
           after = after
         )
@@ -71,7 +71,7 @@ sealed class ArticleListSource : Parcelable {
       after: String?
     ): EntityPaginationItem<Article> {
       return repository
-        .articlesOfSort(
+        .articlesBySort(
           sort = id,
           after = after
         )
@@ -87,7 +87,7 @@ sealed class ArticleListSource : Parcelable {
       after: String?
     ): EntityPaginationItem<Article> {
       return repository
-        .articlesOfSort(
+        .articlesBySort(
           sort = id,
           after = after
         )
@@ -103,7 +103,7 @@ sealed class ArticleListSource : Parcelable {
       after: String?
     ): EntityPaginationItem<Article> {
       return repository
-        .articlesOfSort(
+        .articlesBySort(
           sort = id,
           after = after
         )
@@ -119,7 +119,7 @@ sealed class ArticleListSource : Parcelable {
       after: String?
     ): EntityPaginationItem<Article> {
       return repository
-        .articlesOfSort(
+        .articlesBySort(
           sort = id,
           after = after
         )
@@ -135,7 +135,7 @@ sealed class ArticleListSource : Parcelable {
       after: String?
     ): EntityPaginationItem<Article> {
       return repository
-        .articlesOfSort(
+        .articlesBySort(
           sort = id,
           after = after
         )
@@ -152,7 +152,7 @@ sealed class ArticleListSource : Parcelable {
       after: String?
     ): EntityPaginationItem<Article> {
       return repository
-        .articlesOfCommunity(
+        .articlesByCommunity(
           community = community,
           after = after
         )
@@ -169,7 +169,7 @@ sealed class ArticleListSource : Parcelable {
       after: String?
     ): EntityPaginationItem<Article> {
       return repository
-        .articlesOfUser(
+        .articlesByUser(
           user = user,
           after = after
         )
@@ -186,7 +186,7 @@ sealed class ArticleListSource : Parcelable {
       after: String?
     ): EntityPaginationItem<Article> {
       return repository
-        .articlesOfUser(
+        .articlesByUser(
           user = user,
           path = id,
           after = after
@@ -204,7 +204,7 @@ sealed class ArticleListSource : Parcelable {
       after: String?
     ): EntityPaginationItem<Article> {
       return repository
-        .articlesOfUser(
+        .articlesByUser(
           user = user,
           path = id,
           after = after

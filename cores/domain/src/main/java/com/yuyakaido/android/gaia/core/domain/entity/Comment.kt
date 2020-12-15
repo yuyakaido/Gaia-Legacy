@@ -9,6 +9,12 @@ data class Comment(
   override val likes: Boolean?,
   val ups: Int,
   val downs: Int
-) : PaginationEntityType, VotableEntityType {
+) : PaginatableType, VotableType {
+
   data class ID(val value: String)
+
+  override fun <T : VotableType> toVoted(likes: Boolean?): T {
+    return copy(likes = likes) as T
+  }
+
 }

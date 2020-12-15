@@ -54,7 +54,7 @@ class CommentListFragment : BaseFragment<CommentListViewModel>() {
     inflater: LayoutInflater,
     container: ViewGroup?,
     savedInstanceState: Bundle?
-  ): View? {
+  ): View {
     binding = FragmentCommentListBinding.inflate(inflater)
     return binding.root
   }

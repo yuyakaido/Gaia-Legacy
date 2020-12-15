@@ -4,36 +4,33 @@ import com.yuyakaido.android.gaia.core.domain.entity.Article
 import com.yuyakaido.android.gaia.core.domain.entity.Community
 import com.yuyakaido.android.gaia.core.domain.entity.User
 import com.yuyakaido.android.gaia.core.domain.value.EntityPaginationItem
-import com.yuyakaido.android.gaia.core.domain.value.VoteTarget
 
 interface ArticleRepositoryType {
 
-  suspend fun articlesOfSort(
+  suspend fun articlesBySort(
     sort: String,
     after: String?
   ): EntityPaginationItem<Article>
 
-  suspend fun articlesOfCommunity(
+  suspend fun articlesByCommunity(
     path: String,
     after: String?
   ): EntityPaginationItem<Article>
 
-  suspend fun articlesOfCommunity(
+  suspend fun articlesByCommunity(
     community: Community.Summary,
     after: String?
   ): EntityPaginationItem<Article>
 
-  suspend fun articlesOfUser(
+  suspend fun articlesByUser(
     user: User,
     after: String?
   ): EntityPaginationItem<Article>
 
-  suspend fun articlesOfUser(
+  suspend fun articlesByUser(
     user: User,
     path: String,
     after: String?
   ): EntityPaginationItem<Article>
-
-  suspend fun vote(target: VoteTarget)
 
 }

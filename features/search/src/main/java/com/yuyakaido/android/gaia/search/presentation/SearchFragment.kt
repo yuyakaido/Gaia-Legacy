@@ -34,7 +34,7 @@ class SearchFragment : BaseFragment<SearchViewModel>() {
     inflater: LayoutInflater,
     container: ViewGroup?,
     savedInstanceState: Bundle?
-  ): View? {
+  ): View {
     binding = FragmentSearchBinding.inflate(inflater)
     return binding.root
   }
@@ -128,9 +128,9 @@ class SearchFragment : BaseFragment<SearchViewModel>() {
     binding.searchRecyclerView.layoutManager = LinearLayoutManager(requireContext())
     binding.searchRecyclerView.adapter = adapter
 
-    val upvoteListener = { _: Article -> Unit }
-    val downvoteListener = { _: Article -> Unit }
-    val communityListener = { _: Article -> Unit }
+    val upvoteListener = { _: Article -> }
+    val downvoteListener = { _: Article -> }
+    val communityListener = { _: Article -> }
 
     viewModel.searchArticles
       .observe(viewLifecycleOwner) { articles ->

@@ -4,7 +4,7 @@ import android.net.Uri
 import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
 
-sealed class Community : PaginationEntityType, Parcelable {
+sealed class Community : PaginatableType, Parcelable {
 
   abstract fun name(): String
   abstract fun toSummary(): Summary

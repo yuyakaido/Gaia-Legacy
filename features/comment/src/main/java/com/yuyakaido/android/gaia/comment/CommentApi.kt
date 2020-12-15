@@ -1,7 +1,8 @@
 package com.yuyakaido.android.gaia.comment
 
 import com.yuyakaido.android.gaia.core.infrastructure.ListingDataResponse
-import retrofit2.http.*
+import retrofit2.http.GET
+import retrofit2.http.Path
 
 interface CommentApi {
 
@@ -15,12 +16,5 @@ interface CommentApi {
   suspend fun commentsOfUser(
     @Path("user") user: String
   ): ListingDataResponse
-
-  @FormUrlEncoded
-  @POST("api/vote")
-  suspend fun vote(
-    @Field("id") id: String,
-    @Field("dir") dir: Int
-  )
 
 }

@@ -70,6 +70,7 @@ dependencies {
   implementation project(':features:community')
   implementation project(':features:user')
   implementation project(':features:search')
+  implementation project(':features:vote')
   implementation project(':features:support')
 
   // AndroidX

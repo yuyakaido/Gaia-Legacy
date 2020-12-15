@@ -4,8 +4,8 @@ import android.content.Context
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
-import com.yuyakaido.android.gaia.core.presentation.AppNavigatorType
 import com.yuyakaido.android.gaia.core.domain.entity.Community
+import com.yuyakaido.android.gaia.core.presentation.AppNavigatorType
 
 class CommunityDetailFragmentPagerAdapter(
   manager: FragmentManager,
@@ -14,7 +14,7 @@ class CommunityDetailFragmentPagerAdapter(
   private val community: Community.Summary
 ) : FragmentPagerAdapter(manager, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
 
-  override fun getPageTitle(position: Int): CharSequence? {
+  override fun getPageTitle(position: Int): CharSequence {
     return context.getString(CommunityDetailPage.values()[position].title)
   }
 

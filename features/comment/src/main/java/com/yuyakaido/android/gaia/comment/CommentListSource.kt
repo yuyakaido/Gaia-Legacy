@@ -14,7 +14,7 @@ sealed class CommentListSource : Parcelable {
     private val value: com.yuyakaido.android.gaia.core.domain.entity.Article
   ) : CommentListSource() {
     override suspend fun comments(repository: CommentRepositoryType): List<Comment> {
-      return repository.comments(article = value)
+      return repository.commentsByArticle(article = value)
     }
   }
 
@@ -23,7 +23,7 @@ sealed class CommentListSource : Parcelable {
     private val value: com.yuyakaido.android.gaia.core.domain.entity.User
   ) : CommentListSource() {
     override suspend fun comments(repository: CommentRepositoryType): List<Comment> {
-      return repository.comments(user = value)
+      return repository.commentsByUser(user = value)
     }
   }
 

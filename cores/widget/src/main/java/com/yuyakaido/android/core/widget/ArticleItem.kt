@@ -55,26 +55,25 @@ class ArticleItem(
     binding.article.upvote.setOnClickListener { upvoteListener.invoke(article) }
     binding.article.downvote.setOnClickListener { downvoteListener.invoke(article) }
     binding.article.community.setOnClickListener { communityListener.invoke(article) }
-    when {
-      article.likes == null -> {
+    when (article.likes) {
+      null -> {
         binding.article.upvote.setImageResource(R.drawable.ic_upvote_inactive)
         binding.article.downvote.setImageResource(R.drawable.ic_downvote_inactive)
       }
-      article.likes == true -> {
+      true -> {
         binding.article.upvote.setImageResource(R.drawable.ic_upvote_active)
         binding.article.downvote.setImageResource(R.drawable.ic_downvote_inactive)
         binding.article.voteCount.setTextColor(
           ContextCompat.getColor(context, R.color.upvpte)
         )
       }
-      article.likes == false -> {
+      false -> {
         binding.article.upvote.setImageResource(R.drawable.ic_upvote_inactive)
         binding.article.downvote.setImageResource(R.drawable.ic_downvote_active)
         binding.article.voteCount.setTextColor(
           ContextCompat.getColor(context, R.color.downvote)
         )
       }
-      else -> Unit
     }
     binding.article.commentCount.text = article.comments.toString()
     if (article.thumbnail == Uri.EMPTY) {

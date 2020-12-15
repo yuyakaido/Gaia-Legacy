@@ -35,7 +35,7 @@ class UserDetailFragment : BaseFragment<UserDetailViewModel>() {
     inflater: LayoutInflater,
     container: ViewGroup?,
     savedInstanceState: Bundle?
-  ): View? {
+  ): View {
     binding = FragmentUserDetailBinding.inflate(inflater)
     return binding.root
   }

@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.yuyakaido.android.gaia.core.domain.entity.Comment
 import com.yuyakaido.android.gaia.core.domain.repository.CommentRepositoryType
-import com.yuyakaido.android.gaia.core.domain.value.VoteTarget
+import com.yuyakaido.android.gaia.core.domain.repository.VoteRepositoryType
 import com.yuyakaido.android.gaia.core.presentation.BaseViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -13,7 +13,8 @@ import javax.inject.Inject
 class CommentListViewModel @Inject constructor(
   application: Application,
   private val source: CommentListSource,
-  private val repository: CommentRepositoryType
+  private val commentRepository: CommentRepositoryType,
+  private val voteRepository: VoteRepositoryType
 ) : BaseViewModel(application) {
 
   val comments = MutableLiveData<List<Comment>>()
@@ -21,31 +22,28 @@ class CommentListViewModel @Inject constructor(
   override fun onCreate() {
     super.onCreate()
     viewModelScope.launch {
-      comments.value = source.comments(repository = repository)
+      comments.value = source.comments(repository = commentRepository)
     }
   }
 
   fun onUpvote(comment: Comment) {
-    vote(target = VoteTarget.forUpvote(entity = comment))
-  }
-
-  fun onDownvote(comment: Comment) {
-    vote(target = VoteTarget.forDownvote(entity = comment))
-  }
-
-  private fun vote(target: VoteTarget) {
     viewModelScope.launch {
-      repository.vote(target = target)
-      refresh(target = target)
+      refresh(voteRepository.upvote(comment))
     }
   }
 
-  private fun refresh(target: VoteTarget) {
+  fun onDownvote(comment: Comment) {
+    viewModelScope.launch {
+      refresh(voteRepository.downvote(comment))
+    }
+  }
+
+  private fun refresh(votedComment: Comment) {
     val newItems = comments
       .value
       ?.map { comment ->
-        if (comment.name == target.entity.name) {
-          comment.copy(likes = target.likes)
+        if (comment.name == votedComment.name) {
+          votedComment
         } else {
           comment
         }

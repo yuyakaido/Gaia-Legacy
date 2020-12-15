@@ -52,7 +52,7 @@ class ArticleListFragment : BaseFragment<ArticleListViewModel>() {
     inflater: LayoutInflater,
     container: ViewGroup?,
     savedInstanceState: Bundle?
-  ): View? {
+  ): View {
     binding = FragmentArticleListBinding.inflate(inflater)
     return binding.root
   }

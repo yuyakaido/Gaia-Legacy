@@ -8,7 +8,6 @@ import com.yuyakaido.android.gaia.core.AppStore
 import com.yuyakaido.android.gaia.core.SessionState
 import com.yuyakaido.android.gaia.core.domain.entity.Article
 import com.yuyakaido.android.gaia.core.domain.entity.ArticleListSource
-import com.yuyakaido.android.gaia.core.domain.value.VoteTarget
 import com.yuyakaido.android.gaia.core.presentation.BaseViewModel
 import kotlinx.coroutines.flow.map
 import timber.log.Timber
@@ -87,11 +86,23 @@ class ArticleListViewModel @Inject constructor(
   }
 
   fun onUpvote(article: Article) {
-    vote(target = VoteTarget.forUpvote(entity = article))
+    appStore.dispatch(
+      scope = viewModelScope,
+      action = actionCreator.upvote(
+        source = source,
+        article = article
+      )
+    )
   }
 
   fun onDownvote(article: Article) {
-    vote(target = VoteTarget.forDownvote(entity = article))
+    appStore.dispatch(
+      scope = viewModelScope,
+      action = actionCreator.downvote(
+        source = source,
+        article = article
+      )
+    )
   }
 
   private fun paginate() {
@@ -111,16 +122,6 @@ class ArticleListViewModel @Inject constructor(
   private fun refresh(source: ArticleListSource) {
     this.currentSource.value = source
     refresh()
-  }
-
-  private fun vote(target: VoteTarget) {
-    appStore.dispatch(
-      scope = viewModelScope,
-      action = actionCreator.vote(
-        source = source,
-        target = target
-      )
-    )
   }
 
 }

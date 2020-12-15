@@ -15,6 +15,7 @@ include ':features:comment'
 include ':features:community'
 include ':features:user'
 include ':features:search'
+include ':features:vote'
 include ':features:support'
 
 // Modules - Lib
