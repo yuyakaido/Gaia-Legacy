@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import com.yuyakaido.android.gaia.core.AppStore
-import com.yuyakaido.android.gaia.core.SessionState
+import com.yuyakaido.android.gaia.core.ArticleState
 import com.yuyakaido.android.gaia.core.domain.entity.Article
 import com.yuyakaido.android.gaia.core.domain.entity.ArticleListSource
 import com.yuyakaido.android.gaia.core.presentation.BaseViewModel
@@ -48,18 +48,18 @@ class ArticleListViewModel @Inject constructor(
     }
 
     companion object {
-      fun from(state: SessionState.ArticleListState): State {
+      fun from(state: ArticleState.ArticleListState): State {
         return when (state) {
-          is SessionState.ArticleListState.Initial -> {
+          is ArticleState.ArticleListState.Initial -> {
             Initial
           }
-          is SessionState.ArticleListState.Loading -> {
+          is ArticleState.ArticleListState.Loading -> {
             Loading(articles = state.articles)
           }
-          is SessionState.ArticleListState.Ideal -> {
+          is ArticleState.ArticleListState.Ideal -> {
             Ideal(articles = state.articles)
           }
-          is SessionState.ArticleListState.Error -> {
+          is ArticleState.ArticleListState.Error -> {
             Error
           }
         }

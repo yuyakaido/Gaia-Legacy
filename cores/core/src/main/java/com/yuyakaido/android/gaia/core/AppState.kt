@@ -11,6 +11,9 @@ data class AppState(
   val session get() = sessions[index]
   val signedIn get() = session as SessionState.SignedIn
 
+  val article get() = signedIn.article
+  val community get() = signedIn.community
+
   fun update(next: SessionState.SignedIn): AppState {
     return copy(
       sessions = sessions.map { current ->
@@ -20,6 +23,22 @@ data class AppState(
           current
         }
       }
+    )
+  }
+
+  fun update(article: ArticleState): AppState {
+    return update(
+      next = signedIn.copy(
+        article = article
+      )
+    )
+  }
+
+  fun update(community: CommunityState): AppState {
+    return update(
+      next = signedIn.copy(
+        community = community
+      )
     )
   }
 

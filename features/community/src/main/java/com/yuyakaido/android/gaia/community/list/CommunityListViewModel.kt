@@ -6,7 +6,7 @@ import androidx.lifecycle.asLiveData
 import androidx.lifecycle.map
 import androidx.lifecycle.viewModelScope
 import com.yuyakaido.android.gaia.core.AppStore
-import com.yuyakaido.android.gaia.core.SessionState
+import com.yuyakaido.android.gaia.core.CommunityState
 import com.yuyakaido.android.gaia.core.domain.entity.Community
 import com.yuyakaido.android.gaia.core.presentation.BaseViewModel
 import timber.log.Timber
@@ -38,19 +38,13 @@ class CommunityListViewModel @Inject constructor(
       override val progressVisibility: Boolean = false,
       override val retryVisibility: Int = View.GONE
     ) : State()
-    object Error : State() {
-      override val communities: List<Community.Detail> = emptyList()
-      override val progressVisibility: Boolean = false
-      override val retryVisibility: Int = View.VISIBLE
-    }
 
     companion object {
-      fun from(state: SessionState.CommunityState): State {
+      fun from(state: CommunityState): State {
         return when (state) {
-          is SessionState.CommunityState.Initial -> Initial
-          is SessionState.CommunityState.Loading -> Loading(communities = state.communities)
-          is SessionState.CommunityState.Ideal -> Ideal(communities = state.communities)
-          is SessionState.CommunityState.Error -> Error
+          is CommunityState.Initial -> Initial
+          is CommunityState.Loading -> Loading(communities = state.communities)
+          is CommunityState.Ideal -> Ideal(communities = state.communities)
         }
       }
     }

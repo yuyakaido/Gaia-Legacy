@@ -14,7 +14,7 @@ class AppStore(
   initialState: AppState
 ) : StoreType<AppState, AppAction>(
   initialState = initialState,
-  { e -> Toast.makeText(application, e.toString(), Toast.LENGTH_SHORT).show() }
+  errorHandler = { e -> Toast.makeText(application, e.toString(), Toast.LENGTH_SHORT).show() }
 ) {
 
   private fun sessionAsFlow(): Flow<SessionState> {
@@ -39,11 +39,11 @@ class AppStore(
     return stateAsFlow().map { it.lifecycle }
   }
 
-  fun articleAsFlow(source: ArticleListSource): Flow<SessionState.ArticleListState> {
+  fun articleAsFlow(source: ArticleListSource): Flow<ArticleState.ArticleListState> {
     return signedInAsFlow().map { it.article.find(source) }
   }
 
-  fun communityAsFlow(): Flow<SessionState.CommunityState> {
+  fun communityAsFlow(): Flow<CommunityState> {
     return signedInAsFlow().map { it.community }
   }
 

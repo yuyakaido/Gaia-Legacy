@@ -1,6 +1,5 @@
 package com.yuyakaido.android.gaia.article.list
 
-import com.yuyakaido.android.gaia.core.AppAction
 import com.yuyakaido.android.gaia.core.AppState
 import com.yuyakaido.android.gaia.core.ArticleAction
 import com.yuyakaido.android.gaia.core.SuspendableAction
@@ -17,7 +16,7 @@ class ArticleListActionCreator @Inject constructor(
   private val voteRepository: VoteRepositoryType
 ) {
 
-  fun refresh(source: ArticleListSource): AppAction {
+  fun refresh(source: ArticleListSource): ArticleAction {
     return ArticleAction.ToInitial(source)
   }
 
@@ -30,8 +29,7 @@ class ArticleListActionCreator @Inject constructor(
         val state = selector.select().signedIn.article.find(source)
         dispatcher.dispatch(
           ArticleAction.ToLoading(
-            source = source,
-            articles = state.articles
+            source = source
           )
         )
         try {
@@ -42,8 +40,8 @@ class ArticleListActionCreator @Inject constructor(
           dispatcher.dispatch(
             ArticleAction.ToIdeal(
               source = source,
-              after = item.after,
-              articles = item.entities
+              articles = item.entities,
+              after = item.after
             )
           )
         } catch (e: Exception) {
@@ -68,7 +66,7 @@ class ArticleListActionCreator @Inject constructor(
         dispatcher.dispatch(
           ArticleAction.Update(
             source = source,
-            newArticle = votedArticle
+            article = votedArticle
           )
         )
       }
@@ -88,7 +86,7 @@ class ArticleListActionCreator @Inject constructor(
         dispatcher.dispatch(
           ArticleAction.Update(
             source = source,
-            newArticle = votedArticle
+            article = votedArticle
           )
         )
       }

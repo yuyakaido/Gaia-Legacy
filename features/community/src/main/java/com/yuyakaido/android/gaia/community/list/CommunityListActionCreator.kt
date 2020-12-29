@@ -1,6 +1,5 @@
 package com.yuyakaido.android.gaia.community.list
 
-import com.yuyakaido.android.gaia.core.AppAction
 import com.yuyakaido.android.gaia.core.AppState
 import com.yuyakaido.android.gaia.core.CommunityAction
 import com.yuyakaido.android.gaia.core.CompletableAction
@@ -15,7 +14,7 @@ class CommunityListActionCreator @Inject constructor(
   private val repository: CommunityRepositoryType
 ) {
 
-  fun refresh(): AppAction {
+  fun refresh(): CommunityAction {
     return CommunityAction.ToInitial
   }
 
