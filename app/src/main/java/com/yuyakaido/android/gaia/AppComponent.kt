@@ -13,10 +13,9 @@ import dagger.android.AndroidInjector
   AppModule::class
 ])
 interface AppComponent : AndroidInjector<Gaia> {
-  @Component.Builder
-  interface Builder {
-    fun application(@BindsInstance application: Application): Builder
-    fun build(): AppComponent
+  @Component.Factory
+  interface Factory {
+    fun create(@BindsInstance application: Application): AppComponent
   }
 
   fun newSignedOutSessionComponent(): SignedOutSessionComponent.Builder

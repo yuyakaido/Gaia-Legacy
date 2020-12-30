@@ -38,9 +38,8 @@ class Gaia : DaggerApplication() {
 
   override fun applicationInjector(): AndroidInjector<out DaggerApplication> {
     appComponent = DaggerAppComponent
-      .builder()
-      .application(this)
-      .build()
+      .factory()
+      .create(this)
     return appComponent
   }
 
