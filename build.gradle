@@ -35,7 +35,7 @@ buildscript {
       swiperefreshlayout: '1.1.0',
       preference: '1.1.1'
     ],
-    dagger: '2.28.3',
+    dagger: '2.30.1',
     networking: [
       okhttp: '4.2.2',
       retrofit: '2.6.2',
