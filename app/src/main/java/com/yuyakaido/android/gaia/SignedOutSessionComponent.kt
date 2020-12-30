@@ -17,9 +17,9 @@ import dagger.android.DispatchingAndroidInjector
   ]
 )
 interface SignedOutSessionComponent {
-  @Subcomponent.Builder
-  interface Builder {
-    fun build(): SignedOutSessionComponent
+  @Subcomponent.Factory
+  interface Factory {
+    fun create(): SignedOutSessionComponent
   }
 
   fun androidInjector(): DispatchingAndroidInjector<Any>

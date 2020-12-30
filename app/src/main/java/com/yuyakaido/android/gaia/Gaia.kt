@@ -47,24 +47,23 @@ class Gaia : DaggerApplication() {
     val state = appStore.stateAsValue()
     return if (state.sessions.isEmpty()) {
       appComponent
-        .newSignedOutSessionComponent()
-        .build()
+        .newSignedOutSessionComponentFactory()
+        .create()
         .androidInjector()
     } else {
       when (val session = state.session) {
         is SessionState.SignedOut -> {
           appComponent
-            .newSignedOutSessionComponent()
-            .build()
+            .newSignedOutSessionComponentFactory()
+            .create()
             .androidInjector()
         }
         is SessionState.SigningIn -> {
           val signingIn = Session.SigningIn(session.id)
           val module = SignedInSessionModule(signingIn)
           appComponent
-            .newSignedInSessionComponent()
-            .module(module)
-            .build()
+            .newSignedInSessionComponentFactory()
+            .create(module)
             .androidInjector()
         }
         is SessionState.SignedIn -> {

@@ -18,6 +18,6 @@ interface AppComponent : AndroidInjector<Gaia> {
     fun create(@BindsInstance application: Application): AppComponent
   }
 
-  fun newSignedOutSessionComponent(): SignedOutSessionComponent.Builder
-  fun newSignedInSessionComponent(): SignedInSessionComponent.Builder
+  fun newSignedOutSessionComponentFactory(): SignedOutSessionComponent.Factory
+  fun newSignedInSessionComponentFactory(): SignedInSessionComponent.Factory
 }

@@ -32,10 +32,9 @@ import dagger.android.DispatchingAndroidInjector
   ]
 )
 interface SignedInSessionComponent {
-  @Subcomponent.Builder
-  interface Builder {
-    fun module(module: SignedInSessionModule): Builder
-    fun build(): SignedInSessionComponent
+  @Subcomponent.Factory
+  interface Factory {
+    fun create(module: SignedInSessionModule): SignedInSessionComponent
   }
 
   fun androidInjector(): DispatchingAndroidInjector<Any>

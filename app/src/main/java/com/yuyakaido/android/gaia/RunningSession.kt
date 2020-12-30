@@ -17,9 +17,8 @@ class RunningSession {
         token = state.token
       )
       sessions[state.id] = component
-        .newSignedInSessionComponent()
-        .module(SignedInSessionModule(session))
-        .build()
+        .newSignedInSessionComponentFactory()
+        .create(SignedInSessionModule(session))
     }
   }
 
