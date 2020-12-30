@@ -24,8 +24,8 @@ class CommunityListActionCreator @Inject constructor(
         selector: SelectorType<AppState>,
         dispatcher: DispatcherType<AppState>
       ): Completable {
-        return if (selector.select().signedIn.community.canPaginate()) {
-          val state = selector.select().signedIn.community
+        val state = selector.select().community
+        return if (state.canPaginate()) {
           dispatcher.dispatch(
             CommunityAction.ToLoading(
               communities = state.communities

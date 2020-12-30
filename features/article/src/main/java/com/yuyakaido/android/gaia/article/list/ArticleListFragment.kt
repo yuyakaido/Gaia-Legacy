@@ -105,8 +105,12 @@ class ArticleListFragment : BaseFragment<ArticleListViewModel>() {
         }
       })
 
-    val upvoteListener = { article: Article -> viewModel.onUpvote(article = article) }
-    val downvoteListener = { article: Article -> viewModel.onDownvote(article = article) }
+    val upvoteListener = { article: Article ->
+      viewModel.onUpvote(article = article)
+    }
+    val downvoteListener = { article: Article ->
+      viewModel.onDownvote(article = article)
+    }
     val communityListener = { article: Article ->
       appNavigator.navigateToCommunityDetail(
         controller = findNavController(),
