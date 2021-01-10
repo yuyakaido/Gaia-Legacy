@@ -1,23 +1,25 @@
 package com.yuyakaido.android.gaia
 
+import android.app.Application
 import androidx.lifecycle.ProcessLifecycleOwner
 import com.facebook.stetho.Stetho
 import com.yuyakaido.android.gaia.core.AppCompletionObserver
 import com.yuyakaido.android.gaia.core.AppLifecycleObserver
 import com.yuyakaido.android.gaia.core.AppStore
-import com.yuyakaido.android.gaia.core.SessionState
+import com.yuyakaido.android.gaia.core.ComponentHandler
 import com.yuyakaido.android.gaia.core.domain.BuildConfig
-import com.yuyakaido.android.gaia.core.domain.entity.Session
 import com.yuyakaido.android.gaia.support.SupportNotificationManager
 import dagger.android.AndroidInjector
-import dagger.android.support.DaggerApplication
+import dagger.android.HasAndroidInjector
+import dagger.hilt.android.HiltAndroidApp
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import timber.log.Timber
 import javax.inject.Inject
 
-class Gaia : DaggerApplication() {
+@HiltAndroidApp
+class Gaia : Application(), HasAndroidInjector {
 
   @Inject
   internal lateinit var appLifecycleObserver: AppLifecycleObserver
@@ -32,51 +34,10 @@ class Gaia : DaggerApplication() {
   internal lateinit var appStore: AppStore
 
   @Inject
-  internal lateinit var runningSession: RunningSession
-
-  private lateinit var appComponent: AppComponent
-
-  override fun applicationInjector(): AndroidInjector<out DaggerApplication> {
-    appComponent = DaggerAppComponent
-      .factory()
-      .create(this)
-    return appComponent
-  }
+  internal lateinit var componentHandler: ComponentHandler
 
   override fun androidInjector(): AndroidInjector<Any> {
-    val state = appStore.stateAsValue()
-    return if (state.sessions.isEmpty()) {
-      appComponent
-        .newSignedOutSessionComponentFactory()
-        .create()
-        .androidInjector()
-    } else {
-      when (val session = state.session) {
-        is SessionState.SignedOut -> {
-          appComponent
-            .newSignedOutSessionComponentFactory()
-            .create()
-            .androidInjector()
-        }
-        is SessionState.SigningIn -> {
-          val signingIn = Session.SigningIn(session.id)
-          val module = SignedInSessionModule(signingIn)
-          appComponent
-            .newSignedInSessionComponentFactory()
-            .create(module)
-            .androidInjector()
-        }
-        is SessionState.SignedIn -> {
-          runningSession.add(
-            state = session,
-            component = appComponent
-          )
-          runningSession
-            .component(state.session)
-            .androidInjector()
-        }
-      }
-    }
+    return componentHandler.activeInjector()
   }
 
   override fun onCreate() {

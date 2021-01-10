@@ -1,8 +1,6 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
-apply plugin: 'androidx.navigation.safeargs.kotlin'
 
 android {
   buildToolsVersion versions.android.buildTools
@@ -11,38 +9,28 @@ android {
     targetSdkVersion versions.android.targetSdk
     minSdkVersion versions.android.minSdk
   }
-  androidExtensions {
-    experimental = true
-  }
   buildFeatures {
     dataBinding true
-  }
-  compileOptions {
-    sourceCompatibility JavaVersion.VERSION_1_8
-    targetCompatibility JavaVersion.VERSION_1_8
-  }
-  kotlinOptions {
-    jvmTarget = JavaVersion.VERSION_1_8.toString()
   }
 }
 
 dependencies {
   // Kotlin
-  api libs.kotlin.stdlib
+  implementation libs.kotlin.stdlib
 
   // AndroidX
-  api libs.androidx.core
-  api libs.androidx.appcompat
-  api libs.androidx.fragment
-  api libs.androidx.room.core
-  api libs.androidx.room.ktx
+  implementation libs.androidx.core
+  implementation libs.androidx.appcompat
+  implementation libs.androidx.fragment
+  implementation libs.androidx.room.core
+  implementation libs.androidx.room.ktx
   kapt libs.androidx.room.compiler
-  api libs.androidx.recyclerview
+  implementation libs.androidx.recyclerview
 
   // Widget
-  api libs.widget.groupie.core
-  api libs.widget.groupie.viewbinding
+  implementation libs.widget.groupie.core
+  implementation libs.widget.groupie.viewbinding
 
   // Debugging
-  api libs.debugging.timber
+  implementation libs.debugging.timber
 }

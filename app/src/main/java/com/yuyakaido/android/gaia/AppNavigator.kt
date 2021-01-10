@@ -8,12 +8,12 @@ import androidx.navigation.NavController
 import com.yuyakaido.android.gaia.article.list.ArticleListFragment
 import com.yuyakaido.android.gaia.article.list.ArticleListFragmentArgs
 import com.yuyakaido.android.gaia.article.list.ArticleListFragmentDirections
-import com.yuyakaido.android.gaia.core.domain.entity.ArticleListSource
 import com.yuyakaido.android.gaia.comment.CommentListFragment
 import com.yuyakaido.android.gaia.community.detail.CommunityDetailFragmentDirections
 import com.yuyakaido.android.gaia.community.list.CommunityListFragment
 import com.yuyakaido.android.gaia.core.domain.app.Constant
 import com.yuyakaido.android.gaia.core.domain.entity.Article
+import com.yuyakaido.android.gaia.core.domain.entity.ArticleListSource
 import com.yuyakaido.android.gaia.core.domain.entity.Community
 import com.yuyakaido.android.gaia.core.domain.entity.User
 import com.yuyakaido.android.gaia.core.presentation.AppNavigatorType

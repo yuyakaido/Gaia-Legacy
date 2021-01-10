@@ -8,7 +8,7 @@ sealed class Session {
   abstract fun refreshToken(): String?
 
   data class SignedOut(
-    override val id: String
+    override val id: String = System.nanoTime().toString()
   ) : Session() {
     override fun refreshToken(): String? {
       return null

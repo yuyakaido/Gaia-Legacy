@@ -7,16 +7,21 @@ import androidx.activity.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
-import com.yuyakaido.android.gaia.core.presentation.BaseActivity
+import com.yuyakaido.android.gaia.core.presentation.AppNavigatorType
+import com.yuyakaido.android.gaia.core.presentation.BaseActivityWithoutHilt
 import com.yuyakaido.android.gaia.support.databinding.ActivitySessionListBinding
+import javax.inject.Inject
 
-class SessionListActivity : BaseActivity<SessionListViewModel>() {
+class SessionListActivity : BaseActivityWithoutHilt<SessionListViewModel>() {
 
   companion object {
     fun createIntent(context: Context): Intent {
       return Intent(context, SessionListActivity::class.java)
     }
   }
+
+  @Inject
+  internal lateinit var appNavigator: AppNavigatorType
 
   override val viewModel: SessionListViewModel by viewModels { factory }
   private val binding by lazy { ActivitySessionListBinding.inflate(layoutInflater) }

@@ -13,9 +13,14 @@ import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
 import com.yuyakaido.android.gaia.article.R
 import com.yuyakaido.android.gaia.article.databinding.FragmentArticleDetailBinding
-import com.yuyakaido.android.gaia.core.presentation.BaseFragment
+import com.yuyakaido.android.gaia.core.presentation.AppNavigatorType
+import com.yuyakaido.android.gaia.core.presentation.BaseFragmentWithoutHilt
+import javax.inject.Inject
 
-class ArticleDetailFragment : BaseFragment<ArticleDetailViewModel>() {
+class ArticleDetailFragment : BaseFragmentWithoutHilt<ArticleDetailViewModel>() {
+
+  @Inject
+  internal lateinit var appNavigator: AppNavigatorType
 
   override val viewModel: ArticleDetailViewModel by viewModels { factory }
   internal val args: ArticleDetailFragmentArgs by navArgs()

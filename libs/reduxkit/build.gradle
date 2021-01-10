@@ -1,8 +1,5 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-android-extensions'
-apply plugin: 'kotlin-kapt'
-apply plugin: 'androidx.navigation.safeargs.kotlin'
 
 android {
   buildToolsVersion versions.android.buildTools
@@ -11,27 +8,14 @@ android {
     targetSdkVersion versions.android.targetSdk
     minSdkVersion versions.android.minSdk
   }
-  androidExtensions {
-    experimental = true
-  }
-  buildFeatures {
-    dataBinding true
-  }
-  compileOptions {
-    sourceCompatibility JavaVersion.VERSION_1_8
-    targetCompatibility JavaVersion.VERSION_1_8
-  }
-  kotlinOptions {
-    jvmTarget = JavaVersion.VERSION_1_8.toString()
-  }
 }
 
 dependencies {
   // Kotlin
-  api libs.kotlin.stdlib
-  api libs.kotlin.coroutines.android
-  api libs.kotlin.coroutines.rx2
+  implementation libs.kotlin.stdlib
+  implementation libs.kotlin.coroutines.android
+  implementation libs.kotlin.coroutines.rx2
 
   // Debugging
-  api libs.debugging.timber
+  implementation libs.debugging.timber
 }

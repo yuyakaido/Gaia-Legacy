@@ -9,14 +9,16 @@ import com.yuyakaido.android.gaia.comment.CommentListModule
 import com.yuyakaido.android.gaia.community.detail.CommunityDetailFragment
 import com.yuyakaido.android.gaia.community.detail.CommunityDetailModule
 import com.yuyakaido.android.gaia.community.list.CommunityListFragment
-import com.yuyakaido.android.gaia.search.presentation.SearchFragment
+import com.yuyakaido.android.gaia.core.SignedInComponent
 import com.yuyakaido.android.gaia.user.presentation.detail.UserDetailFragment
 import com.yuyakaido.android.gaia.user.presentation.detail.UserDetailModule
 import com.yuyakaido.android.gaia.user.presentation.list.UserListFragment
 import com.yuyakaido.android.gaia.user.presentation.list.UserListModule
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
+import dagger.hilt.InstallIn
 
+@InstallIn(SignedInComponent::class)
 @Module
 abstract class SignedInFragmentModule {
 
@@ -52,8 +54,5 @@ abstract class SignedInFragmentModule {
     modules = [UserDetailModule::class]
   )
   abstract fun contributeUserDetailFragment(): UserDetailFragment
-
-  @ContributesAndroidInjector
-  abstract fun contributeSearchFragment(): SearchFragment
 
 }

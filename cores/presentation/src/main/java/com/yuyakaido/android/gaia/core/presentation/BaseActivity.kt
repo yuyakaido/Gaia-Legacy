@@ -1,23 +1,15 @@
 package com.yuyakaido.android.gaia.core.presentation
 
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Lifecycle
-import dagger.android.support.DaggerAppCompatActivity
 import timber.log.Timber
-import javax.inject.Inject
 
-abstract class BaseActivity<VM : BaseViewModel> : DaggerAppCompatActivity(), BaseViewType<VM> {
-
-  @Inject
-  override lateinit var appNavigator: AppNavigatorType
-
-  @Inject
-  override lateinit var factory: ViewModelFactory<VM>
+abstract class BaseActivity : AppCompatActivity() {
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     printLog(Lifecycle.Event.ON_CREATE)
-    bindLifecycle(lifecycle)
   }
 
   override fun onStart() {
@@ -42,7 +34,6 @@ abstract class BaseActivity<VM : BaseViewModel> : DaggerAppCompatActivity(), Bas
 
   override fun onDestroy() {
     printLog(Lifecycle.Event.ON_DESTROY)
-    unbindLifecycle(lifecycle)
     super.onDestroy()
   }
 

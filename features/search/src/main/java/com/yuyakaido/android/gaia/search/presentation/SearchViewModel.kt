@@ -1,6 +1,7 @@
 package com.yuyakaido.android.gaia.search.presentation
 
 import android.app.Application
+import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.yuyakaido.android.gaia.core.domain.entity.Article
@@ -10,9 +11,8 @@ import com.yuyakaido.android.gaia.core.domain.value.TrendingArticle
 import com.yuyakaido.android.gaia.core.presentation.BaseViewModel
 import kotlinx.coroutines.launch
 import timber.log.Timber
-import javax.inject.Inject
 
-class SearchViewModel @Inject constructor(
+class SearchViewModel @ViewModelInject constructor(
   application: Application,
   private val repository: SearchRepositoryType
 ) : BaseViewModel(application) {

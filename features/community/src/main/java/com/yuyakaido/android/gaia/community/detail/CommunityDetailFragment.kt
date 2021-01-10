@@ -9,13 +9,17 @@ import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
 import com.yuyakaido.android.gaia.community.R
 import com.yuyakaido.android.gaia.community.databinding.FragmentCommunityDetailBinding
-import com.yuyakaido.android.gaia.core.presentation.BaseFragment
+import com.yuyakaido.android.gaia.core.presentation.AppNavigatorType
+import com.yuyakaido.android.gaia.core.presentation.BaseFragmentWithoutHilt
+import javax.inject.Inject
 
-class CommunityDetailFragment : BaseFragment<CommunityDetailViewModel>() {
+class CommunityDetailFragment : BaseFragmentWithoutHilt<CommunityDetailViewModel>() {
+
+  @Inject
+  internal lateinit var appNavigator: AppNavigatorType
 
   override val viewModel: CommunityDetailViewModel by viewModels { factory }
   internal val args: CommunityDetailFragmentArgs by navArgs()
-
   private lateinit var binding: FragmentCommunityDetailBinding
 
   override fun onCreateView(

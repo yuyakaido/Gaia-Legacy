@@ -1,30 +1,25 @@
 package com.yuyakaido.android.gaia.auth
 
+import com.yuyakaido.android.gaia.core.SignedInComponent
 import com.yuyakaido.android.gaia.core.domain.app.SignedInScope
 import com.yuyakaido.android.gaia.core.domain.repository.TokenRepositoryType
 import com.yuyakaido.android.gaia.core.infrastructure.RetrofitForPublic
 import dagger.Module
 import dagger.Provides
+import dagger.hilt.InstallIn
 import retrofit2.Retrofit
 
+@InstallIn(SignedInComponent::class)
 @Module
-class SignedInAuthModule {
-
-  @SignedInScope
-  @Provides
-  fun provideAuthApi(
-    @RetrofitForPublic retrofit: Retrofit
-  ): AuthApi {
-    return retrofit.create(AuthApi::class.java)
-  }
+class SignedInAuthModule : MainAuthModule() {
 
   @SignedInScope
   @Provides
   fun provideTokenRepositoryType(
-    api: AuthApi
+    @RetrofitForPublic retrofit: Retrofit
   ): TokenRepositoryType {
-    return TokenRepository(
-      api = api
+    return createTokenRepositoryType(
+      retrofit = retrofit
     )
   }
 

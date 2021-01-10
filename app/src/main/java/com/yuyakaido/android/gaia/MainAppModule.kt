@@ -2,18 +2,21 @@ package com.yuyakaido.android.gaia
 
 import android.app.Application
 import androidx.room.Room
-import com.yuyakaido.android.gaia.core.AppState
-import com.yuyakaido.android.gaia.core.AppStore
-import com.yuyakaido.android.gaia.core.domain.app.AppScope
+import com.yuyakaido.android.gaia.core.*
 import com.yuyakaido.android.gaia.core.domain.repository.SessionRepositoryType
 import com.yuyakaido.android.gaia.core.presentation.AppNavigatorType
 import dagger.Module
 import dagger.Provides
+import dagger.android.support.AndroidSupportInjectionModule
+import dagger.hilt.InstallIn
+import dagger.hilt.components.SingletonComponent
+import javax.inject.Singleton
 
-@Module
-open class MainAppModule {
+@InstallIn(SingletonComponent::class)
+@Module(includes = [AndroidSupportInjectionModule::class])
+class MainAppModule {
 
-  @AppScope
+  @Singleton
   @Provides
   fun provideAppNavigatorType(
     application: Application
@@ -23,24 +26,34 @@ open class MainAppModule {
     )
   }
 
-  @AppScope
+  @Singleton
   @Provides
   fun provideAppStore(
     application: Application
   ): AppStore {
     return AppStore(
       application = application,
-      initialState = AppState()
+      initialState = AppState(),
     )
   }
 
-  @AppScope
+  @Singleton
   @Provides
-  fun provideRunningSession(): RunningSession {
-    return RunningSession()
+  fun provideComponentHandler(
+    appStore: AppStore,
+    signedOutBuilder: SignedOutComponent.Builder,
+    signingInBuilder: SigningInComponent.Builder,
+    signedInBuilder: SignedInComponent.Builder
+  ): ComponentHandler {
+    return ComponentHandler(
+      appStore = appStore,
+      signedOutBuilder = signedOutBuilder,
+      signingInBuilder = signingInBuilder,
+      signedInBuilder = signedInBuilder
+    )
   }
 
-  @AppScope
+  @Singleton
   @Provides
   fun provideSessionDatabase(
     application: Application
@@ -54,7 +67,7 @@ open class MainAppModule {
       .build()
   }
 
-  @AppScope
+  @Singleton
   @Provides
   fun provideSessionRepositoryType(
     database: SessionDatabase

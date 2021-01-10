@@ -16,9 +16,11 @@ import com.yqritc.recyclerviewflexibledivider.HorizontalDividerItemDecoration
 import com.yuyakaido.android.gaia.community.databinding.FragmentCommunityListBinding
 import com.yuyakaido.android.gaia.core.domain.entity.Community
 import com.yuyakaido.android.gaia.core.domain.extension.dpToPx
-import com.yuyakaido.android.gaia.core.presentation.BaseFragment
+import com.yuyakaido.android.gaia.core.presentation.AppNavigatorType
+import com.yuyakaido.android.gaia.core.presentation.BaseFragmentWithoutHilt
+import javax.inject.Inject
 
-class CommunityListFragment : BaseFragment<CommunityListViewModel>() {
+class CommunityListFragment : BaseFragmentWithoutHilt<CommunityListViewModel>() {
 
   companion object {
     fun newInstance(): Fragment {
@@ -26,8 +28,10 @@ class CommunityListFragment : BaseFragment<CommunityListViewModel>() {
     }
   }
 
-  override val viewModel: CommunityListViewModel by viewModels { factory }
+  @Inject
+  internal lateinit var appNavigator: AppNavigatorType
 
+  override val viewModel: CommunityListViewModel by viewModels { factory }
   private lateinit var binding: FragmentCommunityListBinding
 
   override fun onCreateView(

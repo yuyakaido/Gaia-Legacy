@@ -3,6 +3,7 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 apply plugin: 'androidx.navigation.safeargs.kotlin'
+apply plugin: 'dagger.hilt.android.plugin'
 
 android {
   buildToolsVersion versions.android.buildTools
@@ -42,11 +43,17 @@ dependencies {
   api libs.androidx.constraintlayout
   api libs.androidx.recyclerview
   api libs.androidx.swiperefreshlayout
-  api libs.androidx.preference
+  api libs.androidx.hilt.viewmodel
+  kapt libs.androidx.hilt.compiler
 
   // Dependency Injection
+  api libs.dagger.java.core
   kapt libs.dagger.java.compiler
+  api libs.dagger.android.core
+  api libs.dagger.android.support
   kapt libs.dagger.android.compiler
+  api libs.dagger.hilt.core
+  kapt libs.dagger.hilt.compiler
 
   // Widget
   api libs.widget.divider

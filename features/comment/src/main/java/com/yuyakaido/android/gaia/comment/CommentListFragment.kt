@@ -17,9 +17,9 @@ import com.yuyakaido.android.gaia.core.domain.entity.Article
 import com.yuyakaido.android.gaia.core.domain.entity.Comment
 import com.yuyakaido.android.gaia.core.domain.entity.User
 import com.yuyakaido.android.gaia.core.domain.extension.dpToPx
-import com.yuyakaido.android.gaia.core.presentation.BaseFragment
+import com.yuyakaido.android.gaia.core.presentation.BaseFragmentWithoutHilt
 
-class CommentListFragment : BaseFragment<CommentListViewModel>() {
+class CommentListFragment : BaseFragmentWithoutHilt<CommentListViewModel>() {
 
   companion object {
     private val SOURCE = CommentListSource::class.java.simpleName

@@ -19,10 +19,11 @@ import com.yuyakaido.android.gaia.article.databinding.FragmentArticleListBinding
 import com.yuyakaido.android.gaia.core.domain.app.ImageLoaderType
 import com.yuyakaido.android.gaia.core.domain.entity.Article
 import com.yuyakaido.android.gaia.core.domain.extension.dpToPx
-import com.yuyakaido.android.gaia.core.presentation.BaseFragment
+import com.yuyakaido.android.gaia.core.presentation.AppNavigatorType
+import com.yuyakaido.android.gaia.core.presentation.BaseFragmentWithoutHilt
 import javax.inject.Inject
 
-class ArticleListFragment : BaseFragment<ArticleListViewModel>() {
+class ArticleListFragment : BaseFragmentWithoutHilt<ArticleListViewModel>() {
 
   companion object {
     fun newInstance(args: ArticleListFragmentArgs): Fragment {
@@ -33,12 +34,15 @@ class ArticleListFragment : BaseFragment<ArticleListViewModel>() {
     }
   }
 
-  override val viewModel: ArticleListViewModel by viewModels { factory }
-  internal val args: ArticleListFragmentArgs by navArgs()
-  private lateinit var binding: FragmentArticleListBinding
+  @Inject
+  internal lateinit var appNavigator: AppNavigatorType
 
   @Inject
   internal lateinit var imageLoader: ImageLoaderType
+
+  override val viewModel: ArticleListViewModel by viewModels { factory }
+  internal val args: ArticleListFragmentArgs by navArgs()
+  private lateinit var binding: FragmentArticleListBinding
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)

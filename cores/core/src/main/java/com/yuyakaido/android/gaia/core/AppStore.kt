@@ -23,6 +23,16 @@ class AppStore(
       .map { it.session }
   }
 
+  fun sessionAsValue(): SessionState {
+    return stateAsValue().session
+  }
+
+  fun sessionsAsFlow(): Flow<List<SessionState>> {
+    return stateAsFlow()
+      .filter { it.sessions.isNotEmpty() }
+      .map { it.sessions }
+  }
+
   fun signedOutAsFlow(): Flow<SessionState.SignedOut> {
     return sessionAsFlow().filterIsInstance()
   }

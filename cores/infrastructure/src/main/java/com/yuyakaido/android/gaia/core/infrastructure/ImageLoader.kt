@@ -6,9 +6,8 @@ import android.net.Uri
 import android.widget.ImageView
 import com.bumptech.glide.Glide
 import com.yuyakaido.android.gaia.core.domain.app.ImageLoaderType
-import javax.inject.Inject
 
-class ImageLoader @Inject constructor(
+class ImageLoader(
   private val application: Application
 ) : ImageLoaderType {
 

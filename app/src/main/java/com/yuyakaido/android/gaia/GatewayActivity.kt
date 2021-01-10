@@ -4,9 +4,14 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.activity.viewModels
-import com.yuyakaido.android.gaia.core.presentation.BaseActivity
+import com.yuyakaido.android.gaia.core.presentation.AppNavigatorType
+import com.yuyakaido.android.gaia.core.presentation.BaseActivityWithHilt
+import com.yuyakaido.android.gaia.core.presentation.BaseViewModel
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
-class GatewayActivity : BaseActivity<GatewayViewModel>() {
+@AndroidEntryPoint
+class GatewayActivity : BaseActivityWithHilt() {
 
   companion object {
     fun createIntent(context: Context): Intent {
@@ -18,7 +23,14 @@ class GatewayActivity : BaseActivity<GatewayViewModel>() {
     }
   }
 
-  override val viewModel: GatewayViewModel by viewModels { factory }
+  @Inject
+  internal lateinit var appNavigator: AppNavigatorType
+
+  private val viewModel: GatewayViewModel by viewModels()
+
+  override fun getViewModel(): BaseViewModel {
+    return viewModel
+  }
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)

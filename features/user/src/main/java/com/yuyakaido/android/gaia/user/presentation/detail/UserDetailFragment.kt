@@ -11,11 +11,13 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.yuyakaido.android.gaia.core.domain.entity.User
 import com.yuyakaido.android.gaia.core.domain.extension.dpToPx
-import com.yuyakaido.android.gaia.core.presentation.BaseFragment
+import com.yuyakaido.android.gaia.core.presentation.AppNavigatorType
+import com.yuyakaido.android.gaia.core.presentation.BaseFragmentWithoutHilt
 import com.yuyakaido.android.gaia.user.R
 import com.yuyakaido.android.gaia.user.databinding.FragmentUserDetailBinding
+import javax.inject.Inject
 
-class UserDetailFragment : BaseFragment<UserDetailViewModel>() {
+class UserDetailFragment : BaseFragmentWithoutHilt<UserDetailViewModel>() {
 
   companion object {
     fun newInstance(args: UserDetailFragmentArgs): Fragment {
@@ -26,9 +28,11 @@ class UserDetailFragment : BaseFragment<UserDetailViewModel>() {
     }
   }
 
+  @Inject
+  internal lateinit var appNavigator: AppNavigatorType
+
   override val viewModel: UserDetailViewModel by viewModels { factory }
   internal val args: UserDetailFragmentArgs by navArgs()
-
   private lateinit var binding: FragmentUserDetailBinding
 
   override fun onCreateView(

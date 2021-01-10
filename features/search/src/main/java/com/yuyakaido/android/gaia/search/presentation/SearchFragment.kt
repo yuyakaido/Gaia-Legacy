@@ -12,11 +12,14 @@ import com.xwray.groupie.GroupieViewHolder
 import com.yuyakaido.android.core.widget.ArticleItem
 import com.yuyakaido.android.gaia.core.domain.app.ImageLoaderType
 import com.yuyakaido.android.gaia.core.domain.entity.Article
-import com.yuyakaido.android.gaia.core.presentation.BaseFragment
+import com.yuyakaido.android.gaia.core.presentation.BaseFragmentWithHilt
+import com.yuyakaido.android.gaia.core.presentation.BaseViewModel
 import com.yuyakaido.android.gaia.search.databinding.FragmentSearchBinding
+import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
-class SearchFragment : BaseFragment<SearchViewModel>() {
+@AndroidEntryPoint
+class SearchFragment : BaseFragmentWithHilt() {
 
   companion object {
     fun newInstance(): SearchFragment {
@@ -24,11 +27,15 @@ class SearchFragment : BaseFragment<SearchViewModel>() {
     }
   }
 
-  override val viewModel: SearchViewModel by viewModels { factory }
-  private lateinit var binding: FragmentSearchBinding
-
   @Inject
   internal lateinit var imageLoader: ImageLoaderType
+
+  private val viewModel: SearchViewModel by viewModels()
+  private lateinit var binding: FragmentSearchBinding
+
+  override fun getViewModel(): BaseViewModel {
+    return viewModel
+  }
 
   override fun onCreateView(
     inflater: LayoutInflater,

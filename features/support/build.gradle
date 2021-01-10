@@ -3,6 +3,7 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 apply plugin: 'androidx.navigation.safeargs.kotlin'
+apply plugin: 'dagger.hilt.android.plugin'
 
 android {
   buildToolsVersion versions.android.buildTools
@@ -29,4 +30,13 @@ android {
 dependencies {
   // Module
   implementation project(':cores:core')
+
+  // Dependency Injection
+  implementation libs.dagger.java.core
+  kapt libs.dagger.java.compiler
+  implementation libs.dagger.android.core
+  implementation libs.dagger.android.support
+  kapt libs.dagger.android.compiler
+  implementation libs.dagger.hilt.core
+  kapt libs.dagger.hilt.compiler
 }

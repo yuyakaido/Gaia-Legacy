@@ -4,4 +4,4 @@ import javax.inject.Scope
 
 @Scope
 @Retention(value = AnnotationRetention.RUNTIME)
-annotation class AppScope
+annotation class SigningInScope

@@ -33,9 +33,12 @@ buildscript {
       constraintlayout: '2.0.0',
       recyclerview: '1.1.0',
       swiperefreshlayout: '1.1.0',
-      preference: '1.1.1'
+      hilt: '1.0.0-alpha01'
     ],
-    dagger: '2.30.1',
+    dagger: [
+      core: '2.30.1',
+      hilt: '2.30.1-alpha'
+    ],
     networking: [
       okhttp: '4.2.2',
       retrofit: '2.6.2',
@@ -86,17 +89,25 @@ buildscript {
       constraintlayout: "androidx.constraintlayout:constraintlayout:$versions.androidx.constraintlayout",
       recyclerview: "androidx.recyclerview:recyclerview:$versions.androidx.recyclerview",
       swiperefreshlayout: "androidx.swiperefreshlayout:swiperefreshlayout:$versions.androidx.swiperefreshlayout",
-      preference: "androidx.preference:preference-ktx:$versions.androidx.preference"
+      hilt: [
+        viewmodel: "androidx.hilt:hilt-lifecycle-viewmodel:$versions.androidx.hilt",
+        compiler: "androidx.hilt:hilt-compiler:$versions.androidx.hilt"
+      ]
     ],
     dagger: [
       java: [
-        core: "com.google.dagger:dagger:${versions.dagger}",
-        compiler: "com.google.dagger:dagger-compiler:${versions.dagger}"
+        core: "com.google.dagger:dagger:${versions.dagger.core}",
+        compiler: "com.google.dagger:dagger-compiler:${versions.dagger.core}"
       ],
       android: [
-        core: "com.google.dagger:dagger-android:${versions.dagger}",
-        support: "com.google.dagger:dagger-android-support:${versions.dagger}",
-        compiler: "com.google.dagger:dagger-android-processor:${versions.dagger}"
+        core: "com.google.dagger:dagger-android:${versions.dagger.core}",
+        support: "com.google.dagger:dagger-android-support:${versions.dagger.core}",
+        compiler: "com.google.dagger:dagger-android-processor:${versions.dagger.core}"
+      ],
+      hilt: [
+        core: "com.google.dagger:hilt-android:${versions.dagger.hilt}",
+        compiler: "com.google.dagger:hilt-android-compiler:${versions.dagger.hilt}",
+        gradle: "com.google.dagger:hilt-android-gradle-plugin:${versions.dagger.hilt}"
       ]
     ],
     networking: [
@@ -141,6 +152,7 @@ buildscript {
     classpath libs.android.gradle
     classpath libs.kotlin.gradle
     classpath libs.androidx.navigation.gradle
+    classpath libs.dagger.hilt.gradle
     // NOTE: Do not place your application dependencies here; they belong
     // in the individual module build.gradle files
   }

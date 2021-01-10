@@ -12,11 +12,14 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.yuyakaido.android.gaia.core.domain.entity.ArticleListSource
-import com.yuyakaido.android.gaia.core.presentation.BaseActivity
+import com.yuyakaido.android.gaia.core.presentation.BaseActivityWithHilt
+import com.yuyakaido.android.gaia.core.presentation.BaseViewModel
 import com.yuyakaido.android.gaia.databinding.ActivityAppBinding
 import com.yuyakaido.android.gaia.user.presentation.detail.UserDetailSource
+import dagger.hilt.android.AndroidEntryPoint
 
-class AppActivity : BaseActivity<AppViewModel>() {
+@AndroidEntryPoint
+class AppActivity : BaseActivityWithHilt() {
 
   companion object {
     fun createIntent(context: Context): Intent {
@@ -28,8 +31,12 @@ class AppActivity : BaseActivity<AppViewModel>() {
     }
   }
 
-  override val viewModel: AppViewModel by viewModels { factory }
+  private val viewModel: AppViewModel by viewModels()
   private val binding by lazy { ActivityAppBinding.inflate(layoutInflater) }
+
+  override fun getViewModel(): BaseViewModel {
+    return viewModel
+  }
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)

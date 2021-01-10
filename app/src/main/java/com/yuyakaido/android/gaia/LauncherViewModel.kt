@@ -1,6 +1,7 @@
 package com.yuyakaido.android.gaia
 
 import android.app.Application
+import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.viewModelScope
 import com.yuyakaido.android.gaia.core.AppAction
 import com.yuyakaido.android.gaia.core.AppStore
@@ -11,9 +12,8 @@ import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.take
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
-class LauncherViewModel @Inject constructor(
+class LauncherViewModel @ViewModelInject constructor(
   application: Application,
   private val appStore: AppStore,
   private val sessionRepository: SessionRepositoryType

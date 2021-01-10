@@ -1,51 +1,27 @@
 package com.yuyakaido.android.gaia.search
 
 import android.app.Application
-import androidx.room.Room
-import com.yuyakaido.android.gaia.core.domain.app.SignedInScope
+import com.yuyakaido.android.gaia.core.ComponentHandler
 import com.yuyakaido.android.gaia.core.domain.repository.SearchRepositoryType
-import com.yuyakaido.android.gaia.core.infrastructure.RetrofitForPublic
-import com.yuyakaido.android.gaia.search.infrastructure.HistoryDatabase
-import com.yuyakaido.android.gaia.search.infrastructure.SearchApi
-import com.yuyakaido.android.gaia.search.infrastructure.SearchRepository
 import dagger.Module
 import dagger.Provides
-import retrofit2.Retrofit
+import dagger.hilt.InstallIn
+import dagger.hilt.android.components.ActivityComponent
+import dagger.hilt.android.scopes.ActivityScoped
 
+@InstallIn(ActivityComponent::class)
 @Module
-class SearchModule {
+class SearchModule : MainSearchModule() {
 
-  @SignedInScope
-  @Provides
-  fun provideSearchApi(
-    @RetrofitForPublic retrofit: Retrofit
-  ): SearchApi {
-    return retrofit.create(SearchApi::class.java)
-  }
-
-  @SignedInScope
-  @Provides
-  fun provideHistoryDatabase(
-    application: Application
-  ): HistoryDatabase {
-    return Room
-      .databaseBuilder(
-        application,
-        HistoryDatabase::class.java,
-        HistoryDatabase::class.java.simpleName
-      )
-      .build()
-  }
-
-  @SignedInScope
+  @ActivityScoped
   @Provides
   fun provideSearchRepositoryType(
-    api: SearchApi,
-    database: HistoryDatabase
+    application: Application,
+    componentHandler: ComponentHandler
   ): SearchRepositoryType {
-    return SearchRepository(
-      api = api,
-      database = database
+    return createSearchRepositoryType(
+      application = application,
+      retrofit = componentHandler.activeSignedInRetrofitForPublic()
     )
   }
 

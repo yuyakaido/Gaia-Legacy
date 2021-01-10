@@ -1,23 +1,15 @@
 package com.yuyakaido.android.gaia.core.presentation
 
 import android.os.Bundle
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
-import dagger.android.support.DaggerFragment
 import timber.log.Timber
-import javax.inject.Inject
 
-abstract class BaseFragment<VM : BaseViewModel> : DaggerFragment(), BaseViewType<VM> {
-
-  @Inject
-  override lateinit var appNavigator: AppNavigatorType
-
-  @Inject
-  override lateinit var factory: ViewModelFactory<VM>
+abstract class BaseFragment : Fragment() {
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     printLog(Lifecycle.Event.ON_CREATE)
-    bindLifecycle(lifecycle)
   }
 
   override fun onStart() {
@@ -42,7 +34,6 @@ abstract class BaseFragment<VM : BaseViewModel> : DaggerFragment(), BaseViewType
 
   override fun onDestroy() {
     printLog(Lifecycle.Event.ON_DESTROY)
-    unbindLifecycle(lifecycle)
     super.onDestroy()
   }
 
