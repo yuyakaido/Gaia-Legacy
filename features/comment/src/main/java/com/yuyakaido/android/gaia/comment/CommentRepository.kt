@@ -4,7 +4,7 @@ import com.yuyakaido.android.gaia.core.domain.entity.Article
 import com.yuyakaido.android.gaia.core.domain.entity.Comment
 import com.yuyakaido.android.gaia.core.domain.entity.User
 import com.yuyakaido.android.gaia.core.domain.repository.CommentRepositoryType
-import com.yuyakaido.android.gaia.core.infrastructure.Kind
+import com.yuyakaido.android.gaia.core.infrastructure.ListingDataResponse
 
 class CommentRepository(
   private val api: CommentApi
@@ -17,7 +17,7 @@ class CommentRepository(
         article = article.id.value
       )
     val responseOfComment = response.firstOrNull {
-      it.data.children.any { child -> child.kind == Kind.Comment }
+      it.data.children.any { child -> child is ListingDataResponse.Children.Child.Comment }
     }
     return responseOfComment?.toComments() ?: emptyList()
   }

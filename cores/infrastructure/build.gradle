@@ -2,6 +2,7 @@ apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
+apply plugin: 'kotlinx-serialization'
 apply plugin: 'androidx.navigation.safeargs.kotlin'
 apply plugin: 'dagger.hilt.android.plugin'
 
@@ -31,6 +32,9 @@ dependencies {
   // Modules
   api project(':cores:domain')
 
+  // Kotlin
+  api libs.kotlin.serialization.json
+
   // Dependency Injection
   api libs.dagger.java.core
   kapt libs.dagger.java.compiler
@@ -44,9 +48,7 @@ dependencies {
   api libs.networking.okhttp.core
   api libs.networking.okhttp.logging
   api libs.networking.retrofit.core
-  api libs.networking.retrofit.moshi
-  api libs.networking.moshi.core
-  api libs.networking.moshi.adapter
+  api libs.networking.retrofit.serialization
   api libs.networking.glide.core
   kapt libs.networking.glide.compiler
 

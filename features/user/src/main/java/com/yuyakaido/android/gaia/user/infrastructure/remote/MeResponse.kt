@@ -1,14 +1,16 @@
 package com.yuyakaido.android.gaia.user.infrastructure.remote
 
-import com.squareup.moshi.Json
 import com.yuyakaido.android.gaia.user.infrastructure.local.MeSchema
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
+@Serializable
 data class MeResponse(
-  @Json(name = "id") val id: String,
-  @Json(name = "name") val name: String,
-  @Json(name = "icon_img") val icon: String,
-  @Json(name = "created") val birthday: Float,
-  @Json(name = "link_karma") val karma: Int
+  @SerialName("id") val id: String,
+  @SerialName("name") val name: String,
+  @SerialName("icon_img") val icon: String,
+  @SerialName("created") val birthday: Float,
+  @SerialName("link_karma") val karma: Int
 ) {
   fun toSchema(): MeSchema {
     return MeSchema(

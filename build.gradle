@@ -21,7 +21,8 @@ buildscript {
     ],
     kotlin: [
       core: '1.4.21',
-      coroutines: '1.4.2'
+      coroutines: '1.4.2',
+      serialization: '1.0.1'
     ],
     androidx: [
       core: '1.3.1',
@@ -41,8 +42,10 @@ buildscript {
     ],
     networking: [
       okhttp: '4.2.2',
-      retrofit: '2.6.2',
-      moshi: '1.9.1',
+      retrofit: [
+        core: '2.6.2',
+        serialization: '0.8.0'
+      ],
       glide: '4.10.0'
     ],
     widget: [
@@ -65,6 +68,10 @@ buildscript {
       coroutines: [
         android: "org.jetbrains.kotlinx:kotlinx-coroutines-android:$versions.kotlin.coroutines",
         rx2: "org.jetbrains.kotlinx:kotlinx-coroutines-rx2:$versions.kotlin.coroutines"
+      ],
+      serialization: [
+        gradle: "org.jetbrains.kotlin:kotlin-serialization:$versions.kotlin.core",
+        json: "org.jetbrains.kotlinx:kotlinx-serialization-json:$versions.kotlin.serialization"
       ]
     ],
     androidx: [
@@ -116,12 +123,8 @@ buildscript {
         logging: "com.squareup.okhttp3:logging-interceptor:$versions.networking.okhttp"
       ],
       retrofit: [
-        core: "com.squareup.retrofit2:retrofit:$versions.networking.retrofit",
-        moshi: "com.squareup.retrofit2:converter-moshi:$versions.networking.retrofit"
-      ],
-      moshi: [
-        core: "com.squareup.moshi:moshi-kotlin:$versions.networking.moshi",
-        adapter: "com.squareup.moshi:moshi-adapters:$versions.networking.moshi"
+        core: "com.squareup.retrofit2:retrofit:$versions.networking.retrofit.core",
+        serialization: "com.jakewharton.retrofit:retrofit2-kotlinx-serialization-converter:$versions.networking.retrofit.serialization"
       ],
       glide: [
         core: "com.github.bumptech.glide:glide:$versions.networking.glide",
@@ -151,6 +154,7 @@ buildscript {
   dependencies {
     classpath libs.android.gradle
     classpath libs.kotlin.gradle
+    classpath libs.kotlin.serialization.gradle
     classpath libs.androidx.navigation.gradle
     classpath libs.dagger.hilt.gradle
     // NOTE: Do not place your application dependencies here; they belong

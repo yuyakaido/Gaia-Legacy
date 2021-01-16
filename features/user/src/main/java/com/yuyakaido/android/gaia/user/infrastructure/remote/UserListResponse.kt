@@ -1,17 +1,21 @@
 package com.yuyakaido.android.gaia.user.infrastructure.remote
 
-import com.squareup.moshi.Json
 import com.yuyakaido.android.gaia.core.domain.entity.User
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
+@Serializable
 data class UserListResponse(
-  @Json(name = "data") val data: Data
+  @SerialName("data") val data: Data
 ) {
+  @Serializable
   data class Data(
-    @Json(name = "children") val children: List<Child>
+    @SerialName("children") val children: List<Child>
   ) {
+    @Serializable
     data class Child(
-      @Json(name = "id") val id: String,
-      @Json(name = "name") val name: String
+      @SerialName("id") val id: String,
+      @SerialName("name") val name: String
     )
   }
   fun toUsers(): List<User> {

@@ -2,69 +2,75 @@ package com.yuyakaido.android.gaia.core.infrastructure
 
 import android.net.Uri
 import android.webkit.URLUtil
-import com.squareup.moshi.Json
 import com.yuyakaido.android.gaia.core.domain.entity.Article
 import com.yuyakaido.android.gaia.core.domain.entity.Comment
 import com.yuyakaido.android.gaia.core.domain.entity.Community
 import com.yuyakaido.android.gaia.core.domain.value.EntityPaginationItem
 import com.yuyakaido.android.gaia.core.domain.value.SearchResult
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 // https://www.reddit.com/dev/api/
+@Serializable
 data class ListingDataResponse(
-  @Json(name = "data") val data: Children
+  @SerialName("data") val data: Children
 ) {
+  @Serializable
   data class Children(
-    @Json(name = "children") val children: List<Child>,
-    @Json(name = "before") val before: String?,
-    @Json(name = "after") val after: String?
+    @SerialName("children") val children: List<Child>,
+    @SerialName("before") val before: String?,
+    @SerialName("after") val after: String?
   ) {
-    sealed class Child(
-      @Json(name = "kind") val kind: Kind
-    ) {
-
+    @Serializable
+    sealed class Child {
+      @Serializable
       sealed class Data {
+        @Serializable
         data class Comment(
-          @Json(name = "id") val id: String,
-          @Json(name = "name") val name: String,
-          @Json(name = "body") val body: String,
-          @Json(name = "author") val author: String,
-          @Json(name = "created") val created: Float,
-          @Json(name = "likes") val likes: Boolean?,
-          @Json(name = "ups") val ups: Int,
-          @Json(name = "downs") val downs: Int
+          @SerialName("id") val id: String,
+          @SerialName("name") val name: String,
+          @SerialName("body") val body: String,
+          @SerialName("author") val author: String,
+          @SerialName("created") val created: Float,
+          @SerialName("likes") val likes: Boolean?,
+          @SerialName("ups") val ups: Int,
+          @SerialName("downs") val downs: Int
         ) : Data()
+        @Serializable
         data class Article(
-          @Json(name = "id") val id: String,
-          @Json(name = "name") val name: String,
-          @Json(name = "subreddit") val community: String,
-          @Json(name = "title") val title: String,
-          @Json(name = "thumbnail") val thumbnail: String?,
-          @Json(name = "author") val author: String,
-          @Json(name = "likes") val likes: Boolean?,
-          @Json(name = "ups") val ups: Int,
-          @Json(name = "downs") val downs: Int,
-          @Json(name = "num_comments") val comments: Int
+          @SerialName("id") val id: String,
+          @SerialName("name") val name: String,
+          @SerialName("subreddit") val community: String,
+          @SerialName("title") val title: String,
+          @SerialName("thumbnail") val thumbnail: String?,
+          @SerialName("author") val author: String,
+          @SerialName("likes") val likes: Boolean?,
+          @SerialName("ups") val ups: Int,
+          @SerialName("downs") val downs: Int,
+          @SerialName("num_comments") val comments: Int
         ) : Data()
+        @Serializable
         data class Community(
-          @Json(name = "id") val id: String,
-          @Json(name = "display_name") val name: String,
-          @Json(name = "icon_img") val icon: String,
-          @Json(name = "banner_background_image") val banner: String,
-          @Json(name = "subscribers") val subscribers: Int,
-          @Json(name = "user_is_subscriber") val isSubscriber: Boolean,
-          @Json(name = "public_description") val description: String
+          @SerialName("id") val id: String,
+          @SerialName("display_name") val name: String,
+          @SerialName("icon_img") val icon: String,
+          @SerialName("banner_background_image") val banner: String,
+          @SerialName("subscribers") val subscribers: Int,
+          @SerialName("user_is_subscriber") val isSubscriber: Boolean,
+          @SerialName("public_description") val description: String
         ) : Data()
+        @Serializable
         data class More(
-          @Json(name = "id") val id: String,
-          @Json(name = "name") val name: String,
-          @Json(name = "count") val count: String
+          @SerialName("id") val id: String,
+          @SerialName("name") val name: String,
+          @SerialName("count") val count: Int
         ) : Data()
       }
+      @Serializable
+      @SerialName(Kind.comment)
       data class Comment(
-        @Json(name = "data") override val data: Data.Comment
-      ) : Child(
-        Kind.Comment
-      ) {
+        @SerialName("data") override val data: Data.Comment
+      ) : Child() {
         fun toEntity(): com.yuyakaido.android.gaia.core.domain.entity.Comment {
           return Comment(
             id = com.yuyakaido.android.gaia.core.domain.entity.Comment.ID(value = data.id),
@@ -78,11 +84,11 @@ data class ListingDataResponse(
           )
         }
       }
+      @Serializable
+      @SerialName(Kind.article)
       data class Article(
-        @Json(name = "data") override val data: Data.Article
-      ) : Child(
-        Kind.Article
-      ) {
+        @SerialName("data") override val data: Data.Article
+      ) : Child() {
         fun toEntity(): com.yuyakaido.android.gaia.core.domain.entity.Article {
           return Article(
             id = com.yuyakaido.android.gaia.core.domain.entity.Article.ID(value = data.id),
@@ -105,11 +111,11 @@ data class ListingDataResponse(
           }
         }
       }
+      @Serializable
+      @SerialName(Kind.community)
       data class Community(
-        @Json(name = "data") override val data: Data.Community
-      ) : Child(
-        Kind.Community
-      ) {
+        @SerialName("data") override val data: Data.Community
+      ) : Child() {
         fun toEntity(): com.yuyakaido.android.gaia.core.domain.entity.Community.Detail {
           return com.yuyakaido.android.gaia.core.domain.entity.Community.Detail(
             id = data.id,
@@ -122,11 +128,11 @@ data class ListingDataResponse(
           )
         }
       }
+      @Serializable
+      @SerialName(Kind.more)
       data class More(
-        @Json(name = "data") override val data: Data.More
-      ) : Child(
-        Kind.More
-      )
+        @SerialName("data") override val data: Data.More
+      ) : Child()
       abstract val data: Data
     }
   }
