@@ -39,6 +39,10 @@ class CommunityListActionCreator @Inject constructor(
                 after = item.after
               )
             )
+          }.doOnError {
+            dispatcher.dispatch(
+              CommunityAction.ToError
+            )
           }
         } else {
           Completable.complete()

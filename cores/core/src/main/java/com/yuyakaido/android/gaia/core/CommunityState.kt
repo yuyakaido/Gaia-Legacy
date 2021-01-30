@@ -28,6 +28,12 @@ sealed class CommunityState {
     override fun canPaginate(): Boolean = after?.isNotEmpty() ?: false
   }
 
+  object Error : CommunityState() {
+    override val communities: List<Community.Detail> = emptyList()
+    override val after: String? = null
+    override fun canPaginate(): Boolean = false
+  }
+
   fun toInitial(): CommunityState {
     return Initial
   }
@@ -48,6 +54,10 @@ sealed class CommunityState {
       communities = communities.plus(action.communities),
       after = action.after
     )
+  }
+
+  fun toError(): CommunityState {
+    return Error
   }
 
 }

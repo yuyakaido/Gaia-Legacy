@@ -34,4 +34,12 @@ sealed class CommunityAction : ActionType<AppState> {
     }
   }
 
+  object ToError : CommunityAction() {
+    override fun reduce(state: AppState): AppState {
+      return state.update(
+        community = state.community.toError()
+      )
+    }
+  }
+
 }

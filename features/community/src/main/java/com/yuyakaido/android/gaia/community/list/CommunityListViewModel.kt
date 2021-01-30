@@ -38,6 +38,11 @@ class CommunityListViewModel @Inject constructor(
       override val progressVisibility: Boolean = false,
       override val retryVisibility: Int = View.GONE
     ) : State()
+    object Error : State() {
+      override val communities: List<Community.Detail> = emptyList()
+      override val progressVisibility: Boolean = false
+      override val retryVisibility: Int = View.VISIBLE
+    }
 
     companion object {
       fun from(state: CommunityState): State {
@@ -45,6 +50,7 @@ class CommunityListViewModel @Inject constructor(
           is CommunityState.Initial -> Initial
           is CommunityState.Loading -> Loading(communities = state.communities)
           is CommunityState.Ideal -> Ideal(communities = state.communities)
+          is CommunityState.Error -> Error
         }
       }
     }
