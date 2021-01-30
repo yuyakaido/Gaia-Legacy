@@ -73,7 +73,7 @@ class ArticleListFragment : BaseFragmentWithoutHilt<ArticleListViewModel>() {
 
   override fun onOptionsItemSelected(item: MenuItem): Boolean {
     val page = ArticleListPage.from(item.itemId)
-    refreshByPage(page = page)
+    refreshByPage(page)
     return super.onOptionsItemSelected(item)
   }
 
@@ -110,10 +110,10 @@ class ArticleListFragment : BaseFragmentWithoutHilt<ArticleListViewModel>() {
       })
 
     val upvoteListener = { article: Article ->
-      viewModel.onUpvote(article = article)
+      viewModel.onUpvote(article)
     }
     val downvoteListener = { article: Article ->
-      viewModel.onDownvote(article = article)
+      viewModel.onDownvote(article)
     }
     val communityListener = { article: Article ->
       appNavigator.navigateToCommunityDetail(

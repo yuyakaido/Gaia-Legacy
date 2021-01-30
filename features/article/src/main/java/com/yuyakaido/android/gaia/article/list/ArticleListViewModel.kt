@@ -24,7 +24,7 @@ class ArticleListViewModel @Inject constructor(
   private val currentSource = MutableStateFlow(initialSource)
   val state = currentSource
     .flatMapLatest { source -> appStore.articleAsFlow(source) }
-    .map { state -> State.from(state = state) }
+    .map { state -> State.from(state) }
     .asLiveData()
 
   sealed class State {
@@ -55,10 +55,10 @@ class ArticleListViewModel @Inject constructor(
             Initial
           }
           is ArticleState.ArticleListState.Loading -> {
-            Loading(articles = state.articles)
+            Loading(state.articles)
           }
           is ArticleState.ArticleListState.Ideal -> {
-            Ideal(articles = state.articles)
+            Ideal(state.articles)
           }
           is ArticleState.ArticleListState.Error -> {
             Error
@@ -83,7 +83,7 @@ class ArticleListViewModel @Inject constructor(
   }
 
   fun onRefresh(source: ArticleListSource) {
-    refresh(source = source)
+    refresh(source)
   }
 
   fun onUpvote(article: Article) {
@@ -109,7 +109,7 @@ class ArticleListViewModel @Inject constructor(
   private fun paginate() {
     appStore.dispatch(
       scope = viewModelScope,
-      action = actionCreator.paginate(source = currentSource.value)
+      action = actionCreator.paginate(currentSource.value)
     )
   }
 
