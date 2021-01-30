@@ -34,11 +34,11 @@ buildscript {
       constraintlayout: '2.0.0',
       recyclerview: '1.1.0',
       swiperefreshlayout: '1.1.0',
-      hilt: '1.0.0-alpha01'
+      hilt: '1.0.0-alpha02'
     ],
     dagger: [
-      core: '2.30.1',
-      hilt: '2.30.1-alpha'
+      core: '2.31.2',
+      hilt: '2.31.2-alpha'
     ],
     networking: [
       okhttp: '4.2.2',
