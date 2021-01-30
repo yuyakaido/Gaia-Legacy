@@ -10,22 +10,29 @@ data class ArticleState(
   sealed class ArticleListState {
     abstract val articles: List<Article>
     abstract val after: String?
+    abstract fun canPaginate(): Boolean
 
     object Initial: ArticleListState() {
       override val articles: List<Article> = emptyList()
       override val after: String? = null
+      override fun canPaginate(): Boolean = true
     }
     data class Loading(
       override val articles: List<Article>,
       override val after: String?
-    ) : ArticleListState()
+    ) : ArticleListState() {
+      override fun canPaginate(): Boolean = false
+    }
     data class Ideal(
       override val articles: List<Article>,
       override val after: String?
-    ) : ArticleListState()
+    ) : ArticleListState() {
+      override fun canPaginate(): Boolean = after?.isNotEmpty() ?: false
+    }
     object Error : ArticleListState() {
       override val articles: List<Article> = emptyList()
       override val after: String? = null
+      override fun canPaginate(): Boolean = false
     }
   }
 

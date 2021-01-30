@@ -27,27 +27,29 @@ class ArticleListActionCreator @Inject constructor(
         dispatcher: DispatcherType<AppState>
       ) {
         val state = selector.select().article.find(source)
-        dispatcher.dispatch(
-          ArticleAction.ToLoading(
-            source = source
-          )
-        )
-        try {
-          val item = source.articles(
-            repository = articleRepository,
-            after = state.after
-          )
+        if (state.canPaginate()) {
           dispatcher.dispatch(
-            ArticleAction.ToIdeal(
-              source = source,
-              articles = item.entities,
-              after = item.after
+            ArticleAction.ToLoading(
+              source = source
             )
           )
-        } catch (e: Exception) {
-          dispatcher.dispatch(
-            ArticleAction.ToError(source)
-          )
+          try {
+            val item = source.articles(
+              repository = articleRepository,
+              after = state.after
+            )
+            dispatcher.dispatch(
+              ArticleAction.ToIdeal(
+                source = source,
+                articles = item.entities,
+                after = item.after
+              )
+            )
+          } catch (e: Exception) {
+            dispatcher.dispatch(
+              ArticleAction.ToError(source)
+            )
+          }
         }
       }
     }
