@@ -13,7 +13,7 @@ sealed class ArticleAction : ActionType<AppState> {
   ) : ArticleAction() {
     override fun reduce(state: AppState): AppState {
       return state.update(
-        article = state.article.toInitial(this)
+        state = state.article.toInitial(this)
       )
     }
   }
@@ -23,7 +23,7 @@ sealed class ArticleAction : ActionType<AppState> {
   ) : ArticleAction() {
     override fun reduce(state: AppState): AppState {
       return state.update(
-        article = state.article.toLoading(this)
+        state = state.article.toLoading(this)
       )
     }
   }
@@ -35,7 +35,8 @@ sealed class ArticleAction : ActionType<AppState> {
   ) : ArticleAction() {
     override fun reduce(state: AppState): AppState {
       return state.update(
-        article = state.article.toIdeal(this)
+        state = state.article.toIdeal(this),
+        entities = articles
       )
     }
   }
@@ -45,7 +46,7 @@ sealed class ArticleAction : ActionType<AppState> {
   ) : ArticleAction() {
     override fun reduce(state: AppState): AppState {
       return state.update(
-        article = state.article.toError(this)
+        state = state.article.toError(this)
       )
     }
   }
@@ -56,7 +57,8 @@ sealed class ArticleAction : ActionType<AppState> {
   ) : ArticleAction() {
     override fun reduce(state: AppState): AppState {
       return state.update(
-        article = state.article.update(this)
+        state = state.article.update(this),
+        entities = listOf(article)
       )
     }
   }

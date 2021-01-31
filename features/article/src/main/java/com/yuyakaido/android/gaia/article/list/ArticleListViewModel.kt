@@ -5,6 +5,7 @@ import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import com.yuyakaido.android.gaia.core.AppStore
 import com.yuyakaido.android.gaia.core.ArticleState
+import com.yuyakaido.android.gaia.core.SessionState
 import com.yuyakaido.android.gaia.core.domain.entity.Article
 import com.yuyakaido.android.gaia.core.domain.entity.ArticleListSource
 import com.yuyakaido.android.gaia.core.presentation.BaseViewModel
@@ -23,8 +24,9 @@ class ArticleListViewModel @Inject constructor(
 
   private val currentSource = MutableStateFlow(initialSource)
   val state = currentSource
-    .flatMapLatest { source -> appStore.articleAsFlow(source) }
-    .map { state -> State.from(state) }
+    .flatMapLatest { source ->
+      appStore.signedInAsFlow().map { it.toViewState(source) }
+    }
     .asLiveData()
 
   sealed class State {
@@ -47,23 +49,21 @@ class ArticleListViewModel @Inject constructor(
       override val articles: List<Article> = emptyList()
       override val progressVisibility: Boolean = false
     }
+  }
 
-    companion object {
-      fun from(state: ArticleState.ArticleListState): State {
-        return when (state) {
-          is ArticleState.ArticleListState.Initial -> {
-            Initial
-          }
-          is ArticleState.ArticleListState.Loading -> {
-            Loading(state.articles)
-          }
-          is ArticleState.ArticleListState.Ideal -> {
-            Ideal(state.articles)
-          }
-          is ArticleState.ArticleListState.Error -> {
-            Error
-          }
-        }
+  private fun SessionState.SignedIn.toViewState(source: ArticleListSource): State {
+    return when (val state = presentation.article.find(source)) {
+      is ArticleState.ArticleListState.Initial -> {
+        State.Initial
+      }
+      is ArticleState.ArticleListState.Loading -> {
+        State.Loading(state.articles.map { domain.articles.getValue(it) })
+      }
+      is ArticleState.ArticleListState.Ideal -> {
+        State.Ideal(state.articles.map { domain.articles.getValue(it) })
+      }
+      is ArticleState.ArticleListState.Error -> {
+        State.Error
       }
     }
   }

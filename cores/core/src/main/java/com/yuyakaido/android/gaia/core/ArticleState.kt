@@ -8,29 +8,29 @@ data class ArticleState(
 ) {
 
   sealed class ArticleListState {
-    abstract val articles: List<Article>
+    abstract val articles: List<Article.ID>
     abstract val after: String?
     abstract fun canPaginate(): Boolean
 
     object Initial: ArticleListState() {
-      override val articles: List<Article> = emptyList()
+      override val articles: List<Article.ID> = emptyList()
       override val after: String? = null
       override fun canPaginate(): Boolean = true
     }
     data class Loading(
-      override val articles: List<Article>,
+      override val articles: List<Article.ID>,
       override val after: String?
     ) : ArticleListState() {
       override fun canPaginate(): Boolean = false
     }
     data class Ideal(
-      override val articles: List<Article>,
+      override val articles: List<Article.ID>,
       override val after: String?
     ) : ArticleListState() {
       override fun canPaginate(): Boolean = after?.isNotEmpty() ?: false
     }
     object Error : ArticleListState() {
-      override val articles: List<Article> = emptyList()
+      override val articles: List<Article.ID> = emptyList()
       override val after: String? = null
       override fun canPaginate(): Boolean = false
     }
@@ -71,7 +71,7 @@ data class ArticleState(
     return toState(
       source = action.source,
       state = ArticleListState.Ideal(
-        articles = current.articles.plus(action.articles),
+        articles = current.articles.plus(action.articles.map { it.id }),
         after = action.after
       )
     )
@@ -94,8 +94,8 @@ data class ArticleState(
       source = action.source,
       state = ArticleListState.Ideal(
         articles = current.articles.map { article ->
-          if (article.id == action.article.id) {
-            action.article
+          if (article == action.article.id) {
+            action.article.id
           } else {
             article
           }

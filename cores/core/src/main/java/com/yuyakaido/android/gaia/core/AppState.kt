@@ -1,5 +1,6 @@
 package com.yuyakaido.android.gaia.core
 
+import com.yuyakaido.android.gaia.core.domain.entity.Article
 import com.yuyakaido.android.reduxkit.StateType
 
 data class AppState(
@@ -11,10 +12,10 @@ data class AppState(
   val session get() = sessions[index]
   val signedIn get() = session as SessionState.SignedIn
 
-  val article get() = signedIn.article
-  val community get() = signedIn.community
+  val article get() = signedIn.presentation.article
+  val community get() = signedIn.presentation.community
 
-  fun update(next: SessionState.SignedIn): AppState {
+  private fun update(next: SessionState.SignedIn): AppState {
     return copy(
       sessions = sessions.map { current ->
         if (current.id == next.id) {
@@ -26,20 +27,20 @@ data class AppState(
     )
   }
 
-  fun update(article: ArticleState): AppState {
+  fun update(
+    state: ArticleState,
+    entities: List<Article> = emptyList()
+  ): AppState {
     return update(
-      next = signedIn.copy(
-        article = article
+      next = signedIn.update(
+        state = state,
+        entities = entities
       )
     )
   }
 
   fun update(community: CommunityState): AppState {
-    return update(
-      next = signedIn.copy(
-        community = community
-      )
-    )
+    return update(signedIn.update(community))
   }
 
   fun add(target: SessionState): AppState {

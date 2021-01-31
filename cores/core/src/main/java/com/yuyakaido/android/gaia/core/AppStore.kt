@@ -2,7 +2,6 @@ package com.yuyakaido.android.gaia.core
 
 import android.app.Application
 import android.widget.Toast
-import com.yuyakaido.android.gaia.core.domain.entity.ArticleListSource
 import com.yuyakaido.android.reduxkit.StoreType
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.filter
@@ -49,12 +48,8 @@ class AppStore(
     return stateAsFlow().map { it.lifecycle }
   }
 
-  fun articleAsFlow(source: ArticleListSource): Flow<ArticleState.ArticleListState> {
-    return signedInAsFlow().map { it.article.find(source) }
-  }
-
   fun communityAsFlow(): Flow<CommunityState> {
-    return signedInAsFlow().map { it.community }
+    return signedInAsFlow().map { it.presentation.community }
   }
 
 }
