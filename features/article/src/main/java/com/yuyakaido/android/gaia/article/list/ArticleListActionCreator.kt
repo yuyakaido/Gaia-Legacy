@@ -1,8 +1,6 @@
 package com.yuyakaido.android.gaia.article.list
 
-import com.yuyakaido.android.gaia.core.AppState
-import com.yuyakaido.android.gaia.core.ArticleAction
-import com.yuyakaido.android.gaia.core.SuspendableAction
+import com.yuyakaido.android.gaia.core.*
 import com.yuyakaido.android.gaia.core.domain.entity.Article
 import com.yuyakaido.android.gaia.core.domain.entity.ArticleListSource
 import com.yuyakaido.android.gaia.core.domain.repository.ArticleRepositoryType
@@ -11,10 +9,21 @@ import com.yuyakaido.android.reduxkit.DispatcherType
 import com.yuyakaido.android.reduxkit.SelectorType
 import javax.inject.Inject
 
+class ArticleSelector(
+  private val appStore: AppStore
+) : SelectorType<ArticleState> {
+  override fun select(): ArticleState {
+    return appStore.stateAsValue().article
+  }
+}
+
 class ArticleListActionCreator @Inject constructor(
+  private val appStore: AppStore,
   private val articleRepository: ArticleRepositoryType,
   private val voteRepository: VoteRepositoryType
 ) {
+
+  private val selector = ArticleSelector(appStore)
 
   fun refresh(source: ArticleListSource): ArticleAction {
     return ArticleAction.ToInitial(source)
@@ -22,11 +31,14 @@ class ArticleListActionCreator @Inject constructor(
 
   fun paginate(source: ArticleListSource): SuspendableAction {
     return object : SuspendableAction {
+      override fun selector(): SelectorType<ArticleState> {
+        return selector
+      }
       override suspend fun execute(
-        selector: SelectorType<AppState>,
+        selector: SelectorType<ArticleState>,
         dispatcher: DispatcherType<AppState>
       ) {
-        val state = selector.select().article.find(source)
+        val state = selector.select().find(source)
         if (state.canPaginate()) {
           dispatcher.dispatch(
             ArticleAction.ToLoading(
@@ -60,8 +72,11 @@ class ArticleListActionCreator @Inject constructor(
     article: Article
   ): SuspendableAction {
     return object : SuspendableAction {
+      override fun selector(): SelectorType<ArticleState> {
+        return selector
+      }
       override suspend fun execute(
-        selector: SelectorType<AppState>,
+        selector: SelectorType<ArticleState>,
         dispatcher: DispatcherType<AppState>
       ) {
         val votedArticle = voteRepository.upvote(article)
@@ -80,8 +95,11 @@ class ArticleListActionCreator @Inject constructor(
     article: Article
   ): SuspendableAction {
     return object : SuspendableAction {
+      override fun selector(): SelectorType<ArticleState> {
+        return selector
+      }
       override suspend fun execute(
-        selector: SelectorType<AppState>,
+        selector: SelectorType<ArticleState>,
         dispatcher: DispatcherType<AppState>
       ) {
         val votedArticle = voteRepository.downvote(article)

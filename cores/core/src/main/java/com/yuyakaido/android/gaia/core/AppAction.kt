@@ -1,8 +1,8 @@
 package com.yuyakaido.android.gaia.core
 
-import com.yuyakaido.android.reduxkit.ActionType
+import com.yuyakaido.android.reduxkit.NewActionType
 
-sealed class AppAction : ActionType<AppState> {
+sealed class AppAction : NewActionType<AppState, AppState> {
 
   object ClearSession : AppAction() {
     override fun reduce(state: AppState): AppState {

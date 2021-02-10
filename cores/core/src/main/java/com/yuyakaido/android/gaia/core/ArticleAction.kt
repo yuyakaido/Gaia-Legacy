@@ -2,9 +2,9 @@ package com.yuyakaido.android.gaia.core
 
 import com.yuyakaido.android.gaia.core.domain.entity.Article
 import com.yuyakaido.android.gaia.core.domain.entity.ArticleListSource
-import com.yuyakaido.android.reduxkit.ActionType
+import com.yuyakaido.android.reduxkit.NewActionType
 
-sealed class ArticleAction : ActionType<AppState> {
+sealed class ArticleAction : NewActionType<AppState, ArticleState> {
 
   abstract val source: ArticleListSource
 

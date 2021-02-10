@@ -2,10 +2,11 @@ package com.yuyakaido.android.gaia.core
 
 import com.yuyakaido.android.gaia.core.domain.entity.Article
 import com.yuyakaido.android.gaia.core.domain.entity.ArticleListSource
+import com.yuyakaido.android.reduxkit.StateType
 
 data class ArticleState(
   val sources: Map<ArticleListSource, ArticleListState> = mapOf()
-) {
+) : StateType {
 
   sealed class ArticleListState {
     abstract val articles: List<Article.ID>

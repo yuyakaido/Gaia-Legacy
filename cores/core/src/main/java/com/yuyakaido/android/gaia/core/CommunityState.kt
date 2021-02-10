@@ -1,8 +1,9 @@
 package com.yuyakaido.android.gaia.core
 
 import com.yuyakaido.android.gaia.core.domain.entity.Community
+import com.yuyakaido.android.reduxkit.StateType
 
-sealed class CommunityState {
+sealed class CommunityState : StateType {
 
   abstract val communities: List<Community.Detail>
   abstract val after: String?
