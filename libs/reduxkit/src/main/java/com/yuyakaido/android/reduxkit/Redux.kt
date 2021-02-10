@@ -16,7 +16,7 @@ interface ActionType<ROOT : StateType, SCOPE : StateType> {
 }
 
 interface AsyncActionType<ROOT : StateType, SCOPE : StateType> : ActionType<ROOT, SCOPE> {
-  fun selector(): SelectorType<SCOPE>
+  fun selector(root: SelectorType<ROOT>): SelectorType<SCOPE>
   override fun reduce(state: ROOT): ROOT = state
 }
 
@@ -51,21 +51,23 @@ class LoggerMiddleware<ROOT : StateType> : MiddlewareType<ROOT>() {
 }
 
 class ThunkMiddlewareForCoroutine<ROOT : StateType>(
+  private val selector: SelectorType<ROOT>,
   private val dispatcher: DispatcherType<ROOT>
 ) : MiddlewareType<ROOT>() {
   override suspend fun <SCOPE : StateType> before(state: StateType, action: ActionType<ROOT, SCOPE>) {
     if (action is SuspendableActionType) {
-      action.execute(action.selector(), dispatcher)
+      action.execute(action.selector(selector), dispatcher)
     }
   }
 }
 
 class ThunkMiddlewareForReactive<ROOT : StateType>(
+  private val selector: SelectorType<ROOT>,
   private val dispatcher: DispatcherType<ROOT>
 ) : MiddlewareType<ROOT>() {
   override suspend fun <SCOPE : StateType> before(state: StateType, action: ActionType<ROOT, SCOPE>) {
     if (action is CompletableActionType) {
-      action.execute(action.selector(), dispatcher).await()
+      action.execute(action.selector(selector), dispatcher).await()
     }
   }
 }
@@ -73,14 +75,14 @@ class ThunkMiddlewareForReactive<ROOT : StateType>(
 abstract class StoreType<ROOT : StateType, A : ActionType<ROOT, *>>(
   initialState: ROOT,
   private val errorHandler: (e: Exception) -> Unit
-) : DispatcherType<ROOT> {
+) : SelectorType<ROOT>, DispatcherType<ROOT> {
 
   private val state = MutableStateFlow(initialState)
   private val middlewares by lazy {
     mutableListOf(
       LoggerMiddleware(),
-      ThunkMiddlewareForCoroutine(dispatcher = this),
-      ThunkMiddlewareForReactive(dispatcher = this)
+      ThunkMiddlewareForCoroutine(selector = this, dispatcher = this),
+      ThunkMiddlewareForReactive(selector = this, dispatcher = this)
     )
   }
 
@@ -88,6 +90,10 @@ abstract class StoreType<ROOT : StateType, A : ActionType<ROOT, *>>(
     val currentState = stateAsValue()
     val nextState = action.reduce(currentState)
     state.value = nextState
+  }
+
+  override fun select(): ROOT {
+    return stateAsValue()
   }
 
   override fun <SCOPE : StateType> dispatch(action: ActionType<ROOT, SCOPE>) {
