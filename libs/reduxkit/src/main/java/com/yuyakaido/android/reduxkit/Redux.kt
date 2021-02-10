@@ -11,20 +11,20 @@ import timber.log.Timber
 
 interface StateType
 
-interface NewActionType<ROOT : StateType, SCOPE : StateType> {
+interface ActionType<ROOT : StateType, SCOPE : StateType> {
   fun reduce(state: ROOT): ROOT
 }
 
-interface NewAsyncActionType<ROOT : StateType, SCOPE : StateType> : NewActionType<ROOT, SCOPE> {
+interface AsyncActionType<ROOT : StateType, SCOPE : StateType> : ActionType<ROOT, SCOPE> {
   fun selector(): SelectorType<SCOPE>
   override fun reduce(state: ROOT): ROOT = state
 }
 
-interface NewSuspendableActionType<ROOT : StateType, SCOPE : StateType> : NewAsyncActionType<ROOT, SCOPE> {
+interface SuspendableActionType<ROOT : StateType, SCOPE : StateType> : AsyncActionType<ROOT, SCOPE> {
   suspend fun execute(selector: SelectorType<SCOPE>, dispatcher: DispatcherType<ROOT>)
 }
 
-interface NewCompletableActionType<ROOT : StateType, SCOPE : StateType> : NewAsyncActionType<ROOT, SCOPE> {
+interface CompletableActionType<ROOT : StateType, SCOPE : StateType> : AsyncActionType<ROOT, SCOPE> {
   fun execute(selector: SelectorType<SCOPE>, dispatcher: DispatcherType<ROOT>): Completable
 }
 
@@ -32,48 +32,48 @@ interface SelectorType<out S : StateType> {
   fun select(): S
 }
 
-interface DispatcherType<S : StateType> {
-  fun <SCOPE : StateType> dispatch(action: NewActionType<S, SCOPE>)
+interface DispatcherType<ROOT : StateType> {
+  fun <SCOPE : StateType> dispatch(action: ActionType<ROOT, SCOPE>)
 }
 
-abstract class MiddlewareType<S : StateType> {
-  open suspend fun <SCOPE : StateType> before(state: StateType, action: NewActionType<S, SCOPE>) = Unit
-  open suspend fun <SCOPE : StateType> after(state: StateType, action: NewActionType<S, SCOPE>) = Unit
+abstract class MiddlewareType<ROOT : StateType> {
+  open suspend fun <SCOPE : StateType> before(state: StateType, action: ActionType<ROOT, SCOPE>) = Unit
+  open suspend fun <SCOPE : StateType> after(state: StateType, action: ActionType<ROOT, SCOPE>) = Unit
 }
 
-class LoggerMiddleware<S : StateType> : MiddlewareType<S>() {
-  override suspend fun <SCOPE : StateType> before(state: StateType, action: NewActionType<S, SCOPE>) {
+class LoggerMiddleware<ROOT : StateType> : MiddlewareType<ROOT>() {
+  override suspend fun <SCOPE : StateType> before(state: StateType, action: ActionType<ROOT, SCOPE>) {
     Timber.v("Before: action = $action")
   }
-  override suspend fun <SCOPE : StateType> after(state: StateType, action: NewActionType<S, SCOPE>) {
+  override suspend fun <SCOPE : StateType> after(state: StateType, action: ActionType<ROOT, SCOPE>) {
     Timber.v("After: action = $action")
   }
 }
 
-class ThunkMiddlewareForCoroutine<S : StateType>(
-  private val dispatcher: DispatcherType<S>
-) : MiddlewareType<S>() {
-  override suspend fun <SCOPE : StateType> before(state: StateType, action: NewActionType<S, SCOPE>) {
-    if (action is NewSuspendableActionType) {
+class ThunkMiddlewareForCoroutine<ROOT : StateType>(
+  private val dispatcher: DispatcherType<ROOT>
+) : MiddlewareType<ROOT>() {
+  override suspend fun <SCOPE : StateType> before(state: StateType, action: ActionType<ROOT, SCOPE>) {
+    if (action is SuspendableActionType) {
       action.execute(action.selector(), dispatcher)
     }
   }
 }
 
-class ThunkMiddlewareForReactive<S : StateType>(
-  private val dispatcher: DispatcherType<S>
-) : MiddlewareType<S>() {
-  override suspend fun <SCOPE : StateType> before(state: StateType, action: NewActionType<S, SCOPE>) {
-    if (action is NewCompletableActionType) {
+class ThunkMiddlewareForReactive<ROOT : StateType>(
+  private val dispatcher: DispatcherType<ROOT>
+) : MiddlewareType<ROOT>() {
+  override suspend fun <SCOPE : StateType> before(state: StateType, action: ActionType<ROOT, SCOPE>) {
+    if (action is CompletableActionType) {
       action.execute(action.selector(), dispatcher).await()
     }
   }
 }
 
-abstract class StoreType<S : StateType, A : NewActionType<S, *>>(
-  initialState: S,
+abstract class StoreType<ROOT : StateType, A : ActionType<ROOT, *>>(
+  initialState: ROOT,
   private val errorHandler: (e: Exception) -> Unit
-) : DispatcherType<S> {
+) : DispatcherType<ROOT> {
 
   private val state = MutableStateFlow(initialState)
   private val middlewares by lazy {
@@ -84,19 +84,19 @@ abstract class StoreType<S : StateType, A : NewActionType<S, *>>(
     )
   }
 
-  private fun <SCOPE : StateType> update(action: NewActionType<S, SCOPE>) {
+  private fun <SCOPE : StateType> update(action: ActionType<ROOT, SCOPE>) {
     val currentState = stateAsValue()
     val nextState = action.reduce(currentState)
     state.value = nextState
   }
 
-  override fun <SCOPE : StateType> dispatch(action: NewActionType<S, SCOPE>) {
+  override fun <SCOPE : StateType> dispatch(action: ActionType<ROOT, SCOPE>) {
     update(action)
   }
 
   fun <SCOPE : StateType> dispatch(
     scope: CoroutineScope,
-    action: NewActionType<S, SCOPE>
+    action: ActionType<ROOT, SCOPE>
   ): Job {
     return scope.launch {
       try {
@@ -119,19 +119,19 @@ abstract class StoreType<S : StateType, A : NewActionType<S, *>>(
     }
   }
 
-  fun addMiddleware(middleware: MiddlewareType<S>) {
+  fun addMiddleware(middleware: MiddlewareType<ROOT>) {
     middlewares.add(middleware)
   }
 
-  fun removeMiddleware(middleware: MiddlewareType<S>) {
+  fun removeMiddleware(middleware: MiddlewareType<ROOT>) {
     middlewares.remove(middleware)
   }
 
-  fun stateAsValue(): S {
+  fun stateAsValue(): ROOT {
     return state.value
   }
 
-  fun stateAsFlow(): Flow<S> {
+  fun stateAsFlow(): Flow<ROOT> {
     return state
   }
 

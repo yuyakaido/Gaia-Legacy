@@ -1,5 +1,5 @@
 package com.yuyakaido.android.gaia.core
 
-import com.yuyakaido.android.reduxkit.NewCompletableActionType
+import com.yuyakaido.android.reduxkit.CompletableActionType
 
-interface CompletableAction : NewCompletableActionType<AppState, CommunityState>
+interface CompletableAction : CompletableActionType<AppState, CommunityState>

@@ -1,5 +1,5 @@
 package com.yuyakaido.android.gaia.core
 
-import com.yuyakaido.android.reduxkit.NewSuspendableActionType
+import com.yuyakaido.android.reduxkit.SuspendableActionType
 
-interface SuspendableAction : NewSuspendableActionType<AppState, ArticleState>
+interface SuspendableAction : SuspendableActionType<AppState, ArticleState>

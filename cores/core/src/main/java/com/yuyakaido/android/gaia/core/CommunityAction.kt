@@ -1,9 +1,9 @@
 package com.yuyakaido.android.gaia.core
 
 import com.yuyakaido.android.gaia.core.domain.entity.Community
-import com.yuyakaido.android.reduxkit.NewActionType
+import com.yuyakaido.android.reduxkit.ActionType
 
-sealed class CommunityAction : NewActionType<AppState, CommunityState> {
+sealed class CommunityAction : ActionType<AppState, CommunityState> {
 
   object ToInitial : CommunityAction() {
     override fun reduce(state: AppState): AppState {
