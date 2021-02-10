@@ -40,7 +40,7 @@ class ArticleRepository(
   ): EntityPaginationItem<Article> {
     return api
       .articlesOfCommunity(
-        community = community.name,
+        community = community.name.value,
         after = after
       )
       .toArticlePaginationItem()

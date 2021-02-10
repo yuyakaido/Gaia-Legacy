@@ -57,10 +57,10 @@ class ArticleListViewModel @Inject constructor(
         State.Initial
       }
       is ArticleState.ArticleListState.Loading -> {
-        State.Loading(state.articles.map { domain.articles.getValue(it) })
+        State.Loading(state.articles.map { domain.findArticleById(it) })
       }
       is ArticleState.ArticleListState.Ideal -> {
-        State.Ideal(state.articles.map { domain.articles.getValue(it) })
+        State.Ideal(state.articles.map { domain.findArticleById(it) })
       }
       is ArticleState.ArticleListState.Error -> {
         State.Error

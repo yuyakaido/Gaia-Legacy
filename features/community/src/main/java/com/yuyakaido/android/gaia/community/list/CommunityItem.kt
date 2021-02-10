@@ -27,7 +27,7 @@ class CommunityItem(
       .load(community.icon)
       .circleCrop()
       .into(binding.icon)
-    binding.name.text = community.name
+    binding.name.text = community.name.value
     binding.root.setOnClickListener { listener.invoke(community) }
   }
 

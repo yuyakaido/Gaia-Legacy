@@ -13,7 +13,7 @@ class CommentRepository(
   override suspend fun commentsByArticle(article: Article): List<Comment> {
     val response = api
       .commentsOfArticle(
-        community = article.community.name,
+        community = article.community.name.value,
         article = article.id.value
       )
     val responseOfComment = response.firstOrNull {

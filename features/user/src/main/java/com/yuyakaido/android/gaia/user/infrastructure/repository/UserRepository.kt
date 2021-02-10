@@ -24,7 +24,7 @@ class UserRepository(
   override suspend fun moderators(
     community: Community.Summary
   ): List<User> {
-    return api.moderators(community = community.name).toUsers()
+    return api.moderators(community = community.name.value).toUsers()
   }
 
   override suspend fun contributors(

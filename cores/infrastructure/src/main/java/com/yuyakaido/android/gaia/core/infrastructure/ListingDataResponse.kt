@@ -91,9 +91,9 @@ data class ListingDataResponse(
       ) : Child() {
         fun toEntity(): com.yuyakaido.android.gaia.core.domain.entity.Article {
           return Article(
-            id = com.yuyakaido.android.gaia.core.domain.entity.Article.ID(value = data.id),
+            id = com.yuyakaido.android.gaia.core.domain.entity.Article.ID(data.id),
             name = data.name,
-            community = com.yuyakaido.android.gaia.core.domain.entity.Community.Summary(name = data.community),
+            community = com.yuyakaido.android.gaia.core.domain.entity.Community.Summary(com.yuyakaido.android.gaia.core.domain.entity.Community.Name(data.community)),
             title = data.title,
             thumbnail = toUri(),
             author = data.author,
@@ -118,8 +118,8 @@ data class ListingDataResponse(
       ) : Child() {
         fun toEntity(): com.yuyakaido.android.gaia.core.domain.entity.Community.Detail {
           return com.yuyakaido.android.gaia.core.domain.entity.Community.Detail(
-            id = data.id,
-            name = data.name,
+            id = com.yuyakaido.android.gaia.core.domain.entity.Community.Detail.ID(data.id),
+            name = com.yuyakaido.android.gaia.core.domain.entity.Community.Name(data.name),
             icon = Uri.parse(data.icon),
             banner = Uri.parse(data.banner),
             subscribers = data.subscribers,

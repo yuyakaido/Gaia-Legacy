@@ -24,8 +24,8 @@ data class CommunityResponse(
 
   fun toEntity(): Community.Detail {
     return Community.Detail(
-      id = data.id,
-      name = data.name,
+      id = Community.Detail.ID(data.id),
+      name = Community.Name(data.name),
       icon = Uri.parse(data.icon),
       banner = Uri.parse(data.banner),
       subscribers = data.subscribers,

@@ -15,16 +15,16 @@ class CommunityRepository(
   }
 
   override suspend fun detail(community: Community.Summary): Community.Detail {
-    return api.detail(community = community.name).toEntity()
+    return api.detail(community = community.name.value).toEntity()
   }
 
   override suspend fun subscribe(community: Community.Detail): Community.Detail {
-    api.subscribe(name = community.name)
+    api.subscribe(name = community.name.value)
     return community.copy(isSubscriber = true)
   }
 
   override suspend fun unsubscribe(community: Community.Detail): Community.Detail {
-    api.unsubscribe(name = community.name)
+    api.unsubscribe(name = community.name.value)
     return community.copy(isSubscriber = false)
   }
 
