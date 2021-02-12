@@ -4,10 +4,10 @@ import com.yuyakaido.android.reduxkit.CompletableActionType
 import com.yuyakaido.android.reduxkit.SelectorType
 
 interface CompletableCommunityAction : CompletableActionType<AppState, CommunityState> {
-  override fun selector(root: SelectorType<AppState>): SelectorType<CommunityState> {
+  override fun selector(rootSelector: SelectorType<AppState>): SelectorType<CommunityState> {
     return object : SelectorType<CommunityState> {
       override fun select(): CommunityState {
-        return root.select().community
+        return rootSelector.select().community
       }
     }
   }

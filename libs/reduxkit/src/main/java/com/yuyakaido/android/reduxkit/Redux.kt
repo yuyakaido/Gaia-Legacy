@@ -16,7 +16,7 @@ interface ActionType<ROOT : StateType, SCOPE : StateType> {
 }
 
 interface AsyncActionType<ROOT : StateType, SCOPE : StateType> : ActionType<ROOT, SCOPE> {
-  fun selector(root: SelectorType<ROOT>): SelectorType<SCOPE>
+  fun selector(rootSelector: SelectorType<ROOT>): SelectorType<SCOPE>
   override fun reduce(state: ROOT): ROOT = state
 }
 
