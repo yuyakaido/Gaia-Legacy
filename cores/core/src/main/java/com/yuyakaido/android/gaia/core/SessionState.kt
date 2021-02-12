@@ -4,8 +4,9 @@ import com.yuyakaido.android.gaia.core.domain.entity.Article
 import com.yuyakaido.android.gaia.core.domain.entity.Session
 import com.yuyakaido.android.gaia.core.domain.entity.User
 import com.yuyakaido.android.gaia.core.domain.value.AuthToken
+import com.yuyakaido.android.reduxkit.StateType
 
-sealed class SessionState {
+sealed class SessionState : StateType {
 
   abstract val id: String
   abstract fun toEntity(): Session

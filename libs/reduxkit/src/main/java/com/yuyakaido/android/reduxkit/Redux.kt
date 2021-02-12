@@ -51,23 +51,23 @@ class LoggerMiddleware<ROOT : StateType> : MiddlewareType<ROOT>() {
 }
 
 class ThunkMiddlewareForCoroutine<ROOT : StateType>(
-  private val selector: SelectorType<ROOT>,
-  private val dispatcher: DispatcherType<ROOT>
+  private val rootSelector: SelectorType<ROOT>,
+  private val rootDispatcher: DispatcherType<ROOT>
 ) : MiddlewareType<ROOT>() {
   override suspend fun <SCOPE : StateType> before(state: StateType, action: ActionType<ROOT, SCOPE>) {
     if (action is SuspendableActionType) {
-      action.execute(action.selector(selector), dispatcher)
+      action.execute(action.selector(rootSelector), rootDispatcher)
     }
   }
 }
 
 class ThunkMiddlewareForReactive<ROOT : StateType>(
-  private val selector: SelectorType<ROOT>,
-  private val dispatcher: DispatcherType<ROOT>
+  private val rootSelector: SelectorType<ROOT>,
+  private val rootDispatcher: DispatcherType<ROOT>
 ) : MiddlewareType<ROOT>() {
   override suspend fun <SCOPE : StateType> before(state: StateType, action: ActionType<ROOT, SCOPE>) {
     if (action is CompletableActionType) {
-      action.execute(action.selector(selector), dispatcher).await()
+      action.execute(action.selector(rootSelector), rootDispatcher).await()
     }
   }
 }
@@ -81,8 +81,8 @@ abstract class StoreType<ROOT : StateType, A : ActionType<ROOT, *>>(
   private val middlewares by lazy {
     mutableListOf(
       LoggerMiddleware(),
-      ThunkMiddlewareForCoroutine(selector = this, dispatcher = this),
-      ThunkMiddlewareForReactive(selector = this, dispatcher = this)
+      ThunkMiddlewareForCoroutine(rootSelector = this, rootDispatcher = this),
+      ThunkMiddlewareForReactive(rootSelector = this, rootDispatcher = this)
     )
   }
 
