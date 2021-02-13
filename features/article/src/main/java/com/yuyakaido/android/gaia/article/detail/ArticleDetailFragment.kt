@@ -43,8 +43,9 @@ class ArticleDetailFragment : BaseFragmentWithoutHilt<ArticleDetailViewModel>() 
 
   private fun setupDetail() {
     viewModel
-      .article
-      .observe(viewLifecycleOwner) { article ->
+      .state
+      .observe(viewLifecycleOwner) { state ->
+        val article = state.article
         val b = binding.article
         b.community.text = getString(R.string.article_list_community, article.community.name)
         b.author.text = getString(R.string.article_list_author, article.author)

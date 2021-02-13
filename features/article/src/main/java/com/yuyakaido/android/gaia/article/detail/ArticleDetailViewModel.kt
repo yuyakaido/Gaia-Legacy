@@ -1,7 +1,7 @@
 package com.yuyakaido.android.gaia.article.detail
 
 import android.app.Application
-import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import com.yuyakaido.android.gaia.core.domain.entity.Article
 import com.yuyakaido.android.gaia.core.domain.repository.ArticleRepositoryType
@@ -13,12 +13,12 @@ import javax.inject.Inject
 
 class ArticleDetailViewModel @Inject constructor(
   application: Application,
-  initialArticle: Article,
+  private val articleDetailStore: ArticleDetailStore,
   private val articleRepository: ArticleRepositoryType,
   private val voteRepository: VoteRepositoryType
 ) : BaseViewModel(application) {
 
-  val article = MutableLiveData(initialArticle)
+  val state = articleDetailStore.stateAsFlow().asLiveData()
 
   override fun onCreate() {
     super.onCreate()
@@ -27,13 +27,15 @@ class ArticleDetailViewModel @Inject constructor(
 
   fun onUpvote(target: Article) {
     viewModelScope.launch {
-      article.value = voteRepository.upvote(target)
+      val article = voteRepository.upvote(target)
+      articleDetailStore.dispatch(ArticleDetailAction.Update(article))
     }
   }
 
   fun onDownvote(target: Article) {
     viewModelScope.launch {
-      article.value = voteRepository.downvote(target)
+      val article = voteRepository.downvote(target)
+      articleDetailStore.dispatch(ArticleDetailAction.Update(article))
     }
   }
 

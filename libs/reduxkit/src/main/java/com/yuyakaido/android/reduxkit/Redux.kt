@@ -72,7 +72,7 @@ class ThunkMiddlewareForReactive<ROOT : StateType>(
   }
 }
 
-abstract class StoreType<ROOT : StateType, A : ActionType<ROOT, *>>(
+abstract class StoreType<ROOT : StateType>(
   initialState: ROOT,
   private val errorHandler: (e: Exception) -> Unit
 ) : SelectorType<ROOT>, DispatcherType<ROOT> {

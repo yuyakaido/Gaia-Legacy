@@ -11,7 +11,7 @@ import kotlinx.coroutines.flow.map
 class AppStore(
   private val application: Application,
   initialState: AppState
-) : StoreType<AppState, AppAction>(
+) : StoreType<AppState>(
   initialState = initialState,
   errorHandler = { e -> Toast.makeText(application, e.toString(), Toast.LENGTH_SHORT).show() }
 ) {
