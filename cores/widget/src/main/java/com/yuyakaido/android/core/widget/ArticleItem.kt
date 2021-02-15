@@ -48,7 +48,7 @@ class ArticleItem(
   override fun bind(binding: ItemArticleBinding, position: Int) {
     val context = binding.root.context
 
-    binding.article.community.text = context.resources.getString(R.string.article_list_community, article.community.name)
+    binding.article.community.text = context.resources.getString(R.string.article_list_community, article.community.name.value)
     binding.article.author.text = context.resources.getString(R.string.article_list_author, article.author)
     binding.article.title.text = article.title
     binding.article.voteCount.text = article.voteCount.toString()

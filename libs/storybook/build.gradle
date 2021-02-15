@@ -30,6 +30,7 @@ dependencies {
   // Widget
   implementation libs.widget.groupie.core
   implementation libs.widget.groupie.viewbinding
+  implementation libs.widget.divider
 
   // Debugging
   implementation libs.debugging.timber

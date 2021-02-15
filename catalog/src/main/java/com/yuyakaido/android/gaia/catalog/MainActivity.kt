@@ -31,10 +31,58 @@ class MainActivity : AppCompatActivity() {
       StorybookActivity.createIntent(
         context = applicationContext,
         storybook = Storybook(
-          name = "Gaia",
+          name = "Storybook",
           items = listOf(
             Item.Section(
-              name = "Article",
+              name = "Article 1",
+              items = createArticles().map { article ->
+                object : Item.Element.Groupie(name = article.name) {
+                  override fun group(): Group {
+                    return ArticleItem(
+                      article = article,
+                      imageLoader = imageLoader,
+                      upvoteListener = upvote,
+                      downvoteListener = downvote,
+                      communityListener = community
+                    )
+                  }
+                }
+              }
+            ),
+            Item.Section(
+              name = "Article 2",
+              items = createArticles().map { article ->
+                object : Item.Element.Groupie(name = article.name) {
+                  override fun group(): Group {
+                    return ArticleItem(
+                      article = article,
+                      imageLoader = imageLoader,
+                      upvoteListener = upvote,
+                      downvoteListener = downvote,
+                      communityListener = community
+                    )
+                  }
+                }
+              }
+            ),
+            Item.Section(
+              name = "Article 3",
+              items = createArticles().map { article ->
+                object : Item.Element.Groupie(name = article.name) {
+                  override fun group(): Group {
+                    return ArticleItem(
+                      article = article,
+                      imageLoader = imageLoader,
+                      upvoteListener = upvote,
+                      downvoteListener = downvote,
+                      communityListener = community
+                    )
+                  }
+                }
+              }
+            ),
+            Item.Section(
+              name = "Article 4",
               items = createArticles().map { article ->
                 object : Item.Element.Groupie(name = article.name) {
                   override fun group(): Group {

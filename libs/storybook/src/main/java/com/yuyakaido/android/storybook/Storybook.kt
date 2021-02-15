@@ -21,10 +21,13 @@ class Storybook(
     }
   }
   fun toGroupieItems(lastItem: Item?): List<Group> {
-    val groups = items.map { it.toGroupieItem() }
+    val categories = items.map { it.toGroupieItem() }
     return lastItem?.let {
-      listOf(it.toGroupieItem()).plus(groups)
-    } ?: groups
+      listOf(HeaderItem(HeaderItem.Type.History))
+        .plus(it.toGroupieItem())
+        .plus(listOf(HeaderItem(HeaderItem.Type.Category)))
+        .plus(categories)
+    } ?: categories
   }
   fun toNext(item: Item): Storybook {
     return Storybook(

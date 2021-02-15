@@ -2,6 +2,7 @@ package com.yuyakaido.android.storybook
 
 import android.content.Context
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
@@ -9,6 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.room.Room
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
+import com.yqritc.recyclerviewflexibledivider.HorizontalDividerItemDecoration
 import com.yuyakaido.android.storybook.databinding.ActivityStorybookBinding
 import timber.log.Timber
 
@@ -28,7 +30,17 @@ class StorybookActivity : AppCompatActivity() {
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     setContentView(binding.root)
+    refresh()
+  }
 
+  override fun onOptionsItemSelected(item: MenuItem): Boolean {
+    when (item.itemId) {
+      android.R.id.home -> finish()
+    }
+    return super.onOptionsItemSelected(item)
+  }
+
+  private fun refresh() {
     val database = Room
       .databaseBuilder(
         applicationContext,
@@ -72,13 +84,13 @@ class StorybookActivity : AppCompatActivity() {
     }
     binding.recyclerView.layoutManager = LinearLayoutManager(this)
     binding.recyclerView.adapter = adapter
-  }
-
-  override fun onOptionsItemSelected(item: MenuItem): Boolean {
-    when (item.itemId) {
-      android.R.id.home -> finish()
-    }
-    return super.onOptionsItemSelected(item)
+    binding.recyclerView.addItemDecoration(
+      HorizontalDividerItemDecoration.Builder(this)
+        .color(Color.TRANSPARENT)
+        .size(16.dpToPx(this))
+        .showLastDivider()
+        .build()
+    )
   }
 
 }
