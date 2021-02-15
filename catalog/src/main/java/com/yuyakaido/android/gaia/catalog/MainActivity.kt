@@ -62,7 +62,7 @@ class MainActivity : AppCompatActivity() {
       Article(
         id = Article.ID(value = System.nanoTime().toString()),
         name = "Normal article",
-        community = Community.Summary(name = "community"),
+        community = Community.Summary(name = Community.Name("community")),
         title = "title",
         thumbnail = Uri.EMPTY,
         author = "yuyakaido",
@@ -74,7 +74,7 @@ class MainActivity : AppCompatActivity() {
       Article(
         id = Article.ID(value = System.nanoTime().toString()),
         name = "Upvoted article",
-        community = Community.Summary(name = "community"),
+        community = Community.Summary(name = Community.Name("community")),
         title = "title",
         thumbnail = Uri.EMPTY,
         author = "yuyakaido",
@@ -86,7 +86,7 @@ class MainActivity : AppCompatActivity() {
       Article(
         id = Article.ID(value = System.nanoTime().toString()),
         name = "Downvoted article",
-        community = Community.Summary(name = "community"),
+        community = Community.Summary(name = Community.Name("community")),
         title = "title",
         thumbnail = Uri.EMPTY,
         author = "yuyakaido",
@@ -98,7 +98,7 @@ class MainActivity : AppCompatActivity() {
       Article(
         id = Article.ID(value = System.nanoTime().toString()),
         name = "Article with very long title",
-        community = Community.Summary(name = "community"),
+        community = Community.Summary(name = Community.Name("community")),
         title = "Article with very loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog title",
         thumbnail = Uri.EMPTY,
         author = "yuyakaido",
@@ -110,7 +110,7 @@ class MainActivity : AppCompatActivity() {
       Article(
         id = Article.ID(value = System.nanoTime().toString()),
         name = "Article with very long community",
-        community = Community.Summary(name = "looooooooooong community"),
+        community = Community.Summary(name = Community.Name("looooooooooong community")),
         title = "title",
         thumbnail = Uri.EMPTY,
         author = "yuyakaido",
@@ -122,7 +122,7 @@ class MainActivity : AppCompatActivity() {
       Article(
         id = Article.ID(value = System.nanoTime().toString()),
         name = "Article with very long author",
-        community = Community.Summary(name = "community"),
+        community = Community.Summary(name = Community.Name("community")),
         title = "title",
         thumbnail = Uri.EMPTY,
         author = "looooooooooong author",
